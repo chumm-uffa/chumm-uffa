@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from "rxjs/Observable";
+
 
 /**
  * Hier sollen alle REST Aufrufe zum Server rein
@@ -9,8 +10,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ResourceService {
 
-  checkAlive(): Observable<any> {
-      return Observable.create().of('i am alive');
+  /**
+   * Demo Inject Service
+   * @returns {Observable<string>}
+   */
+  checkAlive(): Observable<string> {
+      return Observable.create(function(observer) {
+        observer.next('i am alive');
+      });
   }
 
 

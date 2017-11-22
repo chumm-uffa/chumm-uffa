@@ -5,6 +5,7 @@ import {HeaderComponent} from "./header/header.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {LoginModule} from "./login/login.modul";
 import {RegistrationModule} from "./registration/registration.module";
+import {HomeModule} from "./home/home.module";
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import {RegistrationModule} from "./registration/registration.module";
     AppComponent, HeaderComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, LoginModule, RegistrationModule
+    BrowserModule, AppRoutingModule, LoginModule, RegistrationModule, HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

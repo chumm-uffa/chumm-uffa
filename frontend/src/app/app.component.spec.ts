@@ -5,6 +5,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {LoginModule} from "./login/login.modul";
 import {RegistrationModule} from "./registration/registration.module";
 import {APP_BASE_HREF} from "@angular/common";
+import {HomeComponent} from "./home/home.component";
 
 
 /**
@@ -19,7 +20,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [AppRoutingModule, LoginModule, RegistrationModule],
       declarations: [
-        AppComponent, HeaderComponent
+        AppComponent, HeaderComponent, HomeComponent
       ],
       providers: [{provide: APP_BASE_HREF, useValue : '/' }]
     }).compileComponents();
