@@ -1,18 +1,4 @@
-FROM node:latest
+FROM nginx:latest
 
-FROM node:boron
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package.json .
-COPY package.json package-lock.json ./
-
-RUN npm install
-
-# Bundle app source
-COPY . .
-
-EXPOSE 8080
-CMD [ "npm", "start" ]
+COPY ./docker-nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./dist /var/www/html

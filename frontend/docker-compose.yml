@@ -3,4 +3,4 @@ nginx:
     ports:
         - 80:80
     volumes:
-        - ./:/var/www/html
+        - ./dist:/var/www/html
