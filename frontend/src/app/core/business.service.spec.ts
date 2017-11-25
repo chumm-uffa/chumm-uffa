@@ -1,7 +1,7 @@
 import {TestBed, async, inject} from '@angular/core/testing';
 import {BusinessService} from "./business.service";
 import {ResourceService} from "./resource.service";
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 /**
  * Demo Unit Test für Services mit Testcontainer, Mocking und injector
