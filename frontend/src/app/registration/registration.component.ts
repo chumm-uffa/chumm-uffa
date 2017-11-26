@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {validatePwdsMatch} from '../shared/validators/password-match.validator';
 import {User} from './user';
+import {FormUtil} from '../shared/form/form.util';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './registration.component.html'
+  templateUrl: './registration.html'
 })
 export class RegistrationComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class RegistrationComponent implements OnInit {
     this.loginForm = this.fB.group({
       username: [this.user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: '',
+      password2: 'gg',
       sex: this.user.sex,
       email: [this.user.email, [Validators.email]]
     }, {
@@ -34,6 +35,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onClickRegister() {
+    FormUtil.markAsTouched(this.loginForm);  // macht Validierungsfehler sichtbar
     if (this.loginForm.valid && !this.loginForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
       console.log('form value', this.loginForm.value);
       console.log('send data to Service');

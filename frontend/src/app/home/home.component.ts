@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {BusinessService} from "../core/business.service";
+import {Component} from '@angular/core';
+import {BusinessService} from '../core/business.service';
 
 @Component({
-  selector: 'home',
-  templateUrl: './home.component.html'
+  selector: 'app-home',
+  templateUrl: './home.html'
 })
 export class HomeComponent {
 
