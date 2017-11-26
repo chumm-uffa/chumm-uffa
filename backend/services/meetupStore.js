@@ -1,5 +1,5 @@
 const Datastore = require('nedb');
-const db = new Datastore({ filename: './backend/data/meeting.db', autoload: true });
+const db = new Datastore({ filename: './data/meetup.db', autoload: true });
 
 function publicAll(currentUser, callback)
 {

@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const cryptoUtil = require('../util/cryptoUtil');
 const Datastore = require('nedb');
-const db = new Datastore({ filename: './backend/data/user.db', autoload: true });
+const db = new Datastore({ filename: './data/user.db', autoload: true });
 
 
 function User(email, passwort)

@@ -1,8 +1,9 @@
-frontend:
-    image: pepeblack/chumm-uffa-frontend:latest
-    ports:
-        - 80:80
-backend:
-    image: pepeblack/chumm-uffa-backend:latest
-    ports:
-        - 8080:8080
+version: '3'
+services:
+   frontend:
+      image: pepeblack/chumm-uffa-frontend:latest
+      ports:
+         - 80:80
+   backend:
+      image: pepeblack/chumm-uffa-backend:latest
+

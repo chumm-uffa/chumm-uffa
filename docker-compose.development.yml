@@ -1,0 +1,18 @@
+version: '3'
+services:
+    frontend:
+        image: node:latest
+        working_dir: /frontend
+        command: npm run docker
+        volumes:
+            - ./frontend:/frontend
+        ports:
+            - "4200:4200"
+    backend:
+        image: node:latest
+        working_dir: /backend
+        command: /bin/bash -c "npm install && ./node_modules/nodemon/bin/nodemon.js --legacy-watch server.js"
+        volumes:
+            - ./backend:/backend
+        ports:
+            - "8080:8080"

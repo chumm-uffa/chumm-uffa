@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const jwt = require('express-jwt');
 
 const app = express();
-app.use(express.static(__dirname + '../frontend'));
+app.use(express.static(__dirname + '/'));
 
 app.use(bodyParser.json());
 const jwtSecret =  'aklsdjfklöasjdcma8sd90mcklasdföasdf$ädasöfü pi340qkrlöam,dflöäasf';
@@ -13,12 +13,12 @@ app.set("jwt-sign", {expiresIn: "1d", audience :"self", issuer : "pizza"});
 app.set("jwt-validate", {secret: jwtSecret, audience :"self", issuer : "pizza"});
 
 app.get("/", function(req, res){
-    res.sendFile("index.html",  {root: __dirname + '../frontend/'});
+    res.sendFile("index.html",  {root: __dirname + '/'});
 });
 
-app.use("/", require('./routes/indexRoutes.js'));
+app.use("/api", require('./routes/indexRoutes.js'));
 app.use(jwt( app.get("jwt-validate"))); //after this middleware a token is required!
-app.use("/meetings", require('./routes/meetingRoutes.js'));
+app.use("/meetings", require('./routes/meetupRoutes.js'));
 
 
 app.use(function (err, req, res, next) {

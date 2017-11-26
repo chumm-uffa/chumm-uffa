@@ -1,6 +1,0 @@
-nginx:
-    build: ./docker-nginx/
-    ports:
-        - 80:80
-    volumes:
-        - ./dist:/var/www/html
