@@ -1,2 +1,37 @@
 <h1>User Registration</h1>
-<label>Name: </label><input>
+
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onClickRegister()">
+
+  <label>Name: <input formControlName="username"></label>
+  <div style="color: red" *ngIf="loginForm.controls.username.hasError('required')"><h4>Username required</h4></div> <!-- spezifische Validierungs Fehler -->
+  <div style="color: red" *ngIf="loginForm.controls.username.hasError('minlength')"><h4>Username zu kurz</h4></div>
+  <br>
+  <label>Passwort: </label><input formControlName="password">
+  <div style="color: red" *ngIf="loginForm.controls.password.errors"><h4>irgendein Fehler</h4></div> <!-- irgend ein Validierungs Fehler -->
+  <br>
+  <label>Passwort bestätigen: </label><input formControlName="password2">
+  <div style="color: red" *ngIf="loginForm.controls.password.errors"><h4>irgendein Fehler</h4></div>
+  <br>
+  <label>Email: </label><input formControlName="email">
+  <div style="color: red" *ngIf="loginForm.controls.password.errors"><h4>irgendein Fehler</h4></div>
+
+  <div>
+    <h4>Geschlecht</h4>
+    <label><input type="radio" formControlName="sex" value="m">Män</label>
+    <label><input type="radio" formControlName="sex" value="f">Frou</label>
+  </div>
+
+  <div style="color: red" *ngIf="loginForm.hasError('passwordMismatch')"><h2>Voll Fett Beide Passworter nicht identisch</h2></div>
+
+  <button type="submit">Mach User</button>
+
+</form>
+
+<!--
+<div class="form-group radio">
+  <h4>Super power:</h4>
+  <label class="center-block"><input type="radio" formControlName="power" value="flight">Flight</label>
+  <label class="center-block"><input type="radio" formControlName="power" value="x-ray vision">X-ray vision</label>
+  <label class="center-block"><input type="radio" formControlName="power" value="strength">Strength</label>
+</div>
+--->
