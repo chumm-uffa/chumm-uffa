@@ -1,25 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {validatePwdsMatch} from '../shared/validators/password-match.validator';
+import {User} from './user';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html'
 })
-export class RegistrationComponent implements OnInit{
-
+export class RegistrationComponent implements OnInit {
 
   loginForm: FormGroup;
+  private user: User;
 
-  constructor( private fB: FormBuilder) {}
+  constructor( private fB: FormBuilder) {
+    // if (/*logged in*/ true ){
+    //   /*get Data from Service*/
+    //   this.user = ;
+    // }else {
+      this.user = new User();
+    // }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fB.group({
-      username: ['name', [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
-      password: ['pwd', [Validators.required, Validators.minLength(8)]],
-      password2: 'pwd2',
-      sex: 'm' ,
-      email: ['myMail@dot.ch', [Validators.email]]
+      username: [this.user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      password2: '',
+      sex: this.user.sex,
+      email: [this.user.email, [Validators.email]]
     }, {
       validator: validatePwdsMatch('password', 'password2')  // Formvalidators -> validate between Fields
     });
