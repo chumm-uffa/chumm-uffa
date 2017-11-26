@@ -17,8 +17,8 @@ export class RegistrationComponent implements OnInit{
     this.loginForm = this.fB.group({
       username: ['name', [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
       password: ['pwd', [Validators.required, Validators.minLength(8)]],
-      password2: ['pwd2', [Validators.required, Validators.minLength(8)]],
-      sex: 'm',
+      password2: 'pwd2',
+      sex: 'm' ,
       email: ['myMail@dot.ch', [Validators.email]]
     }, {
       validator: validatePwdsMatch('password', 'password2')  // Formvalidators -> validate between Fields
