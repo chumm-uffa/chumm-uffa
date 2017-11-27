@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
     this.loginForm = this.fB.group({
       username: [this.user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: 'gg',
+§§      password2: '',
       sex: this.user.sex,
       email: [this.user.email, [Validators.email]]
     }, {

@@ -13,7 +13,7 @@
   <label>Email: </label><input formControlName="email">
   <app-validation-feedback *ngIf="loginForm.controls.email | hasError:'email'">ungültiges Format</app-validation-feedback>
   <div>
-    <span>Geschlecht</span>
+    <span>Geschlecht: </span>
     <label><input type="radio" formControlName="sex" value="m">Män</label>
     <label><input type="radio" formControlName="sex" value="f">Frou</label>
   </div>
