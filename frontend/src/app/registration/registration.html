@@ -1,4 +1,7 @@
-<h2>User Registration</h2>
+<h2>
+  <div *ngIf="appState.isLoggedIn; else elseBlock">User Profile bearbeiten</div>
+  <ng-template #elseBlock>User Registration</ng-template>
+</h2>
 
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onClickRegister()">
   <label>Name: <input formControlName="username"></label>
