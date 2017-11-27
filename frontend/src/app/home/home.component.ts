@@ -9,7 +9,7 @@ export class HomeComponent {
 
   appState: string;
 
-  constructor(private businessService: BusinessService){
+  constructor(private businessService: BusinessService) {
     // to show Service
      businessService.checkAlive().subscribe(state => this.appState = state);
   }

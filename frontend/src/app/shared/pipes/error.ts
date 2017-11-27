@@ -12,7 +12,7 @@ export class HasErrorPipe implements PipeTransform {
     if (!input) {
       return false;
     }
-    const hasAtLeastOneError = args.reduce((acc, errorCode) => acc || input.hasError(errorCode), false)
+    const hasAtLeastOneError = args.reduce((acc, errorCode) => acc || input.hasError(errorCode), false);
     if (hasAtLeastOneError && input.touched) {
       return true;
     }
