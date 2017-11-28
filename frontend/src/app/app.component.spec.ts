@@ -1,11 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {HeaderComponent} from "./header/header.component";
-import {AppRoutingModule} from "./app-routing.module";
-import {LoginModule} from "./login/login.modul";
-import {RegistrationModule} from "./registration/registration.module";
-import {APP_BASE_HREF} from "@angular/common";
-import {HomeComponent} from "./home/home.component";
+import {HeaderComponent} from './header/header.component';
+import {AppRoutingModule} from './app-routing.module';
+import {LoginModule} from './login/login.modul';
+import {RegistrationModule} from './registration/registration.module';
+import {APP_BASE_HREF} from '@angular/common';
+import {HomeComponent} from './home/home.component';
 
 
 /**
