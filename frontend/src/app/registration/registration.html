@@ -1,6 +1,6 @@
 <h2>
-  <div *ngIf="appState.isLoggedIn; else elseBlock">User Profile bearbeiten</div>
-  <ng-template #elseBlock>User Registration</ng-template>
+  <div *ngIf="appState.isLoggedIn; else elseBlock">{{ 'titleMutate' | translate }}</div>
+  <ng-template #elseBlock>{{ 'titleRegistration' | translate }}User Registration</ng-template>
 </h2>
 
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onClickRegister()">
