@@ -1,0 +1,20 @@
+{
+  "registraion": {
+    "titleRegistration": "User Registration_FR",
+    "titleMutate": "User Profile bearbeiten_FR",
+    "name": "Name_FR: ",
+    "password": "Passwort_FR:",
+    "repeatPass": "Passwort wiederholen_FR: ",
+    "email": "Email_FR: ",
+    "sex": "Geschlecht_FR:",
+    "registerUser": "Benutzer erstellen_FR",
+    "man": "Mann_FR",
+    "women": "Frau_FR",
+    "error": {
+      "nameRequired": "Namen eingeben_FR",
+      "nameMinLength": "Name muss min 2 Zeichen haben_FR",
+      "email": "ungültiges Emailformat_FR",
+      "differentPasswords": "die Passwortwiederholung weicht ab_FR"
+    }
+  }
+}

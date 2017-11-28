@@ -1,4 +1,20 @@
 {
-  "titleRegistration": "User Registration",
-  "titleMutate": "User Profile bearbeiten"
+  "registraion": {
+    "titleRegistration": "User Registration",
+    "titleMutate": "User Profile bearbeiten",
+    "name": "Name: ",
+    "password": "Passwort: ",
+    "repeatPass": "Passwort wiederholen: ",
+    "email": "Email: ",
+    "sex": "Geschlecht: ",
+    "registerUser": "Benutzer erstellen",
+    "man": "Mann",
+    "women": "Frau",
+    "error": {
+      "nameRequired": "Namen eingeben",
+      "nameMinLength": "Name muss min 2 Zeichen haben",
+      "email": "ungültiges Emailformat",
+      "differentPasswords": "die Passwortwiederholung weicht ab"
+    }
+  }
 }
