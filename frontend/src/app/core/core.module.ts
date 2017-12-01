@@ -3,6 +3,7 @@ import {ResourceService} from './resource.service';
 import {BusinessService} from './business.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AppStateService} from './app-state.service';
+import {MockService} from './mock.service';
 
 @NgModule({
   imports:   [
@@ -10,7 +11,7 @@ import {AppStateService} from './app-state.service';
 
   ],
   providers: [
-    ResourceService, BusinessService, AppStateService
+    ResourceService, BusinessService, AppStateService, MockService
   ]
 })
 export class CoreModule {

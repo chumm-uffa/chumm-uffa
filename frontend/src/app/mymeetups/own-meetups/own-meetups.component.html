@@ -1,0 +1,18 @@
+<h2>Meine Meetups</h2>
+<table>
+  <tr>
+    <th></th>
+    <th>Wann</th>
+    <th>Ort</th>
+    <th>Anfragen</th>
+    <th>Teilnehmer</th>
+  </tr>
+  <tr *ngFor="let meetup of meetups; let i = index">
+     <td>Meetup {{ i + 1 }}</td>
+     <td>{{meetup.from | dateTimeFormat}}</td>
+     <td *ngIf="meetup.indoor">{{meetup.indoor.name}}</td>
+     <td *ngIf="meetup.outdoor && !meetup.indoor">{{meetup.outdoor.lat}}/{{meetup.outdoor.lng}}</td>
+     <td>{{meetup.numberOfRequest}}</td>
+     <td>{{meetup.numberOfParticipant}}</td>
+  </tr>
+</table>
