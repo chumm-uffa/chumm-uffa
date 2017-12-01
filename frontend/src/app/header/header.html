@@ -1,6 +1,13 @@
-<h1>{{title}}</h1>
+<h1>{{title}}<span>     {{appState.loggedInUser?.username}}</span><button *ngIf="appState.isLoggedIn" (click)="logout()">logout</button>
+</h1>
 <nav>
-  <a routerLink="/">home</a>
-  <a routerLink="/login">ich will mich einloggen</a>
-  <a routerLink="/registration">ich will mich registrieren</a>
+  <a routerLink="/">home</a><br>
+  <div *ngIf="appState.isLoggedIn; else publicBlock">
+    <a routerLink="/registration">update Userprofile</a>
+  </div>
+  <ng-template #publicBlock>
+    <!-- place routes here for loggedIn mode-->
+    <a routerLink="/login">ich will mich einloggen</a><br>
+    <a routerLink="/registration">ich will mich registrieren</a>
+  </ng-template>
 </nav>
