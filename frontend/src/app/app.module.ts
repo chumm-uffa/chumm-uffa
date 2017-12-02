@@ -6,6 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {LoginModule} from './login/login.modul';
 import {RegistrationModule} from './registration/registration.module';
 import {HomeModule} from './home/home.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
@@ -13,7 +14,12 @@ import {HomeModule} from './home/home.module';
     AppComponent, HeaderComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, LoginModule, RegistrationModule, HomeModule
+    BrowserModule,
+    AppRoutingModule,
+    LoginModule,
+    RegistrationModule,
+    HomeModule,
+    TranslateModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
