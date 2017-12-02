@@ -10,8 +10,8 @@
   <tr *ngFor="let meetup of meetups; let i = index">
      <td>Meetup {{ i + 1 }}</td>
      <td>{{meetup.from | dateTimeFormat}}</td>
-     <td *ngIf="meetup.indoor">{{meetup.indoor.name}}</td>
-     <td *ngIf="meetup.outdoor && !meetup.indoor">{{meetup.outdoor.lat}}/{{meetup.outdoor.lng}}</td>
+     <td *ngIf="meetup.indoor">{{meetup.indoor}}</td>
+     <td *ngIf="meetup.outdoor && !meetup.indoor">{{meetup.outdoor}}</td>
      <td>{{meetup.numberOfRequest}}</td>
      <td>{{meetup.numberOfParticipant}}</td>
   </tr>

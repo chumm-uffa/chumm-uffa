@@ -1,5 +1,3 @@
-import {Location} from './location';
-import {ClymbingGym} from './clymbing-gym';
 import {User} from './user';
 
 /**
@@ -23,13 +21,13 @@ export class Meetup {
    */
   private _to: Date;
   /**
-   * The geo location where the meetup happens, if it is an outdoor event
+   * The location of the outdoor event.
    */
-  private _outdoor: Location;
+  private _outdoor: string;
   /**
-   * The climbing gym where the meetup happens, if it is an indor event
+   * The id of the climbing gym where the indoor meetup happens
    */
-  private _indoor: ClymbingGym;
+  private _indoor: string;
   /**
    * Short description of the activity
    */
@@ -48,8 +46,8 @@ export class Meetup {
               owner: User,
               from: Date,
               to: Date,
-              outdoor: Location,
-              indoor: ClymbingGym,
+              outdoor: string,
+              indoor: string,
               activity: string = '',
               numberOfRequest: number = 0,
               numberOfParticipant: number = 0) {
@@ -96,19 +94,19 @@ export class Meetup {
     this._to = value;
   }
 
-  get outdoor(): Location {
+  get outdoor(): string {
     return this._outdoor;
   }
 
-  set outdoor(value: Location) {
+  set outdoor(value: string) {
     this._outdoor = value;
   }
 
-  get indoor(): ClymbingGym {
+  get indoor(): string {
     return this._indoor;
   }
 
-  set indoor(value: ClymbingGym) {
+  set indoor(value: string) {
     this._indoor = value;
   }
 

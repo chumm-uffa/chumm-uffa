@@ -4,11 +4,11 @@ import {MeetupRequest} from '../../core/model/meetup-request';
 
 @Component({
   selector: 'app-open-requests',
-  templateUrl: './open-requests.component.html',
+  templateUrl: './open-requests.html',
 })
 export class OpenRequestsComponent implements OnInit {
 
-  meetUpRequests: MeetupRequest[];
+  meetUpRequests: MeetupRequest[] = [];
 
   constructor(private businessService: BusinessService) { }
 

@@ -4,11 +4,11 @@ import {Meetup} from '../../core/model/meetup';
 
 @Component({
   selector: 'app-own-meetups',
-  templateUrl: './own-meetups.component.html',
+  templateUrl: './own-meetups.html',
 })
 export class OwnMeetupsComponent implements OnInit {
 
-  meetups: Meetup[];
+  meetups: Meetup[] = [];
 
   constructor(private businessService: BusinessService) { }
 

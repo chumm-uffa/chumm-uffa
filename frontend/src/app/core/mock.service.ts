@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Meetup} from './model/meetup';
 import {User} from './model/user';
-import {Address} from './model/address';
-import {ClymbingGym} from './model/clymbing-gym';
-import {Location} from './model/location';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
@@ -54,16 +51,11 @@ export class MockService implements ResourceServiceInterface {
    */
   private generateMeetups() {
     this._meetups = [];
-    this._meetups.push(new Meetup('id1', this._users[0], new Date(),
-      new Date(), new Location('', ''), new ClymbingGym('Gym_a', new Address()), '', 1, 2));
-    this._meetups.push(new Meetup('id2', this._users[0], new Date(),
-      new Date(), new Location('', ''), new ClymbingGym('Gym_b', new Address()), '', 3, 4));
-    this._meetups.push(new Meetup('id3', this._users[1], new Date(),
-      new Date(), new Location('', ''), new ClymbingGym('Gym_c', new Address()), '', 5, 6));
-    this._meetups.push(new Meetup('id4', this._users[2], new Date(),
-      new Date(), new Location('', ''), new ClymbingGym('Gym_d', new Address()), '', 1, 2));
-    this._meetups.push(new Meetup('id5', this._users[3], new Date(),
-      new Date(), new Location('', ''), new ClymbingGym('Gym_e', new Address()), '', 3, 4));
+    this._meetups.push(new Meetup('id1', this._users[0], new Date(), new Date(), 'Out_1', '', '', 1, 2));
+    this._meetups.push(new Meetup('id2', this._users[0], new Date(), new Date(), '', 'Gym_b', '', 3, 4));
+    this._meetups.push(new Meetup('id3', this._users[1], new Date(), new Date(), '', 'Gym_c', '', 5, 6));
+    this._meetups.push(new Meetup('id4', this._users[2], new Date(), new Date(), 'Out_2', '', '', 1, 2));
+    this._meetups.push(new Meetup('id5', this._users[3], new Date(), new Date(), '', 'Gym_e', '', 3, 4));
   }
 
 
