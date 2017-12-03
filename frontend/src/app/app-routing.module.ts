@@ -4,13 +4,16 @@ import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {HomeComponent} from './home/home.component';
 import {MymeetupsComponent} from './mymeetups/mymeetups.component';
+import {CreateMeetupComponent} from './create-meetup/create-meetup.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'mymeetups', component: MymeetupsComponent }
+  { path: 'updateuser', component: RegistrationComponent },
+  { path: 'mymeetups', component: MymeetupsComponent },
+  { path: 'createmeetup', component: CreateMeetupComponent }
 ];
 
 @NgModule({
