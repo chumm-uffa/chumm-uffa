@@ -1,6 +1,6 @@
 <h2>
-  <div *ngIf="appState.isLoggedIn; else elseBlock">{{ 'registraion.titleMutate' | translate }}</div>
-  <ng-template #elseBlock>{{ 'registraion.titleRegistration' | translate }}</ng-template>
+  <div *ngIf="appState.isLoggedIn; else doRegistration">{{ 'registraion.titleMutate' | translate }}</div>
+  <ng-template #doRegistration>{{ 'registraion.titleRegistration' | translate }}</ng-template>
 </h2>
 
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onClickRegister()">

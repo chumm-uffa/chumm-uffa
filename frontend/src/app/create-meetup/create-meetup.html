@@ -1,3 +1,25 @@
-<p>
-  create-meetup works!
-</p>
+<h2>{{'createMeetUp.title' | translate}}</h2>
+
+<form [formGroup]="form" novalidate (ngSubmit)="create()">
+  <label>{{'createMeetUp.date' | translate}}<input type="date" formControlName="date"></label>
+  <br>
+  <label>{{'createMeetUp.time' | translate}}
+    <label>{{'createMeetUp.fromTime' | translate}}</label><input type="time" formControlName="fromTime">
+    <label>{{'createMeetUp.to | translate'}}</label><input type="time" formControlName="toTime"></label>
+  <br>
+  <div>
+    <span>{{ 'createMeetUp.location' | translate }}</span>
+    <label><input type="radio" formControlName="locationType" value="in">{{ 'createMeetUp.indoor' | translate }}</label>
+    <label><input type="radio" formControlName="locationType" value="out">{{ 'createMeetUp.outdoor' | translate }}</label>
+    <div *ngIf="isIndoor(); else outdoor">
+      <label>{{'createMeetUp.location.indoor' | translate}}</label>
+      <select formControlName="indoor">
+        <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
+      </select>
+    </div>
+    <ng-template #outdoor><label>{{'createMeetUp.location.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
+  </div>
+  <label>{{'createMeetUp.activity' | translate}}<input formControlName="activity"></label>
+  <br>
+  <button>{{'createMeetUp.submit' | translate}}</button>
+</form>
