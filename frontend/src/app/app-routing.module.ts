@@ -4,7 +4,7 @@ import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {HomeComponent} from './home/home.component';
 import {MymeetupsComponent} from './mymeetups/mymeetups.component';
-import {CreateMeetupComponent} from './create-meetup/create-meetup.component';
+import {MeetupComponent} from './meetup/meetup.component';
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'updateuser', component: RegistrationComponent },
   { path: 'mymeetups', component: MymeetupsComponent },
-  { path: 'createmeetup', component: CreateMeetupComponent }
+  { path: 'meetup', component: MeetupComponent }
 ];
 
 @NgModule({

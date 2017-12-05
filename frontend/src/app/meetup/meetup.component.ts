@@ -11,10 +11,10 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-meetup',
-  templateUrl: './create-meetup.html',
-  styleUrls: ['./create-meetup.component.scss']
+  templateUrl: './meetup.html',
+  styleUrls: ['./meetup.component.scss']
 })
-export class CreateMeetupComponent implements OnInit {
+export class MeetupComponent implements OnInit {
 
   static readonly DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -62,9 +62,9 @@ export class CreateMeetupComponent implements OnInit {
 
   private createForm() {
     this.form = this.fB.group({
-      date: [moment(this.meetup.from.getTime()).format(CreateMeetupComponent.DATE_FORMAT),
-        [Validators.required, validateDateFormat(CreateMeetupComponent.DATE_FORMAT),
-          validateDateRange(CreateMeetupComponent.DATE_FORMAT)]],
+      date: [moment(this.meetup.from.getTime()).format(MeetupComponent.DATE_FORMAT),
+        [Validators.required, validateDateFormat(MeetupComponent.DATE_FORMAT),
+          validateDateRange(MeetupComponent.DATE_FORMAT)]],
       fromTime: [moment(this.meetup.from.getTime()).format('HH:mm'), [Validators.required]],
       toTime: [moment(this.meetup.to.getTime()).format('HH:mm'), [Validators.required]],
       locationType: this.meetup.outdoor ? 'out' : 'in',
