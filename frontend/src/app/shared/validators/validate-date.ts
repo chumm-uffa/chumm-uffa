@@ -25,8 +25,8 @@ export function validateDateRange(format: string, fromDate?: Moment): ValidatorF
   return ((c: FormControl): { [key: string]: any } => {
 
     // todo : will noch nicht so recht
-    console.log('formDAte ', fromDate);
-    console.log('validate date ', moment(c.value, format))
+    // console.log('formDAte ', fromDate);
+    // console.log('validate date ', moment(c.value, format))
     if (fromDate.isAfter(moment(c.value, format))) {
       return Validation.getInvalidObject('dateRange'); // validation failed
     }

@@ -1,25 +1,28 @@
-<h2>{{'createMeetUp.title' | translate}}</h2>
+<h2>
+  <div *ngIf="isMutateMode; else doCreate">{{ 'meetup.titleMutate' | translate }}</div>
+  <ng-template #doCreate>{{ 'meetup.titleCreate' | translate }}</ng-template>
+</h2>
 
-<form [formGroup]="form" novalidate (ngSubmit)="create()">
-  <label>{{'createMeetUp.date' | translate}}<input type="date" formControlName="date"></label>
+<form *ngIf="form" [formGroup]="form" novalidate (ngSubmit)="submit()">
+  <label>{{'meetup.date' | translate}}<input type="date" formControlName="date"></label>
   <br>
-  <label>{{'createMeetUp.time' | translate}}
-    <label>{{'createMeetUp.fromTime' | translate}}</label><input type="time" formControlName="fromTime">
-    <label>{{'createMeetUp.to | translate'}}</label><input type="time" formControlName="toTime"></label>
+  <label>{{'meetup.time' | translate}}
+    <label>{{'meetup.fromTime' | translate}}</label><input type="time" formControlName="fromTime">
+    <label>{{'meetup.to | translate'}}</label><input type="time" formControlName="toTime"></label>
   <br>
   <div>
-    <span>{{ 'createMeetUp.location' | translate }}</span>
-    <label><input type="radio" formControlName="locationType" value="in">{{ 'createMeetUp.indoor' | translate }}</label>
-    <label><input type="radio" formControlName="locationType" value="out">{{ 'createMeetUp.outdoor' | translate }}</label>
+    <span>{{ 'meetup.location' | translate }}</span>
+    <label><input type="radio" formControlName="locationType" value="in">{{ 'meetup.indoor' | translate }}</label>
+    <label><input type="radio" formControlName="locationType" value="out">{{ 'meetup.outdoor' | translate }}</label>
     <div *ngIf="isIndoor(); else outdoor">
-      <label>{{'createMeetUp.location.indoor' | translate}}</label>
+      <label>{{'meetup.location.indoor' | translate}}</label>
       <select formControlName="indoor">
         <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
       </select>
     </div>
-    <ng-template #outdoor><label>{{'createMeetUp.location.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
+    <ng-template #outdoor><label>{{'meetup.location.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
   </div>
-  <label>{{'createMeetUp.activity' | translate}}<input formControlName="activity"></label>
+  <label>{{'meetup.activity' | translate}}<input formControlName="activity"></label>
   <br>
-  <button>{{'createMeetUp.submit' | translate}}</button>
+  <button>{{'meetup.submit' | translate}}</button>
 </form>

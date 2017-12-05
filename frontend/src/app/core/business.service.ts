@@ -55,5 +55,9 @@ export class BusinessService {
     }
     this.resourceService.saveMeetup(meetup);
   }
+
+  loadMeetup(meetupId: string): Observable<Meetup> {
+    return this.mockService.loadMeetup(meetupId);
+  }
 }
 

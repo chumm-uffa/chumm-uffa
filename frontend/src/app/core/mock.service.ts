@@ -38,6 +38,10 @@ export class MockService implements ResourceServiceInterface {
     return  of(this._meetupRequest.filter(participant => participant.participant.username === user.username));
   }
 
+  loadMeetup(meetupId: string): Observable<Meetup> {
+    return of(new Meetup('id6', this._users[2], new Date(), new Date(), 'Out_1', '', 'Bouldern', 1, 2));
+  }
+
   private generateUsers() {
     this._users = [];
     this._users.push(new User('WilliCliffhanger'));

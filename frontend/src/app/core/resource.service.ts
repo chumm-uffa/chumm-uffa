@@ -17,6 +17,8 @@ export interface ResourceServiceInterface {
   getMeetUps(user: User): Observable<Meetup[]>;
 
   getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
+
+  loadMeetup(meetupId: string): Observable<Meetup>;
 }
 
 /**
@@ -67,5 +69,9 @@ export class ResourceService implements ResourceServiceInterface {
   saveMeetup(meetup: Meetup): void {
     console.log('not yet implemented saveMeetup()');
     console.log('meetup to string ', meetup);
+  }
+
+  loadMeetup(meetupId: string): Observable<Meetup> {
+    throw new Error('Method not implemented.');
   }
 }
