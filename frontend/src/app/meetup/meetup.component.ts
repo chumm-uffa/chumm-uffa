@@ -4,7 +4,12 @@ import {Hall} from '../core/model/hall';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {validateOneOf} from '../shared/validators/one-of.validator';
-import {validateDateFormat, validateDateRange} from '../shared/validators/validate-date';
+import {
+  validateDateFormat,
+  validateNotBefore,
+  validateTimeBefore,
+  validateTimeNotBefore
+} from '../shared/validators/validate-date';
 import {Meetup} from '../core/model/meetup';
 import {ActivatedRoute, Params} from '@angular/router';
 import * as moment from 'moment';
@@ -64,15 +69,16 @@ export class MeetupComponent implements OnInit {
     this.form = this.fB.group({
       date: [moment(this.meetup.from.getTime()).format(MeetupComponent.DATE_FORMAT),
         [Validators.required, validateDateFormat(MeetupComponent.DATE_FORMAT),
-          validateDateRange(MeetupComponent.DATE_FORMAT)]],
-      fromTime: [moment(this.meetup.from.getTime()).format('HH:mm'), [Validators.required]],
-      toTime: [moment(this.meetup.to.getTime()).format('HH:mm'), [Validators.required]],
+          validateNotBefore(MeetupComponent.DATE_FORMAT)]],
+      fromTime: [moment(this.meetup.from.getTime()).format('HH:mm'), [Validators.required, validateTimeNotBefore()]],
+      toTime: [moment(this.meetup.to.getTime()).format('HH:mm'), [Validators.required, validateTimeNotBefore()]],
       locationType: this.meetup.outdoor ? 'out' : 'in',
       indoor: this.meetup.indoor,
       outdoor: this.meetup.outdoor,
       activity: [this.meetup.activity]
     }, {
-      validator: validateOneOf('indoor', 'outdoor')  // Formvalidators -> validate between Fields
+      validator: [validateOneOf('indoor', 'outdoor'),
+        validateTimeBefore('fromTime', 'toTime')]  // Formvalidators -> validate between Fields
     });
   }
 
