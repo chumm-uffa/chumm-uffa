@@ -42,7 +42,12 @@ export class MeetupComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
-
+      /**
+       * Eine meetupId in der URL bringt uns in den mutate mode
+       * ohne gehen wir in den create mode.
+       * Wird mit der id kein meetup gefunden, gehen wir ebenfalls in
+       * den create mode
+       */
       if (meetupId) {
         this.businessService.loadMeetup(meetupId).subscribe(meetupReloaded => {
           if (meetupReloaded) {

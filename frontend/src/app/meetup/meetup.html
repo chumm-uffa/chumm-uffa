@@ -5,10 +5,16 @@
 
 <form *ngIf="form" [formGroup]="form" novalidate (ngSubmit)="submit()">
   <label>{{'meetup.date' | translate}}<input type="date" formControlName="date"></label>
+  <app-validation-feedback *ngIf="form.controls.date | hasError:'required'">{{ 'meetup.error.dateRequired' | translate }}</app-validation-feedback>
   <br>
   <label>{{'meetup.time' | translate}}
     <label>{{'meetup.fromTime' | translate}}</label><input type="time" formControlName="fromTime">
     <label>{{'meetup.to | translate'}}</label><input type="time" formControlName="toTime"></label>
+    <app-validation-feedback *ngIf="form.controls.fromTime | hasError:'required'">{{ 'meetup.error.fromTimeRequired' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form.controls.fromTime | hasError:'timeNotBefore'">{{ 'meetup.error.fromTimeInPast' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form.controls.toTime | hasError:'required'">{{ 'meetup.error.toTimeRequired' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form.controls.toTime | hasError:'timeNotBefore'">{{ 'meetup.error.toTimeInPast' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form | hasError:'timeAfterBefore'">{{ 'meetup.error.fromBeforeToTime' | translate }}</app-validation-feedback>
   <br>
   <div>
     <span>{{ 'meetup.location' | translate }}</span>
@@ -21,6 +27,7 @@
       </select>
     </div>
     <ng-template #outdoor><label>{{'meetup.location.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
+    <app-validation-feedback *ngIf="form | hasError:'oneOfAll'">{{ 'meetup.error.onOfAll' | translate }}</app-validation-feedback>
   </div>
   <label>{{'meetup.activity' | translate}}<input formControlName="activity"></label>
   <br>

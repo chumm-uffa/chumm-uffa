@@ -4,10 +4,11 @@ import { MeetupComponent } from './meetup.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule, TranslateModule, ReactiveFormsModule, CoreModule
+    CommonModule, TranslateModule, ReactiveFormsModule, CoreModule, SharedModule
   ],
   declarations: [MeetupComponent]
 })
