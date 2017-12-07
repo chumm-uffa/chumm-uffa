@@ -9,7 +9,7 @@ export class UserFormService {
   constructor(private fB: FormBuilder) {
   }
 
-  createForm(user: User): FormGroup {
+  public createForm(user: User): FormGroup {
     return this.fB.group({
       username: [user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -19,5 +19,13 @@ export class UserFormService {
     }, {
       validator: validatePwdsMatch('password', 'passwordRepeat')  // Formvalidators -> validate between Fields
     });
+  }
+
+  public mergeUser(formvalue, user: User): User {
+    user.username = formvalue.username;
+    user.password = formvalue.password;
+    user.email = formvalue.email;
+    user.sex = formvalue.sex;
+    return user;
   }
 }

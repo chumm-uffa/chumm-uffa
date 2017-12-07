@@ -58,6 +58,21 @@ describe('user Form', () => {
     checkFormBaseInvalid(form);
   }));
 
+  it('should merge user', inject([UserFormService], (userFb: UserFormService) => {
+
+    const form = createValidForm(userFb);
+    form.controls.username.patchValue('MeisterEder');
+    form.controls.password.patchValue('Pumuckel');
+    form.controls.sex.patchValue('f');
+    form.controls.email.patchValue('Meista@Eda.at');
+    let refUser = new User();
+    refUser = userFb.mergeUser(form.value, refUser);
+    expect(refUser.username).toBe('MeisterEder');
+    expect(refUser.password).toBe('Pumuckel');
+    expect(refUser.sex).toBe('f');
+    expect(refUser.email).toBe('Meista@Eda.at');
+  }));
+
   function createUser(): User {
     return new User('Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch');
   }

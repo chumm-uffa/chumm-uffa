@@ -19,15 +19,31 @@ export class User {
     return this._password;
   }
 
+  set password(value: string) {
+    this._password = value;
+  }
+
   get username(): string {
     return this._username;
+  }
+
+  set username(value: string) {
+    this._username = value;
   }
 
   get sex(): string {
     return this._sex;
   }
 
+  set sex(value: string) {
+    this._sex = value;
+  }
+
   get email(): string {
     return this._email;
+  }
+
+  set email(value: string) {
+    this._email = value;
   }
 }

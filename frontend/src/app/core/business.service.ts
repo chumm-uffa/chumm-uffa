@@ -7,6 +7,7 @@ import {AppStateService} from './app-state.service';
 import {MeetupRequest} from './model/meetup-request';
 import {Hall} from './model/hall';
 import {of} from 'rxjs/observable/of';
+import {User} from './model/user';
 
 /**
  * Hier kann Businesslogik rein.
@@ -50,7 +51,7 @@ export class BusinessService {
   }
 
   saveMeetUp(meetup: Meetup): void {
-    if ( !meetup.owner ) {
+    if (!meetup.owner) {
       meetup.owner = this.appState.loggedInUser;
     }
     this.resourceService.saveMeetup(meetup);
@@ -58,6 +59,12 @@ export class BusinessService {
 
   loadMeetup(meetupId: string): Observable<Meetup> {
     return this.mockService.loadMeetup(meetupId);
+  }
+
+  saveUser(user: User): void {
+    // todo ruf mir den Server
+    console.log('saveUser called');
+    this.appState.loggedInUser = user;
   }
 }
 
