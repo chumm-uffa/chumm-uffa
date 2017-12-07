@@ -7,9 +7,9 @@ import {AppStateService} from '../core/app-state.service';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './registration.html'
+  templateUrl: './user.html'
 })
-export class RegistrationComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   loginForm: FormGroup;
   private user: User;

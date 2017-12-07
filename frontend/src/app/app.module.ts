@@ -4,7 +4,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginModule} from './login/login.modul';
-import {RegistrationModule} from './registration/registration.module';
+import {RegistrationModule} from './user/user.module';
 import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
