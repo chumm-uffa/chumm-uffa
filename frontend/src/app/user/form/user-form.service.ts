@@ -1,0 +1,23 @@
+import {Injectable} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../core/model/user';
+import {validatePwdsMatch} from '../../shared/validators/password-match.validator';
+
+@Injectable()
+export class UserFormService {
+
+  constructor(private fB: FormBuilder) {
+  }
+
+  createForm(user: User): FormGroup {
+    return this.fB.group({
+      username: [user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      passwordRepeat: '',
+      sex: [user.sex, [Validators.required]],
+      email: [user.email, [Validators.email]]
+    }, {
+      validator: validatePwdsMatch('password', 'passwordRepeat')  // Formvalidators -> validate between Fields
+    });
+  }
+}

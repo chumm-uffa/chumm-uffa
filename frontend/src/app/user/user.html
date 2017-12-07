@@ -11,7 +11,7 @@
   <label>{{ 'registraion.password' | translate }}</label><input formControlName="password">
   <app-validation-feedback *ngIf="loginForm.controls.password | hasSomeError">irgendein Fehler</app-validation-feedback> <!-- irgend ein Validierungs Fehler -->
   <br>
-  <label>{{ 'registraion.repeatPass' | translate }}</label><input formControlName="password2">
+  <label>{{ 'registraion.repeatPass' | translate }}</label><input formControlName="passwordRepeat">
   <br>
   <label>{{ 'registraion.email' | translate }}</label><input formControlName="email">
   <app-validation-feedback *ngIf="loginForm.controls.email | hasError:'email'">{{ 'registraion.error.email' | translate }}</app-validation-feedback>
@@ -21,7 +21,7 @@
     <label><input type="radio" formControlName="sex" value="f">{{ 'registraion.women' | translate }}</label>
   </div>
   <app-validation-feedback *ngIf="(loginForm | hasError:'passwordMismatch')
-                                && loginForm.controls.password.touched && loginForm.controls.password2.touched">
+                                && loginForm.controls.password.touched && loginForm.controls.passwordRepeat.touched">
     {{ 'registraion.error.differentPasswords' | translate }}
   </app-validation-feedback>
   <button type="submit">{{ 'registraion.registerUser' | translate }}</button>

@@ -4,6 +4,7 @@ import {validatePwdsMatch} from '../shared/validators/password-match.validator';
 import {User} from '../core/model/user';
 import {FormUtil} from '../shared/form/form.util';
 import {AppStateService} from '../core/app-state.service';
+import {UserFormService} from './form/user-form.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,7 @@ export class UserComponent implements OnInit {
   loginForm: FormGroup;
   private user: User;
 
-  constructor( private fB: FormBuilder,
+  constructor( private userFb: UserFormService,
                private appState: AppStateService) {
     if ( appState.isLoggedIn ) {
       this.user = appState.loggedInUser;
@@ -24,15 +25,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = this.fB.group({
-      username: [this.user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: '',
-      sex: this.user.sex,
-      email: [this.user.email, [Validators.email]]
-    }, {
-      validator: validatePwdsMatch('password', 'password2')  // Formvalidators -> validate between Fields
-    });
+    this.loginForm = this.userFb.createForm(this.user);
   }
 
   onClickRegister() {
