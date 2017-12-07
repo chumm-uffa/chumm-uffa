@@ -14,5 +14,6 @@
      <td *ngIf="meetup.outdoor && !meetup.indoor">{{meetup.outdoor}}</td>
      <td>{{meetup.numberOfRequest}}</td>
      <td>{{meetup.numberOfParticipant}}</td>
+     <td><a routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">edit</a></td>
   </tr>
 </table>
