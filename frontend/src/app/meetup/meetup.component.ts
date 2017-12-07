@@ -14,8 +14,6 @@ import {MeetupFormService} from './form/meetup-form.service';
 })
 export class MeetupComponent implements OnInit {
 
-  static readonly DATE_FORMAT = 'YYYY-MM-DD';
-
   halls: Hall[];
   form: FormGroup;
   isMutateMode = false;

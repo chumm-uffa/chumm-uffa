@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Meetup} from '../../core/model/meetup';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-import {MeetupComponent} from '../meetup.component';
 import {
   validateDateFormat,
   validateNotBefore,
@@ -14,14 +13,16 @@ import {validateOneOf} from '../../shared/validators/one-of.validator';
 @Injectable()
 export class MeetupFormService {
 
+  static readonly DATE_FORMAT = 'YYYY-MM-DD';
+
   constructor(private fB: FormBuilder) {
   }
 
   createForm(meetup: Meetup): FormGroup {
     return this.fB.group({
-      date: [moment(meetup.from.getTime()).format(MeetupComponent.DATE_FORMAT),
-        [Validators.required, validateDateFormat(MeetupComponent.DATE_FORMAT),
-          validateNotBefore(MeetupComponent.DATE_FORMAT)]],
+      date: [moment(meetup.from.getTime()).format(MeetupFormService.DATE_FORMAT),
+        [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
+          validateNotBefore(MeetupFormService.DATE_FORMAT)]],
       fromTime: [moment(meetup.from.getTime()).format('HH:mm'), [Validators.required, validateTimeNotBefore()]],
       toTime: [moment(meetup.to.getTime()).format('HH:mm'), [Validators.required]],
       locationType: meetup.outdoor ? 'out' : 'in',
