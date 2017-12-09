@@ -32,6 +32,9 @@ export class MeetupDetailComponent implements OnInit {
     });
   }
 
+  getLocation(): string {
+    return this.meetup.indoor ? this.meetup.indoor : this.meetup.outdoor;
+  }
 
 
 
