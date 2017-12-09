@@ -9,10 +9,11 @@ import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
+import { MeetupDetailComponent } from './meetup-detail/meetup-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent
+    AppComponent, HeaderComponent, MeetupDetailComponent
   ],
   imports: [
     BrowserModule,
