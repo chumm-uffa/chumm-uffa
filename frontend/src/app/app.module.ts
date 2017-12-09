@@ -9,11 +9,11 @@ import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
-import { MeetupDetailComponent } from './meetup-detail/meetup-detail.component';
+import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, MeetupDetailComponent
+    AppComponent, HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +23,7 @@ import { MeetupDetailComponent } from './meetup-detail/meetup-detail.component';
     HomeModule,
     MymeetupsModule,
     MeetupModule,
+    MeetupDetailModule,
     TranslateModule.forRoot()
   ],
   providers: [],
