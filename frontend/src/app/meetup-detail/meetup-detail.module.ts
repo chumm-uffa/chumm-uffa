@@ -5,13 +5,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
 import {MeetupDetailComponent} from './meetup-detail.component';
+import { ParticipantComponent } from './participant/participant.component';
 
 
 @NgModule({
   imports: [
     CommonModule, TranslateModule, ReactiveFormsModule, CoreModule, SharedModule
   ],
-  declarations: [MeetupDetailComponent]
+  declarations: [MeetupDetailComponent, ParticipantComponent]
 })
 export class MeetupDetailModule {
 }

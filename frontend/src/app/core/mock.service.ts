@@ -42,12 +42,23 @@ export class MockService implements ResourceServiceInterface {
     return of(this._meetups.find(mu => mu.id === meetupId));
   }
 
+  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
+    return of(this._meetupRequest);
+  }
+
+  /**
+   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
+   */
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
+    return of(new MeetupRequest(request.participant, request.meetup, request.status));
+  }
+
   private generateUsers() {
     this._users = [];
-    this._users.push(new User('WilliCliffhanger'));
-    this._users.push(new User('BarbaraChumNidUffa'));
-    this._users.push(new User('UrsChrumBei'));
-    this._users.push(new User('PetraImmerBlau'));
+    this._users.push(new User('WilliCliffhanger', '', 'm', '', '85'));
+    this._users.push(new User('BarbaraChumNidUffa', '', 'f', '', '45'));
+    this._users.push(new User('UrsChrumBei', '', 'm', '', '72'));
+    this._users.push(new User('PetraImmerBlau', '', 'f', '', '85'));
   }
 
   /**

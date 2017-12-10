@@ -19,6 +19,10 @@ export interface ResourceServiceInterface {
   getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
 
   loadMeetup(meetupId: string): Observable<Meetup>;
+
+  loadRequests(meetupId: string): Observable<MeetupRequest[]>;
+
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest>;
 }
 
 /**
@@ -72,6 +76,22 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   loadMeetup(meetupId: string): Observable<Meetup> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Das Meetup im Request Objekt müsste nicht geladen werden.
+   * @param {string} meetupId
+   * @returns {Observable<MeetupRequest[]>}
+   */
+  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
+   */
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
     throw new Error('Method not implemented.');
   }
 }

@@ -1,6 +1,4 @@
-<h2>
-  <div>{{ 'meetupDetail.title' | translate }}</div>
-</h2>
+<h2>{{ 'meetupDetail.title' | translate }}</h2>
 
 <label>{{ 'meetupDetail.date' | translate }}  <span>{{meetup.from | dateFormat}}</span></label>
 <label>{{ 'meetupDetail.fromTime' | translate }}  <span>{{meetup.from | timeFormat}}</span></label>
@@ -8,9 +6,12 @@
 <label>{{ 'meetupDetail.location' | translate }}  <span>{{getLocation()}}</span></label>
 <label>{{ 'meetupDetail.activity' | translate }}  <span>{{meetup.activity}}</span></label>
 
-<!--
-<app-participant></app-participant>
+<h3>{{ 'meetupDetail.titleParticipant' | translate }}</h3>
+<div *ngFor="let request of meetupRequests">
+  <app-participant [meetupRequest]="request"></app-participant>
+</div>
 
+<!--
 <app-chat></app-chat>
 -->
 <button>{{ 'meetupDetail.abandon' | translate }}</button>

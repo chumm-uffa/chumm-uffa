@@ -66,5 +66,13 @@ export class BusinessService {
     console.log('saveUser called');
     this.appState.loggedInUser = user;
   }
+
+  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
+    return this.mockService.loadRequests(meetupId);
+  }
+
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
+    return this.mockService.updateRequest(request);
+  }
 }
 
