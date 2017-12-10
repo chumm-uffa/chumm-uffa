@@ -4,15 +4,18 @@ export class User {
   private _password: string;
   private _sex: string;
   private _email: string;
+  private _weight: string;
 
   constructor(username: string = '',
               password: string = '',
               sex: string = '',
-              email: string = '') {
+              email: string = '',
+              weight: string = '') {
     this._username = username;
     this._password = password;
     this._sex = sex;
     this._email = email;
+    this._weight = weight;
   }
 
   get password(): string {
@@ -45,5 +48,13 @@ export class User {
 
   set email(value: string) {
     this._email = value;
+  }
+
+  get weight(): string {
+    return this._weight;
+  }
+
+  set weight(value: string) {
+    this._weight = value;
   }
 }
