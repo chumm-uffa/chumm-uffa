@@ -65,16 +65,18 @@ describe('user Form', () => {
     form.controls.password.patchValue('Pumuckel');
     form.controls.sex.patchValue('f');
     form.controls.email.patchValue('Meista@Eda.at');
+    form.controls.weight.patchValue('65');
     let refUser = new User();
     refUser = userFb.mergeUser(form.value, refUser);
     expect(refUser.username).toBe('MeisterEder');
     expect(refUser.password).toBe('Pumuckel');
     expect(refUser.sex).toBe('f');
     expect(refUser.email).toBe('Meista@Eda.at');
+    expect(refUser.weight).toBe('65');
   }));
 
   function createUser(): User {
-    return new User('Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch');
+    return new User('Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
   }
 
   function createValidForm(userFb: UserFormService): FormGroup {

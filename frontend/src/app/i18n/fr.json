@@ -1,5 +1,5 @@
 {
-  "registraion": {
+  "user": {
     "titleRegistration": "User Registration_FR",
     "titleMutate": "User Profile bearbeiten_FR",
     "name": "Name_FR: ",
@@ -10,6 +10,7 @@
     "registerUser": "Benutzer erstellen_FR",
     "man": "Mann_FR",
     "women": "Frau_FR",
+    "weight": "Körpergewicht_FR: ",
     "error": {
       "nameRequired": "Namen eingeben_FR",
       "nameMinLength": "Name muss min 2 Zeichen haben_FR",

@@ -15,7 +15,8 @@ export class UserFormService {
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordRepeat: '',
       sex: [user.sex, [Validators.required]],
-      email: [user.email, [Validators.email]]
+      email: [user.email, [Validators.email]],
+      weight: [user.weight]
     }, {
       validator: validatePwdsMatch('password', 'passwordRepeat')  // Formvalidators -> validate between Fields
     });
@@ -26,6 +27,7 @@ export class UserFormService {
     user.password = formvalue.password;
     user.email = formvalue.email;
     user.sex = formvalue.sex;
+    user.weight = formvalue.weight;
     return user;
   }
 }
