@@ -57,7 +57,11 @@ export class MockService implements ResourceServiceInterface {
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    return of(this._chats);
+    return of([...this._chats]);
+  }
+
+  createChat(chat: Chat): void {
+    this._chats.push(chat);
   }
 
   private generateUsers() {

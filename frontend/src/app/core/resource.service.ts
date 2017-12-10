@@ -26,6 +26,8 @@ export interface ResourceServiceInterface {
   updateRequest(request: MeetupRequest): Observable<MeetupRequest>;
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
+
+  createChat(chat: Chat): void;
 }
 
 /**
@@ -99,6 +101,10 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  createChat(chat: Chat): void {
     throw new Error('Method not implemented.');
   }
 }

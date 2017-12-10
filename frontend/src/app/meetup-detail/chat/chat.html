@@ -1,14 +1,13 @@
 <h3>{{ 'chat.title' | translate }}</h3>
 
 <div class="message-container">
-<label *ngFor="let message of messages" [ngClass]="getOwnerClass(message.speaker.username)">
+<label *ngFor="let message of messages" [ngClass]="getCurrentUserClass(message.speaker.username)">
   <span>{{message.date | dateTimeFormat}}</span>
   {{message.speaker.username}}
   <span>{{message.text}}</span>
 </label>
 </div>
 <p>{{'chat.typeMessage' | translate}}</p>
-<!--<form>-->
-  <textarea [(value)]="newMessage"></textarea>
-  <button>{{'chat.sendMessage' | translate}}</button>
-<!--</form>-->
+<textarea name="messageInput" [(ngModel)]="newMessage"></textarea>
+<button (click)="addMessage()">{{'chat.sendMessage' | translate}}</button>
+

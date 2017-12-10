@@ -106,5 +106,11 @@ export class BusinessService {
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
     return this.mockService.loadChatsByMeetupId(meetupId);
   }
+
+  createChat(message: string, meetupId: string): Chat {
+    const newOne =  new Chat(message, this.appState.loggedInUser, new Date());
+    this.mockService.createChat(newOne);
+    return newOne;
+  }
 }
 
