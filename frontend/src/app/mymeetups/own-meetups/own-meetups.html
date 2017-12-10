@@ -10,8 +10,7 @@
   <tr *ngFor="let meetup of meetups; let i = index">
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">Meetup {{ i + 1 }}</td>
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.from | dateTimeFormat}}</td>
-     <td *ngIf="meetup.indoor" routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.indoor}}</td>
-     <td *ngIf="meetup.outdoor && !meetup.indoor" routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.outdoor}}</td>
+     <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{getLocation(meetup)}}</td>
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.numberOfRequest}}</td>
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.numberOfParticipant}}</td>
      <td><a routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">edit</a></td>

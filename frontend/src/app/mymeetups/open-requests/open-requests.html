@@ -9,8 +9,7 @@
   <tr *ngFor="let request of meetUpRequests; let i = index"  routerLink="/meetupdetail" [queryParams]="{meetupId: request.meetup.id}">
     <td>Anfrage {{ i + 1 }}</td>
     <td>{{request.meetup.from | dateTimeFormat}}</td>
-    <td *ngIf="request.meetup.indoor">{{request.meetup.indoor}}</td>
-    <td *ngIf="request.meetup.outdoor && !request.meetup.indoor">{{request.meetup.outdoor}}</td>
+    <td>{{getLocation(request.meetup)}}</td>
     <td>{{request.status}}</td>
   </tr>
 </table>

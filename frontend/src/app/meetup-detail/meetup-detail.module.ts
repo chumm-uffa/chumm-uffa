@@ -6,13 +6,14 @@ import {CoreModule} from '../core/core.module';
 import {SharedModule} from '../shared/shared.module';
 import {MeetupDetailComponent} from './meetup-detail.component';
 import { ParticipantComponent } from './participant/participant.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
   imports: [
     CommonModule, TranslateModule, ReactiveFormsModule, CoreModule, SharedModule
   ],
-  declarations: [MeetupDetailComponent, ParticipantComponent]
+  declarations: [MeetupDetailComponent, ParticipantComponent, ChatComponent]
 })
 export class MeetupDetailModule {
 }

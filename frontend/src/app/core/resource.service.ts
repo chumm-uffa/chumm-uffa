@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Meetup} from './model/meetup';
 import {MeetupRequest} from './model/meetup-request';
 import {User} from './model/user';
+import {Chat} from './model/chat';
 
 
 /**
@@ -23,6 +24,8 @@ export interface ResourceServiceInterface {
   loadRequests(meetupId: string): Observable<MeetupRequest[]>;
 
   updateRequest(request: MeetupRequest): Observable<MeetupRequest>;
+
+  loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
 }
 
 /**
@@ -92,6 +95,10 @@ export class ResourceService implements ResourceServiceInterface {
    * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
+    throw new Error('Method not implemented.');
+  }
+
+  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
     throw new Error('Method not implemented.');
   }
 }
