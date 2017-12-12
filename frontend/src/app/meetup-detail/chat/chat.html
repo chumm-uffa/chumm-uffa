@@ -9,5 +9,5 @@
 </div>
 <p>{{'chat.typeMessage' | translate}}</p>
 <textarea name="messageInput" [(ngModel)]="newMessage"></textarea>
-<button (click)="addMessage()">{{'chat.sendMessage' | translate}}</button>
+<button [disabled]="!newMessage" (click)="addMessage()">{{'chat.sendMessage' | translate}}</button>
 

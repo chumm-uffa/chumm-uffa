@@ -10,7 +10,7 @@ import {AppStateService} from '../core/app-state.service';
 @Component({
   selector: 'app-meetup-detail',
   templateUrl: './meetup-detail.html',
-  styleUrls: ['./meetup-detail.component.css']
+  styleUrls: ['./meetup-detail.component.scss']
 })
 export class MeetupDetailComponent implements OnInit {
 
