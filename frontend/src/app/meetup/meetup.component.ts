@@ -65,6 +65,7 @@ export class MeetupComponent implements OnInit {
       console.log('send data to Service');
       this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
       this.businessService.saveMeetUp(this.meetup);
+      // todo : sollen wir hier auf myMeetups routen? wäre sinnvoll...
 
     } else {
       console.log('form invald', this.form.errors);
