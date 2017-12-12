@@ -8,6 +8,7 @@ import {RegistrationModule} from './registration/registration.module';
 import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {MeetupModule} from './meetup/meetup.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {TranslateModule} from '@ngx-translate/core';
     RegistrationModule,
     HomeModule,
     MymeetupsModule,
+    MeetupModule,
     TranslateModule.forRoot()
   ],
   providers: [],

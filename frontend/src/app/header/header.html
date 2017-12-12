@@ -4,11 +4,12 @@
 <nav>
   <a routerLink="/">home</a><br>
   <div *ngIf="appState.isLoggedIn; else publicBlock">
-    <a routerLink="/registration">update Userprofile</a><br>
-    <a routerLink="/mymeetups">meine MeetUps</a>
+    <!-- place routes here for loggedIn mode-->
+    <a routerLink="/updateuser">update Userprofile</a><br>
+    <a routerLink="/mymeetups">meine MeetUps</a><br>
+    <a routerLink="/meetup">neues Meetup erstellen</a>
   </div>
   <ng-template #publicBlock>
-    <!-- place routes here for loggedIn mode-->
     <a routerLink="/login">ich will mich einloggen</a><br>
     <a routerLink="/registration">ich will mich registrieren</a>
   </ng-template>

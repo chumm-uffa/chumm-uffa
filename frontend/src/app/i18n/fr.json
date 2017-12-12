@@ -16,5 +16,29 @@
       "email": "ungültiges Emailformat_FR",
       "differentPasswords": "die Passwortwiederholung weicht ab_FR"
     }
+  },
+  "meetup": {
+    "titleMutate": "Meetup mutieren_FR",
+    "titleCreate": "Meetup erstellen_FR",
+    "date": "Datum:_FR",
+    "time": "Zeit:_FR",
+    "fromTime": "Beginn_FR",
+    "toTime": "Ende_FR",
+    "location": "Ort:_FR",
+    "indoor": "Halle:_FR",
+    "indoorRadio": "Indoor_FR",
+    "outdoor": "Ort/Berg:v",
+    "outdoorRadio": "Outdoor_FR",
+    "activity": "Activity:_FR",
+    "submit": "speichern_FR",
+    "error": {
+      "dateRequired": "Datum eingeben._FR",
+      "dateInThePast": "Datum muss heute oder später sein._FR",
+      "fromTimeRequired": "Beginn Zeit eingeben._FR",
+      "fromTimeInPast": "Beginn muss in der Zukunft sein._FR",
+      "toTimeRequired": "Ende Zeit eingeben._FR",
+      "fromBeforeToTime": "Ende muss nach Beginn sein._FR",
+      "oneOfAll": "Wähle eine Location_FR"
+    }
   }
 }
