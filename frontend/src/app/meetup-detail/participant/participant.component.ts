@@ -11,6 +11,8 @@ export class ParticipantComponent {
 
   @Input()
   meetupRequest: MeetupRequest;
+  @Input()
+  showStateButtons = false;
 
   requestStatus = RequestStatus;
 

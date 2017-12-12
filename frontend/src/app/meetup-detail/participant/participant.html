@@ -1,8 +1,8 @@
 <div class="participant">
   <label>{{meetupRequest.participant.username}}</label>
   <label>{{meetupRequest.status | translate}}</label>
-  <button (click)="setState(requestStatus.ACCEPT)">{{'participant.accept' | translate}}</button>
-  <button (click)="setState(requestStatus.DECLINED)"> {{'participant.decline' | translate}}</button>
+  <button *ngIf="showStateButtons" (click)="setState(requestStatus.ACCEPT)">{{'participant.accept' | translate}}</button>
+  <button *ngIf="showStateButtons" (click)="setState(requestStatus.DECLINED)"> {{'participant.decline' | translate}}</button>
 </div>
 
 <div class="details">

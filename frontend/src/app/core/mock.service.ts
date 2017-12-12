@@ -64,6 +64,10 @@ export class MockService implements ResourceServiceInterface {
     this._chats.push(chat);
   }
 
+  get users(): User[] {
+    return this._users;
+  }
+
   private generateUsers() {
     this._users = [];
     this._users.push(new User('WilliCliffhanger', '', 'm', '', '85'));

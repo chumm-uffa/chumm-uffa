@@ -9,9 +9,11 @@
 
   <h3>{{ 'meetupDetail.titleParticipant' | translate }}</h3>
   <div *ngFor="let request of meetupRequests">
-    <app-participant [meetupRequest]="request"></app-participant>
+    <app-participant [meetupRequest]="request"
+                     [showStateButtons]="isMeetupOwner">
+    </app-participant>
   </div>
-  <app-chat></app-chat>
+  <app-chat *ngIf="isAccepted || isMeetupOwner"></app-chat>
 </div>
 <ng-template #errorMessage><h2>{{'meetupDetail.error.meetupNotFound' | translate}}</h2></ng-template>
 
