@@ -43,10 +43,7 @@ export class BusinessService {
   }
 
   getHalls(): Observable<Hall[]> {
-    const halls: Hall[] = [];
-    halls.push(new Hall(1, 'Die Kletterhalle (St. Gallen)'));
-    halls.push(new Hall(2, 'Kletterhalle (Winterthur)'));
-    return of(halls);
+    return this.mockService.getHalls();
   }
 
   saveMeetUp(meetup: Meetup): void {
