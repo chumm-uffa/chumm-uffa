@@ -28,7 +28,7 @@
       </select>
     </div>
     <ng-template #outdoor><label>{{'meetup.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
-    <app-validation-feedback *ngIf="form | hasError:'oneOfAll'">{{ 'meetup.error.onOfAll' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form | hasError:'oneOfAll'">{{ 'meetup.error.oneOfAll' | translate }}</app-validation-feedback>
   </div>
   <label>{{'meetup.activity' | translate}}<input formControlName="activity"></label>
   <br>

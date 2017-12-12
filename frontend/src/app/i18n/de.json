@@ -42,7 +42,7 @@
       "fromTimeInPast": "Beginn muss in der Zukunft sein.",
       "toTimeRequired": "Ende Zeit eingeben.",
       "fromBeforeToTime": "Ende muss nach Beginn sein.",
-      "oneOfAll": "Wähle eine Location"
+      "oneOfAll": "Wähle eine Location."
     }
   },
   "meetupDetail": {
