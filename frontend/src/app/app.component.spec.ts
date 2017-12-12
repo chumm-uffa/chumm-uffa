@@ -12,8 +12,11 @@ import {OwnMeetupsComponent} from './mymeetups/own-meetups/own-meetups.component
 import {OpenRequestsComponent} from './mymeetups/open-requests/open-requests.component';
 import {SharedModule} from './shared/shared.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppStateService} from './core/app-state.service';
+import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
+import {ParticipantComponent} from './meetup-detail/participant/participant.component';
+import {ChatComponent} from './meetup-detail/chat/chat.component';
 
 
 /**
@@ -27,7 +30,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AppRoutingModule, LoginModule, RegistrationModule, SharedModule,
-        TranslateModule.forRoot(), ReactiveFormsModule],
+        TranslateModule.forRoot(), ReactiveFormsModule, FormsModule],
       declarations: [
         AppComponent,
         HeaderComponent,
@@ -35,7 +38,10 @@ describe('AppComponent', () => {
         MymeetupsComponent,
         OwnMeetupsComponent,
         OpenRequestsComponent,
-        MeetupComponent
+        MeetupComponent,
+        MeetupDetailComponent,
+        ParticipantComponent,
+        ChatComponent
       ],
       providers: [AppStateService, {provide: APP_BASE_HREF, useValue: '/'}]
     }).compileComponents();

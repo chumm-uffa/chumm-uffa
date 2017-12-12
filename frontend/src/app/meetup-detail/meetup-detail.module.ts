@@ -13,7 +13,6 @@ import {ChatComponent} from './chat/chat.component';
   imports: [
     CommonModule,
     TranslateModule,
-    ReactiveFormsModule,
     CoreModule,
     SharedModule,
     FormsModule
