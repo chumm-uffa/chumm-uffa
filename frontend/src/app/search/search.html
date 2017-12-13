@@ -1,0 +1,42 @@
+<h2>{{ 'search.title' | translate }}</h2>
+
+<div>
+  <span>{{ 'search.location' | translate }}</span>
+  <label><input type="radio" formControlName="locationType" value="in">{{ 'search.indoorRadio' | translate }}</label>
+  <label><input type="radio" formControlName="locationType" value="out">{{ 'search.outdoorRadio' | translate }}</label>
+  <div *ngIf="isIndoor(); else outdoor">
+    <label>{{'search.indoor' | translate}}</label>
+    <select formControlName="indoor">
+      <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
+    </select>
+  </div>
+  <ng-template #outdoor><label>{{'search.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
+</div>
+<label>{{'search.from' | translate}} <input type="datetime-local"></label>
+<label>{{'search.to' | translate}} <input type="datetime-local"></label>
+<div>
+  <span>{{ 'search.sex' | translate }}</span>
+  <label><input type="radio" formControlName="sex" value="m">{{ 'search.man' | translate }}</label>
+  <label><input type="radio" formControlName="sex" value="f">{{ 'search.women' | translate }}</label>
+</div>
+<label>{{ 'search.weight' | translate }}</label>
+<label>{{'search.minWeight' | translate}}<input type="number" formControlName="weightMin"></label>
+<label>{{'search.maxWeight' | translate}}<input type="number" formControlName="weightMax"></label>
+<button>{{'search.start' | translate}}</button>
+
+<table>
+  <tr>
+    <th>{{'search.owner' | translate}}</th>
+    <th>{{'search.from' | translate}}</th>
+    <th>{{'search.to' | translate}}</th>
+    <th>{{'search.location' | translate}}</th>
+    <th>{{'search.startRequest' | translate}}</th>
+  </tr>
+  <tr *ngFor="let meetup of results"  routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">
+    <td>{{ meetup.owner.username }}</td>
+    <td>{{meetup.from | dateTimeFormat}}</td>
+    <td>{{meetup.to | dateTimeFormat}}</td>
+    <td>{{getLocation(request.meetup)}}</td>
+    <td><button>{{'search.startRequest' | translate}}</button></td>
+  </tr>
+</table>

@@ -21,7 +21,7 @@
     <label><input type="radio" formControlName="sex" value="f">{{ 'user.women' | translate }}</label>
   </div>
   <br>
-  <label>{{ 'user.weight' | translate }}</label><input formControlName="weight">
+  <label>{{ 'user.weight' | translate }}</label><input type="number" formControlName="weight">
   <br>
   <app-validation-feedback *ngIf="(loginForm | hasError:'passwordMismatch')
                                 && loginForm.controls.password.touched && loginForm.controls.passwordRepeat.touched">
