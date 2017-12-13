@@ -50,12 +50,12 @@
         "max-classes-per-file": false,
         "max-line-length": [true, 140],
         "member-ordering": [true,
-            "public-before-private",
+            "public-defaulbefore-private",
             "static-before-instance",
             "variables-before-functions"
         ],
         "no-console": {
-            "options": ["log"]
+            "options": [false]
         },
         "no-switch-case-fall-through": true,
         "strict-boolean-expressions": [true, "allow-boolean-or-undefined"],
@@ -65,6 +65,14 @@
             "check-format",
             "allow-leading-underscore",
             "allow-pascal-case"
-        ]
+        ],
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "no-default-export": false,
+        "object-literal-sort-keys": false,
+        "ban-types": false,
+        "trailing-comma": false
     }
 }

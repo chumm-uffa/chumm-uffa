@@ -11,7 +11,7 @@ services:
     backend:
         image: node:latest
         working_dir: /backend
-        command: /bin/bash -c "npm install && ./node_modules/nodemon/bin/nodemon.js --legacy-watch server.js"
+        command: /bin/bash -c "npm install && ./node_modules/nodemon/bin/nodemon.js --legacy-watch server.ts"
         volumes:
             - ./backend:/backend
         ports:
