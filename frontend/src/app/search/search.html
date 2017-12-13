@@ -1,30 +1,31 @@
 <h2>{{ 'search.title' | translate }}</h2>
 
-<div>
-  <span>{{ 'search.location' | translate }}</span>
-  <label><input type="radio" formControlName="locationType" value="in">{{ 'search.indoorRadio' | translate }}</label>
-  <label><input type="radio" formControlName="locationType" value="out">{{ 'search.outdoorRadio' | translate }}</label>
-  <div *ngIf="isIndoor(); else outdoor">
-    <label>{{'search.indoor' | translate}}</label>
-    <select formControlName="indoor">
-      <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
-    </select>
+<form novalidate [formGroup]="searchForm" (ngSubmit)="startSearch()">
+  <div>
+    <span>{{ 'search.location' | translate }}</span>
+    <label><input type="radio" formControlName="locationType" value="in">{{ 'search.indoorRadio' | translate }}</label>
+    <label><input type="radio" formControlName="locationType" value="out">{{ 'search.outdoorRadio' | translate }}</label>
+    <div *ngIf="isIndoor(); else outdoor">{{'search.indoor' | translate}}
+      <select formControlName="indoor">
+        <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
+      </select>
+    </div>
+    <ng-template #outdoor>{{'search.outdoor' | translate}}<input formControlName="outdoor"></ng-template>
   </div>
-  <ng-template #outdoor><label>{{'search.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
-</div>
-<label>{{'search.from' | translate}} <input type="datetime-local"></label>
-<label>{{'search.to' | translate}} <input type="datetime-local"></label>
-<div>
-  <span>{{ 'search.sex' | translate }}</span>
-  <label><input type="radio" formControlName="sex" value="m">{{ 'search.man' | translate }}</label>
-  <label><input type="radio" formControlName="sex" value="f">{{ 'search.women' | translate }}</label>
-</div>
-<label>{{ 'search.weight' | translate }}</label>
-<label>{{'search.minWeight' | translate}}<input type="number" formControlName="weightMin"></label>
-<label>{{'search.maxWeight' | translate}}<input type="number" formControlName="weightMax"></label>
-<button>{{'search.start' | translate}}</button>
+  <label>{{'search.from' | translate}} <input type="datetime-local" formControlName="fromDateTime"></label>
+  <label>{{'search.to' | translate}} <input type="datetime-local" formControlName="toDateTime"></label>
+  <div>
+    <span>{{ 'search.sex' | translate }}</span>
+    <label><input type="radio" formControlName="sex" value="m">{{ 'search.man' | translate }}</label>
+    <label><input type="radio" formControlName="sex" value="f">{{ 'search.women' | translate }}</label>
+  </div>
+  <label>{{ 'search.weight' | translate }}</label>
+  <label>{{'search.weightMin' | translate}}<input type="number" formControlName="weightMin"></label>
+  <label>{{'search.weightMax' | translate}}<input type="number" formControlName="weightMax"></label>
+  <button>{{'search.start' | translate}}</button>
+</form>
 
-<table>
+<table *ngIf="results.length > 0">
   <tr>
     <th>{{'search.owner' | translate}}</th>
     <th>{{'search.from' | translate}}</th>

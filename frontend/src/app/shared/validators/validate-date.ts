@@ -67,7 +67,7 @@ export function validateTimeBefore(timeBefore: string, timeAfter: string): Valid
   return ((c: FormControl): { [key: string]: any } => {
     const before = c.get(timeBefore).value;
     const after = c.get(timeAfter).value;
-    if (moment(before, 'HH:mm').isAfter(moment(after, 'HH:mm'))) {
+    if (before && after && moment(before, 'HH:mm').isAfter(moment(after, 'HH:mm'))) {
       return Validation.getInvalidObject('timeAfterBefore'); // validation failed
     }
     return null; // validation OK
