@@ -6,6 +6,7 @@ import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
+import {Hall} from './model/hall';
 
 /**
  * Mock for the resource service
@@ -66,6 +67,13 @@ export class MockService implements ResourceServiceInterface {
 
   get users(): User[] {
     return this._users;
+  }
+
+  getHalls(): Observable<Hall[]> {
+    const halls: Hall[] = [];
+    halls.push(new Hall(1, 'Die Kletterhalle (St. Gallen)'));
+    halls.push(new Hall(2, 'Kletterhalle (Winterthur)'));
+    return of(halls);
   }
 
   private generateUsers() {
