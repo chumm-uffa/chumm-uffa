@@ -4,18 +4,21 @@ import {validatePwdsMatch} from '../shared/validators/password-match.validator';
 import {User} from '../core/model/user';
 import {FormUtil} from '../shared/form/form.util';
 import {AppStateService} from '../core/app-state.service';
+import {UserFormService} from './form/user-form.service';
+import {BusinessService} from '../core/business.service';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './registration.html'
+  templateUrl: './user.html'
 })
-export class RegistrationComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   loginForm: FormGroup;
   private user: User;
 
-  constructor( private fB: FormBuilder,
-               private appState: AppStateService) {
+  constructor( private userFormService: UserFormService,
+               private appState: AppStateService,
+               private businessService: BusinessService) {
     if ( appState.isLoggedIn ) {
       this.user = appState.loggedInUser;
     }else {
@@ -24,15 +27,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = this.fB.group({
-      username: [this.user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: '',
-      sex: this.user.sex,
-      email: [this.user.email, [Validators.email]]
-    }, {
-      validator: validatePwdsMatch('password', 'password2')  // Formvalidators -> validate between Fields
-    });
+    this.loginForm = this.userFormService.createForm(this.user);
   }
 
   onClickRegister() {
@@ -41,7 +36,8 @@ export class RegistrationComponent implements OnInit {
       console.log('form value', this.loginForm.value);
       console.log('send data to Service');
       const fb = this.loginForm.value;
-      this.appState.loggedInUser = new User(fb.username, fb.password, fb.sex, fb.email);
+      this.user = this.userFormService.mergeUser(this.loginForm.value, this.user);
+      this.businessService.saveUser(this.user);
     }else {
       console.log('form invald', this.loginForm.errors);
       console.log('form invald', this.loginForm.hasError('passwordMismatch'));

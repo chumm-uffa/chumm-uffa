@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginModule} from './login/login.modul';
-import {RegistrationModule} from './registration/registration.module';
+import {RegistrationModule} from './user/user.module';
 import {APP_BASE_HREF} from '@angular/common';
 import {HomeComponent} from './home/home.component';
 import {MymeetupsComponent} from './mymeetups/mymeetups.component';
