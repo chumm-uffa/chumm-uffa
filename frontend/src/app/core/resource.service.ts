@@ -31,6 +31,8 @@ export interface ResourceServiceInterface {
   createChat(chat: Chat): void;
 
   searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
+
+  requestForParticipation(meetupId: string): Observable<boolean>;
 }
 
 /**
@@ -112,6 +114,10 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean>{
     throw new Error('Method not implemented.');
   }
 }

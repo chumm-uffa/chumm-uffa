@@ -38,6 +38,16 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  requestForParticipation(event, meetupId: string): void {
+    event.stopPropagation();  // prevent link action
+    this.businessService.requestForParticipation(meetupId).subscribe(ack => {
+        // isch da cool?
+        if (ack) {
+          window.alert('Deine Anfrage wurde dem Meetup Owner mitgeteilt.');
+        }
+      });
+  }
+
   isIndoor(): boolean {
     return this.searchForm.get('locationType').value === 'in';
   }

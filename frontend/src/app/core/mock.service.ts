@@ -69,6 +69,10 @@ export class MockService implements ResourceServiceInterface {
     return of(this._meetups);
   }
 
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    return of(true);
+  }
+
   get users(): User[] {
     return this._users;
   }

@@ -42,6 +42,6 @@
     <td>{{meetup.from | dateTimeFormat}}</td>
     <td>{{meetup.to | dateTimeFormat}}</td>
     <td>{{getLocation(meetup)}}</td>
-    <td><button>{{'search.startRequest' | translate}}</button></td>
+    <td><button (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button></td>
   </tr>
 </table>

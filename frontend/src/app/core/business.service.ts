@@ -109,13 +109,17 @@ export class BusinessService {
   }
 
   createChat(message: string, meetupId: string): Chat {
-    const newOne =  new Chat(message, this.appState.loggedInUser, new Date());
+    const newOne = new Chat(message, this.appState.loggedInUser, new Date());
     this.mockService.createChat(newOne);
     return newOne;
   }
 
   searchMeetUp(searchDto: SearchDto): Observable<Meetup[]> {
     return this.mockService.searchMeetup(searchDto);
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    return this.mockService.requestForParticipation(meetupId);
   }
 }
 
