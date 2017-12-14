@@ -32,7 +32,7 @@ export class SearchFormService {
     return form;
   }
 
-  patchToTime(fromDateTimeString: string, form: FormGroup): void {
+  private patchToTime(fromDateTimeString: string, form: FormGroup): void {
 
     const fromDateTime = moment(fromDateTimeString, SearchFormService.DATE_TIME_FORMAT);
     if (fromDateTime.isValid()) {
