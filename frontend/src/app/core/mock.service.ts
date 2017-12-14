@@ -6,6 +6,7 @@ import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
+import {SearchDto} from './model/searchDto';
 
 /**
  * Mock for the resource service
@@ -62,6 +63,10 @@ export class MockService implements ResourceServiceInterface {
 
   createChat(chat: Chat): void {
     this._chats.push(chat);
+  }
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    return of(this._meetups);
   }
 
   get users(): User[] {

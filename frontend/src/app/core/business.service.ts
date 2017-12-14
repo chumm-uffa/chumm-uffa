@@ -9,6 +9,7 @@ import {Hall} from './model/hall';
 import {of} from 'rxjs/observable/of';
 import {User} from './model/user';
 import {Chat} from './model/chat';
+import {SearchDto} from './model/searchDto';
 
 /**
  * Hier kann Businesslogik rein.
@@ -111,6 +112,10 @@ export class BusinessService {
     const newOne =  new Chat(message, this.appState.loggedInUser, new Date());
     this.mockService.createChat(newOne);
     return newOne;
+  }
+
+  searchMeetUp(searchDto: SearchDto): Observable<Meetup[]> {
+    return this.mockService.searchMeetup(searchDto);
   }
 }
 

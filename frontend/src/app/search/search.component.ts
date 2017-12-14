@@ -5,6 +5,7 @@ import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Hall} from '../core/model/hall';
+import {Util} from '../shared/util';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +14,7 @@ import {Hall} from '../core/model/hall';
 })
 export class SearchComponent implements OnInit {
 
-  results: Meetup[] = []
+  results: Meetup[] = [];
   searchForm: FormGroup;
   halls: Hall[] = [];
 
@@ -31,13 +32,17 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.valid && !this.searchForm.pending) {
       console.log('search initiated');
       // this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
-      // this.businessService.saveMeetUp(this.meetup);
-      // this.router.navigate(['/mymeetups']);
-
+      this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups =>
+        this.results = meetups
+      );
     }
   }
 
   isIndoor(): boolean {
     return this.searchForm.get('locationType').value === 'in';
+  }
+
+  getLocation(meetup: Meetup): string {
+    return Util.resolveLocation(meetup, this.halls);
   }
 }
