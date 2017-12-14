@@ -13,7 +13,11 @@
     <ng-template #outdoor>{{'search.outdoor' | translate}}<input formControlName="outdoor"></ng-template>
   </div>
   <label>{{'search.from' | translate}} <input type="datetime-local" formControlName="fromDateTime"></label>
+  <app-validation-feedback *ngIf="searchForm.controls.fromDateTime | hasError:'required'">{{ 'search.error.fromDateTimeRequired' | translate }}</app-validation-feedback>
+  <app-validation-feedback *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</app-validation-feedback>
   <label>{{'search.to' | translate}} <input type="datetime-local" formControlName="toDateTime"></label>
+  <app-validation-feedback *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</app-validation-feedback>
+  <app-validation-feedback *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</app-validation-feedback>
   <div>
     <span>{{ 'search.sex' | translate }}</span>
     <label><input type="radio" formControlName="sex" value="m">{{ 'search.man' | translate }}</label>

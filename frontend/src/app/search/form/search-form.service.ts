@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-import {validateTimeBefore, validateTimeNotBefore} from '../../shared/validators/validate-date';
-import {validateOneOf} from '../../shared/validators/one-of.validator';
+import {validateNotBefore, validateAfterBefore} from '../../shared/validators/validate-date';
 
 @Injectable()
 export class SearchFormService {
 
-  static readonly DATE_FORMAT = 'YYYY-MM-DDTHH:mm';
+  static readonly DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
 
   constructor(private fB: FormBuilder) {
   }
 
   createForm(): FormGroup {
     const form = this.fB.group({
-      fromDateTime: [moment(new Date().getTime()).format(SearchFormService.DATE_FORMAT), [Validators.required, validateTimeNotBefore()]],
+      fromDateTime: [moment(new Date().getTime()).format(SearchFormService.DATE_TIME_FORMAT),
+        [Validators.required, validateNotBefore(SearchFormService.DATE_TIME_FORMAT)]],
       toDateTime: ['', [Validators.required]],
       locationType: 'in',
       indoor: '',
@@ -23,7 +23,7 @@ export class SearchFormService {
       weightMin: '',
       weightMax: ''
     }, {
-      validator: [validateTimeBefore('fromDateTime', 'toDateTime')]
+      validator: [validateAfterBefore(SearchFormService.DATE_TIME_FORMAT, 'fromDateTime', 'toDateTime')]
     });
 
     form.get('fromDateTime').valueChanges.subscribe(value => {
@@ -34,9 +34,9 @@ export class SearchFormService {
 
   patchToTime(fromDateTimeString: string, form: FormGroup): void {
 
-    const fromDateTime = moment(fromDateTimeString, SearchFormService.DATE_FORMAT);
+    const fromDateTime = moment(fromDateTimeString, SearchFormService.DATE_TIME_FORMAT);
     if (fromDateTime.isValid()) {
-      const toDateTime = moment(form.get('toDateTime').value, SearchFormService.DATE_FORMAT);
+      const toDateTime = moment(form.get('toDateTime').value, SearchFormService.DATE_TIME_FORMAT);
       if (!toDateTime.isValid() || toDateTime.isBefore(fromDateTime)) {
         form.get('toDateTime').patchValue(fromDateTimeString);
       }
