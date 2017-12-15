@@ -55,6 +55,10 @@ class App {
         });
         this.express.use(passport.initialize());
         this.express.use(passport.session());
+
+        this.express.get('/', (req, res) => {
+            res.sendFile('index.html',  {root: __dirname + '/'});
+        });
         const pConfig = new PassportConfig(passport);
         pConfig.init();
     }
