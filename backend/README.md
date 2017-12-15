@@ -7,6 +7,7 @@ root:    /api/v1
 
 ## Authentication
 Resoursen für die authentifizierung.
+
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
 |post     |/login                        |login an user
@@ -14,6 +15,7 @@ Resoursen für die authentifizierung.
 
 ## /users
 Resourse im Kontext eines Benutzer
+
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
 |get      |/users                        |get a list of all users                |
@@ -26,6 +28,7 @@ Resourse im Kontext eines Benutzer
 
 ## /meetups
 Resourse im Kontext eines Meetup
+
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
 |get      |/meetups                      |get a list of all meetups              |
@@ -42,6 +45,7 @@ Resourse im Kontext eines Meetup
 
 ## /meetup-requests
 Resourse im Kontext eines Meetup Request
+
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
 |get      |/meetup-requests              |get a list of all meetups-request      |
@@ -52,6 +56,7 @@ Resourse im Kontext eines Meetup Request
 
 ## /halls
 Resource im Kontext von Kletter Hallen
+
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
 |get      |/halls                        |get a list of all halls                |
