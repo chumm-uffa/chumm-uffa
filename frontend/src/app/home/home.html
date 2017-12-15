@@ -2,4 +2,7 @@
 <br>
 <h3>state of App dd:  {{appState}}</h3>
 <br>
-<button (click)="simulateLogin()">Simulate Login</button>
+<div *ngFor="let user of users">
+  <button (click)="simulateLogin(user)">Simulate Login {{user.username}}</button>
+</div>
+

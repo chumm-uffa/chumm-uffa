@@ -1,4 +1,7 @@
 {
+  "ACCEPT": "angenommen",
+  "DECLINED": "abgelehnt",
+  "OPEN": "offen",
   "user": {
     "titleRegistration": "User Registration",
     "titleMutate": "User Profile bearbeiten",
@@ -39,7 +42,33 @@
       "fromTimeInPast": "Beginn muss in der Zukunft sein.",
       "toTimeRequired": "Ende Zeit eingeben.",
       "fromBeforeToTime": "Ende muss nach Beginn sein.",
-      "oneOfAll": "Wähle eine Location"
+      "oneOfAll": "Wähle eine Location."
     }
+  },
+  "meetupDetail": {
+    "title": "Meetup Details",
+    "date": "Datum:",
+    "fromTime": "Beginn:",
+    "toTime": "Ende:",
+    "location": "Austragungsort:",
+    "activity": "Aktivität:",
+    "titleParticipant": "Anfragen",
+    "error": {
+      "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
+    }
+  },
+  "participant": {
+    "accept": "annehmen",
+    "decline": "ablehnen",
+    "sex": "Geschlecht",
+    "weight": "Körpergewicht",
+    "m": "männlich",
+    "w": "weiblich",
+    "kg": "kg"
+  },
+  "chat": {
+    "title": "Chat",
+    "typeMessage": "Neue Nachricht:",
+    "sendMessage": "senden"
   }
 }

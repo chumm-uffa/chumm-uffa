@@ -6,8 +6,8 @@ import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {MeetupRequest} from './model/meetup-request';
 import {Hall} from './model/hall';
-import {of} from 'rxjs/observable/of';
 import {User} from './model/user';
+import {Chat} from './model/chat';
 
 /**
  * Hier kann Businesslogik rein.
@@ -43,6 +43,9 @@ export class BusinessService {
     return this.mockService.getMeetUpRequests(this.appState.loggedInUser);
   }
 
+  /**
+   * @returns {Observable<Hall[]>}
+   */
   getHalls(): Observable<Hall[]> {
     return this.mockService.getHalls();
   }
@@ -62,6 +65,24 @@ export class BusinessService {
     // todo ruf mir den Server
     console.log('saveUser called');
     this.appState.loggedInUser = user;
+  }
+
+  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
+    return this.mockService.loadRequests(meetupId);
+  }
+
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
+    return this.mockService.updateRequest(request);
+  }
+
+  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
+    return this.mockService.loadChatsByMeetupId(meetupId);
+  }
+
+  createChat(message: string, meetupId: string): Chat {
+    const newOne = new Chat(message, this.appState.loggedInUser, new Date());
+    this.mockService.createChat(newOne);
+    return newOne;
   }
 }
 

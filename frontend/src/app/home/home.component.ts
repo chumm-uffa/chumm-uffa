@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {BusinessService} from '../core/business.service';
 import {AppStateService} from '../core/app-state.service';
 import {User} from '../core/model/user';
+import {MockService} from '../core/mock.service';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +11,19 @@ import {User} from '../core/model/user';
 export class HomeComponent {
 
   appState: string;
+  users: User[] = [];
 
   constructor(private businessService: BusinessService,
-              private appstate: AppStateService) {
+              private appstate: AppStateService,
+              private mock: MockService) {
     // to show Service
     businessService.checkAlive().subscribe(state => this.appState = state);
+    this.users = mock.users;
   }
 
-  simulateLogin() {
+  simulateLogin(user) {
     this.appstate.isLoggedIn = true;
-    this.appstate.loggedInUser = new User('WilliCliffhanger', '', 'm');
+    this.appstate.loggedInUser = user;
   }
 
 }

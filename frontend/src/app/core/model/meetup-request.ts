@@ -35,4 +35,8 @@ export class MeetupRequest {
   get status(): RequestStatus {
     return this._status;
   }
+
+  set status(value: RequestStatus) {
+    this._status = value;
+  }
 }

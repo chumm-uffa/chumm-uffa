@@ -4,7 +4,7 @@ import {Hall} from '../core/model/hall';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {Meetup} from '../core/model/meetup';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 
 @Component({
@@ -21,7 +21,8 @@ export class MeetupComponent implements OnInit {
 
   constructor(private businessService: BusinessService,
               private fB: MeetupFormService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -61,16 +62,10 @@ export class MeetupComponent implements OnInit {
   submit(): void {
     FormUtil.markAsTouched(this.form);
     if (this.form.valid && !this.form.pending) {
-      console.log('form value', this.form.value);
-      console.log('send data to Service');
       this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
       this.businessService.saveMeetUp(this.meetup);
-      // todo : sollen wir hier auf myMeetups routen? wäre sinnvoll...
+      this.router.navigate(['/mymeetups']);
 
-    } else {
-      console.log('form invald', this.form.errors);
-      console.log('form invald', this.form.hasError('passwordMismatch'));
-      console.log('form invald', this.form);
     }
   }
 

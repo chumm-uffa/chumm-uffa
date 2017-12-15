@@ -1,14 +1,14 @@
 export class Hall {
 
-  private _key: number;
+  private _key: string;
   private _name: string;
 
-  constructor(key: number, name: string) {
+  constructor(key: string, name: string) {
     this._key = key;
     this._name = name;
   }
 
-  get key(): number {
+  get key(): string {
     return this._key;
   }
 
