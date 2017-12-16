@@ -121,5 +121,9 @@ export class BusinessService {
   requestForParticipation(meetupId: string): Observable<boolean> {
     return this.mockService.requestForParticipation(meetupId);
   }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
+    return this.mockService.deleteMeetup(meetupId);
+  }
 }
 

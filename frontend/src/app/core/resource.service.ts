@@ -33,6 +33,8 @@ export interface ResourceServiceInterface {
   searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
 
   requestForParticipation(meetupId: string): Observable<boolean>;
+
+  deleteMeetup(meetupId: string): Observable<boolean>;
 }
 
 /**
@@ -117,7 +119,11 @@ export class ResourceService implements ResourceServiceInterface {
     throw new Error('Method not implemented.');
   }
 
-  requestForParticipation(meetupId: string): Observable<boolean>{
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
 }

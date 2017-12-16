@@ -25,7 +25,12 @@ export class OwnMeetupsComponent implements OnInit {
     this.businessService.getMeetUps().subscribe(meetups => this.meetups = meetups);
   }
 
-  getLocation(meetUp: Meetup): string {
-    return Util.resolveLocation(meetUp, this.halls);
+  getLocation(meetup: Meetup): string {
+    return Util.resolveLocation(meetup, this.halls);
+  }
+
+  deleteMeetup(event, meetupId: string): void {
+    event.stopPropagation();
+    this.businessService.deleteMeetup(meetupId).subscribe(_ => this.getMeetups());
   }
 }
