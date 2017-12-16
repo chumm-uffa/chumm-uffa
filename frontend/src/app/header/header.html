@@ -1,17 +1,20 @@
-<h1>{{title}}<span>     {{appState.loggedInUser?.username}}</span><button *ngIf="appState.isLoggedIn" (click)="logout()">logout</button>
-  <button (click)="changeLanguage('fr')">franz</button><button (click)="changeLanguage('de')">deutsch</button>
-</h1>
+<h1>{{'header.title' | translate}}<span>     {{appState.loggedInUser?.username}}</span></h1>
+<a routerLink (click)="changeLanguage('de')">{{'header.deutsch' | translate}}</a>
+<a routerLink (click)="changeLanguage('fr')">{{'header.franz' | translate}}</a>
+<button *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</button>
+<br>
+<br>
 <nav>
-  <a routerLink="/">home</a><br>
+  <a routerLink="/">{{'header.link.home' | translate}}</a><br>
   <div *ngIf="appState.isLoggedIn; else publicBlock">
     <!-- place routes here for loggedIn mode-->
-    <a routerLink="/updateuser">update Userprofile</a><br>
-    <a routerLink="/mymeetups">meine MeetUps</a><br>
-    <a routerLink="/meetup">neues Meetup erstellen</a><br>
-    <a routerLink="/meetupsearch">Meetup suchen</a>
+    <a routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a><br>
+    <a routerLink="/mymeetups">{{'header.link.myMeetups' | translate}}</a><br>
+    <a routerLink="/meetup">{{'header.link.newMeetup' | translate}}</a><br>
+    <a routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
   </div>
   <ng-template #publicBlock>
-    <a routerLink="/login">ich will mich einloggen</a><br>
-    <a routerLink="/registration">ich will mich registrieren</a>
+    <a routerLink="/login">{{'header.link.login' | translate}}</a><br>
+    <a routerLink="/registration">{{'header.link.register' | translate}}</a>
   </ng-template>
 </nav>

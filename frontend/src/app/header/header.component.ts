@@ -8,8 +8,6 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class HeaderComponent {
 
-  title = 'Come-up Header';
-
   constructor(private appState: AppStateService,
               private translate: TranslateService) {
   }

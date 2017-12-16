@@ -1,6 +1,5 @@
-<h1>Home</h1>
+<h1>{{'home.title' | translate}}</h1>
 <br>
-<h3>state of App dd:  {{appState}}</h3>
 <br>
 <div *ngFor="let user of users">
   <button (click)="simulateLogin(user)">Simulate Login {{user.username}}</button>

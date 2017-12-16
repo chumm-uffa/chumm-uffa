@@ -13,6 +13,6 @@
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{getLocation(meetup)}}</td>
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.numberOfRequest}}</td>
      <td routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">{{meetup.numberOfParticipant}}</td>
-     <td><a routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">edit</a></td>
+     <td><button routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">edit</button></td>
   </tr>
 </table>

@@ -2,6 +2,24 @@
   "ACCEPT": "angenommen",
   "DECLINED": "abgelehnt",
   "OPEN": "offen",
+  "header": {
+    "title": "Chumm-Uffa",
+    "deutsch": "DE",
+    "franz": "FR",
+    "logout": "abmelden",
+    "link": {
+      "home":"Startseite",
+      "updateUser": "Benutzerprofil",
+      "myMeetups": "Meine Meetups",
+      "newMeetup": "Meetup erstellen",
+      "search": "Suche",
+      "login": "Anmelden",
+      "register": "Registrieren"
+    }
+  },
+  "home": {
+    "title": "Startseite"
+  },
   "user": {
     "titleRegistration": "User Registration",
     "titleMutate": "User Profile bearbeiten",
@@ -93,6 +111,7 @@
     "location_th": "Ort",
     "from_th": "Startzeit",
     "to_th": "Endzeit",
+    "noResults": "Keine passenden Meetups gefunden!",
     "error": {
       "fromDateTimeRequired": "Startzeit eingeben.",
       "toDateTimeRequired": "Endzeit eingeben.",
