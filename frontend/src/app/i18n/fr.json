@@ -70,5 +70,34 @@
     "title": "Chat_FR",
     "typeMessage": "Neue Nachricht:_FR",
     "sendMessage": "senden_FR"
+  },
+  "search": {
+    "title": "Meetup suchen_FR",
+    "location": "Ort:_FR",
+    "indoorRadio": "Indoor_FR",
+    "outdoorRadio": "Outdoor_FR",
+    "indoor": "Halle:_FR",
+    "outdoor": "Ort/Berg:_FR",
+    "from": "Startzeit:_FR",
+    "to": "Endzeit:_FR",
+    "sex": "Geschlecht:_FR",
+    "man": "männlich_FR",
+    "women": "weiblich_FR",
+    "weight": "Körpergewicht:_FR",
+    "weightMin": "ab_FR",
+    "weightMax": "bis_FR",
+    "kg": "kg_FR",
+    "start": "Suchen_FR",
+    "owner": "User_FR",
+    "startRequest": "anfragen_FR",
+    "location_th": "Ort_FR",
+    "from_th": "Startzeit_FR",
+    "to_th": "Endzeit_FR",
+    "error": {
+      "fromDateTimeRequired": "Startzeit eingeben._FR",
+      "toDateTimeRequired": "Endzeit eingeben._FR",
+      "dateTimeInThePast": "Startzeit muss heute oder später sein._FR",
+      "fromBeforeToTime": "Endzeit muss nach der Startzeit sein._FR"
+    }
   }
 }

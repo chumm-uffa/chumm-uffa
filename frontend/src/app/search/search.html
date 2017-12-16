@@ -24,24 +24,26 @@
     <label><input type="radio" formControlName="sex" value="f">{{ 'search.women' | translate }}</label>
   </div>
   <label>{{ 'search.weight' | translate }}</label>
-  <label>{{'search.weightMin' | translate}}<input type="number" formControlName="weightMin"></label>
-  <label>{{'search.weightMax' | translate}}<input type="number" formControlName="weightMax"></label>
+  <label>{{'search.weightMin' | translate}}<input type="number" formControlName="weightMin">{{'search.kg' | translate}}</label>
+  <label>{{'search.weightMax' | translate}}<input type="number" formControlName="weightMax">{{'search.kg' | translate}}</label>
   <button>{{'search.start' | translate}}</button>
 </form>
-
-<table *ngIf="results.length > 0">
-  <tr>
-    <th>{{'search.owner' | translate}}</th>
-    <th>{{'search.from' | translate}}</th>
-    <th>{{'search.to' | translate}}</th>
-    <th>{{'search.location' | translate}}</th>
-    <th>{{'search.startRequest' | translate}}</th>
-  </tr>
-  <tr *ngFor="let meetup of results"  routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">
-    <td>{{ meetup.owner.username }}</td>
-    <td>{{meetup.from | dateTimeFormat}}</td>
-    <td>{{meetup.to | dateTimeFormat}}</td>
-    <td>{{getLocation(meetup)}}</td>
-    <td><button (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button></td>
-  </tr>
-</table>
+<div *ngIf="hasAllreadySearched">
+  <table *ngIf="results.length > 0; else noResult">
+    <tr>
+      <th>{{'search.owner' | translate}}</th>
+      <th>{{'search.from_th' | translate}}</th>
+      <th>{{'search.to_th' | translate}}</th>
+      <th>{{'search.location_th' | translate}}</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let meetup of results"  routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">
+      <td>{{ meetup.owner.username }}</td>
+      <td>{{meetup.from | dateTimeFormat}}</td>
+      <td>{{meetup.to | dateTimeFormat}}</td>
+      <td>{{getLocation(meetup)}}</td>
+      <td><button (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button></td>
+    </tr>
+  </table>
+  <ng-template #noResult><h3>{{'search.noResults' | translate}}</h3></ng-template>
+</div>

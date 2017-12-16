@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   results: Meetup[] = [];
   searchForm: FormGroup;
   halls: Hall[] = [];
+  hasAllreadySearched = false;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService) {
@@ -25,6 +26,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.businessService.getHalls().subscribe(all => this.halls = all);
     this.searchForm = this.searchFormService.createForm();
+    this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
   }
 
   startSearch() {
@@ -32,9 +34,10 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.valid && !this.searchForm.pending) {
       console.log('search initiated');
       // this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
-      this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups =>
-        this.results = meetups
-      );
+      this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups => {
+          this.results = meetups;
+          this.hasAllreadySearched = true;
+        });
     }
   }
 

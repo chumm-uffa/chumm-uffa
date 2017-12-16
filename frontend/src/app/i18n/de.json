@@ -70,5 +70,34 @@
     "title": "Chat",
     "typeMessage": "Neue Nachricht:",
     "sendMessage": "senden"
+  },
+  "search": {
+    "title": "Meetup suchen",
+    "location": "Ort:",
+    "indoorRadio": "Indoor",
+    "outdoorRadio": "Outdoor",
+    "indoor": "Halle:",
+    "outdoor": "Ort/Berg:",
+    "from": "Startzeit:",
+    "to": "Endzeit:",
+    "sex": "Geschlecht:",
+    "man": "männlich",
+    "women": "weiblich",
+    "weight": "Körpergewicht:",
+    "weightMin": "ab",
+    "weightMax": "bis",
+    "kg": "kg",
+    "start": "Suchen",
+    "owner": "User",
+    "startRequest": "anfragen",
+    "location_th": "Ort",
+    "from_th": "Startzeit",
+    "to_th": "Endzeit",
+    "error": {
+      "fromDateTimeRequired": "Startzeit eingeben.",
+      "toDateTimeRequired": "Endzeit eingeben.",
+      "dateTimeInThePast": "Startzeit muss heute oder später sein.",
+      "fromBeforeToTime": "Endzeit muss nach der Startzeit sein."
+    }
   }
 }
