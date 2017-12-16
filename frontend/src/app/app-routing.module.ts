@@ -7,17 +7,18 @@ import {MymeetupsComponent} from './mymeetups/mymeetups.component';
 import {MeetupComponent} from './meetup/meetup.component';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {SearchComponent} from './search/search.component';
+import {AuthGuard} from './core/AuthGuard';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: UserComponent },
-  { path: 'updateuser', component: UserComponent },
-  { path: 'mymeetups', component: MymeetupsComponent },
-  { path: 'meetup', component: MeetupComponent },
-  { path: 'meetupdetail', component: MeetupDetailComponent },
-  { path: 'meetupsearch', component: SearchComponent}
+  { path: 'updateuser', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'mymeetups', component: MymeetupsComponent, canActivate: [AuthGuard] },
+  { path: 'meetup', component: MeetupComponent, canActivate: [AuthGuard] },
+  { path: 'meetupdetail', component: MeetupDetailComponent, canActivate: [AuthGuard] },
+  { path: 'meetupsearch', component: SearchComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
