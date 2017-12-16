@@ -2,7 +2,7 @@
  * chumm-uffa
  */
 import * as express from 'express';
-import {Auth} from './Auth';
+import {Auth} from './auth';
 
 const user = express.Router();
 

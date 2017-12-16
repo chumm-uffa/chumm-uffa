@@ -55,10 +55,6 @@ class App {
         });
         this.express.use(passport.initialize());
         this.express.use(passport.session());
-
-        this.express.get('/', (req, res) => {
-            res.sendFile('index.html',  {root: __dirname + '/'});
-        });
         const pConfig = new PassportConfig(passport);
         pConfig.init();
     }
@@ -74,7 +70,7 @@ class App {
      * API main v1 routes
      */
     private routes(): void {
-        this.express.use('/v1', routers);
+        this.express.use('/api/v1', routers);
         this.express.use('/', (req, res) => {
             res.status(404).send({ error: `path doesn't exist`});
         });

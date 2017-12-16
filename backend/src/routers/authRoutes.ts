@@ -5,8 +5,8 @@ import * as jwt from 'jsonwebtoken';
 
 import { Request, Response, Router } from 'express';
 
-import { User } from '../../models/user';
-import { BaseRoute } from '../BaseRoute';
+import { User } from '../models/user';
+import { BaseRoute } from './baseRoute';
 
 export class Auth extends BaseRoute {
 

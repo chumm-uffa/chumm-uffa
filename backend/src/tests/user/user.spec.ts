@@ -1,36 +1,25 @@
 /**
  * chumm-uffa
  *
- * Unit test for authentication a user
+ * Unit test for users resource
  */
 
 import { BaseTest } from '../BaseTest';
 
-describe('/POST login', () => {
+describe('/POST users', () => {
 
     const test = new BaseTest();
-    let user = {};
+    const random = Math.floor(Math.random() * 1000);
 
-    before(() => {
-        // create test uster for later use
-        test.createTestUser((testUser) => {
-            user = testUser;
-        });
-    });
+    const user = {
+        name: 'test user',
+        email: `test${random}@mailinator.com`,
+        password: '123456'
+    };
 
-    it('it should login and logout the test user', (done) => {
+    it('it should register a new User', (done) => {
         test.chai.request(test.server)
-            .post(`${test.route}login`)
-            .send(user)
-            .end((err, res) => {
-                res.status.should.equal(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('success');
-                res.body.success.should.equal(true);
-                done();
-            });
-        test.chai.request(test.server)
-            .post(`${test.route}logout`)
+            .post(`${test.route}user`)
             .send(user)
             .end((err, res) => {
                 res.status.should.equal(200);
@@ -40,4 +29,19 @@ describe('/POST login', () => {
                 done();
             });
     });
+
+    it('it should return error message', (done) => {
+        test.chai.request(test.server)
+            .post(`${test.route}user`)
+            .send({})
+            .end((err, res) => {
+                res.status.should.equal(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property('success');
+                res.body.success.should.equal(false);
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
 });
