@@ -17,6 +17,7 @@ export class HeaderComponent {
   }
 
   changeLanguage(lang: string) {
+    event.preventDefault();
     this.translate.use(lang);
   }
 

@@ -118,5 +118,18 @@
       "dateTimeInThePast": "Startzeit muss heute oder später sein.",
       "fromBeforeToTime": "Endzeit muss nach der Startzeit sein."
     }
+  },
+  "ownMeetups": {
+    "title": "Meine Meetups",
+    "time": "Wann",
+    "location": "Ort",
+    "requests": "Anfragen",
+    "participants": "Anz. Teilnehmer"
+  },
+  "openRequests": {
+    "title": "Meine Anfragen",
+    "time": "Wann",
+    "location": "Ort",
+    "state": "Status"
   }
 }

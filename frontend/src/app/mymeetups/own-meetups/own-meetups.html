@@ -1,11 +1,11 @@
-<h2>Meine Meetups</h2>
+<h2>{{'ownMeetups.title' | translate}}</h2>
 <table>
   <tr>
     <th></th>
-    <th>Wann</th>
-    <th>Ort</th>
-    <th>Anfragen</th>
-    <th>Teilnehmer</th>
+    <th>{{'ownMeetups.time' | translate}}</th>
+    <th>{{'ownMeetups.location' | translate}}</th>
+    <th>{{'ownMeetups.requests' | translate}}</th>
+    <th>{{'ownMeetups.participants' | translate}}</th>
   </tr>
   <tr *ngFor="let meetup of meetups; let i = index" routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}">
     <td>Meetup {{ i + 1 }}</td>

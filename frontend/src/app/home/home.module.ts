@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {HomeComponent} from './home.component';
 import {CoreModule} from '../core/core.module';
 import {CommonModule} from '@angular/common';
@@ -10,6 +10,11 @@ import {TranslateModule} from '@ngx-translate/core';
   declarations: [
     HomeComponent
   ],
-  imports: [CoreModule, CommonModule, TranslateModule]
+  imports: [
+    CoreModule,
+    CommonModule,
+    TranslateModule
+  ]
 })
-export class HomeModule { }
+export class HomeModule {
+}
