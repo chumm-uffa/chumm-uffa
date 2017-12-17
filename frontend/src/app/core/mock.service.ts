@@ -6,7 +6,7 @@ import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
-import {SearchDto} from './model/searchDto';
+import {Hall} from './model/hall';
 
 /**
  * Mock for the resource service
@@ -65,21 +65,42 @@ export class MockService implements ResourceServiceInterface {
     this._chats.push(chat);
   }
 
-  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
-    return of(this._meetups);
-  }
-
-  requestForParticipation(meetupId: string): Observable<boolean> {
-    return of(true);
-  }
-
-  deleteMeetup(meetupId: string): Observable<boolean> {
-    this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
-    return of(true);
-  }
-
   get users(): User[] {
     return this._users;
+  }
+
+  /**
+   * http://www.kletterhallen.net/Kat/schweiz.php
+   * @returns {Observable<Hall[]>}
+   */
+  getHalls(): Observable<Hall[]> {
+    const halls: Hall[] = [];
+    halls.push(new Hall('1', 'Adelboden - Freizeit- und Sportarena Adelboden'));
+    halls.push(new Hall('2', 'Basel - Kletterhalle 7'));
+    halls.push(new Hall('3', 'Biel - Crux-Bouldering'));
+    halls.push(new Hall('4', 'Chur - Kletterhalle AP n Daun'));
+    halls.push(new Hall('5', 'Davos - Kletterwand Davos'));
+    halls.push(new Hall('6', 'Interlaken - K44 - Kletterhalle Interlaken'));
+    halls.push(new Hall('7', 'küblis - kletterhalle küblis'));
+    halls.push(new Hall('8', 'Küblis - Kletterhalle SAC Prättigau'));
+    halls.push(new Hall('9', 'Langnau - Climbox'));
+    halls.push(new Hall('10', 'Lenzburg - Kraftraktor'));
+    halls.push(new Hall('11', 'Luzern - Kletterhalle Eiselin Luzern'));
+    halls.push(new Hall('12', 'Meiringen - Kletterhalle Haslital'));
+    halls.push(new Hall('13', 'Nidau BE - Sporttreff Ziehl AG'));
+    halls.push(new Hall('14', 'Niederwangen - Magnet'));
+    halls.push(new Hall('15', 'Näfels - Lintharena'));
+    halls.push(new Hall('16', 'Porrentruy - Salle d escalade des Tilleuls'));
+    halls.push(new Hall('17', 'Pratteln - Boulders & Bar'));
+    halls.push(new Hall('18', 'Root Längenbold - Pilatur Indoor Kletterzentrum Zentralschweiz'));
+    halls.push(new Hall('19', 'Schaffhausen - Aranea Kletterzentrum'));
+    halls.push(new Hall('20', 'St. Gallen - Kletterhalle St. Gallen'));
+    halls.push(new Hall('21', 'Taverne - Evolution Center'));
+    halls.push(new Hall('22', 'Thun - Klettertreff Thun'));
+    halls.push(new Hall('23', 'Winterthur - Block Winterthur'));
+    halls.push(new Hall('24', 'Zäziwil - ZäziBoulder'));
+    halls.push(new Hall('25', 'Zürich - Kletterzentrum Gaswerk AG'));
+    return of(halls);
   }
 
   private generateUsers() {
