@@ -23,7 +23,7 @@ export class BaseTest {
 
     constructor() {
         this.server = server.getServerInstance();
-        this.route = `/${process.env.API_VERSION}/`;
+        this.route = `/api/${process.env.API_VERSION}/`;
         this.chai = chai;
         this.chai.use(chaiHttp);
         this.should = chai.should();

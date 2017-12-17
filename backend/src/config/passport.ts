@@ -1,8 +1,8 @@
 /**
  * chumm-uffa
  */
-import { Passport } from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { PassportStatic } from 'passport';
 
 import { User } from '../models/user';
 
@@ -11,7 +11,7 @@ import { User } from '../models/user';
  */
 export class PassportConfig {
 
-    public passport: Passport;
+    public passport: PassportStatic;
 
     constructor(passport: any) {
         this.passport = passport;

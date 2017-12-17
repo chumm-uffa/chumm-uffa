@@ -7,7 +7,7 @@ import { Request, Response, Router } from 'express';
 import { User } from '../models/user';
 import { BaseController } from './baseController';
 
-export class Auth extends BaseController {
+export class AuthController extends BaseController {
 
     /**
      * Regular expression to test mail format
@@ -123,6 +123,6 @@ export class Auth extends BaseController {
      * @param {Response} res
      */
     public profile(req: Request, res: Response){
-
+        res.json({success: true, user: req.body.user});
     }
 }

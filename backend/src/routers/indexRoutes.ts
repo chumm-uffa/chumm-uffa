@@ -1,12 +1,18 @@
 /**
  * chumm-uffa
  */
-import * as express from 'express';
+import {Router} from 'express';
+import {AuthRoutes} from "./authRoutes";
+import {UserRoutes} from "./userRoutes";
+import {BaseRoutes} from "./baseRoutes";
 
-import { default as userRouter } from './user';
+export class IndexRoutes extends BaseRoutes {
+    constructor() {
+        super();
+    }
 
-const api = express.Router();
-
-api.use('/user', userRouter);
-
-export default api;
+    public indexAction(router: Router): void {
+        router.use('/auth', new AuthRoutes().getRoutes());
+        router.use('/users', new UserRoutes().getRoutes());
+    }
+}

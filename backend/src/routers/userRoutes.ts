@@ -1,11 +1,23 @@
 /**
  * chumm-uffa
  */
-import * as express from 'express';
-import {Auth} from './auth';
+import { Request, Response, Router } from 'express';
 
-const user = express.Router();
+import {UserController} from "../controller/userController";
+import {BaseRoutes} from "./baseRoutes";
 
-user.use('/auth', new Auth().getRoutes());
+export class UserRoutes extends BaseRoutes {
+    private controller : UserController;
 
-export default user;
+    constructor() {
+        super();
+        this.controller = new UserController();
+    }
+
+    public detailsAction(router: Router): void {
+        router.get('/:id/', (req: Request, res: Response) => {
+            this.controller.detail(req, res);
+        });
+    }
+
+}

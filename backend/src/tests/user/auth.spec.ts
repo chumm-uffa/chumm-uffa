@@ -20,7 +20,7 @@ describe('/POST login', () => {
 
     it('it should login and logout the test user', (done) => {
         test.chai.request(test.server)
-            .post(`${test.route}login`)
+            .post(`${test.route}auth/login`)
             .send(user)
             .end((err, res) => {
                 res.status.should.equal(200);
@@ -30,7 +30,7 @@ describe('/POST login', () => {
                 done();
             });
         test.chai.request(test.server)
-            .post(`${test.route}logout`)
+            .post(`${test.route}auth/logout`)
             .send(user)
             .end((err, res) => {
                 res.status.should.equal(200);

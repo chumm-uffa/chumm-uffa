@@ -9,7 +9,7 @@ import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 
-import {default as routers } from './routers';
+import { IndexRoutes } from './routers/indexRoutes';
 
 import { PassportConfig } from './config/passport';
 
@@ -70,12 +70,16 @@ class App {
      * API main v1 routes
      */
     private routes(): void {
-        this.express.use('/api/v1', routers);
+        const router = express.Router();
+//        router.post("/api/v1/auth/login", (req, res) => {
+//            res.status(404).send({ error: `/vi/auth foud`});
+//        });
+//        this.express.use('/', router);
+        this.express.use('/api/v1', new IndexRoutes().getRoutes());
         this.express.use('/', (req, res) => {
-            res.status(404).send({ error: `path doesn't exist`});
+            res.status(404).send({ error: `path doesn't exist ssss`});
         });
     }
-
 }
 
 export default new App().express;

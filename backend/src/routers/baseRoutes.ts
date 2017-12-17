@@ -6,7 +6,7 @@ import * as winston from 'winston';
 
 import { guard } from '../middleware/guard';
 
-export abstract class BaseRoute {
+export abstract class BaseRoutes {
 
     private readonly _registeredMethodEnding = 'Action';
     public router: Router;
@@ -16,7 +16,6 @@ export abstract class BaseRoute {
     constructor() {
         this.guard = guard;
         this.logger = winston;
-        this.onInit();
         this.router = Router();
         this.initRoutes();
     }
@@ -38,8 +37,6 @@ export abstract class BaseRoute {
         }
         return methods;
     }
-
-    protected onInit(): void {}
 
     private initRoutes(): void {
         const methods = this.getRouterMethodNames(this);
