@@ -1,4 +1,4 @@
-<h1>{{'header.title' | translate}}<span>     {{appState.loggedInUser?.username}}</span></h1>
+<h1>{{'header.title' | translate}}<span>{{appState.loggedInUser?.username}}</span></h1>
 <a href="#" (click)="changeLanguage('de', $event)">{{'header.deutsch' | translate}}</a>
 <a href="#" (click)="changeLanguage('fr', $event)">{{'header.franz' | translate}}</a>
 <button *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</button>
