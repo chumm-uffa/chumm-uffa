@@ -9,9 +9,11 @@ import { mongoose } from '../../app';
  * The User document interface
  */
 export interface IUser extends Document {
-    name: string;
+    username: string;
     email: string;
     password: string;
+    sex?: string;
+    weight?: string;
 }
 
 /**
@@ -28,7 +30,7 @@ export interface IUserModel extends Model<IUser> {
  * @type {"mongoose".Schema}
  */
 const userSchema = new Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },
@@ -39,6 +41,12 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    sex: {
+        type: String
+    },
+    weight: {
+        type: String
     },
     createAt: {
         type: Date,

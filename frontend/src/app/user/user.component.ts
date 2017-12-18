@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
       console.log('send data to Service');
       const fb = this.loginForm.value;
       this.user = this.userFormService.mergeUser(this.loginForm.value, this.user);
-      this.businessService.saveUser(this.user);
+      this.businessService.register(this.user);
     }else {
       console.log('form invald', this.loginForm.errors);
       console.log('form invald', this.loginForm.hasError('passwordMismatch'));

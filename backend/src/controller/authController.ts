@@ -66,7 +66,7 @@ export class AuthController extends BaseController {
      * @param {Response} res
      */
     public register(req: Request, res: Response){
-        const name = req.body.name;
+        const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
 
@@ -79,7 +79,7 @@ export class AuthController extends BaseController {
         User.findByEmail(email).then((user) => {
             if (!user) {
                 const newUser = new User({
-                    name : name,
+                    username : username,
                     email: email,
                     password: password
                 });

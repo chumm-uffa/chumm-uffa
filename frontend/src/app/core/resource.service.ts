@@ -15,6 +15,8 @@ export interface ResourceServiceInterface {
 
   newAlive(): Observable<string>;
 
+  saveUser(user: User): Observable<User>;
+
   getMeetUps(user: User): Observable<Meetup[]>;
 
   getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
@@ -36,7 +38,7 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = 'http://localhost:8080/api/alive';
+  private urlDemo = 'http://localhost:4200/api/v1/';
 
   constructor(private http: HttpClient) {
   }
@@ -57,6 +59,15 @@ export class ResourceService implements ResourceServiceInterface {
    */
   newAlive(): Observable<string> {
     return this.http.post<string>(this.urlDemo, {text: 'Is Server Alive?'});
+  }
+
+  /**
+   * Register a new user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  saveUser(user: User): Observable<User> {
+    return this.http.post<User>(this.urlDemo + 'auth/register', { username: user.username, email: user.email, password: user.password});
   }
 
   /**

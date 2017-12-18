@@ -30,7 +30,7 @@ export class BaseTest {
     public createTestUser() {
         const random = Math.floor(Math.random() * 100000);
         const testUser = {
-            name: 'test user login',
+            username: 'test user login',
             email: `test${random}@mailinator.com`,
             password: 'loginpw'
         };

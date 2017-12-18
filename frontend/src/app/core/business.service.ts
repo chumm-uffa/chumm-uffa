@@ -61,10 +61,10 @@ export class BusinessService {
     return this.mockService.loadMeetup(meetupId);
   }
 
-  saveUser(user: User): void {
-    // todo ruf mir den Server
-    console.log('saveUser called');
-    this.appState.loggedInUser = user;
+  register(user: User): void {
+    this.resourceService.saveUser(user).subscribe( newUser => {
+      this.appState.loggedInUser = newUser;
+    });
   }
 
   loadRequests(meetupId: string): Observable<MeetupRequest[]> {

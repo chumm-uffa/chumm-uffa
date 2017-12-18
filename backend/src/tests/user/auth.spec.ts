@@ -10,30 +10,30 @@ describe('/POST login', () => {
 
     const baseTest: BaseTest = new BaseTest();
 
-    it('it should register the test user', (done) => {
+    it('it should saveUser the test user', (done) => {
         const testUser = baseTest.createTestUser();
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({name: testUser.name, email: testUser.email, password: testUser.password})
+            .send({username: testUser.username, email: testUser.email, password: testUser.password})
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 done();
             });
     });
 
-    it('two times register the test user must fail the second time', (done) => {
+    it('two times saveUser the test user must fail the second time', (done) => {
         const testUser = baseTest.createTestUser();
-        // First register
+        // First saveUser
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({name: testUser.name, email: testUser.email, password: testUser.password})
+            .send({username: testUser.username, email: testUser.email, password: testUser.password})
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
-                // second register
+                // second saveUser
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/register`)
-                    .send({name: testUser.name, email: testUser.email, password: testUser.password})
+                    .send({username: testUser.username, email: testUser.email, password: testUser.password})
                     .end((err, res) => {
                         baseTest.assertFailed(res, 400, 'this email address has already been taken.');
                         done();
@@ -42,12 +42,12 @@ describe('/POST login', () => {
             });
     });
 
-    it('it should register, login, getting profile of the test user and logout again', (done) => {
+    it('it should saveUser, login, getting profile of the test user and logout again', (done) => {
         const testUser = baseTest.createTestUser();
-        // First register test user
+        // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({name: testUser.name, email: testUser.email, password: testUser.password})
+            .send({username: testUser.username, email: testUser.email, password: testUser.password})
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
@@ -102,7 +102,7 @@ describe('/POST login', () => {
         const testUser = baseTest.createTestUser();
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({name: testUser.name, email: testUser.email, password: testUser.password})
+            .send({username: testUser.username, email: testUser.email, password: testUser.password})
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 baseTest.chai.request(baseTest.server)

@@ -17,10 +17,12 @@ describe('/POST users', () => {
         password: '123456'
     };
 
-    it('it should register a new User', (done) => {
+    it('it should saveUser a new User', (done) => {
+        done();
     });
 
     it('it should return error message', (done) => {
+        done();
     });
 
 });
