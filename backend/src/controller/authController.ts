@@ -21,20 +21,18 @@ export class AuthController extends BaseController {
      * @param {Response} res
      */
     public login(req: Request, res: Response) {
-        const email = req.body.email;
-
         // Test email format
-        if (!this.regExMail.test(email)) {
+        if (!this.regExMail.test(req.body.email)) {
             res.status(400);
             res.json({success: false, message: 'wrong input.'});
         }
 
         // Find user via email
-        User.findByEmail(email, (err, user) => {
+        User.findByEmail(req.body.email, (err, user) => {
             if (user) {
-                User.comparePassword(req.body.password, user.password, (compareErr, isMatch) => {
-                    if (compareErr) {
-                        this.logger.error(compareErr.toString());
+                User.comparePassword(req.body.password, user.password, (err, isMatch) => {
+                    if (err) {
+                        this.logger.error(err.toString());
                         res.status(500);
                         res.json({success: false, message: 'something went wrong.'});
                         return;
@@ -44,7 +42,7 @@ export class AuthController extends BaseController {
                         const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
                             expiresIn: 604800 // 1 week
                         });
-                        res.json({success: true, token: { token }, message: 'successfully logged in'});
+                        res.json({success: true, token: token, message: 'successfully logged in'});
                         return;
                     }
 
@@ -52,8 +50,8 @@ export class AuthController extends BaseController {
                     res.json({success: false, token: null, message: 'wrong credentials.'});
                 });
             } else {
-                res.status(200);
-                res.json({success: false, token: null, message: 'wrong credentials.'});
+                res.status(400);
+                res.json({success: false, token: null, message: 'user not exists.'});
             }
         });
 
@@ -100,9 +98,9 @@ export class AuthController extends BaseController {
                     password: password
                 });
 
-                User.createUser(newUser, (createErr, createdUser) => {
-                    if (createErr) {
-                        this.logger.error(createErr.toString());
+                User.createUser(newUser, (err, createdUser) => {
+                    if (err) {
+                        this.logger.error(err.toString());
                         res.status(500);
                         res.json({success: false, message: 'something went wrong.'});
                     } else {

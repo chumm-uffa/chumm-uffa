@@ -58,6 +58,15 @@ userSchema.static('comparePassword', (candidatePassword: string, hash: string, c
     });
 });
 
+userSchema.methods.comparePassword = (email: string, candidatePassword: string, callback: Function) => {
+    User.findByEmail(email, (err, user) => {
+        bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+            if (err) { throw err; }
+            callback(null, isMatch);
+        });
+    });
+}
+
 userSchema.static('findByEmail', (email: string, callback: Function) => {
     User.findOne({email: email}, callback);
 });

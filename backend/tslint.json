@@ -73,6 +73,7 @@
         "no-default-export": false,
         "object-literal-sort-keys": false,
         "ban-types": false,
-        "trailing-comma": false
+        "trailing-comma": false,
+        "no-shadowed-variable": false
     }
 }

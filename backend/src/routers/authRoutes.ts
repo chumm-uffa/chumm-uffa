@@ -3,12 +3,12 @@
  */
 import { Request, Response, Router } from 'express';
 
+import { AuthController } from '../controller/authController';
 import { BaseRoutes } from './baseRoutes';
-import {AuthController} from "../controller/authController";
 
 export class AuthRoutes extends BaseRoutes {
 
-    private controller : AuthController;
+    private controller: AuthController;
 
     constructor() {
         super();
@@ -18,6 +18,12 @@ export class AuthRoutes extends BaseRoutes {
     public loginAction(router: Router): void {
         router.post('/login', (req: Request, res: Response) => {
             this.controller.login(req, res);
+        });
+    }
+
+    public logoutAction(router: Router): void {
+        router.get('/logout', (req: Request, res: Response) => {
+            this.controller.logout(req, res);
         });
     }
 

@@ -15,33 +15,52 @@ export class BaseTest {
     public route: string;
     public server: any;
 
-    private user = {
-        name: 'test user login',
-        email: `test@login.com`,
-        password: 'login'
-    };
-
     constructor() {
         this.server = server.getServerInstance();
         this.route = `/api/${process.env.API_VERSION}/`;
         this.chai = chai;
         this.chai.use(chaiHttp);
         this.should = chai.should();
+        this.createTestUser();
     }
 
     /**
-     * creates a test user for later test
+     * creates a new test user for later test
      */
-    public createTestUser(callback: Function): void {
-        this.chai.request(this.server)
-            .post(`${this.route}user`)
-            .send(this.user)
-            .end((err, res) => {
-                res.status.should.equal(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('success');
-                res.body.success.should.equal(true);
-                callback(this.user);
-            });
+    public createTestUser() {
+        const random = Math.floor(Math.random() * 100000);
+        const testUser = {
+            name: 'test user login',
+            email: `test${random}@mailinator.com`,
+            password: 'loginpw'
+        };
+        return testUser;
+    }
+
+    /**
+     * Helper to test successfully response
+     * @param res the response received
+     */
+    public assertSuccess(res) {
+        res.status.should.equal(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success');
+        res.body.success.should.equal(true);
+    }
+
+    /**
+     * Helper to test failed response with given status
+     * @param res the response received
+     * @param status the expected status
+     */
+    public assertFailed(res, status: number, message: string) {
+        res.status.should.equal(status);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success');
+        res.body.success.should.equal(false);
+        if (message.length > 0) {
+            res.body.should.have.property('message');
+            res.body.message.should.equal(message);
+        }
     }
 }
