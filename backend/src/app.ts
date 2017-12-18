@@ -13,6 +13,8 @@ import { IndexRoutes } from './routers/indexRoutes';
 
 import { PassportConfig } from './config/passport';
 
+import { Mockgoose } from 'mockgoose-fix';
+
 class App {
 
     public express: express.Application;
@@ -29,11 +31,21 @@ class App {
      * database connection
      */
     private database(): void {
-        mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
-        mongoose.connection.on('error', () => {
-            console.log('MongoDB connection error. Please make sure MongoDB is running.');
-            process.exit();
-        });
+        if (process.env.NODE_ENV === 'testing') {
+            const mockgoose = new Mockgoose(mongoose);
+            mockgoose.helper.setDbVersion('4.13.6');
+            mockgoose.prepareStorage().then((): void => {
+                mongoose.connect('mongodb://example.com/TestingDB', {
+                    useMongoClient: true,
+                });
+            });
+        } else {
+            mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+            mongoose.connection.on('error', () => {
+                console.log('MongoDB connection error. Please make sure MongoDB is running.');
+                process.exit();
+            });
+        }
     }
 
     /**
@@ -71,10 +83,6 @@ class App {
      */
     private routes(): void {
         const router = express.Router();
-//        router.post("/api/v1/auth/login", (req, res) => {
-//            res.status(404).send({ error: `/vi/auth foud`});
-//        });
-//        this.express.use('/', router);
         this.express.use('/api/v1', new IndexRoutes().getRoutes());
         this.express.use('/', (req, res) => {
             res.status(404).send({ error: `path doesn't exist ssss`});
@@ -83,3 +91,4 @@ class App {
 }
 
 export default new App().express;
+export { mongoose };

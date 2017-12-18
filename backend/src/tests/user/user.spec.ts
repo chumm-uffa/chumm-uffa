@@ -18,30 +18,9 @@ describe('/POST users', () => {
     };
 
     it('it should register a new User', (done) => {
-        test.chai.request(test.server)
-            .post(`${test.route}user`)
-            .send(user)
-            .end((err, res) => {
-                res.status.should.equal(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('success');
-                res.body.success.should.equal(true);
-                done();
-            });
     });
 
     it('it should return error message', (done) => {
-        test.chai.request(test.server)
-            .post(`${test.route}user`)
-            .send({})
-            .end((err, res) => {
-                res.status.should.equal(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('success');
-                res.body.success.should.equal(false);
-                res.body.should.have.property('message');
-                done();
-            });
     });
 
 });

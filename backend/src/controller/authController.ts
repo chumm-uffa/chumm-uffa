@@ -4,11 +4,10 @@
 import * as jwt from 'jsonwebtoken';
 
 import { Request, Response, Router } from 'express';
-import { User } from '../models/user';
+import { User } from '../models/user/model';
 import { BaseController } from './baseController';
 
 export class AuthController extends BaseController {
-
     /**
      * Regular expression to test mail format
      * @type {RegExp}
@@ -28,33 +27,27 @@ export class AuthController extends BaseController {
         }
 
         // Find user via email
-        User.findByEmail(req.body.email, (err, user) => {
+        User.findByEmail(req.body.email).then((user) => {
             if (user) {
-                User.comparePassword(req.body.password, user.password, (err, isMatch) => {
-                    if (err) {
-                        this.logger.error(err.toString());
-                        res.status(500);
-                        res.json({success: false, message: 'something went wrong.'});
-                        return;
-                    }
-
-                    if (isMatch) {
-                        const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
-                            expiresIn: 604800 // 1 week
-                        });
-                        res.json({success: true, token: token, message: 'successfully logged in'});
-                        return;
-                    }
-
-                    res.status(400);
-                    res.json({success: false, token: null, message: 'wrong credentials.'});
-                });
+                if (User.comparePassword(req.body.password, user.password)) {
+                    const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
+                        expiresIn: 604800 // 1 week
+                    });
+                    res.json({success: true, token: token, message: 'successfully logged in'});
+                    return;
+                }
+                res.status(400);
+                res.json({success: false, token: null, message: 'wrong credentials.'});
+                return;
             } else {
                 res.status(400);
                 res.json({success: false, token: null, message: 'user not exists.'});
             }
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json({success: false, message: 'something went wrong.'});
         });
-
     }
 
     /**
@@ -83,14 +76,7 @@ export class AuthController extends BaseController {
             return;
         }
 
-        User.findByEmail(email, (err, user) => {
-            if (err) {
-                this.logger.error(err.toString());
-                res.status(500);
-                res.json({success: false, message: 'something went wrong.'});
-                return;
-            }
-
+        User.findByEmail(email).then((user) => {
             if (!user) {
                 const newUser = new User({
                     name : name,
@@ -98,20 +84,24 @@ export class AuthController extends BaseController {
                     password: password
                 });
 
-                User.createUser(newUser, (err, createdUser) => {
-                    if (err) {
-                        this.logger.error(err.toString());
-                        res.status(500);
-                        res.json({success: false, message: 'something went wrong.'});
-                    } else {
-                        res.json({success: true, message: 'user created.'});
-                    }
+                User.createUser(newUser).then((result) => {
+                    res.json({success: true, message: 'user created.'});
+                }).catch((err) => {
+                    this.logger.error(err.toString());
+                    res.status(500);
+                    res.json({success: false, message: 'something went wrong.'});
                 });
                 return;
             }
 
             res.status(400);
             res.json({success: false, message: 'this email address has already been taken.'});
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json({success: false, message: 'something went wrong.'});
+            return;
         });
     }
 

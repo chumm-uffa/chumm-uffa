@@ -2,9 +2,10 @@
  * chumm-uffa
  */
 import { ExtractJwt, Strategy } from 'passport-jwt';
+
 import { PassportStatic } from 'passport';
 
-import { User } from '../models/user';
+import { User } from '../models/user/model';
 
 /**
  * passport jwt configuration
