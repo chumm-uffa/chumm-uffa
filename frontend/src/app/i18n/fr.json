@@ -1,5 +1,8 @@
 {
-  "registraion": {
+  "ACCEPT": "angenommen_FR",
+  "DECLINED": "abgelehnt_FR",
+  "OPEN": "offen_FR",
+  "user": {
     "titleRegistration": "User Registration_FR",
     "titleMutate": "User Profile bearbeiten_FR",
     "name": "Name_FR: ",
@@ -10,11 +13,62 @@
     "registerUser": "Benutzer erstellen_FR",
     "man": "Mann_FR",
     "women": "Frau_FR",
+    "weight": "Körpergewicht_FR: ",
     "error": {
       "nameRequired": "Namen eingeben_FR",
       "nameMinLength": "Name muss min 2 Zeichen haben_FR",
       "email": "ungültiges Emailformat_FR",
       "differentPasswords": "die Passwortwiederholung weicht ab_FR"
     }
+  },
+  "meetup": {
+    "titleMutate": "Meetup mutieren_FR",
+    "titleCreate": "Meetup erstellen_FR",
+    "date": "Datum:_FR",
+    "time": "Zeit:_FR",
+    "fromTime": "Beginn_FR",
+    "toTime": "Ende_FR",
+    "location": "Ort:_FR",
+    "indoor": "Halle:_FR",
+    "indoorRadio": "Indoor_FR",
+    "outdoor": "Ort/Berg:v",
+    "outdoorRadio": "Outdoor_FR",
+    "activity": "Activity:_FR",
+    "submit": "speichern_FR",
+    "error": {
+      "dateRequired": "Datum eingeben._FR",
+      "dateInThePast": "Datum muss heute oder später sein._FR",
+      "fromTimeRequired": "Beginn Zeit eingeben._FR",
+      "fromTimeInPast": "Beginn muss in der Zukunft sein._FR",
+      "toTimeRequired": "Ende Zeit eingeben._FR",
+      "fromBeforeToTime": "Ende muss nach Beginn sein._FR",
+      "oneOfAll": "Wähle eine Location_FR"
+    }
+  },
+  "meetupDetail": {
+    "title": "Meetup Details_FR",
+    "date": "Datum:_FR",
+    "fromTime": "Beginn:_FR",
+    "toTime": "Ende:_FR",
+    "location": "Austragungsort:_FR",
+    "activity": "Aktivität:_FR",
+    "titleParticipant": "Anfragen _FR",
+    "error": {
+      "meetupNotFound": "Das Meetup konnte nicht gefunden werden!_FR"
+    }
+  },
+  "participant": {
+    "accept": "annehmen_FR",
+    "decline": "ablehnen_FR",
+    "sex": "Geschlecht_FR",
+    "weight": "Körpergewicht_FR",
+    "m": "männlich_FR",
+    "w": "weiblich_FR",
+    "kg": "kg_FR"
+  },
+  "chat": {
+    "title": "Chat_FR",
+    "typeMessage": "Neue Nachricht:_FR",
+    "sendMessage": "senden_FR"
   }
 }

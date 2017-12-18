@@ -1,0 +1,11 @@
+<div class="participant">
+  <label>{{meetupRequest.participant.username}}</label>
+  <label>{{meetupRequest.status | translate}}</label>
+  <button *ngIf="showStateButtons" (click)="setState(requestStatus.ACCEPT)">{{'participant.accept' | translate}}</button>
+  <button *ngIf="showStateButtons" (click)="setState(requestStatus.DECLINED)"> {{'participant.decline' | translate}}</button>
+</div>
+
+<div class="details">
+  <label>{{'participant.sex' | translate}}  {{('participant.' + meetupRequest.participant.sex) | translate}}</label>
+  <label>{{'participant.weight' | translate}}  {{meetupRequest.participant.weight}} {{'participant.kg' | translate}}</label>
+</div>

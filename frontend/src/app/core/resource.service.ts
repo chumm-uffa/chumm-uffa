@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Meetup} from './model/meetup';
 import {MeetupRequest} from './model/meetup-request';
 import {User} from './model/user';
+import {Chat} from './model/chat';
 
 
 /**
@@ -11,31 +12,43 @@ import {User} from './model/user';
  */
 export interface ResourceServiceInterface {
   checkAlive(): Observable<string>;
+
   newAlive(): Observable<string>;
+
   getMeetUps(user: User): Observable<Meetup[]>;
+
   getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
+
+  loadMeetup(meetupId: string): Observable<Meetup>;
+
+  loadRequests(meetupId: string): Observable<MeetupRequest[]>;
+
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest>;
+
+  loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
+
+  createChat(chat: Chat): void;
 }
 
 /**
  * Hier sollen alle REST Aufrufe zum Server rein
  */
 @Injectable()
-export class ResourceService implements ResourceServiceInterface{
+export class ResourceService implements ResourceServiceInterface {
 
   private urlDemo = 'http://localhost:8080/api/alive';
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * Demo Inject Service
    * @returns {Observable<string>}
    */
   checkAlive(): Observable<string> {
-      return Observable.create(function(observer) {
-        observer.next('i am alive');
-      });
+    return Observable.create(function (observer) {
+      observer.next('i am alive');
+    });
   }
 
   /**
@@ -60,5 +73,38 @@ export class ResourceService implements ResourceServiceInterface{
    */
   getMeetUpRequests(user: User): Observable<MeetupRequest[]> {
     return null;
+  }
+
+  saveMeetup(meetup: Meetup): void {
+    console.log('not yet implemented saveMeetup()');
+    console.log('meetup to string ', meetup);
+  }
+
+  loadMeetup(meetupId: string): Observable<Meetup> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Das Meetup im Request Objekt müsste nicht geladen werden.
+   * @param {string} meetupId
+   * @returns {Observable<MeetupRequest[]>}
+   */
+  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
+   */
+  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
+    throw new Error('Method not implemented.');
+  }
+
+  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  createChat(chat: Chat): void {
+    throw new Error('Method not implemented.');
   }
 }

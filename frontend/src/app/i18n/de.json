@@ -1,5 +1,8 @@
 {
-  "registraion": {
+  "ACCEPT": "angenommen",
+  "DECLINED": "abgelehnt",
+  "OPEN": "offen",
+  "user": {
     "titleRegistration": "User Registration",
     "titleMutate": "User Profile bearbeiten",
     "name": "Name: ",
@@ -10,11 +13,62 @@
     "registerUser": "Benutzer erstellen",
     "man": "Mann",
     "women": "Frau",
+    "weight": "Körpergewicht: ",
     "error": {
       "nameRequired": "Namen eingeben",
       "nameMinLength": "Name muss min 2 Zeichen haben",
       "email": "ungültiges Emailformat",
       "differentPasswords": "die Passwortwiederholung weicht ab"
     }
+  },
+  "meetup": {
+    "titleMutate": "Meetup mutieren",
+    "titleCreate": "Meetup erstellen",
+    "date": "Datum:",
+    "time": "Zeit:",
+    "fromTime": "Beginn",
+    "toTime": "Ende",
+    "location": "Ort:",
+    "indoor": "Halle:",
+    "indoorRadio": "Indoor",
+    "outdoor": "Ort/Berg:",
+    "outdoorRadio": "Outdoor",
+    "activity": "Activity:",
+    "submit": "speichern",
+    "error": {
+      "dateRequired": "Datum eingeben.",
+      "dateInThePast": "Datum muss heute oder später sein.",
+      "fromTimeRequired": "Beginn Zeit eingeben.",
+      "fromTimeInPast": "Beginn muss in der Zukunft sein.",
+      "toTimeRequired": "Ende Zeit eingeben.",
+      "fromBeforeToTime": "Ende muss nach Beginn sein.",
+      "oneOfAll": "Wähle eine Location."
+    }
+  },
+  "meetupDetail": {
+    "title": "Meetup Details",
+    "date": "Datum:",
+    "fromTime": "Beginn:",
+    "toTime": "Ende:",
+    "location": "Austragungsort:",
+    "activity": "Aktivität:",
+    "titleParticipant": "Anfragen",
+    "error": {
+      "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
+    }
+  },
+  "participant": {
+    "accept": "annehmen",
+    "decline": "ablehnen",
+    "sex": "Geschlecht",
+    "weight": "Körpergewicht",
+    "m": "männlich",
+    "w": "weiblich",
+    "kg": "kg"
+  },
+  "chat": {
+    "title": "Chat",
+    "typeMessage": "Neue Nachricht:",
+    "sendMessage": "senden"
   }
 }

@@ -1,0 +1,32 @@
+<h2>
+  <div *ngIf="appState.isLoggedIn; else doRegistration">{{ 'user.titleMutate' | translate }}</div>
+  <ng-template #doRegistration>{{ 'user.titleRegistration' | translate }}</ng-template>
+</h2>
+
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onClickRegister()">
+  <label>{{ 'user.name' | translate }}<input formControlName="username"></label>
+  <app-validation-feedback *ngIf="loginForm.controls.username | hasError:'required'">{{ 'user.error.nameRequired' | translate }}</app-validation-feedback> <!-- spezifische Validierungs Fehler -->
+  <app-validation-feedback *ngIf="loginForm.controls.username | hasError:'minlength'">{{ 'user.error.nameMinLength' | translate }}</app-validation-feedback>
+  <br>
+  <label>{{ 'user.password' | translate }}</label><input formControlName="password">
+  <app-validation-feedback *ngIf="loginForm.controls.password | hasSomeError">irgendein Fehler</app-validation-feedback> <!-- irgend ein Validierungs Fehler -->
+  <br>
+  <label>{{ 'user.repeatPass' | translate }}</label><input formControlName="passwordRepeat">
+  <br>
+  <label>{{ 'user.email' | translate }}</label><input formControlName="email">
+  <app-validation-feedback *ngIf="loginForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</app-validation-feedback>
+  <div>
+    <span>{{ 'user.sex' | translate }}</span>
+    <label><input type="radio" formControlName="sex" value="m">{{ 'user.man' | translate }}</label>
+    <label><input type="radio" formControlName="sex" value="f">{{ 'user.women' | translate }}</label>
+  </div>
+  <br>
+  <label>{{ 'user.weight' | translate }}</label><input formControlName="weight">
+  <br>
+  <app-validation-feedback *ngIf="(loginForm | hasError:'passwordMismatch')
+                                && loginForm.controls.password.touched && loginForm.controls.passwordRepeat.touched">
+    {{ 'user.error.differentPasswords' | translate }}
+  </app-validation-feedback>
+  <button type="submit">{{ 'user.registerUser' | translate }}</button>
+</form>
+

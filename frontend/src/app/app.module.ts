@@ -4,10 +4,12 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginModule} from './login/login.modul';
-import {RegistrationModule} from './registration/registration.module';
+import {RegistrationModule} from './user/user.module';
 import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {MeetupModule} from './meetup/meetup.module';
+import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {TranslateModule} from '@ngx-translate/core';
     RegistrationModule,
     HomeModule,
     MymeetupsModule,
+    MeetupModule,
+    MeetupDetailModule,
     TranslateModule.forRoot()
   ],
   providers: [],

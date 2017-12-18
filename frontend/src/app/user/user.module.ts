@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import {RegistrationComponent} from './registration.component';
+import {UserComponent} from './user.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {UserFormService} from './form/user-form.service';
 
 
 
@@ -12,7 +13,8 @@ import {TranslateModule} from '@ngx-translate/core';
     ReactiveFormsModule, CommonModule, SharedModule, TranslateModule
   ],
   declarations: [
-    RegistrationComponent
-  ]
+    UserComponent
+  ],
+  providers: [UserFormService]
 })
 export class RegistrationModule { }
