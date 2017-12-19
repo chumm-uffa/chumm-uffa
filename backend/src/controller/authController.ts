@@ -70,7 +70,7 @@ export class AuthController extends BaseController {
         const email = req.body.email;
         const password = req.body.password;
 
-        if (!name || !this.regExMail.test(email) || !password || password.length < 6) {
+        if (!username || !this.regExMail.test(email) || !password || password.length < 6) {
             res.status(400);
             res.json({success: false, message: 'wrong input.'});
             return;

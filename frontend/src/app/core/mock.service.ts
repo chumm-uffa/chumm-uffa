@@ -38,7 +38,11 @@ export class MockService implements ResourceServiceInterface {
     return of(user);
   }
 
-  getMeetUps(user: User): Observable<Meetup[]> {
+  login(email: string, password): Observable<User> {
+    return of(new User());
+  }
+
+    getMeetUps(user: User): Observable<Meetup[]> {
     return of(this._meetups.filter(meetup => meetup.owner.username === user.username));
   }
 

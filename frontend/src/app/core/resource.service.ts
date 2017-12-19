@@ -17,6 +17,8 @@ export interface ResourceServiceInterface {
 
   saveUser(user: User): Observable<User>;
 
+  login(username: string, password: string): Observable<User>;
+
   getMeetUps(user: User): Observable<Meetup[]>;
 
   getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
@@ -68,6 +70,16 @@ export class ResourceService implements ResourceServiceInterface {
    */
   saveUser(user: User): Observable<User> {
     return this.http.post<User>(this.urlDemo + 'auth/register', { username: user.username, email: user.email, password: user.password});
+  }
+
+  /**
+   * Login the email using the password
+   * @param {string} email
+   * @param password
+   * @returns {Observable<User>}
+   */
+  login(email: string, password): Observable<User> {
+    return this.http.post<User>(this.urlDemo + 'auth/login', { email: email, password: password});
   }
 
   /**

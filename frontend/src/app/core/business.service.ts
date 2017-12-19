@@ -28,6 +28,27 @@ export class BusinessService {
   }
 
   /**
+   * Register the given user
+   * @param {User} user
+   */
+  register(user: User): void {
+    this.resourceService.saveUser(user).subscribe( newUser => {
+      this.appState.loggedInUser = newUser;
+    });
+  }
+
+  /**
+   * Login the username
+   * @param {string} email
+   * @param {string} password
+   */
+  login(email: string, password: string) {
+    this.resourceService.login(email, password).subscribe( user => {
+      this.appState.loggedInUser = user;
+    });
+  }
+
+  /**
    * Retruns all meetups for the current logged in user
    * @returns {Observable<Meetup[]>}
    */
@@ -59,12 +80,6 @@ export class BusinessService {
 
   loadMeetup(meetupId: string): Observable<Meetup> {
     return this.mockService.loadMeetup(meetupId);
-  }
-
-  register(user: User): void {
-    this.resourceService.saveUser(user).subscribe( newUser => {
-      this.appState.loggedInUser = newUser;
-    });
   }
 
   loadRequests(meetupId: string): Observable<MeetupRequest[]> {

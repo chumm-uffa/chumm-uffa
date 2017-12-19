@@ -2,6 +2,12 @@
   "ACCEPT": "angenommen",
   "DECLINED": "abgelehnt",
   "OPEN": "offen",
+  "login": {
+    "title": "Login",
+    "email": "Email: ",
+    "password": "Passwort: ",
+    "loginUser": "Anmelden"
+  },
   "user": {
     "titleRegistration": "User Registration",
     "titleMutate": "User Profile bearbeiten",

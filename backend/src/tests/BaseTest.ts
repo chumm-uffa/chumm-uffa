@@ -7,6 +7,7 @@ import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
 import { server } from '../server';
+import {AjaxObservable} from 'rxjs/observable/dom/AjaxObservable';
 
 export class BaseTest {
 

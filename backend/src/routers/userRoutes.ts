@@ -7,11 +7,18 @@ import {UserController} from "../controller/userController";
 import {BaseRoutes} from "./baseRoutes";
 
 export class UserRoutes extends BaseRoutes {
-    private controller : UserController;
+
+    private controller: UserController;
 
     constructor() {
         super();
         this.controller = new UserController();
+    }
+
+    public allUserAction(router: Router): void {
+        router.get('/', (req: Request, res: Response) => {
+            this.controller.allUser(req, res);
+        });
     }
 
     public detailsAction(router: Router): void {
