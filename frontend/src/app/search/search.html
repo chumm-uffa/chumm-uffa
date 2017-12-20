@@ -2,31 +2,61 @@
 
 <form novalidate [formGroup]="searchForm" (ngSubmit)="startSearch()">
   <div>
-    <span>{{ 'search.location' | translate }}</span>
-    <label><input type="radio" formControlName="locationType" value="in">{{ 'search.indoorRadio' | translate }}</label>
-    <label><input type="radio" formControlName="locationType" value="out">{{ 'search.outdoorRadio' | translate }}</label>
-    <div *ngIf="isIndoor(); else outdoor">{{'search.indoor' | translate}}
-      <select formControlName="indoor">
-        <option *ngFor="let hall of halls" value="{{hall.key}}">{{hall.name}}</option>
-      </select>
-    </div>
-    <ng-template #outdoor>{{'search.outdoor' | translate}}<input formControlName="outdoor"></ng-template>
+    <!--<label>{{ 'search.location' | translate }}</label>-->
+    <mat-radio-group formControlName="locationType">
+      <mat-radio-button value="in">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
+      <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
+    </mat-radio-group>
+
+
+    <mat-form-field *ngIf="isIndoor(); else outdoor">
+      <mat-select placeholder="{{'search.indoor' | translate}}" formControlName="indoor">
+        <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-template #outdoor>
+      <mat-form-field>
+        <input matInput placeholder="{{'search.outdoor' | translate}}" formControlName="outdoor">
+      </mat-form-field>
+    </ng-template>
   </div>
-  <label>{{'search.from' | translate}} <input type="datetime-local" formControlName="fromDateTime"></label>
-  <app-validation-feedback *ngIf="searchForm.controls.fromDateTime | hasError:'required'">{{ 'search.error.fromDateTimeRequired' | translate }}</app-validation-feedback>
-  <app-validation-feedback *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</app-validation-feedback>
-  <label>{{'search.to' | translate}} <input type="datetime-local" formControlName="toDateTime"></label>
-  <app-validation-feedback *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</app-validation-feedback>
-  <app-validation-feedback *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</app-validation-feedback>
+
+
+  <mat-form-field>
+    <input matInput placeholder="{{'search.from' | translate}}" type="datetime-local" formControlName="fromDateTime">
+    <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'required'">{{ 'search.error.fromDateTimeRequired' | translate }}</mat-error>
+    <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{'search.to' | translate}}" type="datetime-local" formControlName="toDateTime">
+    <mat-error *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</mat-error>
+    <mat-error *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</mat-error>
+  </mat-form-field>
+
   <div>
-    <span>{{ 'search.sex' | translate }}</span>
-    <label><input type="radio" formControlName="sex" value="m">{{ 'search.man' | translate }}</label>
-    <label><input type="radio" formControlName="sex" value="f">{{ 'search.women' | translate }}</label>
+    <!--<label>{{ 'search.sex' | translate }}</label>-->
+    <mat-radio-group formControlName="sex">
+      <mat-radio-button value="m">{{ 'search.man' | translate }}</mat-radio-button>
+      <mat-radio-button value="f">{{ 'search.women' | translate }}</mat-radio-button>
+    </mat-radio-group>
   </div>
-  <label>{{ 'search.weight' | translate }}</label>
-  <label>{{'search.weightMin' | translate}}<input type="number" formControlName="weightMin">{{'search.kg' | translate}}</label>
-  <label>{{'search.weightMax' | translate}}<input type="number" formControlName="weightMax">{{'search.kg' | translate}}</label>
-  <button>{{'search.start' | translate}}</button>
+
+  <!--<label>{{ 'search.weight' | translate }}</label>-->
+  <mat-form-field>
+    <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMin" class="numberInput">
+    <span matPrefix>{{'search.weightMin' | translate}}</span>
+    <span matSuffix>{{'search.kg' | translate}}</span>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMax" class="numberInput">
+    <span matPrefix>{{'search.weightMax' | translate}}</span>
+    <span matSuffix>{{'search.kg' | translate}}</span>
+  </mat-form-field>
+
+  <button mat-raised-button color="accent">{{'search.start' | translate}}</button>
+
 </form>
 <div *ngIf="hasAllreadySearched">
   <table *ngIf="results.length > 0; else noResult">
@@ -42,7 +72,7 @@
       <td>{{meetup.from | dateTimeFormat}}</td>
       <td>{{meetup.to | dateTimeFormat}}</td>
       <td>{{getLocation(meetup)}}</td>
-      <td><button (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button></td>
+      <td><button mat-raised-button color="primary" (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button></td>
     </tr>
   </table>
   <ng-template #noResult><h3>{{'search.noResults' | translate}}</h3></ng-template>

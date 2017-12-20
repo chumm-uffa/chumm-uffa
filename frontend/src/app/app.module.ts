@@ -11,6 +11,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
 import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
 import {SearchModule} from './search/search.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {SearchModule} from './search/search.module';
     MeetupModule,
     MeetupDetailModule,
     SearchModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

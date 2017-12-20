@@ -1,7 +1,13 @@
-label {
+
+
+* {
+  padding: 10px;
+}
+
+button {
   display: block;
 }
 
-td {
-  padding: 0px 5px;
+.numberInput {
+  text-align: right;
 }
