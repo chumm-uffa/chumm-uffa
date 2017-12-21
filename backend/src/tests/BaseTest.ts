@@ -8,6 +8,8 @@ import * as chaiHttp from 'chai-http';
 
 import { server } from '../server';
 import {AjaxObservable} from 'rxjs/observable/dom/AjaxObservable';
+import { expect } from 'chai';
+import * as cuint from '@pepe.black/chumm-uffa-interface';
 
 export class BaseTest {
 
@@ -28,14 +30,15 @@ export class BaseTest {
     /**
      * creates a new test user for later test
      */
-    public createTestUser() {
+    public createTestUser(): cuint.User {
         const random = Math.floor(Math.random() * 100000);
-        const testUser = {
-            username: 'test user login',
-            email: `test${random}@mailinator.com`,
-            password: 'loginpw'
-        };
-        return testUser;
+        const newUser: cuint.User = new cuint.User();
+        newUser.username = 'test user login';
+        newUser.email = `test${random}@mailinator.com`;
+        newUser.password = 'loginpw1';
+        newUser.sex = 'Frau';
+        newUser.weight = 'geheim';
+        return newUser;
     }
 
     /**

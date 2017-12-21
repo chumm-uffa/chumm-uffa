@@ -4,8 +4,13 @@
 import * as jwt from 'jsonwebtoken';
 
 import { Request, Response, Router } from 'express';
-import { User } from '../models/user/model';
+import { IUser, User } from '../models/user/model';
 import { BaseController } from './baseController';
+
+import {
+    createLoginResponse, createRegisterResponse, ILoginRequest, IRegisterRequest,
+    User as _User
+} from '@pepe.black/chumm-uffa-interface';
 
 export class AuthController extends BaseController {
     /**
@@ -20,33 +25,41 @@ export class AuthController extends BaseController {
      * @param {Response} res
      */
     public login(req: Request, res: Response) {
+        const loginRequest: ILoginRequest = req.body;
         // Test email format
-        if (!this.regExMail.test(req.body.email)) {
+        if (!this.regExMail.test(loginRequest.email)) {
             res.status(400);
-            res.json({success: false, message: 'wrong input.'});
+            res.json(createLoginResponse(false, 'wrong input.'));
         }
 
         // Find user via email
-        User.findByEmail(req.body.email).then((user) => {
+        User.findByEmail(loginRequest.email).then((user) => {
             if (user) {
-                if (User.comparePassword(req.body.password, user.password)) {
+                if (User.comparePassword(loginRequest.password, user.password)) {
                     const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
                         expiresIn: 604800 // 1 week
                     });
-                    res.json({success: true, token: token, message: 'successfully logged in'});
+
+                    const loginUser: _User = new _User();
+                    loginUser.email = user.email;
+                    loginUser.username = user.username;
+                    loginUser.sex = user.sex;
+                    loginUser.weight = user.weight;
+
+                    res.json(createLoginResponse(true, 'successfully logged in.', token, loginUser));
                     return;
                 }
                 res.status(400);
-                res.json({success: false, token: null, message: 'wrong credentials.'});
+                res.json(createLoginResponse(false, 'wrong credentials.'));
                 return;
             } else {
                 res.status(400);
-                res.json({success: false, token: null, message: 'user not exists.'});
+                res.json(createLoginResponse(false, 'user not exists.'));
             }
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
-            res.json({success: false, message: 'something went wrong.'});
+            res.json(createLoginResponse(false, 'something went wrong.'));
         });
     }
 
@@ -65,42 +78,44 @@ export class AuthController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public register(req: Request, res: Response){
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
+    public register(req: Request, res: Response) {
+        const registerRequest: IRegisterRequest = req.body;
 
-        if (!username || !this.regExMail.test(email) || !password || password.length < 6) {
+        if (!registerRequest.user ||
+            !registerRequest.user.username ||
+            !this.regExMail.test(registerRequest.user.email) ||
+            !registerRequest.user.password) {
             res.status(400);
-            res.json({success: false, message: 'wrong input.'});
+            res.json(createRegisterResponse(false, 'wrong input.'));
             return;
         }
 
-        User.findByEmail(email).then((user) => {
+        User.findByEmail(registerRequest.user.email).then((user) => {
             if (!user) {
-                const newUser = new User({
-                    username : username,
-                    email: email,
-                    password: password
-                });
+                const newUser: IUser = new User();
+                newUser.username = registerRequest.user.username;
+                newUser.email = registerRequest.user.email;
+                newUser.password = registerRequest.user.password;
+                newUser.sex = registerRequest.user.sex;
+                newUser.weight = registerRequest.user.weight;
 
                 User.createUser(newUser).then((result) => {
-                    res.json({success: true, message: 'user created.'});
+                    res.json(createRegisterResponse(true, 'user created.', registerRequest.user, result.id));
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
-                    res.json({success: false, message: 'something went wrong.'});
+                    res.json(createRegisterResponse(false, 'something went wrong.'));
                 });
                 return;
             }
 
             res.status(400);
-            res.json({success: false, message: 'this email address has already been taken.'});
+            res.json(createRegisterResponse(false, 'this email address has already been taken.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
-            res.json({success: false, message: 'something went wrong.'});
+            res.json(createRegisterResponse(false, 'something went wrong.'));
             return;
         });
     }

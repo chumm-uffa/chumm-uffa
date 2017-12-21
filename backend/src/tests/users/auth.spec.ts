@@ -6,15 +6,22 @@
 
 import { BaseTest } from '../BaseTest';
 
+import * as cuint from '@pepe.black/chumm-uffa-interface';
+
 describe('/POST login', () => {
 
     const baseTest: BaseTest = new BaseTest();
+    let testUser: cuint.User;
+
+    beforeEach((done) => {
+        testUser = baseTest.createTestUser();
+        done();
+    });
 
     it('it should saveUser the test user', (done) => {
-        const testUser = baseTest.createTestUser();
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({username: testUser.username, email: testUser.email, password: testUser.password})
+            .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 done();
@@ -22,18 +29,17 @@ describe('/POST login', () => {
     });
 
     it('two times saveUser the test user must fail the second time', (done) => {
-        const testUser = baseTest.createTestUser();
         // First saveUser
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({username: testUser.username, email: testUser.email, password: testUser.password})
+            .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
                 // second saveUser
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/register`)
-                    .send({username: testUser.username, email: testUser.email, password: testUser.password})
+                    .send(cuint.createRegisterRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertFailed(res, 400, 'this email address has already been taken.');
                         done();
@@ -43,20 +49,19 @@ describe('/POST login', () => {
     });
 
     it('it should saveUser, login, getting profile of the test user and logout again', (done) => {
-        const testUser = baseTest.createTestUser();
         // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({username: testUser.username, email: testUser.email, password: testUser.password})
+            .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
-
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send({email: testUser.email, password: testUser.password})
+                    .send(cuint.createLoginRequest(testUser.email, testUser.password))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
+
                         // Test if we got a token back
                         res.body.should.have.property('token');
                         const token = res.body.token;
@@ -102,17 +107,16 @@ describe('/POST login', () => {
         const testUser = baseTest.createTestUser();
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({username: testUser.username, email: testUser.email, password: testUser.password})
+            .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send({email: testUser.email, password: 'ichBinBlöd'})
+                    .send(cuint.createLoginRequest(testUser.email, 'ichBinBlöd'))
                     .end((err, res) => {
                         baseTest.assertFailed(res, 400, 'wrong credentials.');
                         done();
                     });
             });
     });
-
 });

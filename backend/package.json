@@ -1,5 +1,5 @@
 {
-  "name": "chum-muffa",
+  "name": "chum-muffa-backend",
   "version": "1.0.0",
   "description": "CAS FEE chumm-uffa App",
   "main": "server.js",
@@ -17,6 +17,7 @@
   "author": "daniel tellenbach & christoph kalt",
   "license": "ISC",
   "dependencies": {
+    "@pepe.black/chumm-uffa-interface": "0.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.12.4",
     "debug": "^3.1.0",

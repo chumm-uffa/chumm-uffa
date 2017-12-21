@@ -4,6 +4,7 @@ import {AppStateService} from '../core/app-state.service';
 import {BusinessService} from '../core/business.service';
 import {LoginFormService} from './form/login-form.service';
 import {FormUtil} from '../shared/form/form.util';
+import {ILoginResponse, createLoginRequest} from '@pepe.black/chumm-uffa-interface';
 
 @Component({
   selector: 'app-login',
@@ -27,10 +28,15 @@ export class LoginComponent implements OnInit  {
     if (this.loginForm.valid && !this.loginForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
       console.log('form value', this.loginForm.value);
       console.log('send data to Service');
-      if (this.businessService.login(this.loginForm.value.email, this.loginForm.value.password)){
-        console.log('login successfully', this.loginForm.errors);
-  //    appState.loggedInUser = {};
-      }
+      this.businessService.login(createLoginRequest(this.loginForm.value.email, this.loginForm.value.password)).subscribe( response => {
+        this.appState.token = response.token;
+        // TODO refactor, we must use only one model!!
+//        this.appState.loggedInUser = response.user;
+      }, err =>  {
+        const response: ILoginResponse = err.error;
+        console.log('error while login, ', response.message);
+        this.loginForm.hasError(response.message);
+      });
     }else {
       console.log('form invald', this.loginForm.errors);
     }

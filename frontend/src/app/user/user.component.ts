@@ -7,6 +7,9 @@ import {AppStateService} from '../core/app-state.service';
 import {UserFormService} from './form/user-form.service';
 import {BusinessService} from '../core/business.service';
 
+import {createRegisterRequest, IRegisterRequest, User as _User} from '@pepe.black/chumm-uffa-interface';
+
+
 @Component({
   selector: 'app-registration',
   templateUrl: './user.html'
@@ -37,7 +40,23 @@ export class UserComponent implements OnInit {
       console.log('send data to Service');
       const fb = this.loginForm.value;
       this.user = this.userFormService.mergeUser(this.loginForm.value, this.user);
-      this.businessService.register(this.user);
+
+      // TODO refactor, we must use only one model!!
+      const newUser: _User = new _User();
+      newUser.username = this.user.username;
+      newUser.weight = this.user.weight;
+      newUser.email = this.user.email;
+      newUser.sex = this.user.sex;
+      newUser.password = this.user.password;
+
+      this.businessService.register(createRegisterRequest(newUser)).subscribe( response => {
+        console.log('New User register with id ', response.id);
+      }, err =>  {
+        const response: IRegisterRequest = err.error;
+        console.log('register failed, ', response.message);
+        this.loginForm.hasError(response.message);
+      });
+
     }else {
       console.log('form invald', this.loginForm.errors);
       console.log('form invald', this.loginForm.hasError('passwordMismatch'));

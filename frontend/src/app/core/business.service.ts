@@ -8,6 +8,7 @@ import {MeetupRequest} from './model/meetup-request';
 import {Hall} from './model/hall';
 import {User} from './model/user';
 import {Chat} from './model/chat';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest} from '@pepe.black/chumm-uffa-interface';
 
 /**
  * Hier kann Businesslogik rein.
@@ -29,23 +30,20 @@ export class BusinessService {
 
   /**
    * Register the given user
-   * @param {User} user
+   * @param {IRegisterRequest} request
+   * @returns {Observable<IRegisterResponse>}
    */
-  register(user: User): void {
-    this.resourceService.saveUser(user).subscribe( newUser => {
-      this.appState.loggedInUser = newUser;
-    });
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    return this.resourceService.register(request);
   }
 
   /**
    * Login the username
-   * @param {string} email
-   * @param {string} password
+   * @param {ILoginRequest} request
+   * @returns {Observable<ILoginResponse>}
    */
-  login(email: string, password: string) {
-    this.resourceService.login(email, password).subscribe( user => {
-      this.appState.loggedInUser = user;
-    });
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    return this.resourceService.login(request);
   }
 
   /**

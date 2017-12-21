@@ -3,9 +3,9 @@ import {User} from './model/user';
 
 @Injectable()
 export class AppStateService {
-
   private _isLoggedIn = false;
   private _loggedInUser: User;
+  private _token: string;
 
   constructor() {
   }
@@ -28,5 +28,13 @@ export class AppStateService {
 
   set loggedInUser(value: User) {
     this._loggedInUser = value;
+  }
+
+  get token(): string {
+    return this._token;
+  }
+
+  set token(value: string) {
+    this._token = value;
   }
 }

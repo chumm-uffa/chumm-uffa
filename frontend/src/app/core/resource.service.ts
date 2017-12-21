@@ -6,6 +6,7 @@ import {MeetupRequest} from './model/meetup-request';
 import {User} from './model/user';
 import {Chat} from './model/chat';
 
+import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse} from '@pepe.black/chumm-uffa-interface';
 
 /**
  * Resource service interface
@@ -15,9 +16,9 @@ export interface ResourceServiceInterface {
 
   newAlive(): Observable<string>;
 
-  saveUser(user: User): Observable<User>;
+  register(request: IRegisterRequest): Observable<IRegisterResponse>;
 
-  login(username: string, password: string): Observable<User>;
+  login(request: ILoginRequest): Observable<ILoginResponse>;
 
   getMeetUps(user: User): Observable<Meetup[]>;
 
@@ -68,18 +69,17 @@ export class ResourceService implements ResourceServiceInterface {
    * @param {User} user
    * @returns {Observable<User>}
    */
-  saveUser(user: User): Observable<User> {
-    return this.http.post<User>(this.urlDemo + 'auth/register', { username: user.username, email: user.email, password: user.password});
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    return this.http.post<IRegisterResponse>(this.urlDemo + 'auth/register', request);
   }
 
   /**
    * Login the email using the password
-   * @param {string} email
-   * @param password
-   * @returns {Observable<User>}
+   * @param {ILoginRequest} request
+   * @returns {Observable<ILoginResponse>}
    */
-  login(email: string, password): Observable<User> {
-    return this.http.post<User>(this.urlDemo + 'auth/login', { email: email, password: password});
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(this.urlDemo + 'auth/login', request);
   }
 
   /**

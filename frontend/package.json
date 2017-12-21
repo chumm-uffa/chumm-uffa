@@ -1,5 +1,5 @@
 {
-  "name": "come-up",
+  "name": "cumm-uffa-frontend",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "@ngx-translate/core": "^9.0.1",
+    "@pepe.black/chumm-uffa-interface": "0.0.2",
     "core-js": "^2.4.1",
     "moment": "^2.19.3",
     "rxjs": "^5.5.2",

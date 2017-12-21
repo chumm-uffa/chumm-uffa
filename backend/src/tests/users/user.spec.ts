@@ -6,6 +6,8 @@
 
 import { BaseTest } from '../BaseTest';
 
+import * as cuint from '@pepe.black/chumm-uffa-interface';
+
 describe('/POST users', () => {
 
     const baseTest: BaseTest = new BaseTest();
@@ -16,18 +18,18 @@ describe('/POST users', () => {
         // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send({username: testUser.username, email: testUser.email, password: testUser.password})
+            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send({email: testUser.email, password: testUser.password})
+                    .send(cuint.createLoginRequest(testUser.email, testUser.password))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
                         // Test if we got a token back
-                        res.body.should.have.property('token');
                         token = res.body.token;
                         done();
             });

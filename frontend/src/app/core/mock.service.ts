@@ -7,6 +7,10 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
 import {Hall} from './model/hall';
+import {
+  User as User_, ILoginResponse, ILoginRequest, createLoginResponse, createRegisterResponse,
+  IRegisterRequest, IRegisterResponse
+} from '@pepe.black/chumm-uffa-interface';
 
 /**
  * Mock for the resource service
@@ -34,15 +38,19 @@ export class MockService implements ResourceServiceInterface {
     return of(' new i am alive');
   }
 
-  saveUser(user: User): Observable<User> {
-    return of(user);
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    // TODO refactor, we must use only one model!!
+    const user = new User_();
+    return of(createRegisterResponse(true, '', user, '2'));
   }
 
-  login(email: string, password): Observable<User> {
-    return of(new User());
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    // TODO refactor, we must use only one model!!
+    const user = new User_();
+    return of(createLoginResponse(true, '', 'token', user ));
   }
 
-    getMeetUps(user: User): Observable<Meetup[]> {
+  getMeetUps(user: User): Observable<Meetup[]> {
     return of(this._meetups.filter(meetup => meetup.owner.username === user.username));
   }
 
