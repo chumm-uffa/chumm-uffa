@@ -1,20 +1,25 @@
-<h1>{{'header.title' | translate}}<span>{{appState.loggedInUser?.username}}</span></h1>
-<a href="#" (click)="changeLanguage('de', $event)">{{'header.deutsch' | translate}}</a>
-<a href="#" (click)="changeLanguage('fr', $event)">{{'header.franz' | translate}}</a>
-<button *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</button>
-<br>
-<br>
-<nav>
-  <a routerLink="/">{{'header.link.home' | translate}}</a><br>
-  <div *ngIf="appState.isLoggedIn; else publicBlock">
-    <!-- place routes here for loggedIn mode-->
-    <a routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a><br>
-    <a routerLink="/mymeetups">{{'header.link.myMeetups' | translate}}</a><br>
-    <a routerLink="/meetup">{{'header.link.newMeetup' | translate}}</a><br>
-    <a routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
-  </div>
-  <ng-template #publicBlock>
-    <a routerLink="/login">{{'header.link.login' | translate}}</a><br>
-    <a routerLink="/registration">{{'header.link.register' | translate}}</a>
-  </ng-template>
-</nav>
+
+
+  <h1>{{'header.title' | translate}}<span>   {{appState.loggedInUser?.username}}</span></h1>
+  <a mat-button href="#" (click)="changeLanguage('de', $event)">{{'header.deutsch' | translate}}</a>
+  <a mat-button href="#" (click)="changeLanguage('fr', $event)">{{'header.franz' | translate}}</a>
+  <br>
+  <br>
+  <nav mat-tab-nav-bar>
+    <span *ngIf="appState.isLoggedIn; else publicBlock">
+      <!-- place routes here for loggedIn mode-->
+      <a mat-tab-link routerLink="/">{{'header.link.home' | translate}}</a>
+      <a mat-tab-link routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a>
+      <a mat-tab-link routerLink="/mymeetups">{{'header.link.myMeetups' | translate}}</a>
+      <a mat-tab-link routerLink="/meetup">{{'header.link.newMeetup' | translate}}</a>
+      <a mat-tab-link routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
+      <a mat-tab-link *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</a>
+    </span>
+    <ng-template #publicBlock>
+      <a mat-tab-link routerLink="/login">{{'header.link.login' | translate}}</a>
+      <a mat-tab-link routerLink="/registration">{{'header.link.register' | translate}}</a>
+      <a mat-tab-link routerLink="/">{{'header.link.home' | translate}}</a>
+    </ng-template>
+  </nav>
+
+
