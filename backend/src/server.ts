@@ -74,7 +74,7 @@ class Server {
         this.server.on('listening', () => {
             const address = this.server.address();
             const bind = (typeof address === 'string') ? `pipe ${address}` : `port ${address.port}`;
-            debug(`Listening on ${bind}`);
+            debug(`Listening on adress ${bind}`);
             console.log(`Listening on ${bind}`);
         });
 

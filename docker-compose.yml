@@ -6,4 +6,14 @@ services:
          - 80:80
    backend:
       image: pepeblack/chumm-uffa-backend:latest
-
+   database:
+      image: mongo:latest
+      environment:
+          - MONGO_DATA_DIR=/data/db
+          - MONGO_LOG_DIR=/data/log
+      volumes:
+          - /data/db
+          - /data/log
+      ports:
+          - "27017:27017"
+      command: mongod --smallfiles --bind_ip_all # --quiet

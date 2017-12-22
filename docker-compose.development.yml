@@ -3,7 +3,7 @@ services:
     frontend:
         image: node:latest
         working_dir: /frontend
-        command: npm run docker
+        command: /bin/bash -c "npm run build && npm run docker"
         volumes:
             - ./frontend:/frontend
         ports:
@@ -11,8 +11,19 @@ services:
     backend:
         image: node:latest
         working_dir: /backend
-        command: /bin/bash -c "npm install && ./node_modules/nodemon/bin/nodemon.js --legacy-watch server.ts"
+        command: /bin/bash -c "npm run watch"
         volumes:
             - ./backend:/backend
         ports:
             - "8080:8080"
+    database:
+        image: mongo:latest
+        environment:
+            - MONGO_DATA_DIR=/data/db
+            - MONGO_LOG_DIR=/data/log
+        volumes:
+            - /data/db
+            - /data/log
+        ports:
+            - "27017:27017"
+        command: mongod --smallfiles --bind_ip_all # --quiet
