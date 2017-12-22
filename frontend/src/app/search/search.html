@@ -1,4 +1,4 @@
-<h2>{{ 'search.title' | translate }}</h2>
+<h2 class="mat-h1">{{ 'search.title' | translate }}</h2>
 
 <form novalidate [formGroup]="searchForm" (ngSubmit)="startSearch()">
   <div>
@@ -7,21 +7,17 @@
       <mat-radio-button value="in">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
       <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
     </mat-radio-group>
-
-
     <mat-form-field *ngIf="isIndoor(); else outdoor">
       <mat-select placeholder="{{'search.indoor' | translate}}" formControlName="indoor">
         <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
       </mat-select>
     </mat-form-field>
-
     <ng-template #outdoor>
       <mat-form-field>
         <input matInput placeholder="{{'search.outdoor' | translate}}" formControlName="outdoor">
       </mat-form-field>
     </ng-template>
   </div>
-
 
   <mat-form-field>
     <input matInput placeholder="{{'search.from' | translate}}" type="datetime-local" formControlName="fromDateTime">
