@@ -40,8 +40,14 @@ class App {
                 });
             });
         } else {
-            console.log(`Connect to MongoDB ${process.env.MONGODB_URI}`);
-            mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+            if (process.argv.length > 2 && process.argv[2] === 'docker') {
+                console.log(`Connect to MongoDB ${process.env.DOCKER_MONGODB_URI}`);
+                mongoose.connect(process.env.DOCKER_MONGODB_URI, { useMongoClient: true });
+            } else {
+                console.log(`Connect to MongoDB ${process.env.MONGODB_URI}`);
+                mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+            }
+
             mongoose.connection.on('error', () => {
                 console.log('MongoDB connection error. Please make sure MongoDB is running.');
                 process.exit();
@@ -77,7 +83,6 @@ class App {
      */
     private setEnvironment(): void {
         dotenv.config({ path: '.env' });
-        dotenv.config({ path: '.env.docker' });
     }
 
     /**

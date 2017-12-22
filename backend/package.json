@@ -4,15 +4,16 @@
   "description": "CAS FEE chumm-uffa App",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && copyfiles ./.env dist/ && node ./dist/server.js",
-    "docker": "npm run build && copyfiles ./.env.docker dist/ && node ./dist/server.js ",
+    "start": "npm run build && node ./dist/server.js",
+    "docker": "npm run build && node ./dist/server.js docker",
     "build": "npm run clean && npm run tsc && npm run html",
-    "test": "npm run clean && npm run watch",
-    "lint": "npm run clean && tslint --project tsconfig.json --exclude ./**/*.js",
-    "html": "copyfiles ./**/*.html ./**/*.css dist/",
+    "test": "npm run watch",
+    "lint": "tslint --project tsconfig.json --exclude ./**/*.js",
+    "html": "copyfiles ./**/*.html ./**/*.css ./.env dist/",
     "tsc": "tsc",
     "clean": "rimraf dist",
-    "watch": "nodemon -e ts -w ./ -x ts-node --inspect ./src/server.ts"
+    "start-watch": "nodemon -e ts -w ./ -x ts-node --inspect ./src/server.ts",
+    "docker-watch": "nodemon -e ts -w ./ -x ts-node --inspect ./src/server.ts docker"
   },
   "author": "daniel tellenbach & christoph kalt",
   "license": "ISC",
