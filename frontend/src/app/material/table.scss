@@ -1,0 +1,50 @@
+
+.xs-header {
+  display: none;
+}
+
+/*
+
+TODO : auslagern und für andere Tables bereitstellen
+dito teile oben
+
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media (max-width: 60em)  {
+
+  /* Force table to not be like tables anymore */
+  mat-table, mat-header-row, mat-header-cell, mat-row, mat-cell, .xs-header {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  mat-header-row {
+    display: none;
+  }
+
+  mat-header-row, mat-row { border: 1px solid #ccc; }
+
+  mat-cell {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  .xs-header {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 0.5em;
+    left: 0.5em;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+}
