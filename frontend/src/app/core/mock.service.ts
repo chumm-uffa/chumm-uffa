@@ -6,6 +6,7 @@ import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
+import {SearchDto} from './model/searchDto';
 import {Hall} from './model/hall';
 
 /**
@@ -63,6 +64,19 @@ export class MockService implements ResourceServiceInterface {
 
   createChat(chat: Chat): void {
     this._chats.push(chat);
+  }
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    return of(this._meetups);
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    return of(true);
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
+    this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
+    return of(true);
   }
 
   get users(): User[] {

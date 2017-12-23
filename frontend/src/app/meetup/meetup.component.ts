@@ -28,7 +28,6 @@ export class MeetupComponent implements OnInit {
   ngOnInit() {
 
     this.businessService.getHalls().subscribe(all => {
-      console.log('meine Hallen', all);
       this.halls = all;
     });
 

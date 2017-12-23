@@ -5,6 +5,7 @@ import {Meetup} from './model/meetup';
 import {MeetupRequest} from './model/meetup-request';
 import {User} from './model/user';
 import {Chat} from './model/chat';
+import {SearchDto} from './model/searchDto';
 
 
 /**
@@ -28,6 +29,12 @@ export interface ResourceServiceInterface {
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
 
   createChat(chat: Chat): void;
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
+
+  requestForParticipation(meetupId: string): Observable<boolean>;
+
+  deleteMeetup(meetupId: string): Observable<boolean>;
 }
 
 /**
@@ -105,6 +112,18 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   createChat(chat: Chat): void {
+    throw new Error('Method not implemented.');
+  }
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
 }

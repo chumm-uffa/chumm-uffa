@@ -2,6 +2,24 @@
   "ACCEPT": "angenommen",
   "DECLINED": "abgelehnt",
   "OPEN": "offen",
+  "header": {
+    "title": "Chumm-Uffa",
+    "deutsch": "DE",
+    "franz": "FR",
+    "logout": "abmelden",
+    "link": {
+      "home":"Startseite",
+      "updateUser": "Benutzerprofil",
+      "myMeetups": "Meine Meetups",
+      "newMeetup": "Meetup erstellen",
+      "search": "Suche",
+      "login": "Anmelden",
+      "register": "Registrieren"
+    }
+  },
+  "home": {
+    "title": "Startseite"
+  },
   "user": {
     "titleRegistration": "User Registration",
     "titleMutate": "User Profile bearbeiten",
@@ -70,5 +88,48 @@
     "title": "Chat",
     "typeMessage": "Neue Nachricht:",
     "sendMessage": "senden"
+  },
+  "search": {
+    "title": "Meetup suchen",
+    "location": "Ort:",
+    "indoorRadio": "Indoor",
+    "outdoorRadio": "Outdoor",
+    "indoor": "Halle:",
+    "outdoor": "Ort/Berg:",
+    "from": "Startzeit:",
+    "to": "Endzeit:",
+    "sex": "Geschlecht:",
+    "man": "männlich",
+    "women": "weiblich",
+    "weight": "Körpergewicht:",
+    "weightMin": "ab",
+    "weightMax": "bis",
+    "kg": "kg",
+    "start": "Suchen",
+    "owner": "User",
+    "startRequest": "anfragen",
+    "location_th": "Ort",
+    "from_th": "Startzeit",
+    "to_th": "Endzeit",
+    "noResults": "Keine passenden Meetups gefunden!",
+    "error": {
+      "fromDateTimeRequired": "Startzeit eingeben.",
+      "toDateTimeRequired": "Endzeit eingeben.",
+      "dateTimeInThePast": "Startzeit muss heute oder später sein.",
+      "fromBeforeToTime": "Endzeit muss nach der Startzeit sein."
+    }
+  },
+  "ownMeetups": {
+    "title": "Meine Meetups",
+    "time": "Wann",
+    "location": "Ort",
+    "requests": "Anfragen",
+    "participants": "Anz. Teilnehmer"
+  },
+  "openRequests": {
+    "title": "Meine Anfragen",
+    "time": "Wann",
+    "location": "Ort",
+    "state": "Status"
   }
 }

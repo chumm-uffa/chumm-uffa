@@ -17,6 +17,7 @@ import {AppStateService} from './core/app-state.service';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {ParticipantComponent} from './meetup-detail/participant/participant.component';
 import {ChatComponent} from './meetup-detail/chat/chat.component';
+import {SearchComponent} from './search/search.component';
 
 
 /**
@@ -41,7 +42,8 @@ describe('AppComponent', () => {
         MeetupComponent,
         MeetupDetailComponent,
         ParticipantComponent,
-        ChatComponent
+        ChatComponent,
+        SearchComponent
       ],
       providers: [AppStateService, {provide: APP_BASE_HREF, useValue: '/'}]
     }).compileComponents();
@@ -63,6 +65,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Come-up Header');
+    expect(compiled.querySelector('h1').textContent).toContain('Chumm-Uffa');
   }));
 });

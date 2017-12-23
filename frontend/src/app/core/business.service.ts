@@ -8,6 +8,7 @@ import {MeetupRequest} from './model/meetup-request';
 import {Hall} from './model/hall';
 import {User} from './model/user';
 import {Chat} from './model/chat';
+import {SearchDto} from './model/searchDto';
 
 /**
  * Hier kann Businesslogik rein.
@@ -83,6 +84,18 @@ export class BusinessService {
     const newOne = new Chat(message, this.appState.loggedInUser, new Date());
     this.mockService.createChat(newOne);
     return newOne;
+  }
+
+  searchMeetUp(searchDto: SearchDto): Observable<Meetup[]> {
+    return this.mockService.searchMeetup(searchDto);
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    return this.mockService.requestForParticipation(meetupId);
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
+    return this.mockService.deleteMeetup(meetupId);
   }
 }
 
