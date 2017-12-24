@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest,
   User, Chat, Meetup, MeetupRequest, Version} from '@chumm-uffa/interface';
+import {SearchDto} from './model/searchDto';
 
 /**
  * Resource service interface
@@ -30,6 +31,12 @@ export interface ResourceServiceInterface {
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
 
   createChat(chat: Chat): void;
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
+
+  requestForParticipation(meetupId: string): Observable<boolean>;
+
+  deleteMeetup(meetupId: string): Observable<boolean>;
 }
 
 /**
@@ -40,7 +47,8 @@ export class ResourceService implements ResourceServiceInterface {
 
   private urlDemo = `http://localhost:4200/api/${Version}/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private import {SearchDto} from './model/searchDto';
+http: HttpClient) {
   }
 
   /**
@@ -114,7 +122,7 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Es wird nur der Request, nicht aber der DBUser oder das Meetup aktualisiert.
+   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
     throw new Error('Method not implemented.');
@@ -125,6 +133,18 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   createChat(chat: Chat): void {
+    throw new Error('Method not implemented.');
+  }
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
 }

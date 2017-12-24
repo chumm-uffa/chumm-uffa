@@ -5,8 +5,7 @@ import * as moment from 'moment';
 import {
   validateDateFormat,
   validateNotBefore,
-  validateTimeBefore,
-  validateTimeNotBefore
+  validateAfterBefore
 } from '../../shared/validators/validate-date';
 import {validateOneOf} from '../../shared/validators/one-of.validator';
 
@@ -14,6 +13,7 @@ import {validateOneOf} from '../../shared/validators/one-of.validator';
 export class MeetupFormService {
 
   static readonly DATE_FORMAT = 'YYYY-MM-DD';
+  static readonly TIME_FORMAT = 'HH:mm';
 
   constructor(private fB: FormBuilder) {
   }
@@ -23,15 +23,16 @@ export class MeetupFormService {
       date: [moment(meetup.from.getTime()).format(MeetupFormService.DATE_FORMAT),
         [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
           validateNotBefore(MeetupFormService.DATE_FORMAT)]],
-      fromTime: [moment(meetup.from.getTime()).format('HH:mm'), [Validators.required, validateTimeNotBefore()]],
-      toTime: [moment(meetup.to.getTime()).format('HH:mm'), [Validators.required]],
+      fromTime: [moment(meetup.from.getTime()).format(MeetupFormService.TIME_FORMAT),
+        [Validators.required, validateNotBefore(MeetupFormService.TIME_FORMAT)]],
+      toTime: [moment(meetup.to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
       locationType: meetup.outdoor ? 'out' : 'in',
       indoor: meetup.indoor,
       outdoor: meetup.outdoor,
       activity: [meetup.activity]
     }, {
       validator: [validateOneOf('indoor', 'outdoor'),
-        validateTimeBefore('fromTime', 'toTime')]  // Formvalidators -> validate between Fields
+        validateAfterBefore(MeetupFormService.TIME_FORMAT, 'fromTime', 'toTime')]  // Formvalidators -> validate between Fields
     });
   }
 

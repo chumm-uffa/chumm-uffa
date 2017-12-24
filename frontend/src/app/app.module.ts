@@ -10,6 +10,7 @@ import {MymeetupsModule} from './mymeetups/mymeetups.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
 import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
+import {SearchModule} from './search/search.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
     MymeetupsModule,
     MeetupModule,
     MeetupDetailModule,
+    SearchModule,
     TranslateModule.forRoot()
   ],
   providers: [],

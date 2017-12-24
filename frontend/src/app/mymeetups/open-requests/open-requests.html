@@ -1,16 +1,16 @@
-<h2>Meine Anfragen</h2>
+<h2>{{'openRequests.title' | translate}}</h2>
 <table>
   <tr>
     <th></th>
-    <th>Wann</th>
-    <th>Ort</th>
-    <th>Status</th>
+    <th>{{'openRequests.time' | translate}}</th>
+    <th>{{'openRequests.location' | translate}}</th>
+    <th>{{'openRequests.state' | translate}}</th>
   </tr>
   <tr *ngFor="let request of meetUpRequests; let i = index"  routerLink="/meetupdetail" [queryParams]="{meetupId: request.meetup.id}">
     <td>Anfrage {{ i + 1 }}</td>
     <td>{{request.meetup.from | dateTimeFormat}}</td>
     <td>{{getLocation(request.meetup)}}</td>
-    <td>{{request.status}}</td>
+    <td>{{request.status | translate}}</td>
   </tr>
 </table>
 

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
   User, Hall, Chat, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
-
+import {SearchDto} from './model/searchDto';import {SearchDto} from './model/searchDto';
 
 /**
  * Mock for the resource service
@@ -57,7 +57,7 @@ export class MockService implements ResourceServiceInterface {
   }
 
   /**
-   * Es wird nur der Request, nicht aber der DBUser oder das Meetup aktualisiert.
+   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
     return of(new MeetupRequest(request.participant, request.meetup, request.status));
@@ -69,6 +69,19 @@ export class MockService implements ResourceServiceInterface {
 
   createChat(chat: Chat): void {
     this._chats.push(chat);
+  }
+
+  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
+    return of(this._meetups);
+  }
+
+  requestForParticipation(meetupId: string): Observable<boolean> {
+    return of(true);
+  }
+
+  deleteMeetup(meetupId: string): Observable<boolean> {
+    this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
+    return of(true);
   }
 
   get users(): User[] {
