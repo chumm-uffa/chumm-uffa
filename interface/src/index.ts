@@ -6,6 +6,7 @@ import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {Meetup} from './model/meetup';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
+import {SearchDto} from './model/searchDto';
 
 /**
  * The interface version
@@ -94,5 +95,5 @@ export {
  * Export of model classes
  */
 export  {
-    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto
 }

@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import {User} from '../model/user';
 
 describe('interface factory for login', () => {
+
     it('should return a login request', () => {
         const user: User = new User();
         user.username = "myUsername";

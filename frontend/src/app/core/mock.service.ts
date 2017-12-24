@@ -3,8 +3,7 @@ import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
-  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
-import {SearchDto} from './model/searchDto';import {SearchDto} from './model/searchDto';
+  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto} from '@chumm-uffa/interface';
 
 /**
  * Mock for the resource service

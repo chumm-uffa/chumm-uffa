@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest,
   User, Chat, Meetup, MeetupRequest, Version} from '@chumm-uffa/interface';
-import {SearchDto} from './model/searchDto';
+import {SearchDto} from '../../../../interface/src/model/searchDto';
 
 /**
  * Resource service interface
@@ -47,8 +47,7 @@ export class ResourceService implements ResourceServiceInterface {
 
   private urlDemo = `http://localhost:4200/api/${Version}/`;
 
-  constructor(private import {SearchDto} from './model/searchDto';
-http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   /**

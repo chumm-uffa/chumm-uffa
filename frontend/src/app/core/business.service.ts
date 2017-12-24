@@ -5,7 +5,7 @@ import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginRequest,
         User, Hall, Chat, Meetup, MeetupRequest} from '@chumm-uffa/interface';
-import {SearchDto} from './model/searchDto';
+import {SearchDto} from '../../../../interface/src/model/searchDto';
 
 /**
  * Hier kann Businesslogik rein.
@@ -21,7 +21,7 @@ export class BusinessService {
               private mockService: MockService) {
   }
 
-  checkAlive(): Observable<string> {import {SearchDto} from './model/searchDto';
+  checkAlive(): Observable<string> {
     return this.mockService.checkAlive();
   }
 
@@ -46,7 +46,7 @@ export class BusinessService {
   /**
    * Retruns all meetups for the current logged in user
    * @returns {Observable<Meetup[]>}
-   */import {SearchDto} from './model/searchDto';
+   */
   getMeetUps(): Observable<Meetup[]> {
     return this.mockService.getMeetUps(this.appState.loggedInUser);
   }
@@ -70,7 +70,7 @@ export class BusinessService {
     if (!meetup.owner) {
       meetup.owner = this.appState.loggedInUser;
     }
-    this.resourceServiceimport {SearchDto} from './model/searchDto';.saveMeetup(meetup);
+    this.resourceService.saveMeetup(meetup);
   }
 
   loadMeetup(meetupId: string): Observable<Meetup> {

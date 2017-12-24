@@ -6,6 +6,7 @@ services:
         command: /bin/bash -c "npm run docker-watch"
         volumes:
             - ./backend:/backend
+            - ./interface:/interface
         ports:
             - "8080:8080"
         depends_on:
