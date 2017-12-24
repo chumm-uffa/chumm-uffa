@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit  {
         this.appState.token = response.token;
         this.router.navigate(['/mymeetups']);
       }, err =>  {
-        // TODO refactor, error handling im Bussines Service
         const response: ILoginResponse = err.error;
         console.log('error while login, ', response.message);
         this.loginForm.hasError(response.message);

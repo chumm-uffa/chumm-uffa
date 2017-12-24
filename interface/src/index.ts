@@ -2,6 +2,10 @@ import {IBaseResponse, BaseResponse} from './interface/baseResponse';
 import {ILoginRequest, ILoginResponse, LoginRequest, LoginResponse} from './interface/auth/login';
 import {IRegisterRequest, IRegisterResponse, RegisterRequest, RegisterResponse} from './interface/auth/register';
 import {User} from './model/user';
+import {Chat} from './model/chat';
+import {Hall} from './model/hall';
+import {Meetup} from './model/meetup';
+import {MeetupRequest, RequestStatus} from './model/meetup-request';
 
 /**
  * The interface version
@@ -90,5 +94,5 @@ export {
  * Export of model classes
  */
 export  {
-    User
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus
 }

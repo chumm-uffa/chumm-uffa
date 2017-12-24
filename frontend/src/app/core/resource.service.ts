@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
-import {Meetup} from './model/meetup';
-import {MeetupRequest} from './model/meetup-request';
-import {Chat} from './model/chat';
 
-import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse, User, Version} from '@chumm-uffa/interface';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest,
+  User, Chat, Meetup, MeetupRequest, Version} from '@chumm-uffa/interface';
 
 /**
  * Resource service interface

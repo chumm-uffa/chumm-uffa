@@ -1,4 +1,4 @@
-import { User } from '@chumm-uffa/interface';
+import { User } from './user';
 
 /**
  * Encapsulate a single meetup

@@ -1,18 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ResourceService} from './resource.service';
-import {Meetup} from './model/meetup';
 import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
-import {MeetupRequest} from './model/meetup-request';
-import {Hall} from './model/hall';
-import {Chat} from './model/chat';
-import {ILoginRequest,
-        IRegisterResponse,
-        ILoginResponse,
-        IRegisterRequest,
-        createLoginRequest,
-        User} from '@chumm-uffa/interface';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginRequest,
+        User, Hall, Chat, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 
 /**
  * Hier kann Businesslogik rein.

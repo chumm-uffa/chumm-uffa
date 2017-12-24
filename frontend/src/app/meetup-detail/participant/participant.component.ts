@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MeetupRequest, RequestStatus} from '../../core/model/meetup-request';
+import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 
 @Component({

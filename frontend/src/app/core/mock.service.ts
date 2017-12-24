@@ -1,15 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Meetup} from './model/meetup';
-import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {Chat} from './model/chat';
-import {Hall} from './model/hall';
-import {
-  User, ILoginResponse, ILoginRequest, createLoginResponse, createRegisterResponse,
-  IRegisterRequest, IRegisterResponse
-} from '@chumm-uffa/interface';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
+  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
+
 
 /**
  * Mock for the resource service
