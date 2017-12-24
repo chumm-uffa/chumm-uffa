@@ -4,15 +4,19 @@ import {IRegisterRequest, IRegisterResponse, RegisterRequest, RegisterResponse} 
 import {User} from './model/user';
 
 /**
+ * The interface version
+ * @type {string}
+ */
+export const Version: String = "v1";
+
+/**
  * Create a login request
- * @param {string} email
- * @param {string} password
+ * @param {User} user
  * @returns {LoginRequest}
  */
-export function createLoginRequest (email: string, password: string) : ILoginRequest {
+export function createLoginRequest (user: User) : ILoginRequest {
     const request = new LoginRequest();
-    request.email = email;
-    request.password = password;
+    request.user = user;
     return request;
 }
 
@@ -80,7 +84,6 @@ export {
 
     IRegisterResponse,
     RegisterResponse,
-
 }
 
 /**

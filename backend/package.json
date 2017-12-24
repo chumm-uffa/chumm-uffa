@@ -7,7 +7,7 @@
     "start": "npm run build && node ./dist/server.js",
     "docker": "npm run build && node ./dist/server.js docker",
     "build": "npm run clean && npm run tsc && npm run html",
-    "test": "npm run watch",
+    "test": "npm run start-watch",
     "lint": "tslint --project tsconfig.json --exclude ./**/*.js",
     "html": "copyfiles ./**/*.html ./**/*.css ./.env dist/",
     "tsc": "tsc",
@@ -18,7 +18,7 @@
   "author": "daniel tellenbach & christoph kalt",
   "license": "ISC",
   "dependencies": {
-    "@pepe.black/chumm-uffa-interface": "0.0.2",
+    "@chumm-uffa/interface": "file:../interface",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.12.4",
     "debug": "^3.1.0",

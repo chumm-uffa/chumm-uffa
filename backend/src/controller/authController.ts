@@ -4,13 +4,13 @@
 import * as jwt from 'jsonwebtoken';
 
 import { Request, Response, Router } from 'express';
-import { IUser, User } from '../models/user/model';
 import { BaseController } from './baseController';
 
+import { DBUser, IDBUser, IDBUserModel } from '../models/user/model';
+
 import {
-    createLoginResponse, createRegisterResponse, ILoginRequest, IRegisterRequest,
-    User as _User
-} from '@pepe.black/chumm-uffa-interface';
+    createLoginResponse, createRegisterResponse, ILoginRequest, IRegisterRequest
+} from '@chumm-uffa/interface';
 
 export class AuthController extends BaseController {
     /**
@@ -26,27 +26,24 @@ export class AuthController extends BaseController {
      */
     public login(req: Request, res: Response) {
         const loginRequest: ILoginRequest = req.body;
-        // Test email format
-        if (!this.regExMail.test(loginRequest.email)) {
+
+        // Username and password must be present
+        if (!loginRequest.user ||
+            !loginRequest.user.username ||
+            !loginRequest.user.password) {
             res.status(400);
-            res.json(createLoginResponse(false, 'wrong input.'));
+            res.json(createRegisterResponse(false, 'wrong input.'));
+            return;
         }
 
         // Find user via email
-        User.findByEmail(loginRequest.email).then((user) => {
-            if (user) {
-                if (User.comparePassword(loginRequest.password, user.password)) {
-                    const token = jwt.sign(user, process.env.APPLICATION_SECRET, {
-                        expiresIn: 604800 // 1 week
+        DBUser.findOne({username: loginRequest.user.username}).then((dbUser) => {
+            if (dbUser) {
+                if (dbUser.comparePassword(loginRequest.user.password)) {
+                    const token = jwt.sign(dbUser, process.env.APPLICATION_SECRET, {
+                        expiresIn: 604800 // 1 week && npm pack
                     });
-
-                    const loginUser: _User = new _User();
-                    loginUser.email = user.email;
-                    loginUser.username = user.username;
-                    loginUser.sex = user.sex;
-                    loginUser.weight = user.weight;
-
-                    res.json(createLoginResponse(true, 'successfully logged in.', token, loginUser));
+                    res.json(createLoginResponse(true, 'successfully logged in.', token, dbUser.toInterface()));
                     return;
                 }
                 res.status(400);
@@ -68,7 +65,7 @@ export class AuthController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public logout(req: Request, res: Response){
+    public logout(req: Request, res: Response) {
         res.status(200);
         res.json({success: true, auth: false, token: null });
     }
@@ -81,26 +78,27 @@ export class AuthController extends BaseController {
     public register(req: Request, res: Response) {
         const registerRequest: IRegisterRequest = req.body;
 
+        // Username and password must be present
         if (!registerRequest.user ||
             !registerRequest.user.username ||
-            !this.regExMail.test(registerRequest.user.email) ||
             !registerRequest.user.password) {
             res.status(400);
             res.json(createRegisterResponse(false, 'wrong input.'));
             return;
         }
 
-        User.findByEmail(registerRequest.user.email).then((user) => {
-            if (!user) {
-                const newUser: IUser = new User();
-                newUser.username = registerRequest.user.username;
-                newUser.email = registerRequest.user.email;
-                newUser.password = registerRequest.user.password;
-                newUser.sex = registerRequest.user.sex;
-                newUser.weight = registerRequest.user.weight;
+        // If email is present, the format must be valid
+        if (registerRequest.user.email && !this.regExMail.test(registerRequest.user.email)) {
+            res.status(400);
+            res.json(createRegisterResponse(false, 'wrong email format.'));
+        }
 
-                User.createUser(newUser).then((result) => {
-                    res.json(createRegisterResponse(true, 'user created.', registerRequest.user, result.id));
+        DBUser.findOne({username: registerRequest.user.username}).then((dbUser) => {
+            if (!dbUser) {
+                const dbUser: IDBUserModel = new DBUser();
+                dbUser.fromInterface(registerRequest.user);
+                dbUser.save().then((result) => {
+                    res.json(createRegisterResponse(true, 'user created.', result.toInterface(), result.id));
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
@@ -125,7 +123,7 @@ export class AuthController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public profile(req: Request, res: Response){
+    public profile(req: Request, res: Response) {
         res.json({success: true, user: req.body.user});
     }
 }

@@ -5,7 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { PassportStatic } from 'passport';
 
-import { User } from '../models/user/model';
+import { DBUser } from '../models/user/model';
 
 /**
  * passport jwt configuration
@@ -25,7 +25,7 @@ export class PassportConfig {
         };
 
         this.passport.use(new Strategy(opts, (jwtPayload, done) => {
-            User.findOne({_id: jwtPayload._doc._id}, (err, user) => {
+            DBUser.findOne({_id: jwtPayload._doc._id}, (err, user) => {
                 if (err) {
                     return done(err, false);
                 } else if (user) {

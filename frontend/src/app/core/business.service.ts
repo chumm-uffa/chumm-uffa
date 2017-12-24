@@ -6,9 +6,13 @@ import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {MeetupRequest} from './model/meetup-request';
 import {Hall} from './model/hall';
-import {User} from './model/user';
 import {Chat} from './model/chat';
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest} from '@pepe.black/chumm-uffa-interface';
+import {ILoginRequest,
+        IRegisterResponse,
+        ILoginResponse,
+        IRegisterRequest,
+        createLoginRequest,
+        User} from '@chumm-uffa/interface';
 
 /**
  * Hier kann Businesslogik rein.
@@ -29,7 +33,7 @@ export class BusinessService {
   }
 
   /**
-   * Register the given user
+   *
    * @param {IRegisterRequest} request
    * @returns {Observable<IRegisterResponse>}
    */
@@ -42,8 +46,8 @@ export class BusinessService {
    * @param {ILoginRequest} request
    * @returns {Observable<ILoginResponse>}
    */
-  login(request: ILoginRequest): Observable<ILoginResponse> {
-    return this.resourceService.login(request);
+  login(user: User): Observable<ILoginResponse> {
+    return this.resourceService.login(createLoginRequest(user));
   }
 
   /**

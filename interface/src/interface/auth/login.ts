@@ -2,8 +2,7 @@ import {User} from '../../model/user';
 import {BaseResponse, IBaseResponse} from '../baseResponse';
 
 export interface ILoginRequest extends IBaseResponse{
-    email: string;
-    password: string;
+    user: User;
 }
 
 export interface ILoginResponse extends IBaseResponse{
@@ -12,8 +11,7 @@ export interface ILoginResponse extends IBaseResponse{
 }
 
 export class LoginRequest extends BaseResponse implements ILoginRequest{
-    public email: string;
-    public password: string;
+    user: User;
 }
 
 export class LoginResponse extends BaseResponse implements ILoginResponse {

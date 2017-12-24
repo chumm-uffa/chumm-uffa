@@ -4,7 +4,8 @@ import {AppStateService} from '../core/app-state.service';
 import {BusinessService} from '../core/business.service';
 import {LoginFormService} from './form/login-form.service';
 import {FormUtil} from '../shared/form/form.util';
-import {ILoginResponse, createLoginRequest} from '@pepe.black/chumm-uffa-interface';
+import {ILoginResponse} from '@chumm-uffa/interface';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit  {
 
   constructor( private loginFormService: LoginFormService,
                private appState: AppStateService,
-               private businessService: BusinessService) {
+               private businessService: BusinessService,
+               private router: Router) {
   }
 
   ngOnInit(): void {
@@ -26,13 +28,12 @@ export class LoginComponent implements OnInit  {
   onClickLogin() {
     FormUtil.markAsTouched(this.loginForm);  // macht Validierungsfehler sichtbar
     if (this.loginForm.valid && !this.loginForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
-      console.log('form value', this.loginForm.value);
-      console.log('send data to Service');
-      this.businessService.login(createLoginRequest(this.loginForm.value.email, this.loginForm.value.password)).subscribe( response => {
+      this.businessService.login(this.loginFormService.createUser()).subscribe( response => {
+        this.appState.loggedInUser = response.user;
         this.appState.token = response.token;
-        // TODO refactor, we must use only one model!!
-//        this.appState.loggedInUser = response.user;
+        this.router.navigate(['/mymeetups']);
       }, err =>  {
+        // TODO refactor, error handling im Bussines Service
         const response: ILoginResponse = err.error;
         console.log('error while login, ', response.message);
         this.loginForm.hasError(response.message);

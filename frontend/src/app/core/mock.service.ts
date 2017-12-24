@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Meetup} from './model/meetup';
-import {User} from './model/user';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
@@ -8,9 +7,9 @@ import {of} from 'rxjs/observable/of';
 import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {
-  User as User_, ILoginResponse, ILoginRequest, createLoginResponse, createRegisterResponse,
+  User, ILoginResponse, ILoginRequest, createLoginResponse, createRegisterResponse,
   IRegisterRequest, IRegisterResponse
-} from '@pepe.black/chumm-uffa-interface';
+} from '@chumm-uffa/interface';
 
 /**
  * Mock for the resource service
@@ -39,15 +38,11 @@ export class MockService implements ResourceServiceInterface {
   }
 
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
-    // TODO refactor, we must use only one model!!
-    const user = new User_();
-    return of(createRegisterResponse(true, '', user, '2'));
+    return of(createRegisterResponse(true, '', this._users[0], '1'));
   }
 
   login(request: ILoginRequest): Observable<ILoginResponse> {
-    // TODO refactor, we must use only one model!!
-    const user = new User_();
-    return of(createLoginResponse(true, '', 'token', user ));
+    return of(createLoginResponse(true, '', 'token', this._users[0] ));
   }
 
   getMeetUps(user: User): Observable<Meetup[]> {
@@ -67,7 +62,7 @@ export class MockService implements ResourceServiceInterface {
   }
 
   /**
-   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
+   * Es wird nur der Request, nicht aber der DBUser oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
     return of(new MeetupRequest(request.participant, request.meetup, request.status));

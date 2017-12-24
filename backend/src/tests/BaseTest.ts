@@ -7,9 +7,8 @@ import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
 import { server } from '../server';
-import {AjaxObservable} from 'rxjs/observable/dom/AjaxObservable';
-import { expect } from 'chai';
-import * as cuint from '@pepe.black/chumm-uffa-interface';
+
+import * as cuint from '@chumm-uffa/interface';
 
 export class BaseTest {
 
@@ -33,8 +32,8 @@ export class BaseTest {
     public createTestUser(): cuint.User {
         const random = Math.floor(Math.random() * 100000);
         const newUser: cuint.User = new cuint.User();
-        newUser.username = 'test user login';
-        newUser.email = `test${random}@mailinator.com`;
+        newUser.username = `test${random}`;
+        newUser.email = `${newUser.username}@mailinator.com`;
         newUser.password = 'loginpw1';
         newUser.sex = 'Frau';
         newUser.weight = 'geheim';

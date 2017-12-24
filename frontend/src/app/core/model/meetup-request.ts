@@ -1,4 +1,4 @@
-import {User} from './user';
+import { User } from '@chumm-uffa/interface';
 import {Meetup} from './meetup';
 
 /**

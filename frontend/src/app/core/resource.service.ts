@@ -3,10 +3,9 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Meetup} from './model/meetup';
 import {MeetupRequest} from './model/meetup-request';
-import {User} from './model/user';
 import {Chat} from './model/chat';
 
-import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse} from '@pepe.black/chumm-uffa-interface';
+import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse, User, Version} from '@chumm-uffa/interface';
 
 /**
  * Resource service interface
@@ -41,7 +40,7 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = 'http://localhost:4200/api/v1/';
+  private urlDemo = `http://localhost:4200/api/${Version}/`;
 
   constructor(private http: HttpClient) {
   }
@@ -117,7 +116,7 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
+   * Es wird nur der Request, nicht aber der DBUser oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
     throw new Error('Method not implemented.');

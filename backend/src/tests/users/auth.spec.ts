@@ -6,7 +6,7 @@
 
 import { BaseTest } from '../BaseTest';
 
-import * as cuint from '@pepe.black/chumm-uffa-interface';
+import * as cuint from '@chumm-uffa/interface';
 
 describe('/POST login', () => {
 
@@ -19,6 +19,10 @@ describe('/POST login', () => {
     });
 
     it('it should saveUser the test user', (done) => {
+        testUser.id = null;
+        testUser.email = null;
+        testUser.sex = null;
+        testUser.weight = null;
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
             .send(cuint.createRegisterRequest(testUser))
@@ -58,7 +62,7 @@ describe('/POST login', () => {
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser.email, testUser.password))
+                    .send(cuint.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
 
@@ -102,7 +106,6 @@ describe('/POST login', () => {
             });
     });
 
-
     it('it should send a login error back, wrong password', (done) => {
         const testUser = baseTest.createTestUser();
         baseTest.chai.request(baseTest.server)
@@ -110,9 +113,10 @@ describe('/POST login', () => {
             .send(cuint.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
+                testUser.password = 'ichBinBlöd';
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser.email, 'ichBinBlöd'))
+                    .send(cuint.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertFailed(res, 400, 'wrong credentials.');
                         done();

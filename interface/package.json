@@ -1,11 +1,11 @@
 {
-  "name": "@pepe.black/chumm-uffa-interface",
-  "version": "0.0.2",
-  "description": "chumm-uffa communication interface",
+  "name": "@chumm-uffa/interface",
+  "version": "0.0.1",
+  "description": "@chumm-uffa communication interface",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run tsc && npm pack",
+    "build": "npm run clean && npm run tsc",
     "test": "npm run build && mocha -t 30000 dist/tests/**/*.spec.js --exit",
     "tsc": "tsc",
     "clean": "rimraf dist"

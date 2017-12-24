@@ -4,7 +4,7 @@
   "OPEN": "offen",
   "login": {
     "title": "Login",
-    "email": "Email: ",
+    "name": "Name: ",
     "password": "Passwort: ",
     "loginUser": "Anmelden"
   },

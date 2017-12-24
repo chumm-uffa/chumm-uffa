@@ -6,7 +6,7 @@
 
 import { BaseTest } from '../BaseTest';
 
-import * as cuint from '@pepe.black/chumm-uffa-interface';
+import * as cuint from '@chumm-uffa/interface';
 
 describe('/POST users', () => {
 
@@ -26,7 +26,7 @@ describe('/POST users', () => {
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser.email, testUser.password))
+                    .send(cuint.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
                         // Test if we got a token back

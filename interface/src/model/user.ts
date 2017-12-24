@@ -1,16 +1,18 @@
 export class User {
-
+  private _id: string;
   private _username: string;
   private _password: string;
   private _sex: string;
   private _email: string;
   private _weight: string;
 
-  constructor(username: string = '',
+  constructor(id: string = '',
+              username: string = '',
               password: string = '',
               sex: string = '',
               email: string = '',
               weight: string = '') {
+    this._id = id;
     this._username = username;
     this._password = password;
     this._sex = sex;
@@ -21,12 +23,21 @@ export class User {
   public toJSON()
   {
     return {
+      id: this.id,
       username: this.username,
       password: this.password,
       sex: this.sex,
       email: this.email,
       weight: this.weight
     };
+  }
+
+  get id(): string {
+      return this._id;
+  }
+
+  set id(value: string) {
+      this._id = value;
   }
 
   get password(): string {

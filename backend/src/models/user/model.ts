@@ -2,45 +2,47 @@
  * chumm-uffa
  */
 import * as bcrypt from 'bcryptjs';
-import {  Document, Model, Schema } from 'mongoose';
+import { Document, Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
+import { User } from '@chumm-uffa/interface';
+
 /**
- * The User document interface
+ * The DBUser document interface
  */
-export interface IUser extends Document {
+export interface IDBUser {
     username: string;
-    email: string;
     password: string;
+    email?: string;
     sex?: string;
     weight?: string;
 }
 
 /**
- * The User model containing additional functionality
+ * The DBUser model containing additional functionality
  */
-export interface IUserModel extends Model<IUser> {
-    createUser(user: IUser): Promise<IUser>;
-    comparePassword(candidatePassword: string, hash: string): void;
-    findByEmail(email: string): Promise<IUser>;
+export interface IDBUserModel extends IDBUser, Document {
+    createUser(user: IDBUser): Promise<IDBUser>;
+    comparePassword(candidatePassword: string): void;
+    fromInterface(user: User);
+    toInterface();
 }
 
 /**
- * The mongoose database schema for the User
+ * The mongoose database schema for the DBUser
  * @type {"mongoose".Schema}
  */
-const userSchema = new Schema({
+export const UserSchema = new Schema({
     username: {
-        type: String,
-        required: true
-    },
-    email: {
         type: String,
         required: true
     },
     password: {
         type: String,
         required: true
+    },
+    email: {
+        type: String
     },
     sex: {
         type: String
@@ -49,37 +51,62 @@ const userSchema = new Schema({
         type: String
     },
     createAt: {
-        type: Date,
-        "default": Date.now()
-
+        type: Date
     },
     updatedAt: {
-        type: Date,
-        "default": Date.now()
+        type: Date
     }
 });
 
 /**
- * Static function to create a new User within the database
+ * Pre function when save a new user. The password is hashed
+ * and the creation date is set.
  */
-userSchema.static('createUser', (user: IUser) => {
-    const hash = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
-    user.password = hash;
-    return user.save();
+UserSchema.pre('save', function(next) {
+    const hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
+    this.password = hash;
+    this.createAt = Date.now();
+    next();
 });
 
 /**
- * Static function to compare the password
+ * Pre function when update an existing user. The update date is set.
  */
-userSchema.static('comparePassword', (candidatePassword: string, hash: string, callback: Function) => {
-    return bcrypt.compareSync(candidatePassword, hash);
+UserSchema.pre('update', function(next) {
+    this.updatedAt = Date.now();
+    next();
 });
 
 /**
- * Static function to find a user by email
+ * Static function to compatoDBUserre the password
  */
-userSchema.static('findByEmail', (email: string) => {
-    return User.findOne({email: email}).lean().exec();
-});
+UserSchema.methods.comparePassword = function(candidatePassword: string, callback: Function) {
+    return bcrypt.compareSync(candidatePassword, this.password);
+};
 
-export const User = mongoose.model<IUser>('User', userSchema) as IUserModel;
+/**
+ * Merge the given interface user to this
+ */
+UserSchema.methods.fromInterface = function(user: User) {
+    this.username = user.username;
+    this.password = user.password;
+    this.email = user.email;
+    this.sex = user.sex;
+    this.weight = user.weight;
+};
+
+/**
+ * Merge this dbUser to a new interface user
+ */
+UserSchema.methods.toInterface = function() {
+    const user: User = new User();
+    user.id = this._id;
+    user.username = this.username;
+    user.email = this.email;
+    user.password = this.password;
+    user.sex = this.sex;
+    user.weight = this.weight;
+    return user;
+};
+
+export const DBUser: Model<IDBUserModel> = mongoose.model<IDBUserModel>('DBUser', UserSchema);

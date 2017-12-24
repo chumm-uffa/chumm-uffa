@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from './model/user';
+import { User } from '@chumm-uffa/interface';
 
 @Injectable()
 export class AppStateService {
