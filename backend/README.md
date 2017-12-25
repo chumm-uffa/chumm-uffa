@@ -6,7 +6,7 @@ root:    /api/v1
 * /v1 ist für die Versionierung der api
 
 ## Authentication
-Resoursen für die authentifizierung.
+Resourcen für die authentifizierung.
 
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
@@ -14,7 +14,7 @@ Resoursen für die authentifizierung.
 |get      |/logout                       |logout a user
 
 ## /users
-Resourse im Kontext eines Benutzer
+Resource im Kontext eines Benutzer
 
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
@@ -27,7 +27,7 @@ Resourse im Kontext eines Benutzer
 |get      |/users/{id}/meetup-requests   |gets all meetup-requests for the user  |
 
 ## /meetups
-Resourse im Kontext eines Meetup
+Resource im Kontext eines Meetup
 
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
@@ -44,7 +44,7 @@ Resourse im Kontext eines Meetup
 |put      |/meetups/{id}/chats{id}       |updates an existing chat-entry from a meetup |
 
 ## /meetup-requests
-Resourse im Kontext eines Meetup Request
+Resource im Kontext eines Meetup Request
 
 |         | URL                          | Info                                  |
 |:--------|:-----------------------------|:--------------------------------------|
