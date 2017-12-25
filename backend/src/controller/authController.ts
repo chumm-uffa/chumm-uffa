@@ -108,7 +108,7 @@ export class AuthController extends BaseController {
             }
 
             res.status(400);
-            res.json(createRegisterResponse(false, 'this email address has already been taken.'));
+            res.json(createRegisterResponse(false, 'this user name has already been taken.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());

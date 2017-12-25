@@ -40,7 +40,8 @@ export class UserComponent implements OnInit {
         console.log('New DBUser register with id ', response.id);
       }, err =>  {
         const response: IRegisterRequest = err.error;
-        console.log('register failed, ', response.message);
+        console.log('Register failed, ', response.message);
+        window.alert('Register failed, ' + response.message);
         this.userForm.hasError(response.message);
       });
 

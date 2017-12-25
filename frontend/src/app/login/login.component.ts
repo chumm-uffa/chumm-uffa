@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit  {
         this.router.navigate(['/mymeetups']);
       }, err =>  {
         const response: ILoginResponse = err.error;
-        console.log('error while login, ', response.message);
+        console.log('Error while login, ', response.message);
+        window.alert('Error while login, ' + response.message);
         this.loginForm.hasError(response.message);
       });
     }else {

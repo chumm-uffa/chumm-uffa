@@ -109,4 +109,4 @@ UserSchema.methods.toInterface = function() {
     return user;
 };
 
-export const DBUser: Model<IDBUserModel> = mongoose.model<IDBUserModel>('DBUser', UserSchema);
+export const DBUser: Model<IDBUserModel> = mongoose.model<IDBUserModel>('User', UserSchema);
