@@ -22,7 +22,7 @@ export class HomeComponent {
   }
 
   simulateLogin(user) {
-    this.appstate.isLoggedIn = true;
+    this.appstate.token = 'was drin';
     this.appstate.loggedInUser = user;
   }
 
