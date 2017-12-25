@@ -8,9 +8,9 @@ services:
             - ./frontend:/frontend
             - ./interface:/interface
         ports:
-            - "4200:4200"
+            - 4200:4200
         depends_on:
-            - "backend"
+            - backend
     backend:
         image: node:latest
         working_dir: /backend
@@ -19,9 +19,9 @@ services:
             - ./backend:/backend
             - ./interface:/interface
         ports:
-            - "8080:8080"
+            - 8080:8080
         depends_on:
-            - "database"
+            - database
     database:
         image: mongo:latest
         environment:
@@ -31,5 +31,5 @@ services:
             - /data/db
             - /data/log
         ports:
-            - "27017:27017"
+            - 27017:27017
         command: mongod --smallfiles --bind_ip_all # --quiet

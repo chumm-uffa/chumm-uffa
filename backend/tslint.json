@@ -74,6 +74,7 @@
         "object-literal-sort-keys": false,
         "ban-types": false,
         "trailing-comma": false,
-        "no-shadowed-variable": false
+        "no-shadowed-variable": false,
+        "linebreak-style": false
     }
 }

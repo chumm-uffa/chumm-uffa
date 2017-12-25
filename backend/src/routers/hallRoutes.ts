@@ -16,7 +16,7 @@ export class HallRoutes extends BaseRoutes {
         this.controller = new HallController();
     }
 
-    public allMeetupAction(router: Router): void {
+    public allHallAction(router: Router): void {
         router.get('/', (req: Request, res: Response) => {
             this.controller.allHall(req, res);
         });

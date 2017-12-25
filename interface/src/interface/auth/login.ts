@@ -1,7 +1,7 @@
 import {User} from '../../model/user';
 import {BaseResponse, IBaseResponse} from '../baseResponse';
 
-export interface ILoginRequest extends IBaseResponse{
+export interface ILoginRequest {
     user: User;
 }
 
@@ -10,7 +10,7 @@ export interface ILoginResponse extends IBaseResponse{
     user: User;
 }
 
-export class LoginRequest extends BaseResponse implements ILoginRequest{
+export class LoginRequest implements ILoginRequest{
     user: User;
 }
 
