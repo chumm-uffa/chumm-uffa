@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import { User } from '@chumm-uffa/interface';
+import {User} from '@chumm-uffa/interface';
 
 @Injectable()
 export class AppStateService {
-  private _isLoggedIn = false;
+
   private _loggedInUser: User;
   private _token: string;
 
@@ -11,15 +11,7 @@ export class AppStateService {
   }
 
   get isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-
-  set isLoggedIn(value: boolean) {
-    console.log('set LoggedIn called by ', value);
-    if (!value) {
-      this._loggedInUser = new User();
-    }
-    this._isLoggedIn = value;
+    return !!this._token;
   }
 
   get loggedInUser(): User {
