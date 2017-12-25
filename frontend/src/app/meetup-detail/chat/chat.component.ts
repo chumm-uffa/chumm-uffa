@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Chat} from '@chumm-uffa/interface'
+import {Chat} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppStateService} from '../../core/app-state.service';
 
