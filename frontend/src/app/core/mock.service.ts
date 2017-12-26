@@ -1,13 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Meetup} from './model/meetup';
-import {User} from './model/user';
-import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {Chat} from './model/chat';
-import {SearchDto} from './model/searchDto';
-import {Hall} from './model/hall';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
+  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto} from '@chumm-uffa/interface';
 
 /**
  * Mock for the resource service
@@ -33,6 +29,14 @@ export class MockService implements ResourceServiceInterface {
 
   newAlive(): Observable<string> {
     return of(' new i am alive');
+  }
+
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    return of(createRegisterResponse(true, '', this._users[0], '1'));
+  }
+
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    return of(createLoginResponse(true, '', 'token', this._users[0] ));
   }
 
   getMeetUps(user: User): Observable<Meetup[]> {

@@ -2,6 +2,12 @@
   "ACCEPT": "angenommen_FR",
   "DECLINED": "abgelehnt_FR",
   "OPEN": "offen_FR",
+  "login": {
+    "title": "Login_FR",
+    "email": "Email_FR: ",
+    "password": "Passwort_FR: ",
+    "loginUser": "Anmelden_FR"
+  },
   "header": {
     "title": "Chumm-Uffa_FR",
     "deutsch": "DE_FR",

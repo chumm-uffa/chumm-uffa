@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Meetup} from '../core/model/meetup';
 import {FormGroup} from '@angular/forms';
 import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
 import {FormUtil} from '../shared/form/form.util';
-import {Hall} from '../core/model/hall';
 import {Util} from '../shared/util';
+import {Hall, Meetup} from '@chumm-uffa/interface';
+
+
 
 @Component({
   selector: 'app-search',

@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ResourceService} from './resource.service';
-import {Meetup} from './model/meetup';
 import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
-import {MeetupRequest} from './model/meetup-request';
-import {Hall} from './model/hall';
-import {User} from './model/user';
-import {Chat} from './model/chat';
-import {SearchDto} from './model/searchDto';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginRequest,
+        User, Hall, Chat, Meetup, MeetupRequest} from '@chumm-uffa/interface';
+import {SearchDto} from '../../../../interface/src/model/searchDto';
 
 /**
  * Hier kann Businesslogik rein.
@@ -26,6 +23,24 @@ export class BusinessService {
 
   checkAlive(): Observable<string> {
     return this.mockService.checkAlive();
+  }
+
+  /**
+   *
+   * @param {IRegisterRequest} request
+   * @returns {Observable<IRegisterResponse>}
+   */
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    return this.resourceService.register(request);
+  }
+
+  /**
+   * Login the username
+   * @param {ILoginRequest} request
+   * @returns {Observable<ILoginResponse>}
+   */
+  login(user: User): Observable<ILoginResponse> {
+    return this.resourceService.login(createLoginRequest(user));
   }
 
   /**
@@ -60,12 +75,6 @@ export class BusinessService {
 
   loadMeetup(meetupId: string): Observable<Meetup> {
     return this.mockService.loadMeetup(meetupId);
-  }
-
-  saveUser(user: User): void {
-    // todo ruf mir den Server
-    console.log('saveUser called');
-    this.appState.loggedInUser = user;
   }
 
   loadRequests(meetupId: string): Observable<MeetupRequest[]> {

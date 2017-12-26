@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {BusinessService} from '../core/business.service';
 import {AppStateService} from '../core/app-state.service';
-import {User} from '../core/model/user';
+import { User } from '@chumm-uffa/interface';
 import {MockService} from '../core/mock.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class HomeComponent {
   }
 
   simulateLogin(user) {
-    this.appstate.isLoggedIn = true;
+    this.appstate.token = 'was drin';
     this.appstate.loggedInUser = user;
   }
 

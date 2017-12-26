@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Meetup} from '../../core/model/meetup';
+import {Meetup} from '@chumm-uffa/interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {

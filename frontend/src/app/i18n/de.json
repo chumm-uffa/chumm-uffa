@@ -2,6 +2,12 @@
   "ACCEPT": "angenommen",
   "DECLINED": "abgelehnt",
   "OPEN": "offen",
+  "login": {
+    "title": "Login",
+    "name": "Name: ",
+    "password": "Passwort: ",
+    "loginUser": "Anmelden"
+  },
   "header": {
     "title": "Chumm-Uffa",
     "deutsch": "DE",
