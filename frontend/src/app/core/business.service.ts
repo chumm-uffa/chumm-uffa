@@ -3,8 +3,18 @@ import {Observable} from 'rxjs/Observable';
 import {ResourceService} from './resource.service';
 import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginRequest,
-        User, Hall, Chat, Meetup, MeetupRequest} from '@chumm-uffa/interface';
+import {
+  Chat,
+  createLoginRequest,
+  Hall,
+  ILoginRequest,
+  ILoginResponse,
+  IRegisterRequest,
+  IRegisterResponse,
+  Meetup,
+  MeetupRequest,
+  User
+} from '@chumm-uffa/interface';
 import {SearchDto} from '../../../../interface/src/model/searchDto';
 
 /**
@@ -32,6 +42,15 @@ export class BusinessService {
    */
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
     return this.resourceService.register(request);
+  }
+
+  /**
+   *
+   * @param {User} user
+   * @returns {Observable<IRegisterResponse>}
+   */
+  saveUser(user: User): Observable<IRegisterResponse> {
+    return this.mockService.saveUser(user);
   }
 
   /**

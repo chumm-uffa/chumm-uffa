@@ -19,7 +19,8 @@ export class MeetupRequest {
     private _meetup: Meetup;
     private _status: RequestStatus;
 
-    constructor(participant: User, meetup: Meetup, status: RequestStatus = RequestStatus.OPEN) {
+    constructor(id: string, participant: User, meetup: Meetup, status: RequestStatus = RequestStatus.OPEN) {
+        this._id = id;
         this._participant = participant;
         this._meetup = meetup;
         this._status = status;

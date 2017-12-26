@@ -39,6 +39,8 @@ export interface ResourceServiceInterface {
   deleteMeetup(meetupId: string): Observable<boolean>;
 
   deleteRequest(requestId: string): Observable<boolean>;
+
+  saveUser(user: User): Observable<any>;
 }
 
 /**
@@ -150,6 +152,15 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   deleteRequest(requestId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Register a new user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  saveUser(user: User): Observable<any> {
     throw new Error('Method not implemented.');
   }
 }
