@@ -133,12 +133,14 @@
     "time": "Wann_FR",
     "location": "Ort_FR",
     "requests": "Anfragen_FR",
-    "participants": "Anz. Teilnehmer_FR"
+    "participants": "Anz. Teilnehmer_FR",
+    "delete": "löschen_FR"
   },
   "openRequests": {
     "title": "Meine Anfragen_FR",
     "time": "Wann_FR",
     "location": "Ort_FR",
-    "state": "Status_FR"
+    "state": "Status_FR",
+    "signOff": "abmelden_FR"
   }
 }

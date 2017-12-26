@@ -106,5 +106,9 @@ export class BusinessService {
   deleteMeetup(meetupId: string): Observable<boolean> {
     return this.mockService.deleteMeetup(meetupId);
   }
+
+  deleteRequest(requestId: string): Observable<boolean> {
+    return this.mockService.deleteRequest(requestId);
+  }
 }
 

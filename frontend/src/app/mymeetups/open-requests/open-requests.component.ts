@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../../core/business.service';
-import {MeetupRequest, Hall, Meetup} from '@chumm-uffa/interface';
+import {Hall, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 
 @Component({
@@ -27,6 +27,19 @@ export class OpenRequestsComponent implements OnInit {
 
   getLocation(meetUp: Meetup): string {
     return Util.resolveLocation(meetUp, this.halls);
+  }
+
+  /**
+   * Deletes the request
+   * @param event
+   * @param meetupId
+   */
+  signOff(event, requestId): void {
+    event.stopPropagation();
+    // Todo : confirm dialog
+    this.businessService.deleteRequest(requestId).subscribe(_ =>
+      this.getMeetupRequests()
+    );
   }
 
 }

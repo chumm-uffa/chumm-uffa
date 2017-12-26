@@ -133,12 +133,14 @@
     "time": "Wann",
     "location": "Ort",
     "requests": "Anfragen",
-    "participants": "Anz. Teilnehmer"
+    "participants": "Anz. Teilnehmer",
+    "delete": "löschen"
   },
   "openRequests": {
     "title": "Meine Anfragen",
     "time": "Wann",
     "location": "Ort",
-    "state": "Status"
+    "state": "Status",
+    "signOff": "abmelden"
   }
 }

@@ -83,6 +83,11 @@ export class MockService implements ResourceServiceInterface {
     return of(true);
   }
 
+  deleteRequest(requestId: string): Observable<boolean> {
+    this._meetupRequest = this._meetupRequest.filter(mu => mu.id !== requestId);
+    return of(true);
+  }
+
   get users(): User[] {
     return this._users;
   }
