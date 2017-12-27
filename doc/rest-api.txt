@@ -13,16 +13,18 @@ Ohne gültigen Web Tocken
 *****
 post     /auth/login                   login an user
 get      /auth/logout                  logout a user
+get      /auth/profile                 get the current loged in profile
 post     /auth/register                register a new user profile
-get      /auth/profile                 get the current logged in profile
-put      /auth/profile                 updates the current logged in profile
-delete   /auth/profile                 delete the current logged in profile
 
 Nur mit gültigen Web Tocken
 ***************************
 
 /users
 ******
+get      /users                        get a list of all users
+get      /users/{id}                   get user profile details
+delete   /users/{id}                   delete user profile
+put      /users/{id}                   updates an existing user profile
 get      /users/{id}/meetups           gets all meetups for the user
 get      /users/{id}/meetup-requests   gets all meetup-requests for the user
 
@@ -42,8 +44,8 @@ put      /meetups/{id}/chats{id}       updates an existing chat-entry from a mee
 
 /meetup-requests
 ****************
-get      /meetup-requests              **get a list of all meetup-request
-post     /meetup-requests              **creates a new meetup-request
+get      /meetup-requests              get a list of all meetup-request
+post     /meetup-requests              creates a new meetup-request
 get      /meetup-requests/{id}         get meetup-request details
 delete   /meetup-requests/{id}         delete a meetup-request
 put      /meetup-requests/{id}         updates an existing meetup-request
@@ -53,4 +55,4 @@ put      /meetup-requests/{id}         updates an existing meetup-request
 get      /halls                        get a list of all halls
 get      /halls/{id}                   get hall details
 
-search? noch offen
+serarch? noch offen
