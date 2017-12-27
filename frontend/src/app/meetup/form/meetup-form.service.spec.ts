@@ -1,7 +1,7 @@
 import {async, inject, TestBed} from '@angular/core/testing';
 import {MeetupFormService} from './meetup-form.service';
 import {FormBuilder} from '@angular/forms';
-import {Meetup} from '../../core/model/meetup';
+import {Meetup} from '@chumm-uffa/interface';
 
 const optDate = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
 

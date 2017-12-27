@@ -44,7 +44,8 @@ export class MockService implements ResourceServiceInterface {
   }
 
   getMeetUpRequests(user: User): Observable<MeetupRequest[]> {
-    return of(this._meetupRequest.filter(participant => participant.participant.username === user.username));
+    return of(this._meetupRequest);
+    // return of(this._meetupRequest.filter(participant => participant.participant.username === user.username));
   }
 
   loadMeetup(meetupId: string): Observable<Meetup> {
@@ -59,7 +60,7 @@ export class MockService implements ResourceServiceInterface {
    * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
-    return of(new MeetupRequest(request.participant, request.meetup, request.status));
+    return of(new MeetupRequest(request.id, request.participant, request.meetup, request.status));
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
@@ -80,6 +81,20 @@ export class MockService implements ResourceServiceInterface {
 
   deleteMeetup(meetupId: string): Observable<boolean> {
     this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
+    return of(true);
+  }
+
+  deleteRequest(requestId: string): Observable<boolean> {
+    this._meetupRequest = this._meetupRequest.filter(mu => mu.id !== requestId);
+    return of(true);
+  }
+
+  /**
+   * Register a new user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  saveUser(user: User): Observable<any> {
     return of(true);
   }
 
@@ -147,14 +162,14 @@ export class MockService implements ResourceServiceInterface {
    */
   private generateRequest() {
     this._meetupRequest = [];
-    this._meetupRequest.push(new MeetupRequest(this._users[1], this._meetups[1]));
-    this._meetupRequest.push(new MeetupRequest(this._users[2], this._meetups[1]));
-    this._meetupRequest.push(new MeetupRequest(this._users[3], this._meetups[1]));
-    this._meetupRequest.push(new MeetupRequest(this._users[0], this._meetups[2], RequestStatus.ACCEPT));
-    this._meetupRequest.push(new MeetupRequest(this._users[1], this._meetups[2]));
-    this._meetupRequest.push(new MeetupRequest(this._users[0], this._meetups[3], RequestStatus.DECLINED));
-    this._meetupRequest.push(new MeetupRequest(this._users[3], this._meetups[3]));
-    this._meetupRequest.push(new MeetupRequest(this._users[0], this._meetups[4]));
+    this._meetupRequest.push(new MeetupRequest('1', this._users[1], this._meetups[1]));
+    this._meetupRequest.push(new MeetupRequest('2', this._users[2], this._meetups[1]));
+    this._meetupRequest.push(new MeetupRequest('3', this._users[3], this._meetups[1]));
+    this._meetupRequest.push(new MeetupRequest('4', this._users[0], this._meetups[2], RequestStatus.ACCEPT));
+    this._meetupRequest.push(new MeetupRequest('5', this._users[1], this._meetups[2]));
+    this._meetupRequest.push(new MeetupRequest('6', this._users[0], this._meetups[3], RequestStatus.DECLINED));
+    this._meetupRequest.push(new MeetupRequest('7', this._users[3], this._meetups[3]));
+    this._meetupRequest.push(new MeetupRequest('8', this._users[0], this._meetups[4]));
   }
 
   /**

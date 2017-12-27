@@ -30,7 +30,7 @@
     <ng-template #outdoor><label>{{'meetup.outdoor' | translate}}<input formControlName="outdoor"></label></ng-template>
     <app-validation-feedback *ngIf="form | hasError:'oneOfAll'">{{ 'meetup.error.oneOfAll' | translate }}</app-validation-feedback>
   </div>
-  <label>{{'meetup.activity' | translate}}<input formControlName="activity"></label>
+  <label>{{'meetup.activity' | translate}}<textarea formControlName="activity"></textarea></label>
   <br>
   <button>{{'meetup.submit' | translate}}</button>
 </form>

@@ -76,7 +76,7 @@ describe('user Form', () => {
   }));
 
   function createUser(): User {
-    return new User('Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
+    return new User('id', 'Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
   }
 
   function createValidForm(userFb: UserFormService): FormGroup {
