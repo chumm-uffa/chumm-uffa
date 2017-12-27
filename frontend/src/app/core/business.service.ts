@@ -3,9 +3,18 @@ import {Observable} from 'rxjs/Observable';
 import {ResourceService} from './resource.service';
 import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginRequest,
-        User, Hall, Chat, Meetup, MeetupRequest} from '@chumm-uffa/interface';
-import {SearchDto} from '../../../../interface/src/model/searchDto';
+import {
+  createLoginRequest,
+  createRegisterRequest,
+  ILoginResponse,
+  IRegisterResponse,
+  Chat,
+  Hall,
+  Meetup,
+  MeetupRequest,
+  User,
+  SearchDto
+} from '@chumm-uffa/interface';
 
 /**
  * Hier kann Businesslogik rein.
@@ -27,16 +36,25 @@ export class BusinessService {
 
   /**
    *
-   * @param {IRegisterRequest} request
+   * @param {User} user
    * @returns {Observable<IRegisterResponse>}
    */
-  register(request: IRegisterRequest): Observable<IRegisterResponse> {
-    return this.resourceService.register(request);
+  register(user: User): Observable<IRegisterResponse> {
+    return this.resourceService.register(createRegisterRequest( user ));
   }
 
   /**
-   * Login the username
-   * @param {ILoginRequest} request
+   *
+   * @param {User} user
+   * @returns {Observable<IRegisterResponse>}
+   */
+  saveUser(user: User): Observable<IRegisterResponse> {
+    return this.mockService.saveUser(user);
+  }
+
+  /**
+   *
+   * @param {User} user
    * @returns {Observable<ILoginResponse>}
    */
   login(user: User): Observable<ILoginResponse> {
@@ -105,6 +123,10 @@ export class BusinessService {
 
   deleteMeetup(meetupId: string): Observable<boolean> {
     return this.mockService.deleteMeetup(meetupId);
+  }
+
+  deleteRequest(requestId: string): Observable<boolean> {
+    return this.mockService.deleteRequest(requestId);
   }
 }
 

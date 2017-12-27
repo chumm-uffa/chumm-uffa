@@ -35,14 +35,17 @@
     "email": "Email_FR: ",
     "sex": "Geschlecht_FR:",
     "registerUser": "Benutzer erstellen_FR",
+    "saveUser": "Benutzer speichern_FR",
     "man": "Mann_FR",
     "women": "Frau_FR",
     "weight": "Körpergewicht_FR: ",
+    "kg": "kg_FR",
     "error": {
       "nameRequired": "Namen eingeben_FR",
       "nameMinLength": "Name muss min 2 Zeichen haben_FR",
       "email": "ungültiges Emailformat_FR",
-      "differentPasswords": "die Passwortwiederholung weicht ab_FR"
+      "differentPasswords": "die Passwortwiederholung weicht ab_FR",
+      "sexRequired": "Geschlecht wählen._FR"
     }
   },
   "meetup": {
@@ -130,12 +133,14 @@
     "time": "Wann_FR",
     "location": "Ort_FR",
     "requests": "Anfragen_FR",
-    "participants": "Anz. Teilnehmer_FR"
+    "participants": "Anz. Teilnehmer_FR",
+    "delete": "löschen_FR"
   },
   "openRequests": {
     "title": "Meine Anfragen_FR",
     "time": "Wann_FR",
     "location": "Ort_FR",
-    "state": "Status_FR"
+    "state": "Status_FR",
+    "signOff": "abmelden_FR"
   }
 }

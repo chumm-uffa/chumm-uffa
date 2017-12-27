@@ -14,6 +14,6 @@
     <td>{{meetup.numberOfRequest}}</td>
     <td>{{meetup.numberOfParticipant}}</td>
     <td><button (click)="$event.stopPropagation()" routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">edit</button></td>
-    <td><button (click)="deleteMeetup($event, meetup.id)">löschen</button></td>
+    <td><button (click)="deleteMeetup($event, meetup.id)">{{'ownMeetups.delete' | translate}}</button></td>
   </tr>
 </table>

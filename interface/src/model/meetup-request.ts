@@ -14,22 +14,29 @@ export enum RequestStatus {
  * Encapsulates a participant relation ship
  */
 export class MeetupRequest {
-  private _participant: User;
-  private _meetup: Meetup;
-  private _status: RequestStatus;
+    private _id: string;
+    private _participant: User;
+    private _meetup: Meetup;
+    private _status: RequestStatus;
 
-  constructor(participant: User, meetup: Meetup, status: RequestStatus = RequestStatus.OPEN) {
-    this._participant = participant;
-    this._meetup = meetup;
-    this._status = status;
-  }
+    constructor(id: string, participant: User, meetup: Meetup, status: RequestStatus = RequestStatus.OPEN) {
+        this._id = id;
+        this._participant = participant;
+        this._meetup = meetup;
+        this._status = status;
+    }
 
   public toJSON() {
     return {
       participant: this.participant,
       meetup: this.meetup,
-      status: this.status
+      status: this.status,
+      id: this.id
     };
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get participant(): User {
