@@ -10,7 +10,7 @@ services:
             - 4200:4200
         depends_on:
             - backend
-        command: /bin/bash -c "npm i && npm run build && npm run docker"
+        command: /bin/bash -c "npm run build && npm run docker"
     backend:
         image: node:8
         working_dir: /backend
@@ -21,7 +21,7 @@ services:
             - 8080:8080
         depends_on:
             - database
-        command: /bin/bash -c "npm i && npm run docker-watch"
+        command: /bin/bash -c "npm run docker-watch"
     database:
         image: mongo:latest
         environment:
