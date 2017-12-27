@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
           this.userForm.hasError(response.message);
         });
       } else {
-        this.businessService.register(createRegisterRequest(this.userFormService.mergeUser(this.userForm.value, this.user)))
+        this.businessService.register(this.userFormService.mergeUser(this.userForm.value, this.user))
           .subscribe(response => {
             console.log('New DBUser register with id ', response.id);
           }, err => {
