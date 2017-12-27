@@ -230,7 +230,6 @@ describe('Test /auth/login and /auth/logout', () => {
             .get(`${baseTest.route}auth/logout`)
             .end((err, res) => {
                 baseTest.assertSuccess(res);
-                done();
             });
 
         baseTest.chai.request(baseTest.server)
