@@ -24,6 +24,14 @@ export class MeetupRequest {
     this._status = status;
   }
 
+  public toJSON() {
+    return {
+      participant: this.participant,
+      meetup: this.meetup,
+      status: this.status
+    };
+  }
+
   get participant(): User {
     return this._participant;
   }
