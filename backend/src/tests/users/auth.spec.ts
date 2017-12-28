@@ -7,8 +7,8 @@ import { BaseTest } from '../BaseTest';
 
 import * as cuint from '@chumm-uffa/interface';
 
+describe('/POST login', () => {
 
-describe('/POST login', function () {
     const baseTest: BaseTest = new BaseTest();
     let testUser: cuint.User;
 
@@ -44,7 +44,7 @@ describe('/POST login', function () {
                     .post(`${baseTest.route}auth/register`)
                     .send(cuint.createRegisterRequest(testUser))
                     .end((err, res) => {
-                        baseTest.assertFailed(res, 400, 'this user name has already been taken.');
+                        baseTest.assertFailed(res, 400, 'this email address has already been taken.');
                         done();
                     });
 

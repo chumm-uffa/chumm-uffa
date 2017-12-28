@@ -1,13 +1,13 @@
-import {User} from './user';
+import { User } from './user';
 import {Meetup} from './meetup';
 
 /**
  * The state of a request relation ship
  */
 export enum RequestStatus {
-    OPEN = 'OPEN',
-    ACCEPT = 'ACCEPT',
-    DECLINED = 'DECLINED'
+  OPEN = 'OPEN',
+  ACCEPT = 'ACCEPT',
+  DECLINED = 'DECLINED'
 }
 
 /**
@@ -26,23 +26,32 @@ export class MeetupRequest {
         this._status = status;
     }
 
-    get id(): string {
-        return this._id;
-    }
+  public toJSON() {
+    return {
+      participant: this.participant,
+      meetup: this.meetup,
+      status: this.status,
+      id: this.id
+    };
+  }
 
-    get participant(): User {
-        return this._participant;
-    }
+  get id(): string {
+    return this._id;
+  }
 
-    get meetup(): Meetup {
-        return this._meetup;
-    }
+  get participant(): User {
+    return this._participant;
+  }
 
-    get status(): RequestStatus {
-        return this._status;
-    }
+  get meetup(): Meetup {
+    return this._meetup;
+  }
 
-    set status(value: RequestStatus) {
-        this._status = value;
-    }
+  get status(): RequestStatus {
+    return this._status;
+  }
+
+  set status(value: RequestStatus) {
+    this._status = value;
+  }
 }

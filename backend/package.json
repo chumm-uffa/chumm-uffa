@@ -7,7 +7,7 @@
     "start": "npm run build && node ./dist/server.js",
     "docker": "npm run build && node ./dist/server.js docker",
     "build": "npm run clean && npm run tsc && npm run html",
-    "test": "npm run start-watch",
+    "test": "npm run build && mocha -t 30000 dist/tests/**/*.spec.js --exit",
     "lint": "tslint --project tsconfig.json --exclude ./**/*.js",
     "html": "copyfiles ./**/*.html ./**/*.css ./.env dist/",
     "tsc": "tsc",

@@ -8,6 +8,13 @@ export class Hall {
     this._name = name;
   }
 
+  public toJSON() {
+    return {
+      key: this.key,
+      name: this.name
+    };
+  }
+
   get key(): string {
     return this._key;
   }
