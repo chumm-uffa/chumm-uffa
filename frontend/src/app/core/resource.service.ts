@@ -49,7 +49,7 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = `http://localhost:4200/api/${Version}/`;
+  private urlDemo = `/api/${Version}/`;
 
   constructor(private http: HttpClient) {
   }

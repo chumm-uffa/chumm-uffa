@@ -1,7 +1,7 @@
 version: '3'
 services:
     frontend:
-        image: node:latest
+        image: node:8
         working_dir: /frontend
         command: /bin/bash -c "npm run build && npm run docker"
         volumes:
@@ -12,7 +12,7 @@ services:
         depends_on:
             - backend
     backend:
-        image: node:latest
+        image: node:8
         working_dir: /backend
         command: /bin/bash -c "npm i && npm run docker-watch"
         volumes:

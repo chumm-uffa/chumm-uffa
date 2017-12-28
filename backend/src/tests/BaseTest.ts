@@ -6,6 +6,9 @@
 import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
+// This must be here, before server is loading!
+process.env.NODE_ENV = 'testing';
+
 import { server } from '../server';
 
 import * as cuint from '@chumm-uffa/interface';

@@ -15,6 +15,6 @@ export class LoginRequest implements ILoginRequest{
 }
 
 export class LoginResponse extends BaseResponse implements ILoginResponse {
-    public token: string;
-    public user: User;
+    token: string;
+    user: User;
 }

@@ -9,7 +9,6 @@ import { BaseTest } from '../BaseTest';
 import * as cuint from '@chumm-uffa/interface';
 
 describe('/POST users', () => {
-
     const baseTest: BaseTest = new BaseTest();
     const testUser = baseTest.createTestUser();
     let token: string;
