@@ -11,6 +11,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
 import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
 import {SearchModule} from './search/search.module';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {TokenInterceptor} from "./auth/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,11 @@ import {SearchModule} from './search/search.module';
     SearchModule,
     TranslateModule.forRoot()
   ],
-  providers: [],
+  providers: [    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -22,7 +22,7 @@ export const guard = (req: Request, res: Response, next: NextFunction) => {
                         message: 'Failed to authenticate token.'
                     });
                 } else {
-                    req.body.profile = user._doc;
+                    req.body.loginProfile = user._doc;
                     next();
                 }
             });

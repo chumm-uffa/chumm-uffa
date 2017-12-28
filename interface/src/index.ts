@@ -15,6 +15,11 @@ import {
     IDeleteChatForMeetupResponse,
     IGetAllChatsForMeetupResponse
 } from "./interface/meetups/chats";
+import {
+    DeleteProfileResponse,
+    GetProfileRespons, IDeleteProfileResponse, IGetProfileResponse, IUpdateProfileRequest, IUpdateProfileResponse,
+    UpdateProfileRequest, UpdateProfileResponse
+} from "./interface/auth/profile";
 
 import {User} from './model/user';
 import {Chat} from './model/chat';
@@ -57,6 +62,16 @@ export {
     //post /auth/register
     IRegisterRequest, RegisterRequest,
     IRegisterResponse, RegisterResponse,
+
+    //get /auth/profile
+    IGetProfileResponse, GetProfileRespons,
+
+    //put /auth/profile
+    IUpdateProfileRequest, UpdateProfileRequest,
+    IUpdateProfileResponse, UpdateProfileResponse,
+
+    //delete /auth/profile
+    IDeleteProfileResponse, DeleteProfileResponse,
 
     //*************************
     // All for route "/meetups"

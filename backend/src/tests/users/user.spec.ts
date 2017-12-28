@@ -17,15 +17,15 @@ describe('/POST users', () => {
         // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser))
+                    .send(cuint.AuthFactory.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
                         // Test if we got a token back

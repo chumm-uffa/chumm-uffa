@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
-  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto} from '@chumm-uffa/interface';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, IUpdateProfileRequest, IUpdateProfileResponse,
+  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto, AuthFactory} from '@chumm-uffa/interface';
 
 /**
  * Mock for the resource service
@@ -32,11 +32,11 @@ export class MockService implements ResourceServiceInterface {
   }
 
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
-    return of(createRegisterResponse(true, '', this._users[0], '1'));
+    return of(AuthFactory.createRegisterResponse(true, '', this._users[0], '1'));
   }
 
   login(request: ILoginRequest): Observable<ILoginResponse> {
-    return of(createLoginResponse(true, '', 'token', this._users[0] ));
+    return of(AuthFactory.createLoginResponse(true, '', 'token', this._users[0] ));
   }
 
   getMeetUps(user: User): Observable<Meetup[]> {
@@ -94,8 +94,8 @@ export class MockService implements ResourceServiceInterface {
    * @param {User} user
    * @returns {Observable<User>}
    */
-  saveUser(user: User): Observable<any> {
-    return of(true);
+  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
+    return of(AuthFactory.createUpdateProfileResponse(true, "", request.profile));
   }
 
   get users(): User[] {
