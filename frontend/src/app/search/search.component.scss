@@ -1,33 +1,18 @@
 @import "../material/table";
+@import "../material/general";
 
 .app-search {
   text-align: center;
 }
 
 .search-button {
-  width: 20%;
-  margin-left: 40%;
-  margin-right: 40%;
+  width: 50%;
+  display: inline-block;
+  margin-top: 2em;
 }
 
-.mat-h1 {
-  margin-top: 1em;
+.right-hand {
+  display: inline-block;
 }
 
-mat-radio-group, mat-form-field, mat-table {
-  padding: 10px;
-}
 
-button {
-  display: block;
-}
-
-.numberInput {
-  text-align: right;
-}
-
-/*Bug Chrome*/
-.mat-input-element {
-  width: 105%;
-  max-width: 105%;
-}

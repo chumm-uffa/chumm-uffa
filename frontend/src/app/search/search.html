@@ -1,5 +1,5 @@
 <span class="app-search">
-  <h2 class="mat-h1">{{ 'search.title' | translate }}</h2>
+  <h2 class="mat-h1 page-title">{{ 'search.title' | translate }}</h2>
 
   <form novalidate [formGroup]="searchForm" (ngSubmit)="startSearch()">
     <mat-form-field>
@@ -14,41 +14,42 @@
       <mat-error *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</mat-error>
     </mat-form-field>
 
-    <!--<label>{{ 'search.location' | translate }}</label>-->
-    <mat-radio-group formControlName="locationType">
-      <mat-radio-button value="in">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
-      <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
-    </mat-radio-group>
-    <mat-form-field *ngIf="isIndoor(); else outdoor">
-      <mat-select placeholder="{{'search.indoor' | translate}}" formControlName="indoor">
-        <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <ng-template #outdoor>
-      <mat-form-field>
-        <input matInput placeholder="{{'search.outdoor' | translate}}" formControlName="outdoor">
+    <span class="right-hand">
+      <mat-radio-group formControlName="locationType">
+        <mat-radio-button value="in">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
+        <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field *ngIf="isIndoor(); else outdoor">
+        <mat-select placeholder="{{'search.indoor' | translate}}" formControlName="indoor">
+          <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
+        </mat-select>
       </mat-form-field>
-    </ng-template>
+      <ng-template #outdoor>
+        <mat-form-field>
+          <input matInput placeholder="{{'search.outdoor' | translate}}" formControlName="outdoor">
+        </mat-form-field>
+      </ng-template>
+    </span>
 
-    <!--<label>{{ 'search.weight' | translate }}</label>-->
-    <mat-form-field>
-      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMin" class="numberInput">
+    <div class="mat-h2">{{ 'Partnerperson' }}</div>
+    <mat-form-field class="form-field-pre-suffix">
+      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMin">
       <span matPrefix>{{'search.weightMin' | translate}}</span>
       <span matSuffix>{{'search.kg' | translate}}</span>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMax" class="numberInput">
+    <mat-form-field class="form-field-pre-suffix">
+      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMax">
       <span matPrefix>{{'search.weightMax' | translate}}</span>
       <span matSuffix>{{'search.kg' | translate}}</span>
     </mat-form-field>
     <!--<label>{{ 'search.sex' | translate }}</label>-->
-    <mat-radio-group formControlName="sex">
+    <mat-radio-group formControlName="sex" class="right-hand">
       <mat-radio-button value="m">{{ 'search.man' | translate }}</mat-radio-button>
       <mat-radio-button value="f">{{ 'search.women' | translate }}</mat-radio-button>
     </mat-radio-group>
-
-
-    <button mat-raised-button class="search-button" color="accent">{{'search.start' | translate}}</button>
+    <div>
+      <button mat-raised-button class="search-button" color="accent">{{'search.start' | translate}}</button>
+    </div>
   </form>
 </span>
 
