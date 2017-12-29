@@ -50,6 +50,8 @@ export class BaseTest {
     public assertSuccess(res) {
         res.status.should.equal(200);
         res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        console.log(res.body.message);
         res.body.should.have.property('success');
         res.body.success.should.equal(true);
     }
@@ -64,8 +66,9 @@ export class BaseTest {
         res.body.should.be.a('object');
         res.body.should.have.property('success');
         res.body.success.should.equal(false);
+        res.body.should.have.property('message');
+        console.log(res.body.message);
         if (message.length > 0) {
-            res.body.should.have.property('message');
             res.body.message.should.equal(message);
         }
     }

@@ -28,8 +28,12 @@ import {Meetup} from './model/meetup';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {SearchDto} from './model/searchDto';
 
+import {BaseFactory} from './factory/baseFactory';
 import {AuthFactory} from './factory/authFactory';
 import {MeetupsFactory} from './factory/meetupsFactory';
+import {HallsFactory} from './factory/hallsFactory';
+import {MeetupRequestsFactory} from './factory/meetupRequestsFactory';
+import {UsersFactory} from './factory/usersFactory';
 
 /**
  * The interface version
@@ -41,7 +45,7 @@ export const Version: String = "v1";
  * Export of factory classes
  */
 export  {
-    AuthFactory, MeetupsFactory
+    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory
 }
 
 

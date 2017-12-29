@@ -1,6 +1,17 @@
-import {IBaseResponse} from "../interface/baseResponse";
+import {BaseResponse, IBaseResponse} from "../interface/baseResponse";
 
 export class BaseFactory {
+
+    /**
+     * Create general response message
+     * @param {boolean} success
+     * @param {string} message
+     * @returns {IBaseResponse}
+     */
+    static createBaseResponse (success: boolean, message: string) : IBaseResponse {
+        return this.createResponse(BaseResponse, success, message);
+    }
+
     /**
      * Generic function to create response class an set member variables
      * @param {{new() => T}} baseResponse

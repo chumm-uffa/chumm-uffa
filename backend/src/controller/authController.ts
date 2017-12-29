@@ -3,13 +3,13 @@
  */
 import * as jwt from 'jsonwebtoken';
 
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from './baseController';
 
-import { DBUser, IDBUser, IDBUserModel } from '../models/user/model';
+import { DBUser, IDBUserModel } from '../models/user/model';
 
 import {
-    ILoginRequest, IRegisterRequest, IUpdateProfileRequest, AuthFactory
+    AuthFactory, ILoginRequest, IRegisterRequest, IUpdateProfileRequest
 } from '@chumm-uffa/interface';
 
 export class AuthController extends BaseController {

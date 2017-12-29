@@ -9,6 +9,9 @@ import {
 } from "../interface/auth/profile";
 import {ILogoutResponse, LogoutResponse} from "../interface/auth/logout";
 
+/**
+ * Class factory for "/auth" route Rest API interface
+ */
 export class AuthFactory extends BaseFactory{
 
     /**
@@ -33,7 +36,7 @@ export class AuthFactory extends BaseFactory{
     static createLoginResponse (success: boolean, message: string, token?: string, user?: User) : ILoginResponse {
         const response = this.createResponse(LoginResponse, success, message);
         if (token) { response.token = token }
-        if (user) { response.user = user }
+        if (user) { response.profile = user }
         return response;
     }
 

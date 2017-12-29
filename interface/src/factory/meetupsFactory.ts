@@ -18,7 +18,7 @@ import {Chat} from "../model/chat";
 import {MeetupRequest} from "../model/meetup-request";
 
 /**
- * Factory class for /meetups route
+ * Class Factory for "/meetups" route Rest API interface
  */
 export class MeetupsFactory extends BaseFactory {
 
@@ -128,7 +128,7 @@ export class MeetupsFactory extends BaseFactory {
      * @param {Chat[]} chats
      * @returns {IGetAllChatsForMeetupResponse}
      */
-    static createGetAllChatsForMeetupRespons(success: boolean, message: string, chats: Chat[]): IGetAllChatsForMeetupResponse {
+    static createGetAllChatsForMeetupRespons(success: boolean, message: string, chats?: Chat[]): IGetAllChatsForMeetupResponse {
         const response = this.createResponse(GetAllChatsForMeetupRespons, success, message);
         if (chats) { response.chats = chats }
         return response;
