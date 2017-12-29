@@ -1,9 +1,8 @@
 version: '3'
 services:
     frontend:
-        image: node:latest
+        image: node:8
         working_dir: /frontend
-        command: /bin/bash -c "npm run build && npm run docker"
         volumes:
             - ./frontend:/frontend
             - ./interface:/interface
@@ -11,10 +10,10 @@ services:
             - 4200:4200
         depends_on:
             - backend
+        command: /bin/bash -c "npm run build && npm run docker"
     backend:
-        image: node:latest
+        image: node:8
         working_dir: /backend
-        command: /bin/bash -c "npm i && npm run docker-watch"
         volumes:
             - ./backend:/backend
             - ./interface:/interface
@@ -22,6 +21,7 @@ services:
             - 8080:8080
         depends_on:
             - database
+        command: /bin/bash -c "npm run docker-watch"
     database:
         image: mongo:latest
         environment:
