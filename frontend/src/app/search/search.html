@@ -3,12 +3,12 @@
 
   <form novalidate [formGroup]="searchForm" (ngSubmit)="startSearch()">
     <mat-form-field>
-      <input matInput placeholder="{{'search.from' | translate}}" type="datetime-local" formControlName="fromDateTime">
+      <input matInput placeholder="{{'search.from' | translate}}" formControlName="fromDateTime" type="datetime-local">
       <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'required'">{{ 'search.error.fromDateTimeRequired' | translate }}</mat-error>
       <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="{{'search.to' | translate}}" type="datetime-local" formControlName="toDateTime">
+      <input matInput placeholder="{{'search.to' | translate}}" formControlName="toDateTime" type="datetime-local">
       <mat-error *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</mat-error>
       <mat-error *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</mat-error>
     </mat-form-field>
@@ -19,13 +19,13 @@
         <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
       </mat-radio-group>
       <mat-form-field *ngIf="isIndoor(); else outdoor">
-        <mat-select placeholder="{{'search.indoor' | translate}}" formControlName="indoor">
+        <mat-select formControlName="indoor" placeholder="{{'search.indoor' | translate}}">
           <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <ng-template #outdoor>
         <mat-form-field>
-          <input matInput placeholder="{{'search.outdoor' | translate}}" formControlName="outdoor">
+          <input matInput formControlName="outdoor" placeholder="{{'search.outdoor' | translate}}">
         </mat-form-field>
       </ng-template>
     </span>
@@ -33,12 +33,12 @@
     <div class="mat-h2">{{ 'search.partner' | translate}}</div>
 
     <mat-form-field class="form-field-pre-suffix">
-      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMin">
+      <input matInput formControlName="weightMin" placeholder="{{ 'search.weight' | translate }}" type="number">
       <span matPrefix>{{'search.weightMin' | translate}}</span>
       <span matSuffix>{{'search.kg' | translate}}</span>
     </mat-form-field>
     <mat-form-field class="form-field-pre-suffix">
-      <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMax">
+      <input matInput formControlName="weightMax" placeholder="{{ 'search.weight' | translate }}" type="number">
       <span matPrefix>{{'search.weightMax' | translate}}</span>
       <span matSuffix>{{'search.kg' | translate}}</span>
     </mat-form-field>
@@ -49,7 +49,7 @@
     </mat-radio-group>
 
     <div>
-      <button mat-raised-button class="search-button" color="accent">{{'search.start' | translate}}</button>
+      <button mat-raised-button color="accent" class="search-button">{{'search.start' | translate}}</button>
     </div>
   </form>
 </span>
