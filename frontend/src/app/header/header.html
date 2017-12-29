@@ -12,10 +12,10 @@
   <span *ngIf="appState.isLoggedIn; else publicBlock">
     <!-- place routes here for loggedIn mode-->
     <a mat-tab-link routerLink="/">{{'header.link.home' | translate}}</a>
-    <a mat-tab-link routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a>
+    <a mat-tab-link routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
     <a mat-tab-link routerLink="/mymeetups">{{'header.link.myMeetups' | translate}}</a>
     <a mat-tab-link routerLink="/meetup">{{'header.link.newMeetup' | translate}}</a>
-    <a mat-tab-link routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
+    <a mat-tab-link routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a>
     <a mat-tab-link *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</a>
   </span>
   <ng-template #publicBlock>
