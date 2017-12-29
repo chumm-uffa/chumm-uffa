@@ -11,6 +11,13 @@ export class Chat {
     this._date = date;
   }
 
+  public toJSON() {
+      return {
+          text: this.text,
+          speaker: this.speaker,
+          data: this.date
+      };
+  }
 
   get text(): string {
     return this._text;

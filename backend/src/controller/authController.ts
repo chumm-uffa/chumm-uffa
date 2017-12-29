@@ -123,7 +123,68 @@ export class AuthController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public profile(req: Request, res: Response) {
-        res.json({success: true, user: req.body.user});
+    public getProfile(req: Request, res: Response) {
+        res.json({success: true, user: req.body.profile});
     }
-}
+
+    /**
+     * Changes the current logged in profile
+     * @param {Request} req
+     * @param {Response} res
+     */
+    public putProfile(req: Request, res: Response) {
+        const registerRequest: IRegisterRequest = req.body;
+
+        // Check if id of profile and user to change are the same
+        if (registerRequest.user.id != req.body.profile._id) {
+            res.status(400);
+            res.json(createRegisterResponse(false, 'wrong user id, only login user can be changed.'));
+            return;
+        }
+
+        // If email is present, the format must be valid
+        if (registerRequest.user.email && !this.regExMail.test(registerRequest.user.email)) {
+            res.status(400);
+            res.json(createRegisterResponse(false, 'wrong email format.'));
+            return;
+        }
+
+        // Getting the current user based on user name
+        DBUser.findOne({username: req.body.profile.username}).then((profileDbUser) => {
+            if (profileDbUser) {
+                // Getting the new user based on user name
+                DBUser.findOne({username: registerRequest.user.username}).then((newDbUser) => {
+                    // Check if the username alreday exist
+                    if (!newDbUser || newDbUser.id == profileDbUser.id){
+                        profileDbUser.fromInterface(registerRequest.user);
+                        profileDbUser.save().then((result) => {
+                            res.json(createRegisterResponse(true, 'user changed.', result.toInterface(), result.id));
+                        }).catch((err) => {
+                            this.logger.error(err.toString());
+                            res.status(500);
+                            res.json(createRegisterResponse(false, 'something went wrong.'));
+                        });
+                        return;
+                    }
+                    res.status(400);
+                    res.json(createRegisterResponse(false, 'user name already exists'));
+                    return;
+                }).catch((err) => {
+                    this.logger.error(err.toString());
+                    res.status(500);
+                    res.json(createRegisterResponse(false, 'something went wrong.'));
+                    return;
+                });
+                return;
+            }
+
+            res.status(400);
+            res.json(createRegisterResponse(false, 'user not exists.'));
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(createRegisterResponse(false, 'something went wrong.'));
+            return;
+        });
+    }}

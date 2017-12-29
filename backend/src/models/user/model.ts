@@ -100,7 +100,7 @@ UserSchema.methods.fromInterface = function(user: User) {
  */
 UserSchema.methods.toInterface = function() {
     const user: User = new User();
-    user.id = this._id;
+    user.id = this._id.toString();
     user.username = this.username;
     user.email = this.email;
     user.password = this.password;

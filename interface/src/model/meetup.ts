@@ -62,6 +62,20 @@ export class Meetup {
     this._numberOfParticipant = numberOfParticipant;
   }
 
+  public toJSON() {
+    return {
+        id: this.id,
+        owner: this.owner,
+        from: this.from,
+        to: this.to,
+        outdoor: this.outdoor,
+        indoor: this.indoor,
+        activity: this.activity,
+        numberOfRequest: this.numberOfRequest,
+        numberOfParticipant: this.numberOfParticipant
+    };
+  }
+
   get id(): string {
     return this._id;
   }
