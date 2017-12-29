@@ -112,6 +112,7 @@
     "from_th": "Startzeit",
     "to_th": "Endzeit",
     "noResults": "Keine passenden Meetups gefunden!",
+    "partner": "Partnerperson",
     "error": {
       "fromDateTimeRequired": "Startzeit eingeben.",
       "toDateTimeRequired": "Endzeit eingeben.",

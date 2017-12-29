@@ -7,7 +7,6 @@
       <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'required'">{{ 'search.error.fromDateTimeRequired' | translate }}</mat-error>
       <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</mat-error>
     </mat-form-field>
-
     <mat-form-field>
       <input matInput placeholder="{{'search.to' | translate}}" type="datetime-local" formControlName="toDateTime">
       <mat-error *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</mat-error>
@@ -31,7 +30,8 @@
       </ng-template>
     </span>
 
-    <div class="mat-h2">{{ 'Partnerperson' }}</div>
+    <div class="mat-h2">{{ 'search.partner' | translate}}</div>
+
     <mat-form-field class="form-field-pre-suffix">
       <input matInput placeholder="{{ 'search.weight' | translate }}" type="number" formControlName="weightMin">
       <span matPrefix>{{'search.weightMin' | translate}}</span>
@@ -42,11 +42,12 @@
       <span matPrefix>{{'search.weightMax' | translate}}</span>
       <span matSuffix>{{'search.kg' | translate}}</span>
     </mat-form-field>
-    <!--<label>{{ 'search.sex' | translate }}</label>-->
+
     <mat-radio-group formControlName="sex" class="right-hand">
       <mat-radio-button value="m">{{ 'search.man' | translate }}</mat-radio-button>
       <mat-radio-button value="f">{{ 'search.women' | translate }}</mat-radio-button>
     </mat-radio-group>
+
     <div>
       <button mat-raised-button class="search-button" color="accent">{{'search.start' | translate}}</button>
     </div>
