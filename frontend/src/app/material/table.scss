@@ -3,11 +3,11 @@
   display: none;
 }
 
+.mat-table {
+  background: transparent;
+}
+
 /*
-
-TODO : auslagern und für andere Tables bereitstellen
-dito teile oben
-
 Max width before this PARTICULAR table gets nasty
 This query will take effect for any screen smaller than 760px
 and also iPads specifically.
