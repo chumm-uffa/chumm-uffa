@@ -132,7 +132,7 @@ export class AuthController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public putProfile(req: Request, res: Response) {
+    public updateProfile(req: Request, res: Response) {
         const updateRequest: IUpdateProfileRequest = req.body;
 
         // Check if id of profile and user to change are the same

@@ -4,9 +4,9 @@
 import { Request, Response, Router } from 'express';
 import { BaseController } from './baseController';
 import {
-    MeetupsFactory, ICreateMeetupRequest
+    MeetupsFactory, ICreateMeetupRequest, IUpdateMeetupRequest, Meetup
 } from '@chumm-uffa/interface';
-import {DBMeetup, IDBMeetupModel} from "../models/meetup/model";
+import {DBMeetup, IDBMeetupModel, MeetupPopulate} from "../models/meetup/model";
 
 export class MeetupController extends BaseController {
 
@@ -16,8 +16,18 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public getAllMeetups(req: Request, res: Response){
-        res.status(200);
-        res.json(MeetupsFactory.createGetAllMeetupsResponse(true, ""));
+        DBMeetup.find({}).populate(MeetupPopulate).then( (dbMeetups) => {
+            let meetups: Meetup[] = [];
+            for (let dbMeetup of dbMeetups) {
+                meetups.push(dbMeetup.toInterface());
+            }
+            res.json(MeetupsFactory.createGetAllMeetupsResponse(true, "", meetups));
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(MeetupsFactory.createGetAllMeetupsResponse(false, err.toString()));
+            return;
+        });
     }
 
     /**
@@ -32,6 +42,7 @@ export class MeetupController extends BaseController {
         if (!createRequest.meetup ||
             !createRequest.meetup.owner ||
             !createRequest.meetup.from ||
+            !createRequest.meetup.to ||
             !createRequest.meetup.activity ) {
             res.status(400);
             res.json(MeetupsFactory.createCreateMeetupResponse(false, 'wrong input.'));
@@ -40,8 +51,10 @@ export class MeetupController extends BaseController {
 
         const dbMeetup: IDBMeetupModel = new DBMeetup();
         dbMeetup.fromInterface(createRequest.meetup);
-        dbMeetup.save().then((result) => {
-            res.json(MeetupsFactory.createCreateMeetupResponse(true, 'user created.', result.toInterface(), result.id));
+        dbMeetup.save().then((dbMeetup) => {
+            DBMeetup.populate(dbMeetup, MeetupPopulate).then(  (dbMeetup: IDBMeetupModel) => {
+                res.json(MeetupsFactory.createCreateMeetupResponse(true, 'meetup created.', dbMeetup.toInterface(), dbMeetup.id));
+            });
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -55,9 +68,20 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public getMeetup(req: Request, res: Response){
-        console.log(`getMeetup id = ${req.params.id}`);
-        res.status(200);
-        res.json(MeetupsFactory.createGetMeetupRespons(true, ""));
+        DBMeetup.findById(req.params.id).populate(MeetupPopulate).then( (dbMeetup) => {
+            if (dbMeetup) {
+                res.json(MeetupsFactory.createGetMeetupRespons(true, "", dbMeetup.toInterface()));
+                return;
+            }
+            res.status(400);
+            res.json(MeetupsFactory.createGetMeetupRespons(false, 'meetup not exits.'));
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(MeetupsFactory.createGetAllMeetupsResponse(false, err.toString()));
+            return;
+        });
     }
 
     /**
@@ -66,9 +90,20 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public deleteMeetup(req: Request, res: Response){
-        console.log(`deleteMeetup id = ${req.params.id}`);
-        res.status(200);
-        res.json(MeetupsFactory.createDeleteMeetupRespons(true, "successfully deleted meetup"));
+        DBMeetup.findByIdAndRemove(req.params.id).then( (dbMeetup) => {
+            if (dbMeetup) {
+                res.json(MeetupsFactory.createDeleteMeetupRespons(true, "successfully deleted meetup"));
+                return;
+            }
+            res.status(400);
+            res.json(MeetupsFactory.createDeleteMeetupRespons(false, 'meetup not exits.'));
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(MeetupsFactory.createGetAllMeetupsResponse(false, err.toString()));
+            return;
+        });
     }
 
     /**
@@ -77,9 +112,45 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public updateMeetup(req: Request, res: Response){
-        console.log(`updateMeetup id = ${req.params.id}`);
-        res.status(200);
-        res.json(MeetupsFactory.createUpdateMeetupRespons(true, "successfully updated meetup"));
+        const updateRequest: IUpdateMeetupRequest = req.body;
+
+        // Owner, from, to and activity must be present
+        if (!updateRequest.meetup ||
+            !updateRequest.meetup.owner ||
+            !updateRequest.meetup.from ||
+            !updateRequest.meetup.to ||
+            !updateRequest.meetup.activity ) {
+            res.status(400);
+            res.json(MeetupsFactory.createUpdateMeetupRespons(false, 'wrong input.'));
+            return;
+        }
+
+        const dbMeetup: IDBMeetupModel = new DBMeetup();
+        DBMeetup.findById(req.params.id).then( (dbMeetup) => {
+            if (dbMeetup) {
+                // Save document
+                dbMeetup.fromInterface(updateRequest.meetup);
+                dbMeetup.save().then((dbMeetup) => {
+                    // Resolve reverences
+                    DBMeetup.populate(dbMeetup, MeetupPopulate).then(  (dbMeetup: IDBMeetupModel) => {
+                        res.json(MeetupsFactory.createUpdateMeetupRespons(true, 'meetup updated.', dbMeetup.toInterface()));
+                    });
+                }).catch((err) => {
+                    this.logger.error(err.toString());
+                    res.status(500);
+                    res.json(MeetupsFactory.createUpdateMeetupRespons(false, err.toString()));
+                });
+                return;
+            }
+            res.status(400);
+            res.json(MeetupsFactory.createUpdateMeetupRespons(false, 'meetup not exits.'));
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(MeetupsFactory.createUpdateMeetupRespons(false, err.toString()));
+            return;
+        });
     }
 
     /**

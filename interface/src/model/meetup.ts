@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Hall } from './hall';
 
 /**
  * Encapsulate a single meetup
@@ -27,7 +28,7 @@ export class Meetup {
   /**
    * The id of the climbing gym where the indoor meetup happens
    */
-  private _indoor: string;
+  private _indoor: Hall;
   /**
    * Short description of the activity
    */
@@ -47,7 +48,7 @@ export class Meetup {
               from: Date,
               to: Date,
               outdoor: string,
-              indoor: string,
+              indoor: Hall,
               activity: string = '',
               numberOfRequest: number = 0,
               numberOfParticipant: number = 0) {
@@ -116,11 +117,11 @@ export class Meetup {
     this._outdoor = value;
   }
 
-  get indoor(): string {
+  get indoor(): Hall {
     return this._indoor;
   }
 
-  set indoor(value: string) {
+  set indoor(value: Hall) {
     this._indoor = value;
   }
 

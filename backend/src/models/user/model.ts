@@ -6,6 +6,7 @@ import { Document, Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { User } from '@chumm-uffa/interface';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 /**
  * The DBUser document interface
@@ -35,6 +36,8 @@ export interface IDBUserModel extends IDBUser, Document {
 export const UserSchema = new Schema({
     username: {
         type: String,
+        unique : true,
+        dropDups: true,
         required: true
     },
     password: {
@@ -57,6 +60,9 @@ export const UserSchema = new Schema({
         type: Date
     }
 });
+
+
+UserSchema.plugin(uniqueValidator);
 
 /**
  * Pre function when save a new user. The password is hashed

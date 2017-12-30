@@ -13,12 +13,16 @@ import { server } from '../server';
 
 import * as cuint from '@chumm-uffa/interface';
 
+
 export class BaseTest {
 
     public chai: any;
     public should: any;
     public route: string;
     public server: any;
+    public token: string;
+    public testUser: cuint.User;
+    public halls: cuint.Hall[];
 
     constructor() {
         this.server = server.getServerInstance();
@@ -26,7 +30,7 @@ export class BaseTest {
         this.chai = chai;
         this.chai.use(chaiHttp);
         this.should = chai.should();
-        this.createTestUser();
+        this.testUser = this.createTestUser();
     }
 
     /**
@@ -71,5 +75,37 @@ export class BaseTest {
         if (message.length > 0) {
             res.body.message.should.equal(message);
         }
+    }
+
+    public login(done){
+        this.testUser = this.createTestUser();
+        // First register test user
+        this.chai.request(this.server)
+            .post(`${this.route}auth/register`)
+            .send(cuint.AuthFactory.createRegisterRequest(this.testUser))
+            .end((err, res) => {
+                this.assertSuccess(res);
+                // Second login the test user
+                this.chai.request(this.server)
+                    .post(`${this.route}auth/login`)
+                    .send(cuint.AuthFactory.createLoginRequest(this.testUser))
+                    .end((err, res) => {
+                        this.assertSuccess(res);
+                        res.body.should.have.property('token');
+                        this.token = res.body.token;
+                        res.body.should.have.property('profile');
+                        this.testUser = res.body.profile;
+                        //Getting all halls
+                        this.chai.request(this.server)
+                            .get(`${this.route}halls/`)
+                            .set({authorization: this.token})
+                            .end((err, res) => {
+                                this.assertSuccess(res);
+                                res.body.should.have.property('halls');
+                                this.halls = res.body.halls;
+                                done();
+                            });
+                    });
+            });
     }
 }

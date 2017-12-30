@@ -39,8 +39,8 @@ export class AuthRoutes extends BaseRoutes {
         });
     }
 
-    public putProfileAction(router: Router): void {
+    public updateProfileAction(router: Router): void {
         router.put('/profile', this.guard, (req: Request, res: Response) => {
-            this.controller.putProfile(req, res);
+            this.controller.updateProfile(req, res);
         });
     }}

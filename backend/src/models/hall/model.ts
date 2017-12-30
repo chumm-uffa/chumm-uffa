@@ -26,14 +26,10 @@ export interface IDBHallModel extends IDBHall, Document {
  * @type {"mongoose".Schema}
  */
 export const HallSchema = new Schema({
-    key: {
+    name: {
         type: String,
         unique : true,
         dropDups: true,
-        required: true
-    },
-    name: {
-        type: String,
         required: true
     },
 });
@@ -45,7 +41,7 @@ HallSchema.plugin(uniqueValidator);
  */
 HallSchema.methods.toInterface = function() {
     return new Hall(
-        this.key,
+        this._id.toString(),
         this.name
     );
 };

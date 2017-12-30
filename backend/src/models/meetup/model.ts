@@ -6,6 +6,7 @@ import { mongoose } from '../../app';
 
 import { Meetup } from '@chumm-uffa/interface';
 import {DBUser} from "../user/model";
+import {DBHall} from "../hall/model";
 
 /**
  * The DBUser document interface
@@ -33,8 +34,9 @@ export interface IDBMeetupModel extends IDBMeetup, Document {
  * @type {"mongoose".Schema}
  */
 export const MeetupSchema = new Schema({
-    owner_id: {
-        type: String,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     from: {
@@ -52,8 +54,9 @@ export const MeetupSchema = new Schema({
     outdoor: {
         type: String
     },
-    indoor_id: {
-        type: String
+    indoor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Hall',
     },
     createAt: {
         type: Date
@@ -62,6 +65,12 @@ export const MeetupSchema = new Schema({
         type: Date
     }
 });
+
+/**
+ * Population option for meetup
+ * @type {[{path: string} , {path: string}]}
+ */
+export const MeetupPopulate = [{path:"owner"},{path:"indoor"}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -79,13 +88,14 @@ MeetupSchema.pre('update', function(next) {
     next();
 });
 
+
 /**
  * Pre function to validate the owner id
  */
-MeetupSchema.path('owner_id').validate(function (owner_id, respond) {
+MeetupSchema.path('owner').validate(function (owner, respond) {
 
-    DBUser.findById(owner_id, function (err, user) {
-        if (err || !user) {
+    DBUser.findById(owner, function (err, dbUser) {
+        if (err || !dbUser) {
             respond(false);
         } else {
             respond(true);
@@ -94,17 +104,36 @@ MeetupSchema.path('owner_id').validate(function (owner_id, respond) {
 
 }, 'Owner non existent');
 
+/**
+ * Pre function to validate the indoor key
+ */
+MeetupSchema.path('indoor').validate(function (indoor, respond) {
+
+    if (!indoor) {
+        respond(true);
+    }
+
+    DBHall.findById(indoor, function (err, dbHall) {
+        if (err || !dbHall) {
+            respond(false);
+        } else {
+            respond(true);
+        }
+    });
+
+}, 'Indoor non existent');
+
 
 /**
  * Merge the given interface user to this
  */
 MeetupSchema.methods.fromInterface = function(meetup: Meetup) {
-    this.owner_id = meetup.owner.id;
+    this.owner = meetup.owner.id;
     this.from = meetup.from;
     this.to = meetup.to;
     this.activity = meetup.activity;
     this.outdoor = meetup.outdoor;
-    this.indoor_id = meetup.indoor;
+    this.indoor = meetup.indoor.key;
 };
 
 /**
@@ -113,11 +142,11 @@ MeetupSchema.methods.fromInterface = function(meetup: Meetup) {
 MeetupSchema.methods.toInterface = function() {
     return new Meetup(
         this._id.toString(),
-        this.owner_id,
+        this.owner.toInterface(),
         this.from,
         this.to,
         this.outdoor,
-        this.indoor_id,
+        this.indoor.toInterface(),
         this.activity
     );
 };
