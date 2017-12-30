@@ -8,11 +8,13 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json .
 COPY package.json package-lock.json ./
+COPY chumm-uffa-interface-0.0.1.tgz .
 
-RUN npm install
+RUN npm i ./chumm-uffa-interface-0.0.1.tgz -save
+RUN npm i
 
 # Bundle app source
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "docker" ]

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {BusinessService} from '../core/business.service';
-import {Meetup} from '../core/model/meetup';
-import {MeetupRequest, RequestStatus} from '../core/model/meetup-request';
-import {Hall} from '../core/model/hall';
+import {Meetup, Hall, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
 import {AppStateService} from '../core/app-state.service';
 

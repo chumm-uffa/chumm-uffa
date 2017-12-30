@@ -1,1 +1,13 @@
 <h1>Login</h1>
+
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onClickLogin()">
+  <label>{{ 'login.name' | translate }}<input formControlName="username"></label>
+  <app-validation-feedback *ngIf="loginForm.controls.username | hasError:'required'">{{ 'login.error.nameRequired' | translate }}</app-validation-feedback> <!-- spezifische Validierungs Fehler -->
+  <app-validation-feedback *ngIf="loginForm.controls.username | hasError:'minlength'">{{ 'login.error.nameMinLength' | translate }}</app-validation-feedback>
+  <br>
+  <label>{{ 'login.password' | translate }}</label><input formControlName="password" type="password">
+  <app-validation-feedback *ngIf="loginForm.controls.password | hasSomeError">irgendein Fehler</app-validation-feedback> <!-- irgend ein Validierungs Fehler -->
+  <br>
+  <button type="submit">{{ 'login.loginUser' | translate }}</button>
+</form>
+

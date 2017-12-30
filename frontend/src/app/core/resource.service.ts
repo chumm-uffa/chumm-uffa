@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
-import {Meetup} from './model/meetup';
-import {MeetupRequest} from './model/meetup-request';
-import {User} from './model/user';
-import {Chat} from './model/chat';
-import {SearchDto} from './model/searchDto';
 
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest,
+  User, Chat, Meetup, MeetupRequest, Version} from '@chumm-uffa/interface';
+import {SearchDto} from '../../../../interface/src/model/searchDto';
 
 /**
  * Resource service interface
@@ -15,6 +13,10 @@ export interface ResourceServiceInterface {
   checkAlive(): Observable<string>;
 
   newAlive(): Observable<string>;
+
+  register(request: IRegisterRequest): Observable<IRegisterResponse>;
+
+  login(request: ILoginRequest): Observable<ILoginResponse>;
 
   getMeetUps(user: User): Observable<Meetup[]>;
 
@@ -35,6 +37,10 @@ export interface ResourceServiceInterface {
   requestForParticipation(meetupId: string): Observable<boolean>;
 
   deleteMeetup(meetupId: string): Observable<boolean>;
+
+  deleteRequest(requestId: string): Observable<boolean>;
+
+  saveUser(user: User): Observable<any>;
 }
 
 /**
@@ -43,7 +49,7 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = 'http://localhost:8080/api/alive';
+  private urlDemo = `http://localhost:4200/api/${Version}/`;
 
   constructor(private http: HttpClient) {
   }
@@ -64,6 +70,24 @@ export class ResourceService implements ResourceServiceInterface {
    */
   newAlive(): Observable<string> {
     return this.http.post<string>(this.urlDemo, {text: 'Is Server Alive?'});
+  }
+
+  /**
+   * Register a new user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  register(request: IRegisterRequest): Observable<IRegisterResponse> {
+    return this.http.post<IRegisterResponse>(this.urlDemo + 'auth/register', request);
+  }
+
+  /**
+   * Login the email using the password
+   * @param {ILoginRequest} request
+   * @returns {Observable<ILoginResponse>}
+   */
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(this.urlDemo + 'auth/login', request);
   }
 
   /**
@@ -124,6 +148,19 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   deleteMeetup(meetupId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteRequest(requestId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Register a new user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  saveUser(user: User): Observable<any> {
     throw new Error('Method not implemented.');
   }
 }

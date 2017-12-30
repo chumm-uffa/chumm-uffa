@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../../core/business.service';
-import {Meetup} from '../../core/model/meetup';
-import {Hall} from '../../core/model/hall';
+import {Meetup, Hall} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 
 @Component({

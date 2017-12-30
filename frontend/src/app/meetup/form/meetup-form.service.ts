@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Meetup} from '../../core/model/meetup';
+import {Meetup} from '@chumm-uffa/interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {
@@ -23,9 +23,9 @@ export class MeetupFormService {
       date: [moment(meetup.from.getTime()).format(MeetupFormService.DATE_FORMAT),
         [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
           validateNotBefore(MeetupFormService.DATE_FORMAT)]],
-      fromTime: [moment(meetup.from.getTime()).format('HH:mm'),
+      fromTime: [moment(meetup.from.getTime()).format(MeetupFormService.TIME_FORMAT),
         [Validators.required, validateNotBefore(MeetupFormService.TIME_FORMAT)]],
-      toTime: [moment(meetup.to.getTime()).format('HH:mm'), [Validators.required]],
+      toTime: [moment(meetup.to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
       locationType: meetup.outdoor ? 'out' : 'in',
       indoor: meetup.indoor,
       outdoor: meetup.outdoor,

@@ -1,5 +1,4 @@
-import {Hall} from '../core/model/hall';
-import {Meetup} from '../core/model/meetup';
+import {Meetup, Hall} from '@chumm-uffa/interface';
 
 export class Util {
 

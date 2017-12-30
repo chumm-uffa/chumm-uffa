@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../core/model/user';
+import {User} from '@chumm-uffa/interface';
+
 import {validatePwdsMatch} from '../../shared/validators/password-match.validator';
 
 @Injectable()

@@ -11,6 +11,7 @@
     <td>{{request.meetup.from | dateTimeFormat}}</td>
     <td>{{getLocation(request.meetup)}}</td>
     <td>{{request.status | translate}}</td>
+    <td><button (click)="signOff($event, request.id)">{{'openRequests.signOff' | translate}}</button></td>
   </tr>
 </table>
 

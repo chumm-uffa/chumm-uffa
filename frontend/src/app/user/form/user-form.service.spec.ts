@@ -1,7 +1,7 @@
 import {async, inject, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserFormService} from './user-form.service';
-import {User} from '../../core/model/user';
+import {User} from '@chumm-uffa/interface';
 
 describe('user Form', () => {
   beforeEach(async(() => {
@@ -76,7 +76,7 @@ describe('user Form', () => {
   }));
 
   function createUser(): User {
-    return new User('Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
+    return new User('id', 'Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
   }
 
   function createValidForm(userFb: UserFormService): FormGroup {

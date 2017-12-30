@@ -16,7 +16,8 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.appState.isLoggedIn = false;
+    this.appState.token = null;
+    // TODO evtl. Service call 'logout' einpflegen
     this.router.navigateByUrl('/');
   }
 
