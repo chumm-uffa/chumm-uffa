@@ -18,6 +18,7 @@ import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {ParticipantComponent} from './meetup-detail/participant/participant.component';
 import {ChatComponent} from './meetup-detail/chat/chat.component';
 import {SearchComponent} from './search/search.component';
+import {MaterialModule} from './material/material.module';
 
 
 /**
@@ -31,7 +32,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AppRoutingModule, LoginModule, RegistrationModule, SharedModule,
-        TranslateModule.forRoot(), ReactiveFormsModule, FormsModule],
+        TranslateModule.forRoot(), ReactiveFormsModule, FormsModule, MaterialModule],
       declarations: [
         AppComponent,
         HeaderComponent,
