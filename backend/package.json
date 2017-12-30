@@ -29,6 +29,7 @@
     "jsonwebtoken": "^7.1.9",
     "mockgoose-fix": "^7.3.6",
     "mongoose": "^4.13.6",
+    "mongoose-unique-validator": "^1.0.6",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",

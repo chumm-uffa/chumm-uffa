@@ -17,6 +17,8 @@ import { PassportConfig } from './config/passport';
 
 import { Mockgoose } from 'mockgoose-fix';
 
+import { HallController } from './controller/hallController';
+
 class App {
 
     public express: express.Application;
@@ -54,6 +56,11 @@ class App {
         mongoose.connection.on('error', () => {
             console.log('MongoDB connection error. Please make sure MongoDB is running.');
             process.exit();
+        });
+
+        mongoose.connection.on('open', () => {
+            console.log('MongoDB is running, inital load of data');
+            new HallController().loadAllHall();
         });
     }
 

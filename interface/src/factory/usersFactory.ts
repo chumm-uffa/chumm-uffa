@@ -1,6 +1,8 @@
 /**
  * Class factory for "/users" route Rest API interface
  */
-export class UsersFactory {
+import {BaseFactory} from "./baseFactory";
+
+export class UsersFactory extends BaseFactory {
 
 }
