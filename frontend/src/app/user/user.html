@@ -9,7 +9,8 @@
   <app-validation-feedback *ngIf="userForm.controls.username | hasError:'minlength'">{{ 'user.error.nameMinLength' | translate }}</app-validation-feedback>
   <br>
   <label>{{ 'user.password' | translate }}</label><input formControlName="password" type="password">
-  <app-validation-feedback *ngIf="userForm.controls.password | hasSomeError">irgendein Fehler</app-validation-feedback> <!-- irgend ein Validierungs Fehler -->
+  <app-validation-feedback *ngIf="userForm.controls.password | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</app-validation-feedback>
+  <app-validation-feedback *ngIf="userForm.controls.password | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</app-validation-feedback>
   <br>
   <label>{{ 'user.repeatPass' | translate }}</label><input formControlName="passwordRepeat" type="password">
   <br>

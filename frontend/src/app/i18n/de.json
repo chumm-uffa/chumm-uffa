@@ -9,6 +9,12 @@
     "loginUser": "Anmelden",
     "dialog": {
       "errorTitle": "Fehler beim Login!"
+    },
+    "error": {
+      "nameRequired": "Namen eingeben",
+      "nameMinLength": "Name muss min 2 Zeichen haben",
+      "passwordRequired": "Passwort eingeben.",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
     }
   },
   "header": {
@@ -52,7 +58,9 @@
       "nameMinLength": "Name muss min 2 Zeichen haben.",
       "email": "Ungültiges Emailformat.",
       "differentPasswords": "Die Passwortwiederholung weicht ab.",
-      "sexRequired": "Geschlecht wählen."
+      "sexRequired": "Geschlecht wählen.",
+      "passwordRequired": "Passwort eingeben.",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
     }
   },
   "meetup": {

@@ -6,7 +6,8 @@
   <app-validation-feedback *ngIf="loginForm.controls.username | hasError:'minlength'">{{ 'login.error.nameMinLength' | translate }}</app-validation-feedback>
   <br>
   <label>{{ 'login.password' | translate }}</label><input formControlName="password" type="password">
-  <app-validation-feedback *ngIf="loginForm.controls.password | hasSomeError">irgendein Fehler</app-validation-feedback> <!-- irgend ein Validierungs Fehler -->
+  <app-validation-feedback *ngIf="loginForm.controls.password | hasError:'required'">{{ 'login.error.passwordRequired' | translate }}</app-validation-feedback>
+  <app-validation-feedback *ngIf="loginForm.controls.password | hasError:'minlength'">{{ 'login.error.passwordMinLength' | translate }}</app-validation-feedback>
   <br>
   <button type="submit">{{ 'login.loginUser' | translate }}</button>
 </form>
