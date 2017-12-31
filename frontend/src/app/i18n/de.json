@@ -122,6 +122,10 @@
     "to_th": "Endzeit",
     "noResults": "Keine passenden Meetups gefunden!",
     "partner": "Partnerperson",
+    "dialog": {
+      "infoTitle": "Anfrage",
+      "infoText": "Deine Anfrage wurde dem Meetup Besitzer mitgeteilt."
+    },
     "error": {
       "fromDateTimeRequired": "Startzeit eingeben.",
       "toDateTimeRequired": "Endzeit eingeben.",
@@ -137,8 +141,8 @@
     "participants": "Anz. Teilnehmer",
     "delete": "löschen",
     "dialog": {
-      "signOff_title": "Löschen",
-      "signOff_text": "Sie löschen das Meetup!"
+      "deleteTitle": "Löschen",
+      "deleteText": "Sie löschen das Meetup!"
     }
   },
   "openRequests": {
@@ -148,12 +152,15 @@
     "state": "Status",
     "signOff": "abmelden",
     "dialog": {
-      "signOff_title": "Abmelden",
-      "signOff_text": "Sie melden sich vom Meetup ab!"
+      "signOffTitle": "Abmelden",
+      "signOffText": "Sie melden sich vom Meetup ab!"
     }
   },
   "confirmDialog": {
     "no": "Nö Nö",
     "yes": "Jo jo"
+  },
+  "infoPopup": {
+    "ok": "OK"
   }
 }

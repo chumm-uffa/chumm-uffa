@@ -41,7 +41,7 @@ export class OpenRequestsComponent implements OnInit {
     event.stopPropagation();
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
-      {data: {confirmText: 'openRequests.dialog.signOff_text', confirmTitle: 'openRequests.dialog.signOff_title'}});
+      {data: {confirmText: 'openRequests.dialog.signOffText', confirmTitle: 'openRequests.dialog.signOffTitle'}});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
