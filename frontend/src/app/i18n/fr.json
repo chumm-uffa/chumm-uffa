@@ -6,7 +6,10 @@
     "title": "Login_FR",
     "email": "Email_FR: ",
     "password": "Passwort_FR: ",
-    "loginUser": "Anmelden_FR"
+    "loginUser": "Anmelden_FR",
+    "dialog": {
+      "errorTitle": "Fehler beim Login!_FR"
+    }
   },
   "header": {
     "title": "Chumm-Uffa_FR",
@@ -40,6 +43,10 @@
     "women": "Frau_FR",
     "weight": "Körpergewicht_FR: ",
     "kg": "kg_FR",
+    "dialog": {
+      "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!_FR",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR"
+    },
     "error": {
       "nameRequired": "Namen eingeben_FR",
       "nameMinLength": "Name muss min 2 Zeichen haben_FR",

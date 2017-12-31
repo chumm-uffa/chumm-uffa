@@ -6,7 +6,10 @@
     "title": "Login",
     "name": "Name: ",
     "password": "Passwort: ",
-    "loginUser": "Anmelden"
+    "loginUser": "Anmelden",
+    "dialog": {
+      "errorTitle": "Fehler beim Login!"
+    }
   },
   "header": {
     "title": "Chumm-Uffa",
@@ -40,6 +43,10 @@
     "women": "Frau",
     "weight": "Körpergewicht: ",
     "kg": "kg",
+    "dialog": {
+      "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!"
+    },
     "error": {
       "nameRequired": "Namen eingeben.",
       "nameMinLength": "Name muss min 2 Zeichen haben.",
