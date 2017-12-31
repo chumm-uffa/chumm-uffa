@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{data.confirmTitle | translate}}</h2>
+<mat-dialog-content class="mat-body-2">{{data.confirmText | translate}}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="'no'" color="accent">{{'confirmDialog.no' | translate}}</button>
+  <button mat-raised-button [mat-dialog-close]="'yes'" color="accent">{{'confirmDialog.yes' | translate}}</button>
+</mat-dialog-actions>

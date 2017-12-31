@@ -6,13 +6,15 @@ import {OpenRequestsComponent} from './open-requests/open-requests.component';
 import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {MaterialModule} from '../material/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     AppRoutingModule,
-    TranslateModule
+    TranslateModule,
+    MaterialModule
   ],
   declarations: [
     MymeetupsComponent,

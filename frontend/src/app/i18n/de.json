@@ -135,13 +135,25 @@
     "location": "Ort",
     "requests": "Anfragen",
     "participants": "Anz. Teilnehmer",
-    "delete": "löschen"
+    "delete": "löschen",
+    "dialog": {
+      "signOff_title": "Löschen",
+      "signOff_text": "Sie löschen das Meetup!"
+    }
   },
   "openRequests": {
     "title": "Meine Anfragen",
     "time": "Wann",
     "location": "Ort",
     "state": "Status",
-    "signOff": "abmelden"
+    "signOff": "abmelden",
+    "dialog": {
+      "signOff_title": "Abmelden",
+      "signOff_text": "Sie melden sich vom Meetup ab!"
+    }
+  },
+  "confirmDialog": {
+    "no": "Nö Nö",
+    "yes": "Jo jo"
   }
 }
