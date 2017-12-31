@@ -1,0 +1,15 @@
+Definition Html Attribute Reihenfolge:
+
+<tag
+        #id
+        mat-prop
+        angularDirective
+        angularInputs/outputs
+        formControlName="time"
+        class="inline"
+        placeholer="hallo"
+        name="hansi"
+        value="3"
+        type="number"
+>
+</tag>

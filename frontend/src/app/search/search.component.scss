@@ -1,7 +1,18 @@
-label {
-  display: block;
+@import "../material/table";
+@import "../material/general";
+
+.app-search {
+  text-align: center;
 }
 
-td {
-  padding: 0px 5px;
+.search-button {
+  width: 50%;
+  display: inline-block;
+  margin-top: 2em;
 }
+
+.right-hand {
+  display: inline-block;
+}
+
+

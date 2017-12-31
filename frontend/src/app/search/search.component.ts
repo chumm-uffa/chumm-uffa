@@ -7,6 +7,7 @@ import {Util} from '../shared/util';
 import {Hall, Meetup} from '@chumm-uffa/interface';
 
 
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-search',
@@ -15,10 +16,11 @@ import {Hall, Meetup} from '@chumm-uffa/interface';
 })
 export class SearchComponent implements OnInit {
 
-  results: Meetup[] = [];
+  results: MatTableDataSource<Meetup> =  new MatTableDataSource<Meetup>([]);
   searchForm: FormGroup;
   halls: Hall[] = [];
   hasAllreadySearched = false;
+  columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService) {
@@ -36,7 +38,7 @@ export class SearchComponent implements OnInit {
       console.log('search initiated');
       // this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
       this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups => {
-          this.results = meetups;
+          this.results = new MatTableDataSource<Meetup>(meetups);
           this.hasAllreadySearched = true;
         });
     }
