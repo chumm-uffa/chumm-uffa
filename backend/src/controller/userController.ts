@@ -6,9 +6,8 @@ import { BaseController } from './baseController';
 import {DBMeetup, MeetupPopulate} from "../models/meetup/model";
 import {DBUser} from "../models/user/model";
 import {
-    UsersFactory, Meetup
+    UsersFactory, Meetup, BaseFactory
 } from '@chumm-uffa/interface';
-import {BaseFactory} from "../../../interface/src/factory/baseFactory";
 
 export class UserController extends BaseController {
 

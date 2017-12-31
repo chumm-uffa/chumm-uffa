@@ -11,7 +11,7 @@ export class MeetupRequestController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public allMeetupRequest(req: Request, res: Response){
+    public getAllRequestAction(req: Request, res: Response){
         res.json({success: true});
     }
 
