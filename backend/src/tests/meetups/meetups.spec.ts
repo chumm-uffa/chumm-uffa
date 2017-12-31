@@ -111,13 +111,33 @@ describe('Test /meetups/:id', () => {
 
 describe('Test /meetups/:id/meetup-requests', () => {
 
+    let meetup: cuint.Meetup;
+
     before((done) => {
         baseTest.login(done);
     });
 
+    beforeEach((done) =>{
+        // create a single meetup
+        let myMeetup: cuint.Meetup = new cuint.Meetup(
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+        );
+        baseTest.chai.request(baseTest.server)
+            .post(`${baseTest.route}meetups`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateMeetupRequest(myMeetup))
+            .end((err, res) => {
+                baseTest.assertSuccess(res);
+                res.body.should.have.property('meetup');
+                res.body.should.have.property('id');
+                meetup = res.body.meetup;
+                done();
+            });
+    });
+
     it('it should get all requests for a meetup', (done) => {
         baseTest.chai.request(baseTest.server)
-            .get(`${baseTest.route}meetups/123456789/meetup-requests`)
+            .get(`${baseTest.route}meetups/${meetup.id}/meetup-requests`)
             .set({authorization: baseTest.token})
             .end((err, res) => {
                 baseTest.assertSuccess(res);
@@ -129,28 +149,37 @@ describe('Test /meetups/:id/meetup-requests', () => {
 
 describe('Test /meetups/:id/chats', () => {
 
+    let meetup: cuint.Meetup;
+
     before((done) => {
         baseTest.login(done);
     });
 
-    it('it should get all chats for a meetup', (done) => {
+    beforeEach((done) =>{
+        // create a single meetup
+        let myMeetup: cuint.Meetup = new cuint.Meetup(
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+        );
         baseTest.chai.request(baseTest.server)
-            .get(`${baseTest.route}meetups/123456789/chats`)
+            .post(`${baseTest.route}meetups`)
             .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateMeetupRequest(myMeetup))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
-                res.body.should.have.property('chats');
+                res.body.should.have.property('meetup');
+                res.body.should.have.property('id');
+                meetup = res.body.meetup;
                 done();
             });
     });
 
     it('it should create a chats for a single meetup', (done) => {
-        let chat: cuint.Chat = new cuint.Chat("chat", baseTest.testUser, new Date());
+        let newChat: cuint.Chat = new cuint.Chat("", "mal was anderes", baseTest.testUser);
 
         baseTest.chai.request(baseTest.server)
-            .post(`${baseTest.route}meetups/123456789/chats`)
+            .post(`${baseTest.route}meetups/${meetup.id}/chats`)
             .set({authorization: baseTest.token})
-            .send(cuint.MeetupsFactory.createCreateChatForMeetupRequest(chat))
+            .send(cuint.MeetupsFactory.createCreateChatForMeetupRequest(newChat))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('chat');
@@ -158,17 +187,76 @@ describe('Test /meetups/:id/chats', () => {
                 done();
             });
     });
+
+    it('it should get all chats for a meetup', (done) => {
+        let newChat: cuint.Chat = new cuint.Chat("", "kukukkkkkk", baseTest.testUser);
+
+        // first crate a new chat
+        baseTest.chai.request(baseTest.server)
+            .post(`${baseTest.route}meetups/${meetup.id}/chats`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateChatForMeetupRequest(newChat))
+            .end((err, res) => {
+                baseTest.assertSuccess(res);
+                res.body.should.have.property('chat');
+                res.body.should.have.property('id');
+                // second receive new created chat
+                baseTest.chai.request(baseTest.server)
+                    .get(`${baseTest.route}meetups/${meetup.id}/chats`)
+                    .set({authorization: baseTest.token})
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        res.body.should.have.property('chats');
+                        res.body.chats.length.should.be.greaterThan(0);
+                        res.body.chats[0].text.should.be.equals("kukukkkkkk");
+                        done();
+                    });
+            });
+    });
 });
 
 describe('Test /meetups/:id/chats/:chat_id', () => {
+
+    let meetup: cuint.Meetup;
+    let chat: cuint.Chat;
 
     before((done) => {
         baseTest.login(done);
     });
 
+    beforeEach((done) =>{
+        // create a single meetup
+        let myMeetup: cuint.Meetup = new cuint.Meetup(
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+        );
+        let myChat: cuint.Chat = new cuint.Chat(
+            "", "das ist ein Gespräck", baseTest.testUser
+        );
+        baseTest.chai.request(baseTest.server)
+            .post(`${baseTest.route}meetups`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateMeetupRequest(myMeetup))
+            .end((err, res) => {
+                baseTest.assertSuccess(res);
+                res.body.should.have.property('meetup');
+                res.body.should.have.property('id');
+                meetup = res.body.meetup;
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetups/${meetup.id}/chats`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupsFactory.createCreateChatForMeetupRequest(myChat))
+                    .end((err, res) => {
+                        res.body.should.have.property('chat');
+                        res.body.should.have.property('id');
+                        chat = res.body.chat;
+                        done();
+                    });
+            });
+    });
+
     it('it delete a single chat from a meetup', (done) => {
         baseTest.chai.request(baseTest.server)
-            .delete(`${baseTest.route}meetups/123456789/chats/12345`)
+            .delete(`${baseTest.route}meetups/${meetup.id}/chats/${chat.id}`)
             .set({authorization: baseTest.token})
             .end((err, res) => {
                 baseTest.assertSuccess(res);

@@ -1,11 +1,16 @@
 import { User } from './user';
 
 export class Chat {
+  private _id:  string;
   private _text: string;
   private _speaker: User;
   private _date: Date;
 
-  constructor(text: string, speaker: User, date: Date = new Date()) {
+  constructor(id: string,
+              text: string,
+              speaker: User,
+              date: Date = new Date()) {
+    this._id = id;
     this._text = text;
     this._speaker = speaker;
     this._date = date;
@@ -13,10 +18,19 @@ export class Chat {
 
   public toJSON() {
       return {
+          id: this.id,
           text: this.text,
           speaker: this.speaker,
-          data: this.date
+          date: this.date
       };
+  }
+
+  get id(): string {
+      return this._id;
+  }
+
+  set id(value: string) {
+      this._id = value;
   }
 
   get text(): string {

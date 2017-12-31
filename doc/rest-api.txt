@@ -11,36 +11,36 @@ Ohne gültigen Web Token
 
 /auth
 *****
-post     /auth/login                   login an user
-get      /auth/logout                  logout a user
-post     /auth/register                register a new user profile
+post     /auth/login                   login an user (IMPLEMENTED)
+get      /auth/logout                  logout a user (IMPLEMENTED)
+post     /auth/register                register a new user profile (IMPLEMENTED)
 
 Nur mit gültigen Web Tocken
 ***************************
 
 /auth
 *****
-get      /auth/profile                 get the current logged in profile
-put      /auth/profile                 updates the current logged in profile
+get      /auth/profile                 get the current logged in profile (IMPLEMENTED)
+put      /auth/profile                 updates the current logged in profile (IMPLEMENTED)
 delete   /auth/profile                 delete the current logged in profile
 
 /users
 ******
-get      /users/{id}/meetups                   gets all meetups for the user
+get      /users/{id}/meetups                   gets all meetups for the user (IMPLEMENTED)
 get      /users/{id}/meetup-requests           gets all meetup-requests for the user
 get      /users/{id}/meetup-requests/{status}  gets all meetup-requests for the user with the given status
 
 /meetups
 ********
-get      /meetups                      get a list of all meetups
-post     /meetups                      create a new meetup
-get      /meetups/{id}                 get meetup details
-delete   /meetups/{id}                 delete a meetup
-put      /meetups/{id}                 updates an existing meetup
-get      /meetups/{id}/meetup-requests gets all meetup-requests for a meetup
-get      /meetups/{id}/chats           gets all chat-entry for a meetup
-post     /meetups/{id}/chats           creates a new chat-entry for a meetup
-delete   /meetups/{id}/chats{id}       delete a chat-entry from a meetup
+get      /meetups                      get a list of all meetups (IMPLEMENTED)
+post     /meetups                      create a new meetup (IMPLEMENTED)
+get      /meetups/{id}                 get meetup details (IMPLEMENTED)
+delete   /meetups/{id}                 delete a meetup (IMPLEMENTED)
+put      /meetups/{id}                 updates an existing meetup (IMPLEMENTED)
+get      /meetups/{id}/meetup-requests gets all meetup-requests for a meetup (IMPLEMENTED)
+get      /meetups/{id}/chats           gets all chat-entry for a meetup (IMPLEMENTED)
+post     /meetups/{id}/chats           creates a new chat-entry for a meetup (IMPLEMENTED)
+delete   /meetups/{id}/chats{chat_id}  delete a chat-entry from a meetup (IMPLEMENTED)
 
 put      /meetups/search               get a list of all meetups based on search criteria (SearchDto)
 
@@ -53,8 +53,8 @@ delete   /meetup-requests/{id}         delete a meetup-request
 
 /halls
 ******
-get      /halls                        get a list of all halls
-get      /halls/{id}                   get hall details
+get      /halls                        get a list of all halls (IMPLEMENTED)
+get      /halls/{id}                   get hall details (IMPLEMENTED)
 
 search
 ******

@@ -7,24 +7,24 @@ import { mongoose } from '../../app';
 import { Meetup } from '@chumm-uffa/interface';
 import {DBUser} from "../user/model";
 import {DBHall} from "../hall/model";
+import {DBChat} from "../chat/model";
 
 /**
  * The DBUser document interface
  */
 export interface IDBMeetup {
-    owner_id: string;
+    owner: string;
     from: Date;
     to: Date;
     activity: string;
     outdoor?: string;
-    indoor_id?: string;
+    indoor?: string;
 }
 
 /**
  * The DBMeetup model containing additional functionality
  */
 export interface IDBMeetupModel extends IDBMeetup, Document {
-    createMeetup(meetup: IDBMeetup): Promise<IDBMeetup>;
     fromInterface(meetup: Meetup);
     toInterface();
 }
@@ -88,6 +88,14 @@ MeetupSchema.pre('update', function(next) {
     next();
 });
 
+/**
+ * Pre function when remove an existing meetup. Will delete all referenced document
+ */
+MeetupSchema.pre('remove', function(next) {
+    DBChat.remove({meetup: this.id}).exec();
+    // TODO hier müssen auch die meetup-request gelöscht werden!
+    next();
+});
 
 /**
  * Pre function to validate the owner id

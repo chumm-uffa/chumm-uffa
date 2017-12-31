@@ -97,6 +97,7 @@ export class AuthController extends BaseController {
             if (!dbUser) {
                 const dbUser: IDBUserModel = new DBUser();
                 dbUser.fromInterface(registerRequest.user);
+                dbUser.hashPassword(registerRequest.user.password);
                 dbUser.save().then((result) => {
                     res.json(AuthFactory.createRegisterResponse(true, 'user created.', result.toInterface(), result.id));
                 }).catch((err) => {
@@ -157,6 +158,9 @@ export class AuthController extends BaseController {
                     // Check if the username alreday exist
                     if (!newDbUser || newDbUser.id == profileDbUser.id){
                         profileDbUser.fromInterface(updateRequest.profile);
+                        if (updateRequest.profile.password) {
+                            profileDbUser.hashPassword(updateRequest.profile.password);
+                        }
                         profileDbUser.save().then((result) => {
                             res.json(AuthFactory.createUpdateProfileResponse(true, 'user changed.', result.toInterface()));
                         }).catch((err) => {
@@ -187,4 +191,5 @@ export class AuthController extends BaseController {
             res.json(AuthFactory.createUpdateProfileResponse(false, 'something went wrong.'));
             return;
         });
-    }}
+    }
+}

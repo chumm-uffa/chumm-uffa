@@ -15,16 +15,21 @@ export class UserRoutes extends BaseRoutes {
         this.controller = new UserController();
     }
 
-    public allUserAction(router: Router): void {
-        router.get('/', (req: Request, res: Response) => {
-            this.controller.allUser(req, res);
+    public getAllMeetupsForUserAction(router: Router): void {
+        router.get('/:id/meetups', (req: Request, res: Response) => {
+            this.controller.getAllMeetupsForUser(req, res);
         });
     }
 
-    public detailsAction(router: Router): void {
-        router.get('/:id/', (req: Request, res: Response) => {
-            this.controller.detail(req, res);
+    public getAllRequestForUserAction(router: Router): void {
+        router.get('/:id/meetup-requests', (req: Request, res: Response) => {
+            this.controller.getAllRequestForUser(req, res);
         });
     }
 
+    public getAllRequestInStatusForUserAction(router: Router): void {
+        router.get('/:id/meetup-requests/:status', (req: Request, res: Response) => {
+            this.controller.getAllRequestInStatusForUser(req, res);
+        });
+    }
 }
