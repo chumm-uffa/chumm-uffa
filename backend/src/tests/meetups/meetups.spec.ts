@@ -18,7 +18,7 @@ describe('Test /meetups', () => {
 
     it('it should create a new meetup', (done) => {
         let meetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -58,7 +58,7 @@ describe('Test /meetups/:id', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -120,7 +120,7 @@ describe('Test /meetups/:id/meetup-requests', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -158,7 +158,7 @@ describe('Test /meetups/:id/chats', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -227,7 +227,7 @@ describe('Test /meetups/:id/chats/:chat_id', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         let myChat: cuint.Chat = new cuint.Chat(
             "", "das ist ein Gespräck", baseTest.testUser

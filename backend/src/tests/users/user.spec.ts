@@ -22,7 +22,7 @@ describe('/POST users', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0], "activity"
+            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)

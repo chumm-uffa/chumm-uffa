@@ -28,7 +28,7 @@ export class Meetup {
   /**
    * The id of the climbing gym where the indoor meetup happens
    */
-  private _indoor: Hall;
+  private _indoor: string;
   /**
    * Short description of the activity
    */
@@ -48,7 +48,7 @@ export class Meetup {
               from: Date,
               to: Date,
               outdoor: string,
-              indoor: Hall,
+              indoor: string,
               activity: string = '',
               numberOfRequest: number = 0,
               numberOfParticipant: number = 0) {
@@ -117,11 +117,11 @@ export class Meetup {
     this._outdoor = value;
   }
 
-  get indoor(): Hall {
+  get indoor(): string {
     return this._indoor;
   }
 
-  set indoor(value: Hall) {
+  set indoor(value: string) {
     this._indoor = value;
   }
 

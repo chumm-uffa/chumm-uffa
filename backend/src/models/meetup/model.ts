@@ -70,7 +70,7 @@ export const MeetupSchema = new Schema({
  * Population option for meetup
  * @type {[{path: string} , {path: string}]}
  */
-export const MeetupPopulate = [{path:"owner"},{path:"indoor"}];
+export const MeetupPopulate = [{path:"owner"}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -141,7 +141,7 @@ MeetupSchema.methods.fromInterface = function(meetup: Meetup) {
     this.to = meetup.to;
     this.activity = meetup.activity;
     this.outdoor = meetup.outdoor;
-    this.indoor = meetup.indoor.key;
+    this.indoor = meetup.indoor;
 };
 
 /**
@@ -154,7 +154,7 @@ MeetupSchema.methods.toInterface = function() {
         this.from,
         this.to,
         this.outdoor,
-        this.indoor.toInterface(),
+        this.indoor,
         this.activity
     );
 };
