@@ -45,7 +45,7 @@ export class MeetupController extends BaseController {
             !createRequest.meetup.owner ||
             !createRequest.meetup.from ||
             !createRequest.meetup.to ||
-            !createRequest.meetup.activity ) {
+            (!createRequest.meetup.outdoor &&  !createRequest.meetup.indoor)) {
             res.status(400);
             res.json(MeetupsFactory.createCreateMeetupResponse(false, 'wrong input.'));
             return;
@@ -96,7 +96,7 @@ export class MeetupController extends BaseController {
         // Check if meetup exists
         DBMeetup.findById(req.params.id).then( (dbMeetup) => {
             if (dbMeetup) {
-                // Removes meetup and all referenced document
+                // Removes meetup and all Chats and Request associated with the meetup
                 dbMeetup.remove();
                 res.json(MeetupsFactory.createDeleteMeetupRespons(true, "successfully deleted meetup"));
                 return;
@@ -125,7 +125,7 @@ export class MeetupController extends BaseController {
             !updateRequest.meetup.owner ||
             !updateRequest.meetup.from ||
             !updateRequest.meetup.to ||
-            !updateRequest.meetup.activity ) {
+            (!updateRequest.meetup.outdoor &&  !updateRequest.meetup.indoor) ) {
             res.status(400);
             res.json(MeetupsFactory.createUpdateMeetupRespons(false, 'wrong input.'));
             return;
@@ -191,27 +191,13 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public getAllChatsForMeetup(req: Request, res: Response){
-        // Check if meetup exists
-        DBMeetup.findById(req.params.id).then( (dbMeetup) => {
-            if (dbMeetup) {
-                // Find all chat entry for meetup
-                DBChat.find({meetup: dbMeetup.id}).populate(ChatPopulate).then( (dbChats) => {
-                    let chats: Chat[] = [];
-                    for (let dbChat of dbChats) {
-                        chats.push(dbChat.toInterface());
-                    }
-                    res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(true, "", chats));
-                }).catch((err) => {
-                    this.logger.error(err.toString());
-                    res.status(500);
-                    res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(false, err.toString()));
-                    return;
-                });
-                return;
+        // Find all chat entry for meetup
+        DBChat.find({meetup: req.params.id}).populate(ChatPopulate).then( (dbChats) => {
+            let chats: Chat[] = [];
+            for (let dbChat of dbChats) {
+                chats.push(dbChat.toInterface());
             }
-            res.status(400);
-            res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(false, 'meetup not exits.'));
-            return;
+            res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(true, "", chats));
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -225,7 +211,7 @@ export class MeetupController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public createChatForMeetupRequest(req: Request, res: Response){
+    public createChatForMeetup(req: Request, res: Response){
         // Check if meetup exists
         DBMeetup.findById(req.params.id).then( (dbMeetup) => {
             if (dbMeetup) {

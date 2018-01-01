@@ -58,9 +58,9 @@ export class MeetupRoutes extends BaseRoutes {
         });
     }
 
-    public createChatForMeetupRequestAction(router: Router): void {
+    public createChatForMeetupAction(router: Router): void {
         router.post('/:id/chats/', (req: Request, res: Response) => {
-            this.controller.createChatForMeetupRequest(req, res);
+            this.controller.createChatForMeetup(req, res);
         });
     }
 

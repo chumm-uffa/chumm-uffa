@@ -6,8 +6,8 @@
 import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
-// This must be here, before server is loading! Comment this out if you want to connect to real mongoDB
-process.env.NODE_ENV = 'testing';
+// This must be here, before server is loading! Comment this in if you want to work with in memory DB
+//process.env.NODE_ENV = 'testing';
 
 import { server } from '../server';
 

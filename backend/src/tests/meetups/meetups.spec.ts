@@ -32,6 +32,20 @@ describe('Test /meetups', () => {
         });
     });
 
+    it('it should not create a meetup because indoor and outdoor are missing ', (done) => {
+        let meetup: cuint.Meetup = new cuint.Meetup(
+            "", baseTest.testUser, new Date(), new Date(), '', '', "activity"
+        );
+        baseTest.chai.request(baseTest.server)
+            .post(`${baseTest.route}meetups`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateMeetupRequest(meetup))
+            .end((err, res) => {
+                baseTest.assertFailed(res, 400, 'wrong input.');
+                done();
+            });
+    });
+
     it('it should get all meetup', (done) => {
         baseTest.chai.request(baseTest.server)
             .get(`${baseTest.route}meetups`)
@@ -104,6 +118,20 @@ describe('Test /meetups/:id', () => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('meetup');
                 res.body.meetup.activity.should.equal("jetzt mach i was anderes");
+                done();
+            });
+    });
+
+
+    it('it should not update a single meetup because indoor and outdoor are missing', (done) => {
+        meetup.indoor = '';
+        meetup.outdoor = '';
+        baseTest.chai.request(baseTest.server)
+            .put(`${baseTest.route}meetups/${meetup.id}`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createUpdateMeetupRequest(meetup))
+            .end((err, res) => {
+                baseTest.assertFailed(res, 400, 'wrong input.');
                 done();
             });
     });
