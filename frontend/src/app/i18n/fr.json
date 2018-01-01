@@ -6,7 +6,16 @@
     "title": "Login_FR",
     "email": "Email_FR: ",
     "password": "Passwort_FR: ",
-    "loginUser": "Anmelden_FR"
+    "loginUser": "Anmelden_FR",
+    "dialog": {
+      "errorTitle": "Fehler beim Login!_FR"
+    },
+    "error": {
+      "nameRequired": "Namen eingeben_FR",
+      "nameMinLength": "Name muss min 2 Zeichen haben_FR",
+      "passwordRequired": "Passwort eingeben._FR",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben._FR"
+    }
   },
   "header": {
     "title": "Chumm-Uffa_FR",
@@ -40,12 +49,18 @@
     "women": "Frau_FR",
     "weight": "Körpergewicht_FR: ",
     "kg": "kg_FR",
+    "dialog": {
+      "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!_FR",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR"
+    },
     "error": {
       "nameRequired": "Namen eingeben_FR",
       "nameMinLength": "Name muss min 2 Zeichen haben_FR",
       "email": "ungültiges Emailformat_FR",
       "differentPasswords": "die Passwortwiederholung weicht ab_FR",
-      "sexRequired": "Geschlecht wählen._FR"
+      "sexRequired": "Geschlecht wählen._FR",
+      "passwordRequired": "Passwort eingeben.",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
     }
   },
   "meetup": {
@@ -121,7 +136,11 @@
     "from_th": "Startzeit_FR",
     "to_th": "Endzeit_FR",
     "noResults": "Keine passenden Meetups gefunden!_FR",
-    "partner": "Partnerperson",
+    "partner": "Partnerperson_FR",
+    "dialog": {
+      "infoTitle": "Anfrage_FR",
+      "infoText": "Deine Anfrage wurde dem Meetup Besitzer mitgeteilt._FR"
+    },
     "error": {
       "fromDateTimeRequired": "Startzeit eingeben._FR",
       "toDateTimeRequired": "Endzeit eingeben._FR",
@@ -135,13 +154,28 @@
     "location": "Ort_FR",
     "requests": "Anfragen_FR",
     "participants": "Anz. Teilnehmer_FR",
-    "delete": "löschen_FR"
+    "delete": "löschen_FR",
+    "dialog": {
+      "deleteTitle": "Löschen_FR",
+      "deleteText": "Sie löschen das Meetup!_FR"
+    }
   },
   "openRequests": {
     "title": "Meine Anfragen_FR",
     "time": "Wann_FR",
     "location": "Ort_FR",
     "state": "Status_FR",
-    "signOff": "abmelden_FR"
+    "signOff": "abmelden_FR",
+    "dialog": {
+      "signOffTitle": "Abmelden_FR",
+      "signOffText": "Sie melden sich vom Meetup ab!_FR"
+    }
+  },
+  "confirmDialog": {
+    "no": "Nö Nö",
+    "yes": "Jo jo"
+  },
+  "infoPopup": {
+    "ok": "OK_FR"
   }
 }

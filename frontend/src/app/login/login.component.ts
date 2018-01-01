@@ -6,6 +6,8 @@ import {LoginFormService} from './form/login-form.service';
 import {FormUtil} from '../shared/form/form.util';
 import {ILoginResponse} from '@chumm-uffa/interface';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit  {
   constructor( private loginFormService: LoginFormService,
                private appState: AppStateService,
                private businessService: BusinessService,
-               private router: Router) {
+               private router: Router,
+               private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class LoginComponent implements OnInit  {
       }, err =>  {
         const response: ILoginResponse = err.error;
         console.log('Error while login, ', response.message);
-        window.alert('Error while login, ' + response.message);
+        this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'login.dialog.errorTitle'}});
         this.loginForm.hasError(response.message);
       });
     }else {
