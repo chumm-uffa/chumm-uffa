@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {ResourceServiceInterface} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, createLoginResponse, createRegisterResponse,
-  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto} from '@chumm-uffa/interface';
+import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest, IUpdateProfileRequest, IUpdateProfileResponse,
+  User, Hall, Chat, Meetup, MeetupRequest, RequestStatus, SearchDto, AuthFactory} from '@chumm-uffa/interface';
 
 /**
  * Mock for the resource service
@@ -32,11 +32,11 @@ export class MockService implements ResourceServiceInterface {
   }
 
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
-    return of(createRegisterResponse(true, '', this._users[0], '1'));
+    return of(AuthFactory.createRegisterResponse(true, '', this._users[0], '1'));
   }
 
   login(request: ILoginRequest): Observable<ILoginResponse> {
-    return of(createLoginResponse(true, '', 'token', this._users[0] ));
+    return of(AuthFactory.createLoginResponse(true, '', 'token', this._users[0] ));
   }
 
   getMeetUps(user: User): Observable<Meetup[]> {
@@ -94,8 +94,8 @@ export class MockService implements ResourceServiceInterface {
    * @param {User} user
    * @returns {Observable<User>}
    */
-  saveUser(user: User): Observable<any> {
-    return of(true);
+  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
+    return of(AuthFactory.createUpdateProfileResponse(true, "", request.profile));
   }
 
   get users(): User[] {
@@ -177,13 +177,13 @@ export class MockService implements ResourceServiceInterface {
    */
   private generateChats() {
     this._chats = [];
-    this._chats.push(new Chat('Arschgeige', this._users[1], new Date(2017, 8, 25, 12, 45)));
-    this._chats.push(new Chat('hab dich auch lieb', this._users[2], new Date(2017, 9, 8, 14, 40)));
-    this._chats.push(new Chat('wa wotsch', this._users[3], new Date(2017, 6, 15, 16, 5)));
-    this._chats.push(new Chat('cha nöd', this._users[0], new Date(2017, 5, 6, 15, 5)));
-    this._chats.push(new Chat('kei Bock', this._users[1], new Date(2017, 4, 5, 8, 4)));
-    this._chats.push(new Chat('nöd gsicheret', this._users[0], new Date(2017, 2, 5, 10, 5)));
-    this._chats.push(new Chat('freie Fall', this._users[3], new Date(2017, 11, 2, 2, 5)));
-    this._chats.push(new Chat('we are the champignions', this._users[0], new Date(2017, 10, 2, 12, 42)));
+    this._chats.push(new Chat('1','Arschgeige', this._users[1], new Date(2017, 8, 25, 12, 45)));
+    this._chats.push(new Chat('2','hab dich auch lieb', this._users[2], new Date(2017, 9, 8, 14, 40)));
+    this._chats.push(new Chat('3','wa wotsch', this._users[3], new Date(2017, 6, 15, 16, 5)));
+    this._chats.push(new Chat('4','cha nöd', this._users[0], new Date(2017, 5, 6, 15, 5)));
+    this._chats.push(new Chat('5','kei Bock', this._users[1], new Date(2017, 4, 5, 8, 4)));
+    this._chats.push(new Chat('6','nöd gsicheret', this._users[0], new Date(2017, 2, 5, 10, 5)));
+    this._chats.push(new Chat('7','freie Fall', this._users[3], new Date(2017, 11, 2, 2, 5)));
+    this._chats.push(new Chat('8','we are the champignions', this._users[0], new Date(2017, 10, 2, 12, 42)));
   }
 }

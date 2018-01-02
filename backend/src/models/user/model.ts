@@ -6,6 +6,7 @@ import { Document, Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { User } from '@chumm-uffa/interface';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 /**
  * The DBUser document interface
@@ -23,7 +24,8 @@ export interface IDBUser {
  */
 export interface IDBUserModel extends IDBUser, Document {
     createUser(user: IDBUser): Promise<IDBUser>;
-    comparePassword(candidatePassword: string): void;
+    comparePassword(candidatePassword: string): boolean;
+    hashPassword(newPassword: string): void;
     fromInterface(user: User);
     toInterface();
 }
@@ -35,6 +37,8 @@ export interface IDBUserModel extends IDBUser, Document {
 export const UserSchema = new Schema({
     username: {
         type: String,
+        unique : true,
+        dropDups: true,
         required: true
     },
     password: {
@@ -58,13 +62,14 @@ export const UserSchema = new Schema({
     }
 });
 
+
+UserSchema.plugin(uniqueValidator);
+
 /**
  * Pre function when save a new user. The password is hashed
  * and the creation date is set.
  */
 UserSchema.pre('save', function(next) {
-    const hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
-    this.password = hash;
     this.createAt = Date.now();
     next();
 });
@@ -78,10 +83,17 @@ UserSchema.pre('update', function(next) {
 });
 
 /**
- * Static function to compatoDBUserre the password
+ * Function to compare the password
  */
-UserSchema.methods.comparePassword = function(candidatePassword: string, callback: Function) {
+UserSchema.methods.comparePassword = function(candidatePassword: string) {
     return bcrypt.compareSync(candidatePassword, this.password);
+};
+
+/**
+ * Function to hash the password
+ */
+UserSchema.methods.hashPassword = function(newPassword: string) {
+    this.password = bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10));
 };
 
 /**
@@ -89,7 +101,6 @@ UserSchema.methods.comparePassword = function(candidatePassword: string, callbac
  */
 UserSchema.methods.fromInterface = function(user: User) {
     this.username = user.username;
-    this.password = user.password;
     this.email = user.email;
     this.sex = user.sex;
     this.weight = user.weight;
@@ -103,7 +114,6 @@ UserSchema.methods.toInterface = function() {
     user.id = this._id.toString();
     user.username = this.username;
     user.email = this.email;
-    user.password = this.password;
     user.sex = this.sex;
     user.weight = this.weight;
     return user;

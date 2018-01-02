@@ -7,7 +7,7 @@ export interface ILoginRequest {
 
 export interface ILoginResponse extends IBaseResponse{
     token: string;
-    user: User;
+    profile: User;
 }
 
 export class LoginRequest implements ILoginRequest{
@@ -15,6 +15,6 @@ export class LoginRequest implements ILoginRequest{
 }
 
 export class LoginResponse extends BaseResponse implements ILoginResponse {
-    public token: string;
-    public user: User;
+    token: string;
+    profile: User;
 }

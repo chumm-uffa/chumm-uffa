@@ -25,7 +25,7 @@ describe('Test /auth/register', () => {
         testUser.weight = null;
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 done();
@@ -36,14 +36,14 @@ describe('Test /auth/register', () => {
         // First register the user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
                 // second saveUser
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/register`)
-                    .send(cuint.createRegisterRequest(testUser))
+                    .send(cuint.AuthFactory.createRegisterRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertFailed(res, 400, 'this user name has already been taken.');
                         done();
@@ -56,13 +56,13 @@ describe('Test /auth/register', () => {
         // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser))
+                    .send(cuint.AuthFactory.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
 
@@ -102,33 +102,33 @@ describe('Test /auth/register', () => {
         baseTest.chai.request(baseTest.server)
             // First register the user
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser))
+                    .send(cuint.AuthFactory.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
 
                         // Test if we got a token back
                         res.body.should.have.property('token');
                         const token = res.body.token;
-                        res.body.should.have.property('user');
-                        res.body.user.email = "ich@change.ch";
-                        const userid = res.body.user.id;
+                        res.body.should.have.property('profile');
+                        res.body.profile.email = "ich@change.ch";
+                        const userid = res.body.profile.id;
 
                         // Third change user
                         baseTest.chai.request(baseTest.server)
                             .put(`${baseTest.route}auth/profile`)
                             .set({authorization: token})
-                            .send(cuint.createRegisterRequest(res.body.user))
+                            .send(cuint.AuthFactory.createUpdateProfileRequest(res.body.profile))
                             .end((err, res) => {
                                 baseTest.assertSuccess(res);
-                                res.body.should.have.property('user');
-                                res.body.user.id.should.be.equal(userid);
-                                res.body.user.email.should.be.equal('ich@change.ch');
+                                res.body.should.have.property('profile');
+                                res.body.profile.id.should.be.equal(userid);
+                                res.body.profile.email.should.be.equal('ich@change.ch');
                                 done();
                             });
                     });
@@ -141,35 +141,35 @@ describe('Test /auth/register', () => {
         baseTest.chai.request(baseTest.server)
         // First register the user
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 // Second login the test user
                 baseTest.chai.request(baseTest.server)
                     .post(`${baseTest.route}auth/login`)
-                    .send(cuint.createLoginRequest(testUser))
+                    .send(cuint.AuthFactory.createLoginRequest(testUser))
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
 
                         // Test if we got a token back
                         res.body.should.have.property('token');
                         const token = res.body.token;
-                        res.body.should.have.property('user');
+                        res.body.should.have.property('profile');
 
-                        const newUserName = `${res.body.user.username}ichbinneu`
-                        const userid = res.body.user.id;
-                        res.body.user.username = newUserName;
+                        const newUserName = `${res.body.profile.username}ichbinneu`;
+                        const userid = res.body.profile.id;
+                        res.body.profile.username = newUserName;
 
-                        // Third change user
+                        // Third change profile
                         baseTest.chai.request(baseTest.server)
                             .put(`${baseTest.route}auth/profile`)
                             .set({authorization: token})
-                            .send(cuint.createRegisterRequest(res.body.user))
+                            .send(cuint.AuthFactory.createUpdateProfileRequest(res.body.profile))
                             .end((err, res) => {
                                 baseTest.assertSuccess(res);
-                                res.body.should.have.property('user');
-                                res.body.user.id.should.be.equal(userid);
-                                res.body.user.username.should.be.equal(newUserName);
+                                res.body.should.have.property('profile');
+                                res.body.profile.id.should.be.equal(userid);
+                                res.body.profile.username.should.be.equal(newUserName);
                                 done();
                             });
                     });
@@ -182,14 +182,12 @@ describe('Test /auth/login and /auth/logout', () => {
 
     const baseTest: BaseTest = new BaseTest();
     const testUser = baseTest.createTestUser();
-    let token: string;
 
     before((done) => {
         // First saveUser test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)
-            .send(cuint.createRegisterRequest(testUser))
-            .send(cuint.createRegisterRequest(testUser))
+            .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 done();
@@ -200,7 +198,7 @@ describe('Test /auth/login and /auth/logout', () => {
         // First login the test user
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/login`)
-            .send(cuint.createLoginRequest(testUser))
+            .send(cuint.AuthFactory.createLoginRequest(testUser))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
 
@@ -244,7 +242,7 @@ describe('Test /auth/login and /auth/logout', () => {
         testUser.password = 'ichBinBlöd';
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/login`)
-            .send(cuint.createLoginRequest(testUser))
+            .send(cuint.AuthFactory.createLoginRequest(testUser))
             .end((err, res) => {
                 baseTest.assertFailed(res, 400, 'wrong credentials.');
                 done();
@@ -255,7 +253,7 @@ describe('Test /auth/login and /auth/logout', () => {
         testUser.username = 'michKenntKeiner';
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/login`)
-            .send(cuint.createLoginRequest(testUser))
+            .send(cuint.AuthFactory.createLoginRequest(testUser))
             .end((err, res) => {
                 baseTest.assertFailed(res, 400, 'user not exists.');
                 done();

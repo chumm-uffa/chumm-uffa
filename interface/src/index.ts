@@ -1,12 +1,39 @@
 import {IBaseResponse, BaseResponse} from './interface/baseResponse';
 import {ILoginRequest, ILoginResponse, LoginRequest, LoginResponse} from './interface/auth/login';
 import {IRegisterRequest, IRegisterResponse, RegisterRequest, RegisterResponse} from './interface/auth/register';
+import {
+    CreateMeetupRequest, CreateMeetupRespons, DeleteMeetupRespons, GetAllMeetupsRespons, GetMeetupRespons,
+    ICreateMeetupRequest,
+    ICreateMeetupResponse, IDeleteMeetupResponse,
+    IGetAllMeetupsResponse, IGetMeetupResponse, IUpdateMeetupRequest, IUpdateMeetupResponse, UpdateMeetupRequest,
+    UpdateMeetupRespons
+} from "./interface/meetups/meetups";
+import {GetAllRequestsForMeetupRespons, IGetAllRequestsForMeetupResponse} from "./interface/meetups/meetup-requests";
+import {
+    CreateChatForMeetupRequest, CreateChatForMeetupRespons, DeleteChatForMeetupResponse,
+    GetAllChatsForMeetupRespons, ICreateChatForMeetupRequest, ICreateChatForMeetupResponse,
+    IDeleteChatForMeetupResponse,
+    IGetAllChatsForMeetupResponse
+} from "./interface/meetups/chats";
+import {
+    DeleteProfileResponse,
+    GetProfileRespons, IDeleteProfileResponse, IGetProfileResponse, IUpdateProfileRequest, IUpdateProfileResponse,
+    UpdateProfileRequest, UpdateProfileResponse
+} from "./interface/auth/profile";
+
 import {User} from './model/user';
 import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {Meetup} from './model/meetup';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
 import {SearchDto} from './model/searchDto';
+
+import {BaseFactory} from './factory/baseFactory';
+import {AuthFactory} from './factory/authFactory';
+import {MeetupsFactory} from './factory/meetupsFactory';
+import {HallsFactory} from './factory/hallsFactory';
+import {MeetupRequestsFactory} from './factory/meetupRequestsFactory';
+import {UsersFactory} from './factory/usersFactory';
 
 /**
  * The interface version
@@ -15,80 +42,74 @@ import {SearchDto} from './model/searchDto';
 export const Version: String = "v1";
 
 /**
- * Create a login request
- * @param {User} user
- * @returns {LoginRequest}
+ * Export of factory classes
  */
-export function createLoginRequest (user: User) : ILoginRequest {
-    const request = new LoginRequest();
-    request.user = user;
-    return request;
+export  {
+    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory
 }
 
-/**
- * Creates a login response
- * @param {boolean} success
- * @param {string} message
- * @param {string} token
- * @param {User} user
- * @returns {LoginResponse}
- */
-export function createLoginResponse (success: boolean, message: string, token?: string, user?: User) : ILoginResponse {
-    const response = new LoginResponse();
-    response.success = success;
-    response.message = message;
-    if (token) { response.token = token }
-    if (user) { response.user = user }
-    return response;
-}
-
-/**
- * Creates a register request
- * @param {User} user
- * @returns {IRegisterRequest}
- */
-export function createRegisterRequest(user: User) :IRegisterRequest {
-    const request = new RegisterRequest();
-    request.user = user;
-
-    return request;
-}
-
-/**
- * Creates a register response
- * @param {boolean} success
- * @param {string} message
- * @param {User} user
- * @param {string} id
- * @returns {IRegisterResponse}
- */
-export function createRegisterResponse(success: boolean, message: string, user?: User, id?:string) :IRegisterResponse {
-    const response = new RegisterResponse();
-    response.success = success;
-    response.message = message;
-    if (id) { response.id = id }
-    if (user) { response.user = user }
-    return response;
-}
 
 /**
  * Export of communication interface
  */
 export {
-    IBaseResponse,
-    BaseResponse,
+    IBaseResponse, BaseResponse,
 
-    ILoginRequest,
-    LoginRequest,
+    //*************************
+    // All for route "/auth"
+    //*************************
 
-    ILoginResponse,
-    LoginResponse,
+    //post /auth/login
+    ILoginRequest, LoginRequest,
+    ILoginResponse, LoginResponse,
 
-    IRegisterRequest,
-    RegisterRequest,
+    //post /auth/register
+    IRegisterRequest, RegisterRequest,
+    IRegisterResponse, RegisterResponse,
 
-    IRegisterResponse,
-    RegisterResponse,
+    //get /auth/profile
+    IGetProfileResponse, GetProfileRespons,
+
+    //put /auth/profile
+    IUpdateProfileRequest, UpdateProfileRequest,
+    IUpdateProfileResponse, UpdateProfileResponse,
+
+    //delete /auth/profile
+    IDeleteProfileResponse, DeleteProfileResponse,
+
+    //*************************
+    // All for route "/meetups"
+    //*************************
+
+    // get /meetups
+    IGetAllMeetupsResponse, GetAllMeetupsRespons,
+
+    // post /meetups
+    ICreateMeetupRequest, CreateMeetupRequest,
+    ICreateMeetupResponse, CreateMeetupRespons,
+
+    // get /meetups/{id}
+    IGetMeetupResponse, GetMeetupRespons,
+
+    // delete /meetups/{id}
+    IDeleteMeetupResponse, DeleteMeetupRespons,
+
+    // put /meetups/{id}
+    IUpdateMeetupRequest, UpdateMeetupRequest,
+    IUpdateMeetupResponse, UpdateMeetupRespons,
+
+    // get /meetups/{id}/meetup-requests
+    IGetAllRequestsForMeetupResponse, GetAllRequestsForMeetupRespons,
+
+    // get /meetups/{id}/chats
+    IGetAllChatsForMeetupResponse, GetAllChatsForMeetupRespons,
+
+    // post /meetups/{id}/chats
+    ICreateChatForMeetupRequest, CreateChatForMeetupRequest,
+    ICreateChatForMeetupResponse, CreateChatForMeetupRespons,
+
+    // delete /meetups/{id}/chats{id}
+    IDeleteChatForMeetupResponse, DeleteChatForMeetupResponse
 }
 
 /**

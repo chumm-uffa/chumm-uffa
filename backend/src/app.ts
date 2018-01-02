@@ -5,6 +5,8 @@ import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as logger from 'morgan';
 
+import * as Q from 'q';
+
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
@@ -14,6 +16,8 @@ import { IndexRoutes } from './routers/indexRoutes';
 import { PassportConfig } from './config/passport';
 
 import { Mockgoose } from 'mockgoose-fix';
+
+import { HallController } from './controller/hallController';
 
 class App {
 
@@ -31,13 +35,13 @@ class App {
      * database connection
      */
     private database(): void {
+        (<any>mongoose).Promise = Q.Promise;
         if (process.env.NODE_ENV === 'testing') {
             const mockgoose = new Mockgoose(mongoose);
-            mockgoose.helper.setDbVersion('4.13.6');
+            //This must be set to 3.5.7 to avoid a problem wit mongoDB wir mockgoose
+            mockgoose.helper.setDbVersion("3.5.7");
             mockgoose.prepareStorage().then((): void => {
-                mongoose.connect('mongodb://example.com/TestingDB', {
-                    useMongoClient: true,
-                });
+                mongoose.connect(process.env.MONGODB_URI);
             });
         } else {
             if (process.argv.length > 2 && process.argv[2] === 'docker') {
@@ -47,12 +51,17 @@ class App {
                 console.log(`Connect to MongoDB ${process.env.MONGODB_URI}`);
                 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
             }
-
-            mongoose.connection.on('error', () => {
-                console.log('MongoDB connection error. Please make sure MongoDB is running.');
-                process.exit();
-            });
         }
+
+        mongoose.connection.on('error', () => {
+            console.log('MongoDB connection error. Please make sure MongoDB is running.');
+            process.exit();
+        });
+
+        mongoose.connection.on('open', () => {
+            console.log('MongoDB is running, inital load of data');
+            new HallController().loadAllHall();
+        });
     }
 
     /**

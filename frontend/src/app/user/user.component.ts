@@ -5,9 +5,9 @@ import {AppStateService} from '../core/app-state.service';
 import {UserFormService} from './form/user-form.service';
 import {BusinessService} from '../core/business.service';
 
-import {createRegisterRequest, IRegisterRequest, User} from '@chumm-uffa/interface';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {IRegisterRequest, User} from '@chumm-uffa/interface';
 
 @Component({
   selector: 'app-registration',
@@ -39,17 +39,17 @@ export class UserComponent implements OnInit {
 
       if (this.appState.isLoggedIn) {
         this.businessService.saveUser(this.userFormService.mergeUser(this.userForm.value, this.user)).subscribe(response => {
-          console.log('user updated with id ', response.id);
+          console.log('user profile updated with id ', response.profile.id);
         }, err => {
           const response: IRegisterRequest = err.error;
-          console.log('User update failed, ', response.message);
+          console.log('user profile update failed, ', response.message);
           this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'user.dialog.updateFailedTitle'}});
           this.userForm.hasError(response.message);
         });
       } else {
         this.businessService.register(this.userFormService.mergeUser(this.userForm.value, this.user))
           .subscribe(response => {
-            console.log('New DBUser register with id ', response.id);
+            console.log('New user register with id ', response.id);
           }, err => {
             const response: IRegisterRequest = err.error;
             console.log('Register failed, ', response.message);

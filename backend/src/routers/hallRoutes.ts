@@ -21,4 +21,10 @@ export class HallRoutes extends BaseRoutes {
             this.controller.allHall(req, res);
         });
     }
+
+    public getHallAction(router: Router): void {
+        router.get('/:key/', (req: Request, res: Response) => {
+            this.controller.getHall(req, res);
+        });
+    }
 }

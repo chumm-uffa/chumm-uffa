@@ -6,9 +6,13 @@
 import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
+// This must be here, before server is loading! Comment this in if you want to work with in memory DB
+//process.env.NODE_ENV = 'testing';
+
 import { server } from '../server';
 
 import * as cuint from '@chumm-uffa/interface';
+
 
 export class BaseTest {
 
@@ -16,6 +20,9 @@ export class BaseTest {
     public should: any;
     public route: string;
     public server: any;
+    public token: string;
+    public testUser: cuint.User;
+    public halls: cuint.Hall[];
 
     constructor() {
         this.server = server.getServerInstance();
@@ -23,7 +30,7 @@ export class BaseTest {
         this.chai = chai;
         this.chai.use(chaiHttp);
         this.should = chai.should();
-        this.createTestUser();
+        this.testUser = this.createTestUser();
     }
 
     /**
@@ -47,6 +54,8 @@ export class BaseTest {
     public assertSuccess(res) {
         res.status.should.equal(200);
         res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        console.log(res.body.message);
         res.body.should.have.property('success');
         res.body.success.should.equal(true);
     }
@@ -61,9 +70,42 @@ export class BaseTest {
         res.body.should.be.a('object');
         res.body.should.have.property('success');
         res.body.success.should.equal(false);
+        res.body.should.have.property('message');
+        console.log(res.body.message);
         if (message.length > 0) {
-            res.body.should.have.property('message');
             res.body.message.should.equal(message);
         }
+    }
+
+    public login(done){
+        this.testUser = this.createTestUser();
+        // First register test user
+        this.chai.request(this.server)
+            .post(`${this.route}auth/register`)
+            .send(cuint.AuthFactory.createRegisterRequest(this.testUser))
+            .end((err, res) => {
+                this.assertSuccess(res);
+                // Second login the test user
+                this.chai.request(this.server)
+                    .post(`${this.route}auth/login`)
+                    .send(cuint.AuthFactory.createLoginRequest(this.testUser))
+                    .end((err, res) => {
+                        this.assertSuccess(res);
+                        res.body.should.have.property('token');
+                        this.token = res.body.token;
+                        res.body.should.have.property('profile');
+                        this.testUser = res.body.profile;
+                        //Getting all halls
+                        this.chai.request(this.server)
+                            .get(`${this.route}halls/`)
+                            .set({authorization: this.token})
+                            .end((err, res) => {
+                                this.assertSuccess(res);
+                                res.body.should.have.property('halls');
+                                this.halls = res.body.halls;
+                                done();
+                            });
+                    });
+            });
     }
 }

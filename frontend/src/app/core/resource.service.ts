@@ -2,9 +2,20 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 
-import {ILoginRequest, IRegisterResponse, ILoginResponse, IRegisterRequest,
-  User, Chat, Meetup, MeetupRequest, Version} from '@chumm-uffa/interface';
-import {SearchDto} from '../../../../interface/src/model/searchDto';
+import {
+  ILoginRequest,
+  IRegisterResponse,
+  ILoginResponse,
+  IRegisterRequest,
+  IUpdateProfileRequest,
+  IUpdateProfileResponse,
+  User,
+  Chat,
+  Meetup,
+  MeetupRequest,
+  Version,
+  SearchDto} from '@chumm-uffa/interface';
+import {AppStateService} from "./app-state.service";
 
 /**
  * Resource service interface
@@ -40,7 +51,7 @@ export interface ResourceServiceInterface {
 
   deleteRequest(requestId: string): Observable<boolean>;
 
-  saveUser(user: User): Observable<any>;
+  saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
 }
 
 /**
@@ -49,9 +60,10 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = `http://localhost:4200/api/${Version}/`;
+  private urlDemo = `/api/${Version}/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private appState: AppStateService,
+              private http: HttpClient) {
   }
 
   /**
@@ -73,7 +85,7 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Register a new user
+   * Register a new user profile
    * @param {User} user
    * @returns {Observable<User>}
    */
@@ -156,11 +168,11 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Register a new user
+   * Save the changes of user profile
    * @param {User} user
-   * @returns {Observable<User>}
+   * @returns {Observable<any>}
    */
-  saveUser(user: User): Observable<any> {
-    throw new Error('Method not implemented.');
+  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
+        return this.http.put<IUpdateProfileResponse>(this.urlDemo + 'auth/profile', request);
   }
 }

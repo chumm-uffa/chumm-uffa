@@ -4,10 +4,10 @@ import {ResourceService} from './resource.service';
 import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {
-  createLoginRequest,
-  createRegisterRequest,
+  AuthFactory,
   ILoginResponse,
   IRegisterResponse,
+  IUpdateProfileResponse,
   Chat,
   Hall,
   Meetup,
@@ -40,7 +40,7 @@ export class BusinessService {
    * @returns {Observable<IRegisterResponse>}
    */
   register(user: User): Observable<IRegisterResponse> {
-    return this.resourceService.register(createRegisterRequest( user ));
+    return this.resourceService.register(AuthFactory.createRegisterRequest( user ));
   }
 
   /**
@@ -48,8 +48,8 @@ export class BusinessService {
    * @param {User} user
    * @returns {Observable<IRegisterResponse>}
    */
-  saveUser(user: User): Observable<IRegisterResponse> {
-    return this.mockService.saveUser(user);
+  saveUser(user: User): Observable<IUpdateProfileResponse> {
+    return this.resourceService.saveUser(AuthFactory.createUpdateProfileRequest(user));
   }
 
   /**
@@ -58,7 +58,7 @@ export class BusinessService {
    * @returns {Observable<ILoginResponse>}
    */
   login(user: User): Observable<ILoginResponse> {
-    return this.resourceService.login(createLoginRequest(user));
+    return this.resourceService.login(AuthFactory.createLoginRequest(user));
   }
 
   /**
@@ -108,7 +108,7 @@ export class BusinessService {
   }
 
   createChat(message: string, meetupId: string): Chat {
-    const newOne = new Chat(message, this.appState.loggedInUser, new Date());
+    const newOne = new Chat('99', message, this.appState.loggedInUser, new Date());
     this.mockService.createChat(newOne);
     return newOne;
   }

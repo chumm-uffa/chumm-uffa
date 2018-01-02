@@ -16,9 +16,9 @@ export class MeetupRequestRoutes extends BaseRoutes {
         this.controller = new MeetupRequestController();
     }
 
-    public allRequestAction(router: Router): void {
+    public getAllRequestAction(router: Router): void {
         router.get('/', (req: Request, res: Response) => {
-            this.controller.allMeetupRequest(req, res);
+            this.controller.getAllRequestAction(req, res);
         });
     }
 }

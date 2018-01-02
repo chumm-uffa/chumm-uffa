@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Hall } from './hall';
 
 /**
  * Encapsulate a single meetup

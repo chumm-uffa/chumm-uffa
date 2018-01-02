@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit  {
     FormUtil.markAsTouched(this.loginForm);  // macht Validierungsfehler sichtbar
     if (this.loginForm.valid && !this.loginForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
       this.businessService.login(this.loginFormService.createUser()).subscribe( response => {
-        this.appState.loggedInUser = response.user;
+        this.appState.loggedInUser = response.profile;
         this.appState.token = response.token;
         this.router.navigate(['/mymeetups']);
       }, err =>  {
