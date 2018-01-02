@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {
   MatButtonModule,
+  MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
@@ -8,6 +9,9 @@ import {
   MatTableModule,
   MatTabsModule
 } from '@angular/material';
+import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {InfoPopupComponent} from './info-popup/info-popup.component';
 
 @NgModule({
   imports: [
@@ -17,9 +21,18 @@ import {
     MatButtonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
+    TranslateModule
   ],
-  declarations: [],
+  declarations: [
+    ConfirmDialogComponent,
+    InfoPopupComponent
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    InfoPopupComponent
+  ],
   exports: [
     MatRadioModule,
     MatSelectModule,
@@ -27,7 +40,8 @@ import {
     MatButtonModule,
     MatTableModule,
     MatFormFieldModule,
-    MatTabsModule]
+    MatTabsModule,
+    MatDialogModule]
 })
 export class MaterialModule {
 }

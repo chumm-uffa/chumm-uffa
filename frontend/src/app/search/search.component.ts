@@ -7,7 +7,8 @@ import {Util} from '../shared/util';
 import {Hall, Meetup} from '@chumm-uffa/interface';
 
 
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-search',
@@ -16,14 +17,15 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class SearchComponent implements OnInit {
 
-  results: MatTableDataSource<Meetup> =  new MatTableDataSource<Meetup>([]);
+  results: MatTableDataSource<Meetup> = new MatTableDataSource<Meetup>([]);
   searchForm: FormGroup;
   halls: Hall[] = [];
   hasAllreadySearched = false;
   columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
 
   constructor(private searchFormService: SearchFormService,
-              private businessService: BusinessService) {
+              private businessService: BusinessService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -38,20 +40,20 @@ export class SearchComponent implements OnInit {
       console.log('search initiated');
       // this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
       this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups => {
-          this.results = new MatTableDataSource<Meetup>(meetups);
-          this.hasAllreadySearched = true;
-        });
+        this.results = new MatTableDataSource<Meetup>(meetups);
+        this.hasAllreadySearched = true;
+      });
     }
   }
 
   requestForParticipation(event, meetupId: string): void {
     event.stopPropagation();  // prevent link action
     this.businessService.requestForParticipation(meetupId).subscribe(ack => {
-        // isch da cool?
-        if (ack) {
-          window.alert('Deine Anfrage wurde dem Meetup Owner mitgeteilt.');
-        }
-      });
+      if (ack) {
+        this.dialog.open(InfoPopupComponent,
+          {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
+      }
+    });
   }
 
   isIndoor(): boolean {

@@ -5,6 +5,8 @@ import {AppStateService} from '../core/app-state.service';
 import {UserFormService} from './form/user-form.service';
 import {BusinessService} from '../core/business.service';
 
+import {MatDialog} from '@angular/material';
+import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {IRegisterRequest, User} from '@chumm-uffa/interface';
 
 @Component({
@@ -18,7 +20,8 @@ export class UserComponent implements OnInit {
 
   constructor(private userFormService: UserFormService,
               private appState: AppStateService,
-              private businessService: BusinessService) {
+              private businessService: BusinessService,
+              private dialog: MatDialog) {
     if (appState.isLoggedIn) {
       this.user = appState.loggedInUser;
     } else {
@@ -40,7 +43,7 @@ export class UserComponent implements OnInit {
         }, err => {
           const response: IRegisterRequest = err.error;
           console.log('user profile update failed, ', response.message);
-          window.alert('user profile udate failed, ' + response.message);
+          this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'user.dialog.updateFailedTitle'}});
           this.userForm.hasError(response.message);
         });
       } else {
@@ -50,7 +53,7 @@ export class UserComponent implements OnInit {
           }, err => {
             const response: IRegisterRequest = err.error;
             console.log('Register failed, ', response.message);
-            window.alert('Register failed, ' + response.message);
+            this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'user.dialog.registrationFailedTitle'}});
             this.userForm.hasError(response.message);
           });
       }

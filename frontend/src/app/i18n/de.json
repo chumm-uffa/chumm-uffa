@@ -6,7 +6,16 @@
     "title": "Login",
     "name": "Name: ",
     "password": "Passwort: ",
-    "loginUser": "Anmelden"
+    "loginUser": "Anmelden",
+    "dialog": {
+      "errorTitle": "Fehler beim Login!"
+    },
+    "error": {
+      "nameRequired": "Namen eingeben",
+      "nameMinLength": "Name muss min 2 Zeichen haben",
+      "passwordRequired": "Passwort eingeben.",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
+    }
   },
   "header": {
     "title": "Chumm-Uffa",
@@ -40,12 +49,18 @@
     "women": "Frau",
     "weight": "Körpergewicht: ",
     "kg": "kg",
+    "dialog": {
+      "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!"
+    },
     "error": {
       "nameRequired": "Namen eingeben.",
       "nameMinLength": "Name muss min 2 Zeichen haben.",
       "email": "Ungültiges Emailformat.",
       "differentPasswords": "Die Passwortwiederholung weicht ab.",
-      "sexRequired": "Geschlecht wählen."
+      "sexRequired": "Geschlecht wählen.",
+      "passwordRequired": "Passwort eingeben.",
+      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
     }
   },
   "meetup": {
@@ -122,6 +137,10 @@
     "to_th": "Endzeit",
     "noResults": "Keine passenden Meetups gefunden!",
     "partner": "Partnerperson",
+    "dialog": {
+      "infoTitle": "Anfrage",
+      "infoText": "Deine Anfrage wurde dem Meetup Besitzer mitgeteilt."
+    },
     "error": {
       "fromDateTimeRequired": "Startzeit eingeben.",
       "toDateTimeRequired": "Endzeit eingeben.",
@@ -135,13 +154,28 @@
     "location": "Ort",
     "requests": "Anfragen",
     "participants": "Anz. Teilnehmer",
-    "delete": "löschen"
+    "delete": "löschen",
+    "dialog": {
+      "deleteTitle": "Löschen",
+      "deleteText": "Sie löschen das Meetup!"
+    }
   },
   "openRequests": {
     "title": "Meine Anfragen",
     "time": "Wann",
     "location": "Ort",
     "state": "Status",
-    "signOff": "abmelden"
+    "signOff": "abmelden",
+    "dialog": {
+      "signOffTitle": "Abmelden",
+      "signOffText": "Sie melden sich vom Meetup ab!"
+    }
+  },
+  "confirmDialog": {
+    "no": "Nö Nö",
+    "yes": "Jo jo"
+  },
+  "infoPopup": {
+    "ok": "OK"
   }
 }
