@@ -1,24 +1,57 @@
-import {IBaseResponse, BaseResponse} from './interface/baseResponse';
+import {BaseResponse, IBaseResponse} from './interface/baseResponse';
 import {ILoginRequest, ILoginResponse, LoginRequest, LoginResponse} from './interface/auth/login';
 import {IRegisterRequest, IRegisterResponse, RegisterRequest, RegisterResponse} from './interface/auth/register';
 import {
-    CreateMeetupRequest, CreateMeetupRespons, DeleteMeetupRespons, GetAllMeetupsRespons, GetMeetupRespons,
+    CreateMeetupRequest,
+    CreateMeetupRespons,
+    DeleteMeetupRespons,
+    GetAllMeetupsRespons,
+    GetMeetupRespons,
     ICreateMeetupRequest,
-    ICreateMeetupResponse, IDeleteMeetupResponse,
-    IGetAllMeetupsResponse, IGetMeetupResponse, IUpdateMeetupRequest, IUpdateMeetupResponse, UpdateMeetupRequest,
+    ICreateMeetupResponse,
+    IDeleteMeetupResponse,
+    IGetAllMeetupsResponse,
+    IGetMeetupResponse,
+    IUpdateMeetupRequest,
+    IUpdateMeetupResponse,
+    UpdateMeetupRequest,
     UpdateMeetupRespons
 } from "./interface/meetups/meetups";
-import {GetAllRequestsForMeetupRespons, IGetAllRequestsForMeetupResponse} from "./interface/meetups/meetup-requests";
 import {
-    CreateChatForMeetupRequest, CreateChatForMeetupRespons, DeleteChatForMeetupResponse,
-    GetAllChatsForMeetupRespons, ICreateChatForMeetupRequest, ICreateChatForMeetupResponse,
+    CreateMeetupRequestRequest,
+    CreateMeetupRequestResponse,
+    DeleteMeetupRequestResponse,
+    GetAllRequestsForMeetupRespons,
+    GetMeetupRequestResponse,
+    ICreateMeetupRequestRequest,
+    ICreateMeetupRequestResponse,
+    IDeleteMeetupRequestResponse,
+    IGetAllRequestsForMeetupResponse,
+    IGetMeetupRequestResponse,
+    IUpdateMeetupRequestRequest,
+    IUpdateMeetupRequestResponse,
+    UpdateMeetupRequestRequest,
+    UpdateMeetupRequestResponse
+} from "./interface/meetups/meetup-requests";
+import {
+    CreateChatForMeetupRequest,
+    CreateChatForMeetupRespons,
+    DeleteChatForMeetupResponse,
+    GetAllChatsForMeetupRespons,
+    ICreateChatForMeetupRequest,
+    ICreateChatForMeetupResponse,
     IDeleteChatForMeetupResponse,
     IGetAllChatsForMeetupResponse
 } from "./interface/meetups/chats";
 import {
     DeleteProfileResponse,
-    GetProfileRespons, IDeleteProfileResponse, IGetProfileResponse, IUpdateProfileRequest, IUpdateProfileResponse,
-    UpdateProfileRequest, UpdateProfileResponse
+    GetProfileRespons,
+    IDeleteProfileResponse,
+    IGetProfileResponse,
+    IUpdateProfileRequest,
+    IUpdateProfileResponse,
+    UpdateProfileRequest,
+    UpdateProfileResponse
 } from "./interface/auth/profile";
 
 import {User} from './model/user';
@@ -44,7 +77,7 @@ export const Version: String = "v1";
 /**
  * Export of factory classes
  */
-export  {
+export {
     BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory
 }
 
@@ -109,12 +142,30 @@ export {
     ICreateChatForMeetupResponse, CreateChatForMeetupRespons,
 
     // delete /meetups/{id}/chats{id}
-    IDeleteChatForMeetupResponse, DeleteChatForMeetupResponse
+    IDeleteChatForMeetupResponse, DeleteChatForMeetupResponse,
+
+    //*************************
+    // All for route "/meetup-requests"
+    //*************************
+
+    // get /meetups
+    IGetMeetupRequestResponse, GetMeetupRequestResponse,
+
+    // post /meetups
+    ICreateMeetupRequestRequest, CreateMeetupRequestRequest,
+    ICreateMeetupRequestResponse, CreateMeetupRequestResponse,
+
+    // put /meetups
+    IUpdateMeetupRequestRequest, UpdateMeetupRequestRequest,
+    IUpdateMeetupRequestResponse, UpdateMeetupRequestResponse,
+
+    // delete /meetups
+    IDeleteMeetupRequestResponse, DeleteMeetupRequestResponse,
 }
 
 /**
  * Export of model classes
  */
-export  {
+export {
     User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto
 }
