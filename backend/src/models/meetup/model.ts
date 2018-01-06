@@ -1,13 +1,13 @@
 /**
  * chumm-uffa
  */
-import { Document, Model, Schema } from 'mongoose';
-import { mongoose } from '../../app';
+import {Document, Model, Schema} from 'mongoose';
+import {mongoose} from '../../app';
 
-import { Meetup } from '@chumm-uffa/interface';
-import {DBUser} from "../user/model";
-import {DBHall} from "../hall/model";
-import {DBChat} from "../chat/model";
+import {Meetup} from '@chumm-uffa/interface';
+import {DBUser} from '../user/model';
+import {DBHall} from '../hall/model';
+import {DBChat} from '../chat/model';
 
 /**
  * The DBUser document interface
@@ -26,6 +26,7 @@ export interface IDBMeetup {
  */
 export interface IDBMeetupModel extends IDBMeetup, Document {
     fromInterface(meetup: Meetup);
+
     toInterface();
 }
 
@@ -70,12 +71,12 @@ export const MeetupSchema = new Schema({
  * Population option for meetup
  * @type {[{path: string} , {path: string}]}
  */
-export const MeetupPopulate = [{path:"owner"}];
+export const MeetupPopulate = [{path: 'owner'}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
  */
-MeetupSchema.pre('save', function(next) {
+MeetupSchema.pre('save', function (next) {
     this.createAt = Date.now();
     next();
 });
@@ -83,7 +84,7 @@ MeetupSchema.pre('save', function(next) {
 /**
  * Pre function when update an existing meetup. The update date is set.
  */
-MeetupSchema.pre('update', function(next) {
+MeetupSchema.pre('update', function (next) {
     this.updatedAt = Date.now();
     next();
 });
@@ -91,7 +92,7 @@ MeetupSchema.pre('update', function(next) {
 /**
  * Pre function when remove an existing meetup. Will delete all referenced document
  */
-MeetupSchema.pre('remove', function(next) {
+MeetupSchema.pre('remove', function (next) {
     DBChat.remove({meetup: this.id}).exec();
     // TODO hier müssen auch die meetup-request gelöscht werden!
     next();
@@ -135,7 +136,7 @@ MeetupSchema.path('indoor').validate(function (indoor, respond) {
 /**
  * Merge the given interface user to this
  */
-MeetupSchema.methods.fromInterface = function(meetup: Meetup) {
+MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
     this.owner = meetup.owner.id;
     this.from = meetup.from;
     this.to = meetup.to;
@@ -147,10 +148,10 @@ MeetupSchema.methods.fromInterface = function(meetup: Meetup) {
 /**
  * Merge this dbUser to a new interface user
  */
-MeetupSchema.methods.toInterface = function() {
+MeetupSchema.methods.toInterface = function () {
     return new Meetup(
         this._id.toString(),
-        this.owner.toInterface(),
+        this.owner instanceof DBUser ? this.owner.toInterface() : null,
         this.from,
         this.to,
         this.outdoor,
