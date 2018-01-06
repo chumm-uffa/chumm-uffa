@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
+import {AppDialogService} from '../../core/AppDialogService';
 
 @Component({
   selector: 'app-participant',
@@ -16,11 +17,13 @@ export class ParticipantComponent {
 
   requestStatus = RequestStatus;
 
-  constructor(private businesService: BusinessService) {
+  constructor(private businesService: BusinessService, private appDialogService: AppDialogService) {
   }
 
   setState(state: RequestStatus): void {
-    this.meetupRequest.status = state;
-    this.businesService.updateRequest(this.meetupRequest).subscribe(mrq => this.meetupRequest = mrq);
+    this.businesService.updateRequest(this.meetupRequest, state).subscribe(res =>
+        res.success ? this.meetupRequest = res.request : this.appDialogService.showError(res.message),
+      err => this.appDialogService.showServerError(err)
+    );
   }
 }

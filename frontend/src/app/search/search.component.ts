@@ -9,6 +9,7 @@ import {Hall, Meetup} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {AppDialogService} from '../core/AppDialogService';
 
 @Component({
   selector: 'app-search',
@@ -25,7 +26,8 @@ export class SearchComponent implements OnInit {
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {
@@ -46,14 +48,16 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  requestForParticipation(event, meetupId: string): void {
+  requestForParticipation(event, meetupId: Meetup): void {
     event.stopPropagation();  // prevent link action
-    this.businessService.requestForParticipation(meetupId).subscribe(ack => {
-      if (ack) {
-        this.dialog.open(InfoPopupComponent,
-          {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
-      }
-    });
+    this.businessService.requestForParticipation(meetupId).subscribe(res => {
+        if (res.success) {
+          this.dialog.open(InfoPopupComponent,
+            {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
+        }
+      },
+      err => this.appDialogService.showServerError(err)
+    );
   }
 
   isIndoor(): boolean {

@@ -5,10 +5,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppStateService} from './app-state.service';
 import {MockService} from './mock.service';
 import {AuthGuard} from './AuthGuard';
+import {MaterialModule} from '../material/material.module';
+import {AppDialogService} from './AppDialogService';
 
 @NgModule({
   imports: [
-    HttpClientModule
+    HttpClientModule, MaterialModule
 
   ],
   providers: [
@@ -16,7 +18,8 @@ import {AuthGuard} from './AuthGuard';
     BusinessService,
     AppStateService,
     MockService,
-    AuthGuard
+    AuthGuard,
+    AppDialogService
   ]
 })
 export class CoreModule {

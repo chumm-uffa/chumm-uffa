@@ -81,7 +81,7 @@
     <!-- Register Column -->
     <ng-container matColumnDef="register">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" (click)="requestForParticipation($event, meetup.id)">{{'search.startRequest' | translate}}</button> </mat-cell>
+      <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" (click)="requestForParticipation($event, meetup)">{{'search.startRequest' | translate}}</button> </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="columnDefinition"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columnDefinition;"></mat-row>
