@@ -7,7 +7,7 @@ import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
 
 // This must be here, before server is loading! Comment this in if you want to work with in memory DB
-//process.env.NODE_ENV = 'testing';
+// process.env.NODE_ENV = 'testing';
 
 import { server } from '../server';
 
@@ -95,7 +95,7 @@ export class BaseTest {
                         this.token = res.body.token;
                         res.body.should.have.property('profile');
                         this.testUser = res.body.profile;
-                        //Getting all halls
+                        // Getting all halls
                         this.chai.request(this.server)
                             .get(`${this.route}halls/`)
                             .set({authorization: this.token})

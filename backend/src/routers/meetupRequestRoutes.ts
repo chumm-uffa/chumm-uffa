@@ -17,7 +17,7 @@ export class MeetupRequestRoutes extends BaseRoutes {
     }
 
     public getRequestAction(router: Router): void {
-        router.get('/', (req: Request, res: Response) => {
+        router.get('/:id/', (req: Request, res: Response) => {
             this.controller.getRequestAction(req, res);
         });
     }
@@ -29,13 +29,13 @@ export class MeetupRequestRoutes extends BaseRoutes {
     }
 
     public putRequestAction(router: Router): void {
-        router.put('/', (req: Request, res: Response) => {
+        router.put('/:id/', (req: Request, res: Response) => {
             this.controller.updateRequest(req, res);
         });
     }
 
     public deleteRequestAction(router: Router): void {
-        router.delete('/', (req: Request, res: Response) => {
+        router.delete('/:id/', (req: Request, res: Response) => {
             this.controller.deleteRequest(req, res);
         });
     }

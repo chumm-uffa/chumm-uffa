@@ -50,7 +50,13 @@ export class MeetupRequestController extends BaseController {
         dbMeetupRequest.fromInterface(createRequest.request);
         dbMeetupRequest.save().then((dbMeetupReq) => {
             DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate).then((dbMeetupReq2: IDBMeetupRequestModel) => {
-                res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup created.', dbMeetupReq2.toInterface()));
+                res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
+                    dbMeetupReq2.toInterface()));
+                // createRequest.request));
+            }, err => {
+                this.logger.error(err.toString());
+                res.status(500);
+                res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
             });
         }).catch((err) => {
             this.logger.error(err.toString());

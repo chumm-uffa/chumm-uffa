@@ -6,6 +6,7 @@ import {mongoose} from '../../app';
 
 import {Meetup, MeetupRequest, RequestStatus, User} from '@chumm-uffa/interface';
 import {DBUser} from '../user/model';
+import {DBMeetup} from '../meetup/model';
 
 
 /**
@@ -33,7 +34,7 @@ export interface IDBMeetupRequestModel extends IDBMeetupRequest, Document {
 export const MeetupRequestSchema = new Schema({
     meetup: {
         type: Schema.Types.ObjectId,
-        ref: 'meetup',
+        ref: 'Meetup',
         required: true
     },
     participant: {
@@ -104,8 +105,8 @@ MeetupRequestSchema.methods.fromInterface = function (meetupRequest: MeetupReque
 MeetupRequestSchema.methods.toInterface = function () {
     return new MeetupRequest(
         this._id.toString(),
-        this.participant.toInterface(),
-        this.meetup.toInterface(),
+        this.participant instanceof DBUser ? this.participant.toInterface() : null,
+        this.meetup instanceof DBMeetup ? this.meetup.toInterface() : null,
         this.state
     );
 };

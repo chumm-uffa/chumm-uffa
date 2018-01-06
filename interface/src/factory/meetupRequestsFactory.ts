@@ -1,14 +1,18 @@
 /**
  * Class factory for "/meetup-requests" route Rest API interface
  */
-import {BaseFactory} from "./baseFactory";
+import {BaseFactory} from './baseFactory';
 import {
+    CreateMeetupRequestRequest,
     DeleteMeetupRequestResponse,
     GetMeetupRequestResponse,
+    ICreateMeetupRequestRequest,
     ICreateMeetupRequestResponse,
     IDeleteMeetupRequestResponse,
     IGetMeetupRequestResponse,
+    IUpdateMeetupRequestRequest,
     IUpdateMeetupRequestResponse,
+    UpdateMeetupRequestRequest,
     UpdateMeetupRequestResponse
 } from '../interface/meetups/meetup-requests';
 import {MeetupRequest} from '../model/meetup-request';
@@ -43,6 +47,28 @@ export class MeetupRequestsFactory extends BaseFactory {
             response.request = request
         }
         return response;
+    }
+
+    /**
+     * Creates request message for "post /meetup-requests" route
+     * @param {MeetupRequest} meetupRequest
+     * @returns {ICreateMeetupRequest}
+     */
+    static createCreateMeetupRequestRequest(meetupRequest: MeetupRequest): ICreateMeetupRequestRequest {
+        const httpRequest = new CreateMeetupRequestRequest();
+        httpRequest.request = meetupRequest;
+        return httpRequest;
+    }
+
+    /**
+     * Creates request message for "put /meetup-requests" route
+     * @param {MeetupRequest} meetupRequest
+     * @returns {ICreateMeetupRequest}
+     */
+    static createUpdateMeetupRequestRequest(meetupRequest: MeetupRequest): IUpdateMeetupRequestRequest {
+        const httpRequest = new UpdateMeetupRequestRequest();
+        httpRequest.request = meetupRequest;
+        return httpRequest;
     }
 
     /**
