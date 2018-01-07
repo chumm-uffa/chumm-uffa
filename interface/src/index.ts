@@ -12,11 +12,15 @@ import {
     IDeleteMeetupResponse,
     IGetAllMeetupsResponse,
     IGetMeetupResponse,
+    ISearchMeetupsRequest,
+    ISearchMeetupsResponse,
     IUpdateMeetupRequest,
     IUpdateMeetupResponse,
+    SearchMeetupsRequest,
+    SearchMeetupsResponse,
     UpdateMeetupRequest,
     UpdateMeetupRespons
-} from "./interface/meetups/meetups";
+} from './interface/meetups/meetups';
 import {
     CreateMeetupRequestRequest,
     CreateMeetupRequestResponse,
@@ -32,7 +36,7 @@ import {
     IUpdateMeetupRequestResponse,
     UpdateMeetupRequestRequest,
     UpdateMeetupRequestResponse
-} from "./interface/meetups/meetup-requests";
+} from './interface/meetups/meetup-requests';
 import {
     CreateChatForMeetupRequest,
     CreateChatForMeetupRespons,
@@ -42,7 +46,7 @@ import {
     ICreateChatForMeetupResponse,
     IDeleteChatForMeetupResponse,
     IGetAllChatsForMeetupResponse
-} from "./interface/meetups/chats";
+} from './interface/meetups/chats';
 import {
     DeleteProfileResponse,
     GetProfileRespons,
@@ -52,7 +56,7 @@ import {
     IUpdateProfileResponse,
     UpdateProfileRequest,
     UpdateProfileResponse
-} from "./interface/auth/profile";
+} from './interface/auth/profile';
 
 import {User} from './model/user';
 import {Chat} from './model/chat';
@@ -143,6 +147,10 @@ export {
 
     // delete /meetups/{id}/chats{id}
     IDeleteChatForMeetupResponse, DeleteChatForMeetupResponse,
+
+    // post /meetups/search
+    ISearchMeetupsResponse, ISearchMeetupsRequest,
+    SearchMeetupsResponse, SearchMeetupsRequest,
 
     //*************************
     // All for route "/meetup-requests"
