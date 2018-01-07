@@ -110,13 +110,16 @@ UserSchema.methods.fromInterface = function(user: User) {
  * Merge this dbUser to a new interface user
  */
 UserSchema.methods.toInterface = function() {
-    const user: User = new User();
-    user.id = this._id.toString();
-    user.username = this.username;
-    user.email = this.email;
-    user.sex = this.sex;
-    user.weight = this.weight;
-    return user;
+    const dbUser = this;
+    return new Promise( (resolve) => {
+        const user: User = new User();
+        user.id = dbUser._id.toString();
+        user.username = dbUser.username;
+        user.email = dbUser.email;
+        user.sex = dbUser.sex;
+        user.weight = dbUser.weight;
+        resolve(user);
+    });
 };
 
 export const DBUser: Model<IDBUserModel> = mongoose.model<IDBUserModel>('User', UserSchema);

@@ -19,11 +19,17 @@ export class UserController extends BaseController {
     public getAllMeetupsForUser(req: Request, res: Response){
         // Find all meetups for user
         DBMeetup.find({owner: req.params.id}).populate(MeetupPopulate).then( (dbMeetups) => {
+            let promise: Promise<any>[] = [];
             let meetups: Meetup[] = [];
             for (let dbMeetup of dbMeetups) {
-                meetups.push(dbMeetup.toInterface());
+                promise.push(dbMeetup.toInterface().then( (meetup) => {
+                    meetups.push(meetup);
+                }));
             }
-            res.json(UsersFactory.createGetAllMeetupsForUserResponse(true, '', meetups));
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllMeetupsForUserResponse(true, '', meetups));
+            })
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -39,11 +45,17 @@ export class UserController extends BaseController {
     public getAllRequestForUser(req: Request, res: Response){
         // Find all meetup-requests for user
         DBMeetupRequest.find({participant: req.params.id}).populate(MeetupRequestPopulate).then( (dbRequests) => {
+            let promise: Promise<any>[] = [];
             let requests: MeetupRequest[] = [];
             for (let dbRequest of dbRequests) {
-                requests.push(dbRequest.toInterface());
+                promise.push(dbRequest.toInterface().then( (request) => {
+                    requests.push(request);
+                }));
             }
-            res.json(UsersFactory.createGetAllRequestsForUserResponse(true, '', requests));
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllRequestsForUserResponse(true, '', requests));
+            })
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);

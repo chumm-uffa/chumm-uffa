@@ -56,7 +56,7 @@ export const MeetupRequestSchema = new Schema({
  * Population option for meetupRequest
  * @type {[{path: string} , {path: string}]}
  */
-export const MeetupRequestPopulate = [{path: 'participant'}, {path: 'meetup'}];
+export const MeetupRequestPopulate = [{path: 'participant'}, {path: 'meetup', populate: { path: 'owner'}}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -116,14 +116,32 @@ MeetupRequestSchema.methods.fromInterface = function (meetupRequest: MeetupReque
 
 /**
  * Merge this dbUser to a new interface user
+ * @returns {Promise<any>}
  */
 MeetupRequestSchema.methods.toInterface = function () {
-    return new MeetupRequest(
-        this._id.toString(),
-        this.participant instanceof DBUser ? this.participant.toInterface() : null,
-        this.meetup instanceof DBMeetup ? this.meetup.toInterface() : null,
-        this.state
-    );
+    const dbRequest = this;
+    return new Promise( (resolve) => {
+        let participant: Promise<User> = Promise.resolve(dbRequest.participant.toInterface());
+        let meetup: Promise<Meetup> = Promise.resolve(dbRequest.meetup.toInterface());
+        Promise.all([participant, meetup]).
+        then(results => {
+            let request: MeetupRequest = new MeetupRequest(
+                dbRequest._id.toString(),
+                results[0],
+                results[1],
+                dbRequest.state
+            );
+            resolve(request);
+        }).catch(() => {
+            let request: MeetupRequest = new MeetupRequest(
+                dbRequest._id.toString(),
+                null,
+                null,
+                dbRequest.state
+            );
+            resolve(request);
+        });
+    });
 };
 
 export const DBMeetupRequest: Model<IDBMeetupRequestModel> = mongoose.model<IDBMeetupRequestModel>('MeetupRequest', MeetupRequestSchema);

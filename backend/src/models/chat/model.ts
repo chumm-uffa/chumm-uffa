@@ -4,9 +4,9 @@
 import { Document, Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
-import { Chat, User, Meetup } from '@chumm-uffa/interface';
-import {DBMeetup} from "../meetup/model";
-import {DBUser} from "../user/model";
+import { Chat, User } from '@chumm-uffa/interface';
+import {DBMeetup} from '../meetup/model';
+import {DBUser} from '../user/model';
 
 /**
  * The DBChat document interface
@@ -57,7 +57,7 @@ export const ChatSchema = new Schema({
  * Population option for chat
  * @type {[{path: string} , {path: string}]}
  */
-export const ChatPopulate = [{path:"meetup"},{path:"speaker"}];
+export const ChatPopulate = [{path:'meetup'},{path:'speaker'}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -113,12 +113,23 @@ ChatSchema.methods.fromInterface = function(chat: Chat) {
  * Merge this chat to a new interface user
  */
 ChatSchema.methods.toInterface = function() {
-    return new Chat(
-        this._id.toString(),
-        this.text,
-        this.speaker.toInterface(),
-        this.date
-    );
+    const dbChat = this;
+    return new Promise( (resolve) => {
+        let speaker: Promise<User> = Promise.resolve(dbChat.speaker.toInterface());
+        let chat: Chat = new Chat(
+            dbChat._id.toString(),
+            dbChat.text,
+            null,
+            dbChat.date
+        );
+        Promise.all([speaker]).
+        then(results => {
+            chat.speaker = results[0];
+            resolve(chat);
+        }).catch(() => {
+            resolve(chat);
+        });
+    });
 };
 
 export const DBChat: Model<IDBChatModel> = mongoose.model<IDBChatModel>('Chat', ChatSchema);

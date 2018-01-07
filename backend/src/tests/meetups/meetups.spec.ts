@@ -74,6 +74,7 @@ describe('Test /meetups/:id', () => {
         let myMeetup: cuint.Meetup = new cuint.Meetup(
             '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
+
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
             .set({authorization: baseTest.token})
@@ -83,7 +84,25 @@ describe('Test /meetups/:id', () => {
                 res.body.should.have.property('meetup');
                 res.body.should.have.property('id');
                 meetup = res.body.meetup;
-                done();
+                let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                    '', baseTest.testUser, meetup, cuint.RequestStatus.OPEN);
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetup-requests`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                            '', baseTest.testUser, meetup, cuint.RequestStatus.ACCEPT);
+                        baseTest.chai.request(baseTest.server)
+                            .post(`${baseTest.route}meetup-requests`)
+                            .set({authorization: baseTest.token})
+                            .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                            .end((err, res) => {
+                                baseTest.assertSuccess(res);
+                            done();
+                            });
+                    });
             });
     });
 
@@ -94,6 +113,8 @@ describe('Test /meetups/:id', () => {
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('meetup');
+                res.body.meetup.numberOfParticipant.should.be.equals(1);
+                res.body.meetup.numberOfRequest.should.be.equals(1);
                 done();
             });
     });

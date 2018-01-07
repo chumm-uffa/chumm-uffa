@@ -43,7 +43,9 @@ export class AuthController extends BaseController {
                     const token = jwt.sign(dbUser, process.env.APPLICATION_SECRET, {
                         expiresIn: 604800 // 1 week && npm pack
                     });
-                    res.json(AuthFactory.createLoginResponse(true, 'successfully logged in.', token, dbUser.toInterface()));
+                    dbUser.toInterface().then( (user) =>{
+                        res.json(AuthFactory.createLoginResponse(true, 'successfully logged in.', token, user));
+                    });
                     return;
                 }
                 res.status(400);
@@ -67,7 +69,7 @@ export class AuthController extends BaseController {
      */
     public logout(req: Request, res: Response) {
         res.status(200);
-        res.json(AuthFactory.createLogoutResponse(true, ""));
+        res.json(AuthFactory.createLogoutResponse(true, ''));
     }
 
     /**
@@ -98,8 +100,10 @@ export class AuthController extends BaseController {
                 const dbUser: IDBUserModel = new DBUser();
                 dbUser.fromInterface(registerRequest.user);
                 dbUser.hashPassword(registerRequest.user.password);
-                dbUser.save().then((result) => {
-                    res.json(AuthFactory.createRegisterResponse(true, 'user created.', result.toInterface(), result.id));
+                dbUser.save().then((dbUser) => {
+                    return dbUser.toInterface();
+                }).then( (user) => {
+                    res.json(AuthFactory.createRegisterResponse(true, 'user created.', user, user.id));
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
@@ -125,7 +129,7 @@ export class AuthController extends BaseController {
      * @param {Response} res
      */
     public getProfile(req: Request, res: Response) {
-        res.json(AuthFactory.createGetProfileRespons(true, "", req.body.profile));
+        res.json(AuthFactory.createGetProfileRespons(true, '', req.body.profile));
     }
 
     /**
@@ -137,7 +141,7 @@ export class AuthController extends BaseController {
         const updateRequest: IUpdateProfileRequest = req.body;
 
         // Check if id of profile and user to change are the same
-        if (updateRequest.profile.id != req.body.loginProfile._id) {
+        if (updateRequest.profile.id !== req.body.loginProfile._id) {
             res.status(400);
             res.json(AuthFactory.createUpdateProfileResponse(false, 'wrong user id, only login user can be changed.'));
             return;
@@ -156,13 +160,15 @@ export class AuthController extends BaseController {
                 // Getting the new user based on user name
                 DBUser.findOne({username: updateRequest.profile.username}).then((newDbUser) => {
                     // Check if the username alreday exist
-                    if (!newDbUser || newDbUser.id == profileDbUser.id){
+                    if (!newDbUser || newDbUser.id === profileDbUser.id){
                         profileDbUser.fromInterface(updateRequest.profile);
                         if (updateRequest.profile.password) {
                             profileDbUser.hashPassword(updateRequest.profile.password);
                         }
-                        profileDbUser.save().then((result) => {
-                            res.json(AuthFactory.createUpdateProfileResponse(true, 'user changed.', result.toInterface()));
+                        profileDbUser.save().then((dbUser) => {
+                            return dbUser.toInterface();
+                        }).then( (user) => {
+                            res.json(AuthFactory.createUpdateProfileResponse(true, 'user changed.', user));
                         }).catch((err) => {
                             this.logger.error(err.toString());
                             res.status(500);

@@ -15,7 +15,9 @@ export class MeetupRequestController extends BaseController {
         // Getting meetupRequest
         DBMeetupRequest.findById(req.params.id).populate(MeetupRequestPopulate).then((dbRequest) => {
             if (dbRequest) {
-                res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(true, '', dbRequest.toInterface()));
+                dbRequest.toInterface().then( (request) => {
+                    res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(true, '', request));
+                });
                 return;
             }
             res.status(400);
@@ -49,15 +51,13 @@ export class MeetupRequestController extends BaseController {
         const dbMeetupRequest: IDBMeetupRequestModel = new DBMeetupRequest();
         dbMeetupRequest.fromInterface(createRequest.request);
         dbMeetupRequest.save().then((dbMeetupReq) => {
-            DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate).then((dbMeetupReq2: IDBMeetupRequestModel) => {
-                res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
-                    dbMeetupReq2.toInterface()));
-                // createRequest.request));
-            }, err => {
-                this.logger.error(err.toString());
-                res.status(500);
-                res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
-            });
+            return DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate);
+        }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
+            return dbMeetupReq3.toInterface();
+        }).then( request => {
+            res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
+                request));
+
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -83,17 +83,18 @@ export class MeetupRequestController extends BaseController {
         }
 
         // Check if meetup exits
-        const dbMeetupRequest: IDBMeetupRequestModel = new DBMeetupRequest();
         DBMeetupRequest.findById(req.params.id).then((dbMeetupReq) => {
             if (dbMeetupReq) {
                 // Save changes
                 dbMeetupReq.fromInterface(updateRequest.request);
                 dbMeetupReq.save().then((dbMeetupReq2) => {
                     // Resolve reverences
-                    DBMeetupRequest.populate(dbMeetupReq2, MeetupRequestPopulate).then((dbMeetupReq3: IDBMeetupRequestModel) => {
-                        res.json(MeetupRequestsFactory.createUpdateMeetupRequestResponse(true, 'meetup-request updated.',
-                            dbMeetupReq3.toInterface()));
-                    });
+                    return DBMeetupRequest.populate(dbMeetupReq2, MeetupRequestPopulate);
+                }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
+                    return dbMeetupReq3.toInterface();
+                }).then( request => {
+                    res.json(MeetupRequestsFactory.createUpdateMeetupRequestResponse(true, 'meetup-request updated.',
+                        request));
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
