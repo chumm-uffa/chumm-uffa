@@ -1,13 +1,14 @@
 /**
  * chumm-uff
  **/
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from './baseController';
 import {
-    MeetupsFactory, ICreateMeetupRequest, IUpdateMeetupRequest, ICreateChatForMeetupRequest, Meetup, Chat
+    MeetupsFactory, ICreateMeetupRequest, IUpdateMeetupRequest, ICreateChatForMeetupRequest, Meetup, MeetupRequest, Chat
 } from '@chumm-uffa/interface';
-import {DBMeetup, IDBMeetupModel, MeetupPopulate} from "../models/meetup/model";
-import {DBChat, ChatPopulate, IDBChatModel} from "../models/chat/model";
+import {DBMeetup, IDBMeetupModel, MeetupPopulate} from '../models/meetup/model';
+import {DBChat, ChatPopulate, IDBChatModel} from '../models/chat/model';
+import {DBMeetupRequest, MeetupRequestPopulate} from '../models/meetup-request/model';
 
 export class MeetupController extends BaseController {
 
@@ -23,7 +24,7 @@ export class MeetupController extends BaseController {
             for (let dbMeetup of dbMeetups) {
                 meetups.push(dbMeetup.toInterface());
             }
-            res.json(MeetupsFactory.createGetAllMeetupsResponse(true, "", meetups));
+            res.json(MeetupsFactory.createGetAllMeetupsResponse(true, '', meetups));
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -73,7 +74,7 @@ export class MeetupController extends BaseController {
         // Getting meetup
         DBMeetup.findById(req.params.id).populate(MeetupPopulate).then( (dbMeetup) => {
             if (dbMeetup) {
-                res.json(MeetupsFactory.createGetMeetupRespons(true, "", dbMeetup.toInterface()));
+                res.json(MeetupsFactory.createGetMeetupRespons(true, '', dbMeetup.toInterface()));
                 return;
             }
             res.status(400);
@@ -98,7 +99,7 @@ export class MeetupController extends BaseController {
             if (dbMeetup) {
                 // Removes meetup and all Chats and Request associated with the meetup
                 dbMeetup.remove();
-                res.json(MeetupsFactory.createDeleteMeetupRespons(true, "successfully deleted meetup"));
+                res.json(MeetupsFactory.createDeleteMeetupRespons(true, 'successfully deleted meetup'));
                 return;
             }
             res.status(400);
@@ -132,7 +133,6 @@ export class MeetupController extends BaseController {
         }
 
         // Check if meetup exits
-        const dbMeetup: IDBMeetupModel = new DBMeetup();
         DBMeetup.findById(req.params.id).then( (dbMeetup) => {
             if (dbMeetup) {
                 // Save changes
@@ -166,17 +166,13 @@ export class MeetupController extends BaseController {
      * @param {Response} res
      */
     public getAllRequestsForMeetup(req: Request, res: Response){
-        // Check if meetup exits
-        DBMeetup.findById(req.params.id).then( (dbMeetup) => {
-            if (dbMeetup) {
-
-                //Todo hier muss was rein für meetup-request
-                res.json(MeetupsFactory.createGetAllRequestsForMeetupRespons(false, "to be implemented"));
-                return;
+        // Find all meetup request entry for meetup
+        DBMeetupRequest.find({meetup: req.params.id}).populate(MeetupRequestPopulate).then( (dbRequests) => {
+            let requests: MeetupRequest[] = [];
+            for (let dbRequest of dbRequests) {
+                requests.push(dbRequest.toInterface());
             }
-            res.status(400);
-            res.json(MeetupsFactory.createGetAllRequestsForMeetupRespons(false, 'meetup not exits.'));
-            return;
+            res.json(MeetupsFactory.createGetAllRequestsForMeetupRespons(true, '', requests));
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -197,7 +193,7 @@ export class MeetupController extends BaseController {
             for (let dbChat of dbChats) {
                 chats.push(dbChat.toInterface());
             }
-            res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(true, "", chats));
+            res.json(MeetupsFactory.createGetAllChatsForMeetupRespons(true, '', chats));
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -265,7 +261,7 @@ export class MeetupController extends BaseController {
                     if (dbChat) {
                         // Remove the chat entry
                         dbChat.remove();
-                        res.json(MeetupsFactory.createDeleteChatForMeetupResponse(true, "successfully deleted chat entry"));
+                        res.json(MeetupsFactory.createDeleteChatForMeetupResponse(true, 'successfully deleted chat entry'));
                         return;
                     }
                     res.status(400);

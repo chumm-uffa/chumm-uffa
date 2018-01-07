@@ -23,7 +23,6 @@ export interface IDBMeetupRequest {
  */
 export interface IDBMeetupRequestModel extends IDBMeetupRequest, Document {
     fromInterface(meetupRequest: MeetupRequest);
-
     toInterface();
 }
 
@@ -76,6 +75,22 @@ MeetupRequestSchema.pre('update', function (next) {
 });
 
 /**
+ * Pre function to validate the meetup id
+ */
+MeetupRequestSchema.path('meetup').validate(function (meetup, respond) {
+
+    DBMeetup.findById(meetup, function (err, dbMeetup) {
+        if (err || !dbMeetup) {
+            respond(false);
+        } else {
+            respond(true);
+        }
+    });
+
+}, 'Meetup non existent');
+
+
+/**
  * Pre function to validate the participant id
  */
 MeetupRequestSchema.path('participant').validate(function (owner, respond) {
@@ -88,7 +103,7 @@ MeetupRequestSchema.path('participant').validate(function (owner, respond) {
         }
     });
 
-}, 'participant non existent');
+}, 'Participant non existent');
 
 /**
  * Merge the given interface user to this

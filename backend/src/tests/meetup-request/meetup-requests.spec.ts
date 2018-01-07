@@ -122,7 +122,7 @@ describe('Test /meetupRequests', () => {
                             .get(`${baseTest.route}meetup-requests/${meetupRequestToDel.id}`)
                             .set({authorization: baseTest.token})
                             .end((err, res) => {
-                                baseTest.assertFailed(res, 400, 'meetup not exits.');
+                                baseTest.assertFailed(res, 400, 'meetup-request not exits.');
                                 done();
                             })
                     })
