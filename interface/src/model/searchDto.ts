@@ -1,14 +1,22 @@
+/**
+ * The state of a request relation ship
+ */
+export enum LocationType {
+    INDOOR = 'in',
+    OUTDOOR = 'out'
+}
+
 export class SearchDto {
-    private _fromDateTime: string;
-    private _toDateTime: string;
-    private _locationType: string;
+    private _fromDateTime: Date;
+    private _toDateTime: Date;
+    private _locationType: LocationType;
     private _indoor: string;
     private _outdoor: string;
     private _sex: string;
-    private _weightMin: string;
-    private _weightMax: string;
+    private _weightMin: number;
+    private _weightMax: number;
 
-    constructor(fromDateTime: string, toDateTime: string, locationType: string, indoor: string, outdoor: string, sex: string, weightMin: string, weightMax: string) {
+    constructor(fromDateTime: Date, toDateTime: Date, locationType: LocationType, indoor: string, outdoor: string, sex: string, weightMin: number, weightMax: number) {
         this._fromDateTime = fromDateTime;
         this._toDateTime = toDateTime;
         this._locationType = locationType;
@@ -32,15 +40,15 @@ export class SearchDto {
         };
     }
 
-    get fromDateTime(): string {
+    get fromDateTime(): Date {
         return this._fromDateTime;
     }
 
-    get toDateTime(): string {
+    get toDateTime(): Date {
         return this._toDateTime;
     }
 
-    get locationType(): string {
+    get locationType(): LocationType {
         return this._locationType;
     }
 
@@ -56,11 +64,11 @@ export class SearchDto {
         return this._sex;
     }
 
-    get weightMin(): string {
+    get weightMin(): number {
         return this._weightMin;
     }
 
-    get weightMax(): string {
+    get weightMax(): number {
         return this._weightMax;
     }
 }

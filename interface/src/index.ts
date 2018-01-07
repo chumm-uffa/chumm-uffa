@@ -63,7 +63,7 @@ import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {Meetup} from './model/meetup';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
-import {SearchDto} from './model/searchDto';
+import {LocationType, SearchDto} from './model/searchDto';
 
 import {BaseFactory} from './factory/baseFactory';
 import {AuthFactory} from './factory/authFactory';
@@ -175,5 +175,5 @@ export {
  * Export of model classes
  */
 export {
-    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType
 }
