@@ -19,7 +19,7 @@ export class MeetupRequestController extends BaseController {
                 return;
             }
             res.status(400);
-            res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(false, 'meetup-request not exits.'));
+            res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(false, 'meetup-request not exists.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());
