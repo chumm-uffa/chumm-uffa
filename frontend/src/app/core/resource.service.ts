@@ -3,19 +3,26 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 
 import {
+  Chat,
+  ICreateMeetupRequestRequest,
+  ICreateMeetupRequestResponse,
+  IDeleteMeetupRequestResponse,
   ILoginRequest,
-  IRegisterResponse,
   ILoginResponse,
   IRegisterRequest,
+  IRegisterResponse,
+  IUpdateMeetupRequestRequest,
+  IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
-  User,
-  Chat,
   Meetup,
   MeetupRequest,
-  Version,
-  SearchDto} from '@chumm-uffa/interface';
-import {AppStateService} from "./app-state.service";
+  SearchDto,
+  User,
+  Version
+} from '@chumm-uffa/interface';
+import {AppStateService} from './app-state.service';
+
 
 /**
  * Resource service interface
@@ -37,7 +44,7 @@ export interface ResourceServiceInterface {
 
   loadRequests(meetupId: string): Observable<MeetupRequest[]>;
 
-  updateRequest(request: MeetupRequest): Observable<MeetupRequest>;
+  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse>;
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
 
@@ -45,11 +52,11 @@ export interface ResourceServiceInterface {
 
   searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
 
-  requestForParticipation(meetupId: string): Observable<boolean>;
+  createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse>;
 
   deleteMeetup(meetupId: string): Observable<boolean>;
 
-  deleteRequest(requestId: string): Observable<boolean>;
+  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse>;
 
   saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
 }
@@ -139,8 +146,8 @@ export class ResourceService implements ResourceServiceInterface {
   /**
    * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
-  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
-    throw new Error('Method not implemented.');
+  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse> {
+    return this.http.put<IUpdateMeetupRequestResponse>(this.urlDemo + `meetup-requests/${request.request.id}`, request);
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
@@ -155,16 +162,16 @@ export class ResourceService implements ResourceServiceInterface {
     throw new Error('Method not implemented.');
   }
 
-  requestForParticipation(meetupId: string): Observable<boolean> {
-    throw new Error('Method not implemented.');
+  createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse> {
+    return this.http.post<ICreateMeetupRequestResponse>(this.urlDemo + 'meetup-requests', request);
   }
 
   deleteMeetup(meetupId: string): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
 
-  deleteRequest(requestId: string): Observable<boolean> {
-    throw new Error('Method not implemented.');
+  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
+    return this.http.delete<ICreateMeetupRequestResponse>(`${this.urlDemo}meetup-requests/${requestId}`);
   }
 
   /**
@@ -173,6 +180,6 @@ export class ResourceService implements ResourceServiceInterface {
    * @returns {Observable<any>}
    */
   saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
-        return this.http.put<IUpdateProfileResponse>(this.urlDemo + 'auth/profile', request);
+    return this.http.put<IUpdateProfileResponse>(this.urlDemo + 'auth/profile', request);
   }
 }

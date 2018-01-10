@@ -23,7 +23,7 @@
     "franz": "FR_FR",
     "logout": "Abmelden_FR",
     "link": {
-      "home":"Startseite_FR",
+      "home": "Startseite_FR",
       "updateUser": "Benutzerprofil_FR",
       "myMeetups": "Meine Meetups_FR",
       "newMeetup": "Meetup erstellen_FR",
@@ -105,7 +105,7 @@
     "sex": "Geschlecht_FR",
     "weight": "Körpergewicht_FR",
     "m": "männlich_FR",
-    "w": "weiblich_FR",
+    "f": "weiblich_FR",
     "kg": "kg_FR"
   },
   "chat": {
@@ -168,7 +168,8 @@
     "signOff": "abmelden_FR",
     "dialog": {
       "signOffTitle": "Abmelden_FR",
-      "signOffText": "Sie melden sich vom Meetup ab!_FR"
+      "signOffText": "Sie melden sich vom Meetup ab!_FR",
+      "error": "Server Error"
     }
   },
   "confirmDialog": {
@@ -177,5 +178,9 @@
   },
   "infoPopup": {
     "ok": "OK_FR"
+  },
+  "appDialogService": {
+    "serverErrorTitle": "Server Error",
+    "errorTitle": "Error"
   }
 }
