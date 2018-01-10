@@ -21,7 +21,7 @@ export class MeetupRequestController extends BaseController {
                 return;
             }
             res.status(400);
-            res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(false, 'meetup-request not exits.'));
+            res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(false, 'meetup-request not exists.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());
@@ -122,13 +122,14 @@ export class MeetupRequestController extends BaseController {
         // Check if meetup-request exists
         DBMeetupRequest.findById(req.params.id).then((dbMeetupReq) => {
             if (dbMeetupReq) {
+                // todo: Hier könnte noch überprüft werden ob der Aufrufer auch owner des Request ist -> wäre für scharfen Betrieb notwendig
                 // Removes meetup-request
                 dbMeetupReq.remove();
                 res.json(MeetupRequestsFactory.createDeleteMeetupRequestResponse(true, 'successfully deleted meetup-request'));
                 return;
             }
             res.status(400);
-            res.json(MeetupRequestsFactory.createDeleteMeetupRequestResponse(false, 'meetup-request not exits.'));
+            res.json(MeetupRequestsFactory.createDeleteMeetupRequestResponse(false, 'meetup-request not exists.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());

@@ -88,7 +88,7 @@ export class MeetupController extends BaseController {
                 return;
             }
             res.status(400);
-            res.json(MeetupsFactory.createGetMeetupRespons(false, 'meetup not exits.'));
+            res.json(MeetupsFactory.createGetMeetupRespons(false, 'meetup not exists.'));
             return;
         }).catch((err) => {
             this.logger.error(err.toString());
