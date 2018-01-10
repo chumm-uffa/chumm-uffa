@@ -5,16 +5,21 @@ import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {
   AuthFactory,
-  ILoginResponse,
-  IRegisterResponse,
-  IUpdateProfileResponse,
   Chat,
   Hall,
+  IDeleteMeetupRequestResponse,
+  ILoginResponse,
+  IRegisterResponse,
+  IUpdateMeetupRequestResponse,
+  IUpdateProfileResponse,
   Meetup,
   MeetupRequest,
-  User,
-  SearchDto
+  MeetupRequestsFactory,
+  RequestStatus,
+  SearchDto,
+  User
 } from '@chumm-uffa/interface';
+
 
 /**
  * Hier kann Businesslogik rein.
@@ -40,7 +45,7 @@ export class BusinessService {
    * @returns {Observable<IRegisterResponse>}
    */
   register(user: User): Observable<IRegisterResponse> {
-    return this.resourceService.register(AuthFactory.createRegisterRequest( user ));
+    return this.resourceService.register(AuthFactory.createRegisterRequest(user));
   }
 
   /**
@@ -99,8 +104,10 @@ export class BusinessService {
     return this.mockService.loadRequests(meetupId);
   }
 
-  updateRequest(request: MeetupRequest): Observable<MeetupRequest> {
-    return this.mockService.updateRequest(request);
+  updateRequest(request: MeetupRequest, state: RequestStatus): Observable<IUpdateMeetupRequestResponse> {
+    const mr = JSON.parse(JSON.stringify(request));
+    mr.status = state;
+    return this.resourceService.updateRequest(MeetupRequestsFactory.createUpdateMeetupRequestRequest(mr));
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
@@ -117,16 +124,17 @@ export class BusinessService {
     return this.mockService.searchMeetup(searchDto);
   }
 
-  requestForParticipation(meetupId: string): Observable<boolean> {
-    return this.mockService.requestForParticipation(meetupId);
+  requestForParticipation(meetup: Meetup): Observable<IDeleteMeetupRequestResponse> {
+    const request = MeetupRequestsFactory.createCreateMeetupRequestRequest(new MeetupRequest(null, this.appState.loggedInUser, meetup));
+    return this.resourceService.createMeetupRequest(request);
   }
 
   deleteMeetup(meetupId: string): Observable<boolean> {
     return this.mockService.deleteMeetup(meetupId);
   }
 
-  deleteRequest(requestId: string): Observable<boolean> {
-    return this.mockService.deleteRequest(requestId);
+  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
+    return this.resourceService.deleteRequest(requestId);
   }
 }
 

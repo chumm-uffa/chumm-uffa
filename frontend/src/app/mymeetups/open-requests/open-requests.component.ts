@@ -4,6 +4,7 @@ import {Hall, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {MatDialog} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
+import {AppDialogService} from '../../core/AppDialogService';
 
 @Component({
   selector: 'app-open-requests',
@@ -15,7 +16,8 @@ export class OpenRequestsComponent implements OnInit {
   halls: Hall[] = [];
 
   constructor(private businessService: BusinessService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {
@@ -45,7 +47,11 @@ export class OpenRequestsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.businessService.deleteRequest(requestId).subscribe(_ => this.getMeetupRequests());
+        this.businessService.deleteRequest(requestId).subscribe(res => {
+            res.success ? this.getMeetupRequests() : this.appDialogService.showError(res.message);
+          },
+          err => this.appDialogService.showServerError(err)
+        );
       }
     });
   }
