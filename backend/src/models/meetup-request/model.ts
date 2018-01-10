@@ -121,8 +121,10 @@ MeetupRequestSchema.methods.fromInterface = function (meetupRequest: MeetupReque
 MeetupRequestSchema.methods.toInterface = function () {
     const dbRequest = this;
     return new Promise( (resolve) => {
-        let participant: Promise<User> = Promise.resolve(dbRequest.participant.toInterface());
-        let meetup: Promise<Meetup> = Promise.resolve(dbRequest.meetup.toInterface());
+        let participant: Promise<User> = dbRequest.participant ? Promise.resolve(dbRequest.participant.toInterface())
+            : Promise.resolve(null);
+        let meetup: Promise<Meetup> = dbRequest.meetup ? Promise.resolve(dbRequest.meetup.toInterface())
+            : Promise.resolve(null);
         Promise.all([participant, meetup]).
         then(results => {
             let request: MeetupRequest = new MeetupRequest(

@@ -160,10 +160,10 @@ MeetupSchema.methods.toInterface = function () {
             dbMeetup.indoor,
             dbMeetup.activity
         );
-        let owner: Promise<User> = Promise.resolve(dbMeetup.owner.toInterface());
+        let owner : Promise<User> = dbMeetup.owner ? Promise.resolve(dbMeetup.owner.toInterface()) : Promise.resolve(null);
         let request: Promise<number> = Promise.resolve(dbMeetup.getNumberOfRequest());
         let participant: Promise<number> = Promise.resolve(dbMeetup.getNumberOfParticipant());
-        Promise.all([owner, request, participant].map(p => p.catch(e => e))).
+        Promise.all([owner, request, participant]).
         then(results => {
             meetup.owner = results[0];
             meetup.numberOfRequest = results[1];

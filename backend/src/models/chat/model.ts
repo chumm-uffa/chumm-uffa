@@ -115,7 +115,7 @@ ChatSchema.methods.fromInterface = function(chat: Chat) {
 ChatSchema.methods.toInterface = function() {
     const dbChat = this;
     return new Promise( (resolve) => {
-        let speaker: Promise<User> = Promise.resolve(dbChat.speaker.toInterface());
+        let speaker: Promise<User> = dbChat.speaker ? Promise.resolve(dbChat.speaker.toInterface()): Promise.resolve(null);
         let chat: Chat = new Chat(
             dbChat._id.toString(),
             dbChat.text,
