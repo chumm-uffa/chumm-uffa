@@ -1,11 +1,12 @@
 /**
  * chumm-uffa
  */
-import { Document, Model, Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { Hall } from '@chumm-uffa/interface';
 import * as uniqueValidator from 'mongoose-unique-validator';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBHall document interface
@@ -17,8 +18,7 @@ export interface IDBHall {
 /**
  * The DBHall model containing additional functionality
  */
-export interface IDBHallModel extends IDBHall, Document {
-    toInterface();
+export interface IDBHallModel extends IDBModelBase, IDBHall {
 }
 
 /**

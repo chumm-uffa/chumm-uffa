@@ -1,12 +1,13 @@
 /**
  * chumm-uffa
  */
-import { Document, Model, Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { Chat, User } from '@chumm-uffa/interface';
 import {DBMeetup} from '../meetup/model';
 import {DBUser} from '../user/model';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBChat document interface
@@ -21,9 +22,8 @@ export interface IDBChat {
 /**
  * The DBChat model containing additional functionality
  */
-export interface IDBChatModel extends IDBChat, Document {
+export interface IDBChatModel extends IDBModelBase, IDBChat{
     fromInterface(chat: Chat);
-    toInterface();
 }
 
 /**

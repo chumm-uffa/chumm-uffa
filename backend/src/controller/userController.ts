@@ -72,11 +72,17 @@ export class UserController extends BaseController {
     public getAllRequestInStatusForUser(req: Request, res: Response){
         // Find all meetup-requests for user in certain state
         DBMeetupRequest.find({participant: req.params.id, state: req.params.status}).populate(MeetupRequestPopulate).then( (dbRequests) => {
+            let promise: Promise<any>[] = [];
             let requests: MeetupRequest[] = [];
             for (let dbRequest of dbRequests) {
-                requests.push(dbRequest.toInterface());
+                promise.push(dbRequest.toInterface().then( (request) => {
+                    requests.push(request);
+                }));
             }
-            res.json(UsersFactory.createGetAllRequestsInStatusForUserResponse(true, '', requests));
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllRequestsInStatusForUserResponse(true, '', requests));
+            })
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);

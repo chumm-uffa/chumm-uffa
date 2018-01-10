@@ -1,12 +1,13 @@
 /**
  * chumm-uffa
  */
-import {Document, Model, Schema} from 'mongoose';
+import {Model, Schema} from 'mongoose';
 import {mongoose} from '../../app';
 
 import {Meetup, MeetupRequest, RequestStatus, User} from '@chumm-uffa/interface';
 import {DBUser} from '../user/model';
 import {DBMeetup} from '../meetup/model';
+import {IDBModelBase} from '../models';
 
 
 /**
@@ -21,9 +22,8 @@ export interface IDBMeetupRequest {
 /**
  * The DBMeetup model containing additional functionality
  */
-export interface IDBMeetupRequestModel extends IDBMeetupRequest, Document {
+export interface IDBMeetupRequestModel extends IDBModelBase, IDBMeetupRequest{
     fromInterface(meetupRequest: MeetupRequest);
-    toInterface();
 }
 
 /**

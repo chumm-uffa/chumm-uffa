@@ -1,7 +1,7 @@
 /**
  * chumm-uffa
  */
-import {Document, Model, Schema} from 'mongoose';
+import {Model, Schema} from 'mongoose';
 import {mongoose} from '../../app';
 
 import {Meetup, User} from '@chumm-uffa/interface';
@@ -9,6 +9,7 @@ import {DBUser} from '../user/model';
 import {DBHall} from '../hall/model';
 import {DBChat} from '../chat/model';
 import {DBMeetupRequest} from '../meetup-request/model';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBUser document interface
@@ -25,9 +26,8 @@ export interface IDBMeetup {
 /**
  * The DBMeetup model containing additional functionality
  */
-export interface IDBMeetupModel extends IDBMeetup, Document {
+export interface IDBMeetupModel extends IDBModelBase, IDBMeetup {
     fromInterface(meetup: Meetup);
-    toInterface();
     getNumberOfRequest();
     getNumberOfParticipant();
 }
