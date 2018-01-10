@@ -13,7 +13,7 @@ export class SearchController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public searchMeetups(req: Request, res: Response) {
+    public searchMeetupsTest(req: Request, res: Response) {
         // Find all meetups
         DBMeetup.find({}).populate(MeetupPopulate).then((dbMeetups) => {
             let meetups: Meetup[] = [];
@@ -34,7 +34,7 @@ export class SearchController extends BaseController {
      * @param {Request} req
      * @param {Response} res
      */
-    public searchMeetupsTest(req: Request, res: Response) {
+    public searchMeetups(req: Request, res: Response) {
 
         const searchRequest: ISearchMeetupsRequest = req.body;
 
@@ -49,10 +49,10 @@ export class SearchController extends BaseController {
         const searchDto = searchRequest.searchDto;
 
         let zr = DBMeetup.find({'from': {'$gte': searchDto.fromDateTime}, 'to': {'$lte': searchDto.toDateTime}});
-        if (searchDto.locationType === LocationType.INDOOR) {
+        if (searchDto.locationType === LocationType.INDOOR && searchDto.indoor) {
             zr = zr.find({indoor: searchDto.indoor});
         }
-        if (searchDto.locationType === LocationType.OUTDOOR) {
+        if (searchDto.locationType === LocationType.OUTDOOR && searchDto.outdoor) {
             zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')})
         }
         zr.populate(MeetupPopulate).then((dbMeetups) => {
@@ -73,9 +73,7 @@ export class SearchController extends BaseController {
             if (searchDto.sex && searchDto.sex !== meetup.owner.sex) {
                 return false;
             }
-
             const ownerWeight: number = this.getWeight(meetup.owner.weight);
-
             if (ownerWeight) {
                 if (searchDto.weightMin && searchDto.weightMin > ownerWeight) {
                     return false;

@@ -13,6 +13,8 @@ import {
   ILoginResponse,
   IRegisterRequest,
   IRegisterResponse,
+  ISearchMeetupsRequest,
+  ISearchMeetupsResponse,
   IUpdateMeetupRequestRequest,
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
@@ -20,8 +22,8 @@ import {
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
+  MeetupsFactory,
   RequestStatus,
-  SearchDto,
   User
 } from '@chumm-uffa/interface';
 
@@ -92,8 +94,8 @@ export class MockService implements ResourceServiceInterface {
     this._chats.push(chat);
   }
 
-  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
-    return of(this._meetups);
+  searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
+    return of(MeetupsFactory.createSearchMeetupResponse(true, '', this._meetups));
   }
 
   createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse> {

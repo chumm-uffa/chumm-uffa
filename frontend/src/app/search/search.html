@@ -55,7 +55,10 @@
 </span>
 
 <div *ngIf="hasAllreadySearched">
-  <ng-template #noResult><h3>{{'search.noResults' | translate}}</h3></ng-template>
+  <ng-template #noResult>
+    <div class="app-spacer-vert-m"></div>
+    <h3 class="mat-h3 no-result" >{{'search.noResults' | translate}}</h3>
+  </ng-template>
 
   <mat-table #table *ngIf="results.data.length > 0; else noResult" [dataSource]="results">
     <!-- Owner Column -->

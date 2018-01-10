@@ -10,11 +10,14 @@ import {
   IDeleteMeetupRequestResponse,
   ILoginResponse,
   IRegisterResponse,
+  ISearchMeetupsRequest,
+  ISearchMeetupsResponse,
   IUpdateMeetupRequestResponse,
   IUpdateProfileResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
+  MeetupsFactory,
   RequestStatus,
   SearchDto,
   User
@@ -120,8 +123,9 @@ export class BusinessService {
     return newOne;
   }
 
-  searchMeetUp(searchDto: SearchDto): Observable<Meetup[]> {
-    return this.mockService.searchMeetup(searchDto);
+  searchMeetUp(searchDto: SearchDto): Observable<ISearchMeetupsResponse> {
+    const request = MeetupsFactory.createSearchMeetupRequest(searchDto);
+    return this.resourceService.searchMeetup(request);
   }
 
   requestForParticipation(meetup: Meetup): Observable<IDeleteMeetupRequestResponse> {
