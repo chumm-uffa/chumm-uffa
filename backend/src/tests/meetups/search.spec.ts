@@ -21,7 +21,7 @@ describe('Test /meetups/search', () => {
     });
 
     it('it search for Meetups', (done) => {
-        const search = new cuint.SearchDto(null, null, null, null, null, null, null, null);
+        const search = new cuint.SearchDto(new Date(1900, 1), new Date(), null, null, null, null, null, null);
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups/search`)
             .set({authorization: baseTest.token})

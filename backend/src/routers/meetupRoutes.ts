@@ -78,10 +78,4 @@ export class MeetupRoutes extends BaseRoutes {
             this.search.searchMeetups(req, res);
         });
     }
-
-    public searchMeetuptestAction(router: Router): void {
-        router.post('/searchtest/', (req: Request, res: Response) => {
-            this.search.searchMeetupsTest(req, res);
-        });
-    }
 }
