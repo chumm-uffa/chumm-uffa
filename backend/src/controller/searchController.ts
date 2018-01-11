@@ -9,27 +9,6 @@ import {DBMeetup, MeetupPopulate} from '../models/meetup/model';
 export class SearchController extends BaseController {
 
     /**
-     * dummy Implementation, get all Meetups
-     * @param {Request} req
-     * @param {Response} res
-     */
-    public searchMeetupsTest(req: Request, res: Response) {
-        // Find all meetups
-        DBMeetup.find({}).populate(MeetupPopulate).then((dbMeetups) => {
-            let meetups: Meetup[] = [];
-            for (let dbMeetup of dbMeetups) {
-                meetups.push(dbMeetup.toInterface());
-            }
-            res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
-        }).catch((err) => {
-            this.logger.error(err.toString());
-            res.status(500);
-            res.json(MeetupsFactory.createSearchMeetupResponse(false, err.toString()));
-            return;
-        });
-    }
-
-    /**
      * Implementation, get all Meetups by searchDto
      * @param {Request} req
      * @param {Response} res
@@ -94,41 +73,4 @@ export class SearchController extends BaseController {
         }
         return result;
     }
-
-
-    // ObjectId("5a49fc4ebb17414224c7e8a0")
-
-
-    // DBMeetup.find({indoor: indoorId});
-    // DBMeetup.find({"from": {"$gte": begin, "$lte": end}})
-
-
-    // Find all meetups
-    // DBMeetup.where('from').gte(begin.getTime()).where('to').lte(end.getTime())
-    // DBMeetup.find({"from": {"$gte": begin}, "to": {"$lte": end}})
-    // DBMeetup.find({indoor: indoorId})
-    // DBMeetup.find({outdoor: /outDoo/i})
-    // DBMeetup.find().where({outdoor: new RegExp(outdoorText, 'i')})
-
-    /*Queries
-    * Zeit:
-    *  var1  :   DBMeetup.where('from').gte(begin.getTime()).where('to').lte(end.getTime())
-       var2  :  DBMeetup.find({"from": {"$gte": begin}, "to": {"$lte": end}})
-
-
-
-       Indoor:
-       DBMeetup.find({indoor: indoorId})
-
-       Outdoor:
-       DBMeetup.find({outdoor: new RegExp(outdoorText, 'i')})
-       DBMeetup.find().where({outdoor: new RegExp(outdoorText, 'i')})
-
-
-       Query für die Owner Daten geht nicht, da Mongo DB nicht joinen kann.
-       Wir müssten das Datenmodel anders aufbauen
-    *
-    * */
-
-
 }
