@@ -36,7 +36,7 @@ describe('Test /meetups/search', () => {
 
     it('it search for Meetups test', (done) => {
         const search = new cuint.SearchDto(new Date('2018-01-07T11:11'), new Date('2018-01-07T16:11'),
-            cuint.LocationType.OUTDOOR, '5a49fc4ebb17414224c7e8a1', 'OUtD', 'Frau', 40, 50);
+            cuint.LocationType.OUTDOOR, '5a49fc4ebb17414224c7e8a1', 'OUtD', cuint.Sex.FEMALE, 40, 50);
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups/searchtest`)
             .set({authorization: baseTest.token})

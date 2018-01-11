@@ -5,13 +5,11 @@
  */
 import * as chai from 'chai';
 import * as chaiHttp from 'chai-http';
+import {server} from '../server';
+import * as cuint from '@chumm-uffa/interface';
 
 // This must be here, before server is loading! Comment this in if you want to work with in memory DB
 // process.env.NODE_ENV = 'testing';
-
-import { server } from '../server';
-
-import * as cuint from '@chumm-uffa/interface';
 
 
 export class BaseTest {
@@ -42,7 +40,7 @@ export class BaseTest {
         newUser.username = `test${random}`;
         newUser.email = `${newUser.username}@mailinator.com`;
         newUser.password = 'loginpw1';
-        newUser.sex = 'Frau';
+        newUser.sex = cuint.Sex.FEMALE;
         newUser.weight = 'geheim';
         return newUser;
     }
@@ -77,7 +75,7 @@ export class BaseTest {
         }
     }
 
-    public login(done){
+    public login(done) {
         this.testUser = this.createTestUser();
         // First register test user
         this.chai.request(this.server)

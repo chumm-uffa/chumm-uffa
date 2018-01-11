@@ -58,7 +58,7 @@ import {
     UpdateProfileResponse
 } from './interface/auth/profile';
 
-import {User} from './model/user';
+import {User, Sex} from './model/user';
 import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {Meetup} from './model/meetup';
@@ -175,5 +175,5 @@ export {
  * Export of model classes
  */
 export {
-    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType, Sex
 }
