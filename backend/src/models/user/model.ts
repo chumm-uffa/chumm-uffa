@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { Document, Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
-import { User } from '@chumm-uffa/interface';
+import { User, Sex} from '@chumm-uffa/interface';
 import * as uniqueValidator from 'mongoose-unique-validator';
 
 /**
@@ -15,7 +15,7 @@ export interface IDBUser {
     username: string;
     password: string;
     email?: string;
-    sex?: string;
+    sex?: Sex;
     weight?: string;
 }
 
@@ -49,7 +49,7 @@ export const UserSchema = new Schema({
         type: String
     },
     sex: {
-        type: String
+        type: Sex
     },
     weight: {
         type: String

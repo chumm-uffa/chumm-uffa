@@ -4,7 +4,7 @@ import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
-import {Hall, Meetup} from '@chumm-uffa/interface';
+import {Hall, Meetup, Sex} from '@chumm-uffa/interface';
 
 
 import {MatDialog, MatTableDataSource} from '@angular/material';
@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   halls: Hall[] = [];
   hasAllreadySearched = false;
   columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
+  sexType = Sex;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,

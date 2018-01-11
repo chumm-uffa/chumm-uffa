@@ -44,8 +44,8 @@
     </mat-form-field>
 
     <mat-radio-group formControlName="sex" class="right-hand">
-      <mat-radio-button value="m">{{ 'search.man' | translate }}</mat-radio-button>
-      <mat-radio-button value="f">{{ 'search.women' | translate }}</mat-radio-button>
+      <mat-radio-button value="{{sexType.MALE}}">{{ 'search.man' | translate }}</mat-radio-button>
+      <mat-radio-button value="{{sexType.FEMALE}}">{{ 'search.women' | translate }}</mat-radio-button>
     </mat-radio-group>
 
     <div>

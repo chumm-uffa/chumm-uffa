@@ -1,7 +1,7 @@
 import {async, inject, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserFormService} from './user-form.service';
-import {User} from '@chumm-uffa/interface';
+import {User, Sex} from '@chumm-uffa/interface';
 
 describe('user Form', () => {
   beforeEach(async(() => {
@@ -63,20 +63,20 @@ describe('user Form', () => {
     const form = createValidForm(userFb);
     form.controls.username.patchValue('MeisterEder');
     form.controls.password.patchValue('Pumuckel');
-    form.controls.sex.patchValue('f');
+    form.controls.sex.patchValue(Sex.FEMALE);
     form.controls.email.patchValue('Meista@Eda.at');
     form.controls.weight.patchValue('65');
     let refUser = new User();
     refUser = userFb.mergeUser(form.value, refUser);
     expect(refUser.username).toBe('MeisterEder');
     expect(refUser.password).toBe('Pumuckel');
-    expect(refUser.sex).toBe('f');
+    expect(refUser.sex).toBe(Sex.FEMALE);
     expect(refUser.email).toBe('Meista@Eda.at');
     expect(refUser.weight).toBe('65');
   }));
 
   function createUser(): User {
-    return new User('id', 'Fridolin', 'MeinPasssssss', 'm', 'emil.kommt@noch.ch', '5');
+    return new User('id', 'Fridolin', 'MeinPasssssss', Sex.MALE, 'emil.kommt@noch.ch', '5');
   }
 
   function createValidForm(userFb: UserFormService): FormGroup {

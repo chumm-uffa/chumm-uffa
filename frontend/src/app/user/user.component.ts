@@ -7,7 +7,7 @@ import {BusinessService} from '../core/business.service';
 
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {IRegisterRequest, User} from '@chumm-uffa/interface';
+import {IRegisterRequest, User, Sex} from '@chumm-uffa/interface';
 
 @Component({
   selector: 'app-registration',
@@ -16,6 +16,7 @@ import {IRegisterRequest, User} from '@chumm-uffa/interface';
 export class UserComponent implements OnInit {
 
   userForm: FormGroup;
+  sexType = Sex;
   private user: User;
 
   constructor(private userFormService: UserFormService,

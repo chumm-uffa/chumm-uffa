@@ -4,7 +4,7 @@
 export enum Sex {
     MALE = 'M',
     FEMALE = 'F',
-    UNDEFINED = 'SOMEBODYDONTKNOW'
+    BETWEEN = 'SOMEBODYDONTKNOW'
 }
 
 export class User {
@@ -18,7 +18,7 @@ export class User {
   constructor(id: string = '',
               username: string = '',
               password: string = '',
-              sex: Sex = Sex.UNDEFINED,
+              sex: Sex = Sex.BETWEEN,
               email: string = '',
               weight: string = '') {
     this._id = id;
