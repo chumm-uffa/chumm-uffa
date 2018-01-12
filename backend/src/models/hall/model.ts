@@ -39,15 +39,12 @@ HallSchema.plugin(uniqueValidator);
 /**
  * Merge this dbHall to a new interface user
  */
-HallSchema.methods.toInterface = function() {
+HallSchema.methods.toInterface = async function() {
     const dbHall = this;
-    return new Promise( (resolve) => {
-        let hall: Hall = new Hall(
+    return new Hall(
             dbHall._id.toString(),
             dbHall.name
-        );
-        resolve(hall);
-    });
+    );
 };
 
 export const DBHall: Model<IDBHallModel> = mongoose.model<IDBHallModel>('Hall', HallSchema);

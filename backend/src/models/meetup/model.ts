@@ -146,34 +146,27 @@ MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
 };
 
 /**
- * Merge this dbUser to a new interface user. It also resolves number of request and participant
+ *
+ * @returns {Promise<void>}
  */
-MeetupSchema.methods.toInterface = function () {
+MeetupSchema.methods.toInterface = async function () {
     const dbMeetup = this;
-    return new Promise( (resolve) => {
-        let meetup: Meetup = new Meetup(
-            dbMeetup._id.toString(),
-            null,
-            dbMeetup.from,
-            dbMeetup.to,
-            dbMeetup.outdoor,
-            dbMeetup.indoor,
-            dbMeetup.activity
-        );
-        let owner : Promise<User> = dbMeetup.owner ? Promise.resolve(dbMeetup.owner.toInterface()) : Promise.resolve(null);
-        let request: Promise<number> = Promise.resolve(dbMeetup.getNumberOfRequest());
-        let participant: Promise<number> = Promise.resolve(dbMeetup.getNumberOfParticipant());
-        Promise.all([owner, request, participant]).
-        then(results => {
-            meetup.owner = results[0];
-            meetup.numberOfRequest = results[1];
-            meetup.numberOfParticipant = results[2];
-            resolve(meetup);
-        }).catch(() => {
-            resolve(meetup);
-        });
-    });
+    let owner = dbMeetup.owner ? await dbMeetup.owner.toInterface(): null;
+    let request = await dbMeetup.getNumberOfRequest();
+    let participant = await dbMeetup.getNumberOfParticipant();
+    return new Meetup(
+        dbMeetup._id.toString(),
+        owner,
+        dbMeetup.from,
+        dbMeetup.to,
+        dbMeetup.outdoor,
+        dbMeetup.indoor,
+        dbMeetup.activity,
+        request,
+        participant
+    );
 };
+
 
 /**
  * Gets the number of open meetup-request

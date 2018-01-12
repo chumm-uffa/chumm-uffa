@@ -118,32 +118,16 @@ MeetupRequestSchema.methods.fromInterface = function (meetupRequest: MeetupReque
  * Merge this dbUser to a new interface user
  * @returns {Promise<any>}
  */
-MeetupRequestSchema.methods.toInterface = function () {
+MeetupRequestSchema.methods.toInterface = async function () {
     const dbRequest = this;
-    return new Promise( (resolve) => {
-        let participant: Promise<User> = dbRequest.participant ? Promise.resolve(dbRequest.participant.toInterface())
-            : Promise.resolve(null);
-        let meetup: Promise<Meetup> = dbRequest.meetup ? Promise.resolve(dbRequest.meetup.toInterface())
-            : Promise.resolve(null);
-        Promise.all([participant, meetup]).
-        then(results => {
-            let request: MeetupRequest = new MeetupRequest(
+    let participant = dbRequest.participant ? await dbRequest.participant.toInterface(): null;
+    let meetup = dbRequest.meetup ? await dbRequest.meetup.toInterface(): null;
+    return new MeetupRequest(
                 dbRequest._id.toString(),
-                results[0],
-                results[1],
+                participant,
+                meetup,
                 dbRequest.state
-            );
-            resolve(request);
-        }).catch(() => {
-            let request: MeetupRequest = new MeetupRequest(
-                dbRequest._id.toString(),
-                null,
-                null,
-                dbRequest.state
-            );
-            resolve(request);
-        });
-    });
+    );
 };
 
 export const DBMeetupRequest: Model<IDBMeetupRequestModel> = mongoose.model<IDBMeetupRequestModel>('MeetupRequest', MeetupRequestSchema);

@@ -112,24 +112,15 @@ ChatSchema.methods.fromInterface = function(chat: Chat) {
 /**
  * Merge this chat to a new interface user
  */
-ChatSchema.methods.toInterface = function() {
+ChatSchema.methods.toInterface = async function() {
     const dbChat = this;
-    return new Promise( (resolve) => {
-        let speaker: Promise<User> = dbChat.speaker ? Promise.resolve(dbChat.speaker.toInterface()): Promise.resolve(null);
-        let chat: Chat = new Chat(
+    let speaker =  dbChat.speaker ? await dbChat.speaker.toInterface(): null;
+    return new Chat(
             dbChat._id.toString(),
             dbChat.text,
-            null,
+            speaker,
             dbChat.date
-        );
-        Promise.all([speaker]).
-        then(results => {
-            chat.speaker = results[0];
-            resolve(chat);
-        }).catch(() => {
-            resolve(chat);
-        });
-    });
+    );
 };
 
 export const DBChat: Model<IDBChatModel> = mongoose.model<IDBChatModel>('Chat', ChatSchema);
