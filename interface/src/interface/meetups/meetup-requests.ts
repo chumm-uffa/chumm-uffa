@@ -4,7 +4,7 @@
 import {BaseResponse, IBaseResponse} from "../../interface/baseResponse";
 import {MeetupRequest} from "../../model/meetup-request";
 
-// GET meeup/MeetupRequest
+// GET meetup/MeetupRequest
 export interface IGetAllRequestsForMeetupResponse extends IBaseResponse {
     requests: MeetupRequest[];
 }

@@ -22,7 +22,7 @@ describe('/POST users', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -62,25 +62,58 @@ describe('/POST users', () => {
     });
 
     it('it should get all meetup-request for a user', (done) => {
+        let meetupRequest1: cuint.MeetupRequest = new cuint.MeetupRequest('', baseTest.testUser, meetup1, cuint.RequestStatus.OPEN);
+        let meetupRequest2: cuint.MeetupRequest = new cuint.MeetupRequest('', baseTest.testUser, meetup2, cuint.RequestStatus.DECLINED);
         baseTest.chai.request(baseTest.server)
-            .get(`${baseTest.route}users/${baseTest.testUser.id}/meetup-requests`)
+            .post(`${baseTest.route}meetup-requests`)
             .set({authorization: baseTest.token})
+            .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest1))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
-                res.body.should.have.property('meetups');
-                done();
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetup-requests`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest2))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        baseTest.chai.request(baseTest.server)
+                            .get(`${baseTest.route}users/${baseTest.testUser.id}/meetup-requests`)
+                            .set({authorization: baseTest.token})
+                            .end((err, res) => {
+                                baseTest.assertSuccess(res);
+                                res.body.should.have.property('requests');
+                                res.body.requests.length.should.be.equals(2);
+                                done();
+                            });
+                    });
             });
     });
 
-    it('it should get all meetup-request in OPEN status for a user', (done) => {
+    it('it should get all meetup-request in ACCEPT status for a user', (done) => {
+        let meetupRequest1: cuint.MeetupRequest = new cuint.MeetupRequest('', baseTest.testUser, meetup1, cuint.RequestStatus.ACCEPT);
+        let meetupRequest2: cuint.MeetupRequest = new cuint.MeetupRequest('', baseTest.testUser, meetup2, cuint.RequestStatus.ACCEPT);
         baseTest.chai.request(baseTest.server)
-            .get(`${baseTest.route}users/${baseTest.testUser.id}/meetup-requests/OPEN`)
+            .post(`${baseTest.route}meetup-requests`)
             .set({authorization: baseTest.token})
+            .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest1))
             .end((err, res) => {
                 baseTest.assertSuccess(res);
-                res.body.should.have.property('meetups');
-                done();
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetup-requests`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest2))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        baseTest.chai.request(baseTest.server)
+                            .get(`${baseTest.route}users/${baseTest.testUser.id}/meetup-requests/ACCEPT`)
+                            .set({authorization: baseTest.token})
+                            .end((err, res) => {
+                                baseTest.assertSuccess(res);
+                                res.body.should.have.property('requests');
+                                res.body.requests.length.should.be.equals(2);
+                                done();
+                            });
+                    });
             });
     });
-
 });

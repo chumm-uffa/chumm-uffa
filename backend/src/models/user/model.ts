@@ -2,11 +2,12 @@
  * chumm-uffa
  */
 import * as bcrypt from 'bcryptjs';
-import { Document, Model, Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { User } from '@chumm-uffa/interface';
 import * as uniqueValidator from 'mongoose-unique-validator';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBUser document interface
@@ -22,12 +23,11 @@ export interface IDBUser {
 /**
  * The DBUser model containing additional functionality
  */
-export interface IDBUserModel extends IDBUser, Document {
+export interface IDBUserModel extends IDBModelBase, IDBUser {
     createUser(user: IDBUser): Promise<IDBUser>;
     comparePassword(candidatePassword: string): boolean;
     hashPassword(newPassword: string): void;
     fromInterface(user: User);
-    toInterface();
 }
 
 /**
@@ -109,14 +109,16 @@ UserSchema.methods.fromInterface = function(user: User) {
 /**
  * Merge this dbUser to a new interface user
  */
-UserSchema.methods.toInterface = function() {
-    const user: User = new User();
-    user.id = this._id.toString();
-    user.username = this.username;
-    user.email = this.email;
-    user.sex = this.sex;
-    user.weight = this.weight;
-    return user;
+UserSchema.methods.toInterface = async function() {
+    const dbUser = this;
+    return new User(
+        dbUser._id.toString(),
+        dbUser.username,
+        null,
+        dbUser.sex,
+        dbUser.email,
+        dbUser.weight
+    )
 };
 
 export const DBUser: Model<IDBUserModel> = mongoose.model<IDBUserModel>('User', UserSchema);

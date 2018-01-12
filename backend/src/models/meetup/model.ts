@@ -1,13 +1,15 @@
 /**
  * chumm-uffa
  */
-import {Document, Model, Schema} from 'mongoose';
+import {Model, Schema} from 'mongoose';
 import {mongoose} from '../../app';
 
-import {Meetup} from '@chumm-uffa/interface';
+import {Meetup, User} from '@chumm-uffa/interface';
 import {DBUser} from '../user/model';
 import {DBHall} from '../hall/model';
 import {DBChat} from '../chat/model';
+import {DBMeetupRequest} from '../meetup-request/model';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBUser document interface
@@ -24,10 +26,10 @@ export interface IDBMeetup {
 /**
  * The DBMeetup model containing additional functionality
  */
-export interface IDBMeetupModel extends IDBMeetup, Document {
+export interface IDBMeetupModel extends IDBModelBase, IDBMeetup {
     fromInterface(meetup: Meetup);
-
-    toInterface();
+    getNumberOfRequest();
+    getNumberOfParticipant();
 }
 
 /**
@@ -94,7 +96,7 @@ MeetupSchema.pre('update', function (next) {
  */
 MeetupSchema.pre('remove', function (next) {
     DBChat.remove({meetup: this.id}).exec();
-    // TODO hier müssen auch die meetup-request gelöscht werden!
+    DBMeetupRequest.remove({meetup: this.id}).exec();
     next();
 });
 
@@ -102,7 +104,6 @@ MeetupSchema.pre('remove', function (next) {
  * Pre function to validate the owner id
  */
 MeetupSchema.path('owner').validate(function (owner, respond) {
-
     DBUser.findById(owner, function (err, dbUser) {
         if (err || !dbUser) {
             respond(false);
@@ -117,7 +118,6 @@ MeetupSchema.path('owner').validate(function (owner, respond) {
  * Pre function to validate the indoor key
  */
 MeetupSchema.path('indoor').validate(function (indoor, respond) {
-
     if (!indoor) {
         respond(true);
     }
@@ -146,18 +146,42 @@ MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
 };
 
 /**
- * Merge this dbUser to a new interface user
+ *
+ * @returns {Promise<void>}
  */
-MeetupSchema.methods.toInterface = function () {
+MeetupSchema.methods.toInterface = async function () {
+    const dbMeetup = this;
+    let owner = dbMeetup.owner ? await dbMeetup.owner.toInterface(): null;
+    let request = await dbMeetup.getNumberOfRequest();
+    let participant = await dbMeetup.getNumberOfParticipant();
     return new Meetup(
-        this._id.toString(),
-        this.owner instanceof DBUser ? this.owner.toInterface() : null,
-        this.from,
-        this.to,
-        this.outdoor,
-        this.indoor,
-        this.activity
+        dbMeetup._id.toString(),
+        owner,
+        dbMeetup.from,
+        dbMeetup.to,
+        dbMeetup.outdoor,
+        dbMeetup.indoor,
+        dbMeetup.activity,
+        request,
+        participant
     );
+};
+
+
+/**
+ * Gets the number of open meetup-request
+ * @returns {Promise<number>}
+ */
+MeetupSchema.methods.getNumberOfRequest = function ( ) {
+    return DBMeetupRequest.count({meetup: this.id, state: 'OPEN' }).exec();
+};
+
+/**
+ * Gets the number of accepted meetup-request
+ * @returns {Promise<number>}
+ */
+MeetupSchema.methods.getNumberOfParticipant = function ( ) {
+    return DBMeetupRequest.count({meetup: this.id, state: 'ACCEPT' }).exec();
 };
 
 export const DBMeetup: Model<IDBMeetupModel> = mongoose.model<IDBMeetupModel>('Meetup', MeetupSchema);
