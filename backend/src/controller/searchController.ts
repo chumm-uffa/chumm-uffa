@@ -36,7 +36,11 @@ export class SearchController extends BaseController {
         }
         zr.populate(MeetupPopulate).then((dbMeetups) => {
             let meetups: Meetup[] = [];
-            meetups = dbMeetups.map(dbmu => dbmu.toInterface()).filter(this.getPersonFilter(searchDto));
+            // todo warten bis Umbau von Promisen gefixt
+            res.status(500);
+            res.json(MeetupsFactory.createSearchMeetupResponse(false, 'Suche bis fix promises ausser Betrieb!'));
+
+            // meetups = dbMeetups.map(dbmu => dbmu.toInterface()).filter(this.getPersonFilter(searchDto));
             res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
         }).catch((err) => {
             this.logger.error(err.toString());
