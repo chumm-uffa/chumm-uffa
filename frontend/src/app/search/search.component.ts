@@ -39,12 +39,12 @@ export class SearchComponent implements OnInit {
   startSearch() {
     FormUtil.markAsTouched(this.searchForm);
     if (this.searchForm.valid && !this.searchForm.pending) {
-      console.log('search initiated');
-      // this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
-      this.businessService.searchMeetUp(this.searchForm.value).subscribe(meetups => {
-        this.results = new MatTableDataSource<Meetup>(meetups);
+      this.businessService.searchMeetUp(this.searchForm.value).subscribe(res => {
+        if (res.success) {
+          this.results = new MatTableDataSource<Meetup>(res.meetups);
+        }
         this.hasAllreadySearched = true;
-      });
+      }, err => this.appDialogService.showServerError(err));
     }
   }
 

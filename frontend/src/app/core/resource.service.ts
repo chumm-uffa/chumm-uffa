@@ -11,18 +11,18 @@ import {
   ILoginResponse,
   IRegisterRequest,
   IRegisterResponse,
+  ISearchMeetupsRequest,
+  ISearchMeetupsResponse,
   IUpdateMeetupRequestRequest,
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
   Meetup,
   MeetupRequest,
-  SearchDto,
   User,
   Version
 } from '@chumm-uffa/interface';
 import {AppStateService} from './app-state.service';
-
 
 /**
  * Resource service interface
@@ -50,7 +50,7 @@ export interface ResourceServiceInterface {
 
   createChat(chat: Chat): void;
 
-  searchMeetup(searchDto: SearchDto): Observable<Meetup[]>;
+  searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse>;
 
   createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse>;
 
@@ -158,8 +158,8 @@ export class ResourceService implements ResourceServiceInterface {
     throw new Error('Method not implemented.');
   }
 
-  searchMeetup(searchDto: SearchDto): Observable<Meetup[]> {
-    throw new Error('Method not implemented.');
+  searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
+    return this.http.post<ISearchMeetupsResponse>(this.urlDemo + `meetups/search`, request);
   }
 
   createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse> {

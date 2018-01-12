@@ -12,11 +12,15 @@ import {
     IDeleteMeetupResponse,
     IGetAllMeetupsResponse,
     IGetMeetupResponse,
+    ISearchMeetupsRequest,
+    ISearchMeetupsResponse,
     IUpdateMeetupRequest,
     IUpdateMeetupResponse,
+    SearchMeetupsRequest,
+    SearchMeetupsResponse,
     UpdateMeetupRequest,
     UpdateMeetupRespons
-} from "./interface/meetups/meetups";
+} from './interface/meetups/meetups';
 import {
     CreateMeetupRequestRequest,
     CreateMeetupRequestResponse,
@@ -32,7 +36,7 @@ import {
     IUpdateMeetupRequestResponse,
     UpdateMeetupRequestRequest,
     UpdateMeetupRequestResponse
-} from "./interface/meetups/meetup-requests";
+} from './interface/meetups/meetup-requests';
 import {
     CreateChatForMeetupRequest,
     CreateChatForMeetupRespons,
@@ -42,7 +46,7 @@ import {
     ICreateChatForMeetupResponse,
     IDeleteChatForMeetupResponse,
     IGetAllChatsForMeetupResponse
-} from "./interface/meetups/chats";
+} from './interface/meetups/chats';
 import {
     DeleteProfileResponse,
     GetProfileRespons,
@@ -52,14 +56,14 @@ import {
     IUpdateProfileResponse,
     UpdateProfileRequest,
     UpdateProfileResponse
-} from "./interface/auth/profile";
+} from './interface/auth/profile';
 
 import {User} from './model/user';
 import {Chat} from './model/chat';
 import {Hall} from './model/hall';
 import {Meetup} from './model/meetup';
 import {MeetupRequest, RequestStatus} from './model/meetup-request';
-import {SearchDto} from './model/searchDto';
+import {LocationType, SearchDto} from './model/searchDto';
 
 import {BaseFactory} from './factory/baseFactory';
 import {AuthFactory} from './factory/authFactory';
@@ -144,6 +148,10 @@ export {
     // delete /meetups/{id}/chats{id}
     IDeleteChatForMeetupResponse, DeleteChatForMeetupResponse,
 
+    // post /meetups/search
+    ISearchMeetupsResponse, ISearchMeetupsRequest,
+    SearchMeetupsResponse, SearchMeetupsRequest,
+
     //*************************
     // All for route "/meetup-requests"
     //*************************
@@ -167,5 +175,5 @@ export {
  * Export of model classes
  */
 export {
-    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType
 }

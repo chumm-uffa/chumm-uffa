@@ -1,19 +1,22 @@
 /**
  * chumm-uffa
  */
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 
-import { BaseRoutes } from './baseRoutes';
+import {BaseRoutes} from './baseRoutes';
 
-import { MeetupController } from '../controller/meetupController';
+import {MeetupController} from '../controller/meetupController';
+import {SearchController} from '../controller/searchController';
 
 export class MeetupRoutes extends BaseRoutes {
 
     private controller: MeetupController;
+    private search: SearchController;
 
     constructor() {
         super();
         this.controller = new MeetupController();
+        this.search = new SearchController();
     }
 
     public getAllMeetupsAction(router: Router): void {
@@ -67,6 +70,12 @@ export class MeetupRoutes extends BaseRoutes {
     public deleteChatForMeetupAction(router: Router): void {
         router.delete('/:id/chats/:chat_id/', (req: Request, res: Response) => {
             this.controller.deleteChatForMeetup(req, res);
+        });
+    }
+
+    public searchMeetupAction(router: Router): void {
+        router.post('/search/', (req: Request, res: Response) => {
+            this.search.searchMeetups(req, res);
         });
     }
 }

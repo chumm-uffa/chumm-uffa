@@ -1,30 +1,45 @@
 /**
  * Interfaces for meetups
  */
-import {BaseResponse, IBaseResponse} from "../baseResponse";
-import {Meetup} from "../../model/meetup";
+import {BaseResponse, IBaseResponse} from '../baseResponse';
+import {Meetup} from '../../model/meetup';
+import {SearchDto} from '../../model/searchDto';
 
-export  interface IGetAllMeetupsResponse extends IBaseResponse {
+export interface IGetAllMeetupsResponse extends IBaseResponse {
     meetups: Meetup[];
 }
-export  interface ICreateMeetupRequest {
+
+export interface ICreateMeetupRequest {
     meetup: Meetup;
 }
-export  interface ICreateMeetupResponse extends IBaseResponse {
+
+export interface ICreateMeetupResponse extends IBaseResponse {
     id: String;
     meetup: Meetup;
 }
-export  interface IGetMeetupResponse extends IBaseResponse {
+
+export interface IGetMeetupResponse extends IBaseResponse {
     meetup: Meetup;
 }
-export  interface IDeleteMeetupResponse extends IBaseResponse {
+
+export interface IDeleteMeetupResponse extends IBaseResponse {
 
 }
-export  interface IUpdateMeetupRequest {
+
+export interface IUpdateMeetupRequest {
     meetup: Meetup;
 }
-export  interface IUpdateMeetupResponse extends IBaseResponse {
+
+export interface IUpdateMeetupResponse extends IBaseResponse {
     meetup: Meetup;
+}
+
+export interface ISearchMeetupsRequest {
+    searchDto: SearchDto;
+}
+
+export interface ISearchMeetupsResponse extends IBaseResponse {
+    meetups: Meetup[];
 }
 
 export class GetAllMeetupsRespons extends BaseResponse implements IGetAllMeetupsResponse {
@@ -53,4 +68,12 @@ export class UpdateMeetupRequest implements IUpdateMeetupRequest {
 
 export class UpdateMeetupRespons extends BaseResponse implements IUpdateMeetupResponse {
     meetup: Meetup;
+}
+
+export class SearchMeetupsRequest implements ISearchMeetupsRequest {
+    searchDto: SearchDto;
+}
+
+export class SearchMeetupsResponse extends BaseResponse implements ISearchMeetupsResponse {
+    meetups: Meetup[];
 }
