@@ -116,7 +116,7 @@ describe('Test /auth/register', () => {
                         res.body.should.have.property('token');
                         const token = res.body.token;
                         res.body.should.have.property('profile');
-                        res.body.profile.email = "ich@change.ch";
+                        res.body.profile.email = 'ich@change.ch';
                         const userid = res.body.profile.id;
 
                         // Third change user

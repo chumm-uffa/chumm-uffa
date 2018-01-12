@@ -1,9 +1,9 @@
 /**
  * chumm-uff
  **/
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from './baseController';
-import { DBHall } from "../models/hall/model";
+import { DBHall } from '../models/hall/model';
 import { HallsFactory, Hall } from '@chumm-uffa/interface';
 
 export class HallController extends BaseController {
@@ -41,7 +41,7 @@ export class HallController extends BaseController {
 
         // Onle load once
         DBHall.count({}).then((result) => {
-            if (result == 0) {
+            if (result === 0) {
                 DBHall.insertMany(halls).then(() => {
                     console.log('Successfully load Halls');
                 }).catch((err) => {
@@ -61,14 +61,20 @@ export class HallController extends BaseController {
      * Getting all available hall
      * @param {Request} req
      * @param {Response} res
-     */9
+     */
     public allHall(req: Request, res: Response){
         DBHall.find({}).then( (dbHalls) => {
+            let promise: Promise<any>[] = [];
             let halls: Hall[] = [];
             for (let dbHall of dbHalls) {
-                halls.push(dbHall.toInterface());
+                promise.push(dbHall.toInterface().then( (hall) => {
+                    halls.push(hall);
+                }));
             }
-            res.json(HallsFactory.createGetAllHallsResponse(true, '', halls));
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(HallsFactory.createGetAllHallsResponse(true, '', halls));
+            })
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -85,7 +91,9 @@ export class HallController extends BaseController {
     public getHall(req: Request, res: Response){
         DBHall.findById(req.params.key).then( (dbHall) => {
             if (dbHall) {
-                res.json(HallsFactory.createGetHallRespons(true,  '', dbHall.toInterface()));
+                dbHall.toInterface().then((hall) =>{
+                    res.json(HallsFactory.createGetHallRespons(true,  '', hall));
+                });
                 return;
             }
             res.status(400);

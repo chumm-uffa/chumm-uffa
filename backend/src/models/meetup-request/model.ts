@@ -1,12 +1,13 @@
 /**
  * chumm-uffa
  */
-import {Document, Model, Schema} from 'mongoose';
+import {Model, Schema} from 'mongoose';
 import {mongoose} from '../../app';
 
 import {Meetup, MeetupRequest, RequestStatus, User} from '@chumm-uffa/interface';
 import {DBUser} from '../user/model';
 import {DBMeetup} from '../meetup/model';
+import {IDBModelBase} from '../models';
 
 
 /**
@@ -21,10 +22,8 @@ export interface IDBMeetupRequest {
 /**
  * The DBMeetup model containing additional functionality
  */
-export interface IDBMeetupRequestModel extends IDBMeetupRequest, Document {
+export interface IDBMeetupRequestModel extends IDBModelBase, IDBMeetupRequest{
     fromInterface(meetupRequest: MeetupRequest);
-
-    toInterface();
 }
 
 /**
@@ -57,7 +56,7 @@ export const MeetupRequestSchema = new Schema({
  * Population option for meetupRequest
  * @type {[{path: string} , {path: string}]}
  */
-export const MeetupRequestPopulate = [{path: 'participant'}, {path: 'meetup'}];
+export const MeetupRequestPopulate = [{path: 'participant'}, {path: 'meetup', populate: { path: 'owner'}}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -76,6 +75,22 @@ MeetupRequestSchema.pre('update', function (next) {
 });
 
 /**
+ * Pre function to validate the meetup id
+ */
+MeetupRequestSchema.path('meetup').validate(function (meetup, respond) {
+
+    DBMeetup.findById(meetup, function (err, dbMeetup) {
+        if (err || !dbMeetup) {
+            respond(false);
+        } else {
+            respond(true);
+        }
+    });
+
+}, 'Meetup non existent');
+
+
+/**
  * Pre function to validate the participant id
  */
 MeetupRequestSchema.path('participant').validate(function (owner, respond) {
@@ -88,7 +103,7 @@ MeetupRequestSchema.path('participant').validate(function (owner, respond) {
         }
     });
 
-}, 'participant non existent');
+}, 'Participant non existent');
 
 /**
  * Merge the given interface user to this
@@ -101,13 +116,17 @@ MeetupRequestSchema.methods.fromInterface = function (meetupRequest: MeetupReque
 
 /**
  * Merge this dbUser to a new interface user
+ * @returns {Promise<any>}
  */
-MeetupRequestSchema.methods.toInterface = function () {
+MeetupRequestSchema.methods.toInterface = async function () {
+    const dbRequest = this;
+    let participant = dbRequest.participant ? await dbRequest.participant.toInterface(): null;
+    let meetup = dbRequest.meetup ? await dbRequest.meetup.toInterface(): null;
     return new MeetupRequest(
-        this._id.toString(),
-        this.participant instanceof DBUser ? this.participant.toInterface() : null,
-        this.meetup instanceof DBMeetup ? this.meetup.toInterface() : null,
-        this.state
+                dbRequest._id.toString(),
+                participant,
+                meetup,
+                dbRequest.state
     );
 };
 

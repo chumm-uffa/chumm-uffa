@@ -1,38 +1,35 @@
 /**
  * chumm-uff
  **/
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from './baseController';
-import {DBMeetup, MeetupPopulate} from "../models/meetup/model";
-import {DBUser} from "../models/user/model";
+import { DBMeetup, MeetupPopulate } from '../models/meetup/model';
+import { DBMeetupRequest, MeetupRequestPopulate } from '../models/meetup-request/model';
 import {
-    UsersFactory, Meetup, BaseFactory
+   UsersFactory, Meetup, MeetupRequest
 } from '@chumm-uffa/interface';
 
 export class UserController extends BaseController {
 
+    /**
+     * Returns all meetups for the user requested with :id
+     * @param {e.Request} req
+     * @param {e.Response} res
+     */
     public getAllMeetupsForUser(req: Request, res: Response){
-        // Check if user exists
-        DBUser.findById(req.params.id).then( (dbUser) => {
-            if (dbUser) {
-                // Find all meetups entry for user
-                DBMeetup.find({owner: dbUser.id}).populate(MeetupPopulate).then( (dbMeetups) => {
-                    let meetups: Meetup[] = [];
-                    for (let dbMeetup of dbMeetups) {
-                        meetups.push(dbMeetup.toInterface());
-                    }
-                    res.json(UsersFactory.createGetAllMeetupsForUserResponse(true, "", meetups));
-                }).catch((err) => {
-                    this.logger.error(err.toString());
-                    res.status(500);
-                    res.json(UsersFactory.createGetAllMeetupsForUserResponse(false, err.toString()));
-                    return;
-                });
-                return;
+        // Find all meetups for user
+        DBMeetup.find({owner: req.params.id}).populate(MeetupPopulate).then( (dbMeetups) => {
+            let promise: Promise<any>[] = [];
+            let meetups: Meetup[] = [];
+            for (let dbMeetup of dbMeetups) {
+                promise.push(dbMeetup.toInterface().then( (meetup) => {
+                    meetups.push(meetup);
+                }));
             }
-            res.status(400);
-            res.json(UsersFactory.createGetAllMeetupsForUserResponse(false, 'user not exits.'));
-            return;
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllMeetupsForUserResponse(true, '', meetups));
+            })
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
@@ -40,13 +37,57 @@ export class UserController extends BaseController {
             return;
         });    }
 
+    /**
+     * Returns all meetup-requests for the user requested with :id
+     * @param {e.Request} req
+     * @param {e.Response} res
+     */
     public getAllRequestForUser(req: Request, res: Response){
-        //Todo hier muss was rein für meetup-request
-        res.json(BaseFactory.createBaseResponse(false, "to be implemented"));
+        // Find all meetup-requests for user
+        DBMeetupRequest.find({participant: req.params.id}).populate(MeetupRequestPopulate).then( (dbRequests) => {
+            let promise: Promise<any>[] = [];
+            let requests: MeetupRequest[] = [];
+            for (let dbRequest of dbRequests) {
+                promise.push(dbRequest.toInterface().then( (request) => {
+                    requests.push(request);
+                }));
+            }
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllRequestsForUserResponse(true, '', requests));
+            })
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(UsersFactory.createGetAllRequestsForUserResponse(false, err.toString()));
+            return;
+        });
     }
 
+    /**
+     * Returns all meetup-requests for the user requested with :id in requested with status :status
+     * @param {e.Request} req
+     * @param {e.Response} res
+     */
     public getAllRequestInStatusForUser(req: Request, res: Response){
-        //Todo hier muss was rein für meetup-request
-        res.json(BaseFactory.createBaseResponse(false, "to be implemented"));
+        // Find all meetup-requests for user in certain state
+        DBMeetupRequest.find({participant: req.params.id, state: req.params.status}).populate(MeetupRequestPopulate).then( (dbRequests) => {
+            let promise: Promise<any>[] = [];
+            let requests: MeetupRequest[] = [];
+            for (let dbRequest of dbRequests) {
+                promise.push(dbRequest.toInterface().then( (request) => {
+                    requests.push(request);
+                }));
+            }
+            // Wait for all to finish
+            Promise.all(promise).then( () => {
+                res.json(UsersFactory.createGetAllRequestsInStatusForUserResponse(true, '', requests));
+            })
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(UsersFactory.createGetAllRequestsInStatusForUserResponse(false, err.toString()));
+            return;
+        });
     }
 }

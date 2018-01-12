@@ -18,7 +18,7 @@ describe('Test /meetups', () => {
 
     it('it should create a new meetup', (done) => {
         let meetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -34,7 +34,7 @@ describe('Test /meetups', () => {
 
     it('it should not create a meetup because indoor and outdoor are missing ', (done) => {
         let meetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), '', '', "activity"
+            '', baseTest.testUser, new Date(), new Date(), '', '', 'activity'
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -72,8 +72,9 @@ describe('Test /meetups/:id', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
+
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
             .set({authorization: baseTest.token})
@@ -83,7 +84,25 @@ describe('Test /meetups/:id', () => {
                 res.body.should.have.property('meetup');
                 res.body.should.have.property('id');
                 meetup = res.body.meetup;
-                done();
+                let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                    '', baseTest.testUser, meetup, cuint.RequestStatus.OPEN);
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetup-requests`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                            '', baseTest.testUser, meetup, cuint.RequestStatus.ACCEPT);
+                        baseTest.chai.request(baseTest.server)
+                            .post(`${baseTest.route}meetup-requests`)
+                            .set({authorization: baseTest.token})
+                            .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                            .end((err, res) => {
+                                baseTest.assertSuccess(res);
+                            done();
+                            });
+                    });
             });
     });
 
@@ -94,6 +113,8 @@ describe('Test /meetups/:id', () => {
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('meetup');
+                res.body.meetup.numberOfParticipant.should.be.equals(1);
+                res.body.meetup.numberOfRequest.should.be.equals(1);
                 done();
             });
     });
@@ -109,7 +130,7 @@ describe('Test /meetups/:id', () => {
     });
 
     it('it should update a single meetup', (done) => {
-        meetup.activity = "jetzt mach i was anderes";
+        meetup.activity = 'jetzt mach i was anderes';
         baseTest.chai.request(baseTest.server)
             .put(`${baseTest.route}meetups/${meetup.id}`)
             .set({authorization: baseTest.token})
@@ -117,7 +138,7 @@ describe('Test /meetups/:id', () => {
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('meetup');
-                res.body.meetup.activity.should.equal("jetzt mach i was anderes");
+                res.body.meetup.activity.should.equal('jetzt mach i was anderes');
                 done();
             });
     });
@@ -148,8 +169,9 @@ describe('Test /meetups/:id/meetup-requests', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
+        // Add meetup
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
             .set({authorization: baseTest.token})
@@ -159,7 +181,27 @@ describe('Test /meetups/:id/meetup-requests', () => {
                 res.body.should.have.property('meetup');
                 res.body.should.have.property('id');
                 meetup = res.body.meetup;
-                done();
+                // Add meetup-request
+                let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                    '', baseTest.testUser, meetup, cuint.RequestStatus.OPEN);
+                baseTest.chai.request(baseTest.server)
+                    .post(`${baseTest.route}meetup-requests`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        // Add meetup-request
+                        let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
+                            '', baseTest.testUser, meetup, cuint.RequestStatus.ACCEPT);
+                        baseTest.chai.request(baseTest.server)
+                            .post(`${baseTest.route}meetup-requests`)
+                            .set({authorization: baseTest.token})
+                            .send(cuint.MeetupRequestsFactory.createCreateMeetupRequestRequest(meetupRequest))
+                            .end((err, res) => {
+                                baseTest.assertSuccess(res);
+                                done();
+                            });
+                    });
             });
     });
 
@@ -170,6 +212,7 @@ describe('Test /meetups/:id/meetup-requests', () => {
             .end((err, res) => {
                 baseTest.assertSuccess(res);
                 res.body.should.have.property('requests');
+                res.body.requests.length.should.be.equals(2);
                 done();
             });
     });
@@ -186,7 +229,7 @@ describe('Test /meetups/:id/chats', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)
@@ -202,7 +245,7 @@ describe('Test /meetups/:id/chats', () => {
     });
 
     it('it should create a chats for a single meetup', (done) => {
-        let newChat: cuint.Chat = new cuint.Chat("", "mal was anderes", baseTest.testUser);
+        let newChat: cuint.Chat = new cuint.Chat('', 'mal was anderes', baseTest.testUser);
 
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups/${meetup.id}/chats`)
@@ -217,7 +260,7 @@ describe('Test /meetups/:id/chats', () => {
     });
 
     it('it should get all chats for a meetup', (done) => {
-        let newChat: cuint.Chat = new cuint.Chat("", "kukukkkkkk", baseTest.testUser);
+        let newChat: cuint.Chat = new cuint.Chat('', 'kukukkkkkk', baseTest.testUser);
 
         // first crate a new chat
         baseTest.chai.request(baseTest.server)
@@ -236,7 +279,7 @@ describe('Test /meetups/:id/chats', () => {
                         baseTest.assertSuccess(res);
                         res.body.should.have.property('chats');
                         res.body.chats.length.should.be.greaterThan(0);
-                        res.body.chats[0].text.should.be.equals("kukukkkkkk");
+                        res.body.chats[0].text.should.be.equals('kukukkkkkk');
                         done();
                     });
             });
@@ -255,10 +298,10 @@ describe('Test /meetups/:id/chats/:chat_id', () => {
     beforeEach((done) =>{
         // create a single meetup
         let myMeetup: cuint.Meetup = new cuint.Meetup(
-            "", baseTest.testUser, new Date(), new Date(), "outdoor", baseTest.halls[0].key, "activity"
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
         );
         let myChat: cuint.Chat = new cuint.Chat(
-            "", "das ist ein Gespräck", baseTest.testUser
+            '', 'das ist ein Gespräck', baseTest.testUser
         );
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups`)

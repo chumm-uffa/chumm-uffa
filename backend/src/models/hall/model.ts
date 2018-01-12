@@ -1,11 +1,12 @@
 /**
  * chumm-uffa
  */
-import { Document, Model, Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
 import { Hall } from '@chumm-uffa/interface';
 import * as uniqueValidator from 'mongoose-unique-validator';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBHall document interface
@@ -17,8 +18,7 @@ export interface IDBHall {
 /**
  * The DBHall model containing additional functionality
  */
-export interface IDBHallModel extends IDBHall, Document {
-    toInterface();
+export interface IDBHallModel extends IDBModelBase, IDBHall {
 }
 
 /**
@@ -39,10 +39,11 @@ HallSchema.plugin(uniqueValidator);
 /**
  * Merge this dbHall to a new interface user
  */
-HallSchema.methods.toInterface = function() {
+HallSchema.methods.toInterface = async function() {
+    const dbHall = this;
     return new Hall(
-        this._id.toString(),
-        this.name
+            dbHall._id.toString(),
+            dbHall.name
     );
 };
 

@@ -50,26 +50,27 @@ export class BaseTest {
      * @param res the response received
      */
     public assertSuccess(res) {
-        res.status.should.equal(200);
-        res.body.should.be.a('object');
         res.body.should.have.property('message');
         console.log(res.body.message);
+        res.status.should.equal(200);
+        res.body.should.be.a('object');
         res.body.should.have.property('success');
         res.body.success.should.equal(true);
     }
 
     /**
      * Helper to test failed response with given status
-     * @param res the response received
-     * @param status the expected status
+     * @param res
+     * @param {number} status
+     * @param {string} message
      */
     public assertFailed(res, status: number, message: string) {
+        res.body.should.have.property('message');
+        console.log(res.body.message);
         res.status.should.equal(status);
         res.body.should.be.a('object');
         res.body.should.have.property('success');
         res.body.success.should.equal(false);
-        res.body.should.have.property('message');
-        console.log(res.body.message);
         if (message.length > 0) {
             res.body.message.should.equal(message);
         }

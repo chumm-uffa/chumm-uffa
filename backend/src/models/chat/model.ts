@@ -1,12 +1,13 @@
 /**
  * chumm-uffa
  */
-import { Document, Model, Schema } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { mongoose } from '../../app';
 
-import { Chat, User, Meetup } from '@chumm-uffa/interface';
-import {DBMeetup} from "../meetup/model";
-import {DBUser} from "../user/model";
+import { Chat, User } from '@chumm-uffa/interface';
+import {DBMeetup} from '../meetup/model';
+import {DBUser} from '../user/model';
+import {IDBModelBase} from '../models';
 
 /**
  * The DBChat document interface
@@ -21,9 +22,8 @@ export interface IDBChat {
 /**
  * The DBChat model containing additional functionality
  */
-export interface IDBChatModel extends IDBChat, Document {
+export interface IDBChatModel extends IDBModelBase, IDBChat{
     fromInterface(chat: Chat);
-    toInterface();
 }
 
 /**
@@ -57,7 +57,7 @@ export const ChatSchema = new Schema({
  * Population option for chat
  * @type {[{path: string} , {path: string}]}
  */
-export const ChatPopulate = [{path:"meetup"},{path:"speaker"}];
+export const ChatPopulate = [{path:'meetup'},{path:'speaker'}];
 
 /**
  * Pre function when save a new meetup. The creation date is set.
@@ -112,12 +112,14 @@ ChatSchema.methods.fromInterface = function(chat: Chat) {
 /**
  * Merge this chat to a new interface user
  */
-ChatSchema.methods.toInterface = function() {
+ChatSchema.methods.toInterface = async function() {
+    const dbChat = this;
+    let speaker =  dbChat.speaker ? await dbChat.speaker.toInterface(): null;
     return new Chat(
-        this._id.toString(),
-        this.text,
-        this.speaker.toInterface(),
-        this.date
+            dbChat._id.toString(),
+            dbChat.text,
+            speaker,
+            dbChat.date
     );
 };
 
