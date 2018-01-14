@@ -19,13 +19,15 @@ export class MeetupFormService {
   }
 
   createForm(meetup: Meetup): FormGroup {
+    const from = new Date(meetup.from);
+    const to = new Date(meetup.from);
     return this.fB.group({
-      date: [moment(meetup.from.getTime()).format(MeetupFormService.DATE_FORMAT),
+      date: [moment(from.getTime()).format(MeetupFormService.DATE_FORMAT),
         [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
           validateNotBefore(MeetupFormService.DATE_FORMAT)]],
-      fromTime: [moment(meetup.from.getTime()).format(MeetupFormService.TIME_FORMAT),
+      fromTime: [moment(from.getTime()).format(MeetupFormService.TIME_FORMAT),
         [Validators.required, validateNotBefore(MeetupFormService.TIME_FORMAT)]],
-      toTime: [moment(meetup.to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
+      toTime: [moment(to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
       locationType: meetup.outdoor ? 'out' : 'in',
       indoor: meetup.indoor,
       outdoor: meetup.outdoor,

@@ -27,7 +27,7 @@ export class OpenRequestsComponent implements OnInit {
   }
 
   getMeetupRequests(): void {
-    this.businessService.getMeetUpRequests().subscribe(meetUpRequests => this.meetUpRequests = meetUpRequests);
+    this.businessService.getMeetUpRequests().subscribe(res => this.meetUpRequests = res.requests);
   }
 
   getLocation(meetUp: Meetup): string {

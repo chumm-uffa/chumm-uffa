@@ -6,6 +6,12 @@ import {
   AuthFactory,
   Chat,
   Hall,
+  ICreateMeetupRequest,
+  ICreateMeetupResponse,
+  IUpdateMeetupRequest,
+  IUpdateMeetupResponse,
+  IGetMeetupResponse,
+  IDeleteMeetupResponse,
   ICreateMeetupRequestRequest,
   ICreateMeetupRequestResponse,
   IDeleteMeetupRequestResponse,
@@ -20,9 +26,15 @@ import {
   IUpdateProfileRequest,
   IUpdateProfileResponse,
   IGetAllHallsResponse,
+  IGetAllMeetupsForUserResponse,
+  IGetAllRequestsForMeetupResponse,
+  ICreateChatForMeetupRequest,
+  ICreateChatForMeetupResponse,
+  IGetAllChatsForMeetupResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
+  UsersFactory,
   MeetupsFactory,
   RequestStatus,
   HallsFactory,
@@ -65,37 +77,51 @@ export class MockService implements ResourceServiceInterface {
     return of(AuthFactory.createLoginResponse(true, '', 'token', this._users[0]));
   }
 
-  getMeetUps(user: User): Observable<Meetup[]> {
-    return of(this._meetups.filter(meetup => meetup.owner.username === user.username));
+  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
+    return of(AuthFactory.createUpdateProfileResponse(true, '', request.profile));
   }
 
-  getMeetUpRequests(user: User): Observable<MeetupRequest[]> {
-    return of(this._meetupRequest);
-    // return of(this._meetupRequest.filter(participant => participant.participant.username === user.username));
+
+  createMeetup(request: ICreateMeetupRequest): Observable<ICreateMeetupResponse> {
+    return of (MeetupsFactory.createCreateMeetupResponse(true, '', request.meetup));
   }
 
-  loadMeetup(meetupId: string): Observable<Meetup> {
-    return of(this._meetups.find(mu => mu.id === meetupId));
+  saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse> {
+    return of (MeetupsFactory.createUpdateMeetupRespons(true, '', request.meetup));
   }
 
-  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
-    return of(this._meetupRequest);
+  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse> {
+    return of(UsersFactory.createGetAllMeetupsForUserResponse(true, '' ,
+      this._meetups.filter(meetup => meetup.owner.username === user.username)));
+  }
+
+  getMeetupRequests(user: User): Observable<IGetAllRequestsForMeetupResponse> {
+    return of(UsersFactory.createGetAllRequestsForUserResponse(true, '', this._meetupRequest));
+  }
+
+  loadMeetup(meetupId: string): Observable<IGetMeetupResponse> {
+    return of(MeetupsFactory.createGetMeetupRespons(true, '', this._meetups.find(mu => mu.id === meetupId)));
+  }
+
+  loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse> {
+    return of(MeetupsFactory.createGetAllRequestsForMeetupRespons(true, '', this._meetupRequest));
   }
 
   /**
    * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse> {
-    const mr = new MeetupRequest(request.request.id, request.request.participant, request.request.meetup, request.request.status)
+    const mr = new MeetupRequest(request.request.id, request.request.participant, request.request.meetup, request.request.status);
     return of(MeetupRequestsFactory.createUpdateMeetupRequestResponse(true, '', mr));
   }
 
-  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    return of([...this._chats]);
+  loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse> {
+    return of(MeetupsFactory.createGetAllChatsForMeetupRespons(true , '',  [...this._chats]));
   }
 
-  createChat(chat: Chat): void {
-    this._chats.push(chat);
+  createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse> {
+    this._chats.push(request.chat);
+    return of(MeetupsFactory.createCreateChatForMeetupRespons(true, '', request.chat, request.chat.id));
   }
 
   searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
@@ -106,9 +132,8 @@ export class MockService implements ResourceServiceInterface {
     return of(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, ''));
   }
 
-  deleteMeetup(meetupId: string): Observable<boolean> {
-    this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
-    return of(true);
+  deleteMeetup(meetupId: string): Observable<IDeleteMeetupResponse> {
+    return of(MeetupsFactory.createDeleteMeetupRespons(true, ''));
   }
 
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
@@ -116,25 +141,12 @@ export class MockService implements ResourceServiceInterface {
     return of(MeetupRequestsFactory.createDeleteMeetupRequestResponse(true, ''));
   }
 
-  /**
-   * Register a new user
-   * @param {User} user
-   * @returns {Observable<User>}
-   */
-  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
-    return of(AuthFactory.createUpdateProfileResponse(true, '', request.profile));
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return of(HallsFactory.createGetAllHallsResponse(true, '', this._halls));
   }
 
   get users(): User[] {
     return this._users;
-  }
-
-  /**
-   * http://www.kletterhallen.net/Kat/schweiz.php
-   * @returns {Observable<Hall[]>}
-   */
-  getHalls(): Observable<IGetAllHallsResponse> {
-    return of(HallsFactory.createGetAllHallsResponse(true, '', this._halls));
   }
 
   private generateUsers() {

@@ -53,7 +53,8 @@ export class UserComponent implements OnInit {
         this.businessService.register(this.userFormService.mergeUser(this.userForm.value, this.user))
           .subscribe(response => {
             console.log('New user register with id ', response.id);
-            let myDialog = this.dialog.open(InfoPopupComponent, {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
+            const myDialog = this.dialog.open(InfoPopupComponent,
+              {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
             myDialog.afterClosed().subscribe(result => {
               this.router.navigate(['/login']);
             });

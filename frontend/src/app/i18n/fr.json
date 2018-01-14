@@ -79,6 +79,10 @@
     "outdoorRadio": "Outdoor_FR",
     "activity": "Activity:_FR",
     "submit": "speichern_FR",
+    "dialog": {
+      "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!_FR",
+      "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!_FR"
+    },
     "error": {
       "dateRequired": "Datum eingeben._FR",
       "dateInThePast": "Datum muss heute oder später sein._FR",

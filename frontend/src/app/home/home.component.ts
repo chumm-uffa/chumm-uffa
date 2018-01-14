@@ -10,14 +10,12 @@ import {MockService} from '../core/mock.service';
 })
 export class HomeComponent {
 
-  appState: string;
   users: User[] = [];
 
   constructor(private businessService: BusinessService,
               private appstate: AppStateService,
               private mock: MockService) {
     // to show Service
-    businessService.checkAlive().subscribe(state => this.appState = state);
     this.users = mock.users;
   }
 

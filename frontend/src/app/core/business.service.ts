@@ -15,6 +15,14 @@ import {
   IUpdateMeetupRequestResponse,
   IUpdateProfileResponse,
   IGetAllHallsResponse,
+  IGetAllMeetupsForUserResponse,
+  IGetAllRequestsForMeetupResponse,
+  IGetAllChatsForMeetupResponse,
+  IGetMeetupResponse,
+  IDeleteMeetupResponse,
+  ICreateMeetupRequestResponse,
+  ICreateChatForMeetupResponse,
+  IBaseResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
@@ -39,10 +47,6 @@ export class BusinessService {
               private mockService: MockService) {
   }
 
-  checkAlive(): Observable<string> {
-    return this.mockService.checkAlive();
-  }
-
   /**
    *
    * @param {User} user
@@ -55,7 +59,7 @@ export class BusinessService {
   /**
    *
    * @param {User} user
-   * @returns {Observable<IRegisterResponse>}
+   * @returns {Observable<IRegisterResponse>}•••••••••••
    */
   saveUser(user: User): Observable<IUpdateProfileResponse> {
     return this.resourceService.saveUser(AuthFactory.createUpdateProfileRequest(user));
@@ -70,42 +74,45 @@ export class BusinessService {
     return this.resourceService.login(AuthFactory.createLoginRequest(user));
   }
 
+
   /**
    * Retruns all meetups for the current logged in user
    * @returns {Observable<Meetup[]>}
    */
-  getMeetUps(): Observable<Meetup[]> {
-    return this.mockService.getMeetUps(this.appState.loggedInUser);
+  getMeetUps(): Observable<IGetAllMeetupsForUserResponse> {
+    return this.resourceService.getMeetups(this.appState.loggedInUser);
   }
 
   /**
    * Returns all participant for the current logged in user
    * @returns {Observable<MeetupRequest[]>}
    */
-  getMeetUpRequests(): Observable<MeetupRequest[]> {
-    return this.mockService.getMeetUpRequests(this.appState.loggedInUser);
+  getMeetUpRequests(): Observable<IGetAllRequestsForMeetupResponse> {
+    return this.resourceService.getMeetupRequests(this.appState.loggedInUser);
   }
 
-  /**
-   * @returns {Observable<Hall[]>}
-   */
-  getHalls(): Observable<IGetAllHallsResponse> {
-    return this.resourceService.getHalls();
-  }
-
-  saveMeetUp(meetup: Meetup): void {
+  saveMeetUp(meetup: Meetup): Observable<IBaseResponse> {
     if (!meetup.owner) {
       meetup.owner = this.appState.loggedInUser;
     }
-    this.resourceService.saveMeetup(meetup);
+    // if no meetup id is available, create a new one.
+    if (meetup.id) {
+      return this.resourceService.saveMeetup(MeetupsFactory.createUpdateMeetupRequest(meetup));
+    } else {
+      return this.resourceService.createMeetup(MeetupsFactory.createCreateMeetupRequest(meetup));
+    }
   }
 
-  loadMeetup(meetupId: string): Observable<Meetup> {
-    return this.mockService.loadMeetup(meetupId);
+  loadMeetup(meetupId: string): Observable<IGetMeetupResponse> {
+    return this.resourceService.loadMeetup(meetupId);
   }
 
-  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
-    return this.mockService.loadRequests(meetupId);
+  deleteMeetup(meetupId: string): Observable<IDeleteMeetupResponse> {
+    return this.resourceService.deleteMeetup(meetupId);
+  }
+
+  loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse> {
+    return this.resourceService.loadRequests(meetupId);
   }
 
   updateRequest(request: MeetupRequest, state: RequestStatus): Observable<IUpdateMeetupRequestResponse> {
@@ -114,14 +121,22 @@ export class BusinessService {
     return this.resourceService.updateRequest(MeetupRequestsFactory.createUpdateMeetupRequestRequest(mr));
   }
 
-  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    return this.mockService.loadChatsByMeetupId(meetupId);
+  requestForParticipation(meetup: Meetup): Observable<ICreateMeetupRequestResponse> {
+    const request = MeetupRequestsFactory.createCreateMeetupRequestRequest(new MeetupRequest(null, this.appState.loggedInUser, meetup));
+    return this.resourceService.createMeetupRequest(request);
   }
 
-  createChat(message: string, meetupId: string): Chat {
-    const newOne = new Chat('99', message, this.appState.loggedInUser, new Date());
-    this.mockService.createChat(newOne);
-    return newOne;
+  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
+    return this.resourceService.deleteRequest(requestId);
+  }
+
+  loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse> {
+    return this.resourceService.loadChatsByMeetupId(meetupId);
+  }
+
+  createChat(message: string, meetupId: string): Observable<ICreateChatForMeetupResponse> {
+    const request = MeetupsFactory.createCreateChatForMeetupRequest(new Chat('', message, this.appState.loggedInUser, new Date()));
+    return this.resourceService.createChat(meetupId, request);
   }
 
   searchMeetUp(searchDto: SearchDto): Observable<ISearchMeetupsResponse> {
@@ -129,17 +144,11 @@ export class BusinessService {
     return this.resourceService.searchMeetup(request);
   }
 
-  requestForParticipation(meetup: Meetup): Observable<IDeleteMeetupRequestResponse> {
-    const request = MeetupRequestsFactory.createCreateMeetupRequestRequest(new MeetupRequest(null, this.appState.loggedInUser, meetup));
-    return this.resourceService.createMeetupRequest(request);
-  }
-
-  deleteMeetup(meetupId: string): Observable<boolean> {
-    return this.mockService.deleteMeetup(meetupId);
-  }
-
-  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
-    return this.resourceService.deleteRequest(requestId);
+  /**
+   * @returns {Observable<Hall[]>}
+   */
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return this.resourceService.getHalls();
   }
 }
 

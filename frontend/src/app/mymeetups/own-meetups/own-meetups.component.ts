@@ -24,7 +24,7 @@ export class OwnMeetupsComponent implements OnInit {
   }
 
   getMeetups(): void {
-    this.businessService.getMeetUps().subscribe(meetups => this.meetups = meetups);
+    this.businessService.getMeetUps().subscribe(res => this.meetups = res.meetups);
   }
 
   getLocation(meetup: Meetup): string {

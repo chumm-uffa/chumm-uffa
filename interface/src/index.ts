@@ -58,6 +58,15 @@ import {
     UpdateProfileResponse
 } from './interface/auth/profile';
 import {
+    GetAllMeetupsForUserResponse,
+    GetAllRequestsForUserResponse,
+    GetAllRequestsInStatusForUserResponse,
+    IGetAllMeetupsForUserResponse,
+    IGetAllRequestsForUserResponse,
+    IGetAllRequestsInStatusForUserResponse
+} from './interface/users/users';
+
+import {
     GetAllHallsResponse,
     GetHallRespons,
     IGetAllHallsResponse,
@@ -177,6 +186,19 @@ export {
 
     // delete /meetups
     IDeleteMeetupRequestResponse, DeleteMeetupRequestResponse,
+
+    //*************************
+    // All for route "/user"
+    //*************************
+
+    //get /users/{id}/meetups
+    IGetAllMeetupsForUserResponse, GetAllMeetupsForUserResponse,
+
+    //get /users/{id}/meetup-requests
+    IGetAllRequestsForUserResponse, GetAllRequestsForUserResponse,
+
+    //get /users/{id}/meetup-requests/{status}
+    IGetAllRequestsInStatusForUserResponse, GetAllRequestsInStatusForUserResponse,
 
     //*************************
     // All for route "/halls"

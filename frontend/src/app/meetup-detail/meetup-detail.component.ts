@@ -25,23 +25,23 @@ export class MeetupDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.businessService.getHalls().subscribe(res=> this.halls = res.halls);
+    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       this.businessService.loadRequests(meetupId).subscribe(requests => {
-        this.meetupRequests = requests;
-        this.isAccepted = requests.some(req =>
+        this.meetupRequests = requests.requests;
+        this.isAccepted = requests.requests.some(req =>
           req.participant.username === this.appState.loggedInUser.username
           &&
           req.status === RequestStatus.ACCEPT
         );
       });
 
-      this.businessService.loadMeetup(meetupId).subscribe(meetupReloaded => {
-        if (meetupReloaded) {
-          this.meetup = meetupReloaded;
-          this.isMeetupOwner = this.appState.loggedInUser.username === meetupReloaded.owner.username;
+      this.businessService.loadMeetup(meetupId).subscribe(res => {
+        if (res.meetup) {
+          this.meetup = res.meetup;
+          this.isMeetupOwner = this.appState.loggedInUser.username === res.meetup.owner.username;
         } else {
           this.loadError = true;
         }
