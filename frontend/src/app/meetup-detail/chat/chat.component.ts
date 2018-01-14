@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private loadChats() {
     console.log('Chat reloaded');
     this.businessService.loadChatsByMeetupId(this.meetupId).subscribe(res => {
-      this.messages = res.chats.sort((a, b) => a.date.getTime() - b.date.getTime());
+      this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     });
   }
 }

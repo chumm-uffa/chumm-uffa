@@ -1,11 +1,11 @@
 <h2>{{ 'meetupDetail.title' | translate }}</h2>
 
 <div *ngIf="!loadError; else errorMessage">
-  <label>{{ 'meetupDetail.date' | translate }}  <span>{{meetup.from | dateFormat}}</span></label>
-  <label>{{ 'meetupDetail.fromTime' | translate }}  <span>{{meetup.from | timeFormat}}</span></label>
-  <label>{{ 'meetupDetail.toTime' | translate }}  <span>{{meetup.to | timeFormat}}</span></label>
+  <label>{{ 'meetupDetail.date' | translate }}  <span>{{meetup?.from | dateFormat}}</span></label>
+  <label>{{ 'meetupDetail.fromTime' | translate }}  <span>{{meetup?.from | timeFormat}}</span></label>
+  <label>{{ 'meetupDetail.toTime' | translate }}  <span>{{meetup?.to | timeFormat}}</span></label>
   <label>{{ 'meetupDetail.location' | translate }}  <span>{{getLocation()}}</span></label>
-  <label>{{ 'meetupDetail.activity' | translate }}  <span>{{meetup.activity}}</span></label>
+  <label>{{ 'meetupDetail.activity' | translate }}  <span>{{meetup?.activity}}</span></label>
 
   <h3>{{ 'meetupDetail.titleParticipant' | translate }}</h3>
   <div *ngFor="let request of meetupRequests">

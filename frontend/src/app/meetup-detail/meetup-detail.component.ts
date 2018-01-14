@@ -50,7 +50,11 @@ export class MeetupDetailComponent implements OnInit {
   }
 
   getLocation(): string {
-    return Util.resolveLocation(this.meetup, this.halls);
+    if (this.meetup && this.halls) {
+      return Util.resolveLocation(this.meetup, this.halls);
+    } else {
+      return "";
+    }
   }
 
 
