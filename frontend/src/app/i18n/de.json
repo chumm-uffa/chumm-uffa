@@ -51,7 +51,9 @@
     "kg": "kg",
     "dialog": {
       "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!",
-      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!"
+      "updateSuccessfulTitle": "Benutzer erfolgreich geändert!",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!",
+      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!"
     },
     "error": {
       "nameRequired": "Namen eingeben.",

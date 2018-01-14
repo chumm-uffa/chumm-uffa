@@ -14,6 +14,7 @@ import {
   ISearchMeetupsResponse,
   IUpdateMeetupRequestResponse,
   IUpdateProfileResponse,
+  IGetAllHallsResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
@@ -88,8 +89,8 @@ export class BusinessService {
   /**
    * @returns {Observable<Hall[]>}
    */
-  getHalls(): Observable<Hall[]> {
-    return this.mockService.getHalls();
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return this.resourceService.getHalls();
   }
 
   saveMeetUp(meetup: Meetup): void {

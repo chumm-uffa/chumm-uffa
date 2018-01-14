@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.businessService.getHalls().subscribe(all => this.halls = all);
+    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
     this.searchForm = this.searchFormService.createForm();
     this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
   }

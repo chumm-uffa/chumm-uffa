@@ -19,11 +19,13 @@ import {
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
+  IGetAllHallsResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
   MeetupsFactory,
   RequestStatus,
+  HallsFactory,
   User
 } from '@chumm-uffa/interface';
 
@@ -37,12 +39,14 @@ export class MockService implements ResourceServiceInterface {
   private _meetups: Meetup[];
   private _meetupRequest: MeetupRequest[];
   private _chats: Chat[];
+  private _halls: Hall[];
 
   constructor() {
     this.generateUsers();
     this.generateMeetups();
     this.generateRequest();
     this.generateChats();
+    this.generateHalls();
   }
 
   checkAlive(): Observable<string> {
@@ -118,7 +122,7 @@ export class MockService implements ResourceServiceInterface {
    * @returns {Observable<User>}
    */
   saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
-    return of(AuthFactory.createUpdateProfileResponse(true, "", request.profile));
+    return of(AuthFactory.createUpdateProfileResponse(true, '', request.profile));
   }
 
   get users(): User[] {
@@ -129,34 +133,8 @@ export class MockService implements ResourceServiceInterface {
    * http://www.kletterhallen.net/Kat/schweiz.php
    * @returns {Observable<Hall[]>}
    */
-  getHalls(): Observable<Hall[]> {
-    const halls: Hall[] = [];
-    halls.push(new Hall('1', 'Adelboden - Freizeit- und Sportarena Adelboden'));
-    halls.push(new Hall('2', 'Basel - Kletterhalle 7'));
-    halls.push(new Hall('3', 'Biel - Crux-Bouldering'));
-    halls.push(new Hall('4', 'Chur - Kletterhalle AP n Daun'));
-    halls.push(new Hall('5', 'Davos - Kletterwand Davos'));
-    halls.push(new Hall('6', 'Interlaken - K44 - Kletterhalle Interlaken'));
-    halls.push(new Hall('7', 'küblis - kletterhalle küblis'));
-    halls.push(new Hall('8', 'Küblis - Kletterhalle SAC Prättigau'));
-    halls.push(new Hall('9', 'Langnau - Climbox'));
-    halls.push(new Hall('10', 'Lenzburg - Kraftraktor'));
-    halls.push(new Hall('11', 'Luzern - Kletterhalle Eiselin Luzern'));
-    halls.push(new Hall('12', 'Meiringen - Kletterhalle Haslital'));
-    halls.push(new Hall('13', 'Nidau BE - Sporttreff Ziehl AG'));
-    halls.push(new Hall('14', 'Niederwangen - Magnet'));
-    halls.push(new Hall('15', 'Näfels - Lintharena'));
-    halls.push(new Hall('16', 'Porrentruy - Salle d escalade des Tilleuls'));
-    halls.push(new Hall('17', 'Pratteln - Boulders & Bar'));
-    halls.push(new Hall('18', 'Root Längenbold - Pilatur Indoor Kletterzentrum Zentralschweiz'));
-    halls.push(new Hall('19', 'Schaffhausen - Aranea Kletterzentrum'));
-    halls.push(new Hall('20', 'St. Gallen - Kletterhalle St. Gallen'));
-    halls.push(new Hall('21', 'Taverne - Evolution Center'));
-    halls.push(new Hall('22', 'Thun - Klettertreff Thun'));
-    halls.push(new Hall('23', 'Winterthur - Block Winterthur'));
-    halls.push(new Hall('24', 'Zäziwil - ZäziBoulder'));
-    halls.push(new Hall('25', 'Zürich - Kletterzentrum Gaswerk AG'));
-    return of(halls);
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return of(HallsFactory.createGetAllHallsResponse(true, '', this._halls));
   }
 
   private generateUsers() {
@@ -208,5 +186,37 @@ export class MockService implements ResourceServiceInterface {
     this._chats.push(new Chat('6', 'nöd gsicheret', this._users[0], new Date(2017, 2, 5, 10, 5)));
     this._chats.push(new Chat('7', 'freie Fall', this._users[3], new Date(2017, 11, 2, 2, 5)));
     this._chats.push(new Chat('8', 'we are the champignions', this._users[0], new Date(2017, 10, 2, 12, 42)));
+  }
+
+  /**
+   * Generates halls mock data
+   */
+  private generateHalls() {
+    this._halls = [];
+    this._halls.push(new Hall('1', 'Adelboden - Freizeit- und Sportarena Adelboden'));
+    this._halls.push(new Hall('2', 'Basel - Kletterhalle 7'));
+    this._halls.push(new Hall('3', 'Biel - Crux-Bouldering'));
+    this._halls.push(new Hall('4', 'Chur - Kletterhalle AP n Daun'));
+    this._halls.push(new Hall('5', 'Davos - Kletterwand Davos'));
+    this._halls.push(new Hall('6', 'Interlaken - K44 - Kletterhalle Interlaken'));
+    this._halls.push(new Hall('7', 'küblis - kletterhalle küblis'));
+    this._halls.push(new Hall('8', 'Küblis - Kletterhalle SAC Prättigau'));
+    this._halls.push(new Hall('9', 'Langnau - Climbox'));
+    this._halls.push(new Hall('10', 'Lenzburg - Kraftraktor'));
+    this._halls.push(new Hall('11', 'Luzern - Kletterhalle Eiselin Luzern'));
+    this._halls.push(new Hall('12', 'Meiringen - Kletterhalle Haslital'));
+    this._halls.push(new Hall('13', 'Nidau BE - Sporttreff Ziehl AG'));
+    this._halls.push(new Hall('14', 'Niederwangen - Magnet'));
+    this._halls.push(new Hall('15', 'Näfels - Lintharena'));
+    this._halls.push(new Hall('16', 'Porrentruy - Salle d escalade des Tilleuls'));
+    this._halls.push(new Hall('17', 'Pratteln - Boulders & Bar'));
+    this._halls.push(new Hall('18', 'Root Längenbold - Pilatur Indoor Kletterzentrum Zentralschweiz'));
+    this._halls.push(new Hall('19', 'Schaffhausen - Aranea Kletterzentrum'));
+    this._halls.push(new Hall('20', 'St. Gallen - Kletterhalle St. Gallen'));
+    this._halls.push(new Hall('21', 'Taverne - Evolution Center'));
+    this._halls.push(new Hall('22', 'Thun - Klettertreff Thun'));
+    this._halls.push(new Hall('23', 'Winterthur - Block Winterthur'));
+    this._halls.push(new Hall('24', 'Zäziwil - ZäziBoulder'));
+    this._halls.push(new Hall('25', 'Zürich - Kletterzentrum Gaswerk AG'));
   }
 }

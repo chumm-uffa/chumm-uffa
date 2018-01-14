@@ -20,7 +20,7 @@ export class OwnMeetupsComponent implements OnInit {
 
   ngOnInit() {
     this.getMeetups();
-    this.businessService.getHalls().subscribe(all => this.halls = all);
+    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
   }
 
   getMeetups(): void {

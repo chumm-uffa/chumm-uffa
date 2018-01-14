@@ -26,8 +26,8 @@ export class MeetupComponent implements OnInit {
 
   ngOnInit() {
 
-    this.businessService.getHalls().subscribe(all => {
-      this.halls = all;
+    this.businessService.getHalls().subscribe(res => {
+      this.halls = res.halls;
     });
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {

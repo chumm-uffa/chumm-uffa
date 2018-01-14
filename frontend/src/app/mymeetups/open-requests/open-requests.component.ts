@@ -22,7 +22,7 @@ export class OpenRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.getMeetupRequests();
-    this.businessService.getHalls().subscribe(all => this.halls = all);
+    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
 
   }
 

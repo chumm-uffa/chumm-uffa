@@ -57,6 +57,14 @@ import {
     UpdateProfileRequest,
     UpdateProfileResponse
 } from './interface/auth/profile';
+import {
+    GetAllHallsResponse,
+    GetHallRespons,
+    IGetAllHallsResponse,
+    IGetHallResponse
+} from './interface/halls/halls';
+
+
 
 import {User} from './model/user';
 import {Chat} from './model/chat';
@@ -169,6 +177,16 @@ export {
 
     // delete /meetups
     IDeleteMeetupRequestResponse, DeleteMeetupRequestResponse,
+
+    //*************************
+    // All for route "/halls"
+    //*************************
+
+    // get /halls
+    IGetAllHallsResponse, GetAllHallsResponse,
+
+    // get /halls/{id}
+    IGetHallResponse, GetHallRespons
 }
 
 /**

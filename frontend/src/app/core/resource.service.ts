@@ -17,9 +17,11 @@ import {
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
+  IGetAllHallsResponse,
   Meetup,
   MeetupRequest,
   User,
+  Hall,
   Version
 } from '@chumm-uffa/interface';
 import {AppStateService} from './app-state.service';
@@ -59,6 +61,8 @@ export interface ResourceServiceInterface {
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse>;
 
   saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
+
+  getHalls(): Observable<IGetAllHallsResponse>;
 }
 
 /**
@@ -181,5 +185,13 @@ export class ResourceService implements ResourceServiceInterface {
    */
   saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
     return this.http.put<IUpdateProfileResponse>(this.urlDemo + 'auth/profile', request);
+  }
+
+  /**
+   * Get all available halls
+   * @returns {Observable<IGetAllHallsResponse>}
+   */
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return this.http.get<IGetAllHallsResponse>(this.urlDemo + 'halls');
   }
 }
