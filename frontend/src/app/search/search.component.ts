@@ -4,8 +4,7 @@ import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
-import {Hall, Meetup, Sex} from '@chumm-uffa/interface';
-
+import {Hall, Meetup, Sex, LocationType} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
@@ -24,6 +23,7 @@ export class SearchComponent implements OnInit {
   hasAllreadySearched = false;
   columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
   sexType = Sex;
+  locationType = LocationType;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
   startSearch() {
     FormUtil.markAsTouched(this.searchForm);
     if (this.searchForm.valid && !this.searchForm.pending) {
-      this.businessService.searchMeetUp(this.searchForm.value).subscribe(res => {
+      this.businessService.searchMeetUp(this.searchFormService.createDto(this.searchForm.value)).subscribe(res => {
         if (res.success) {
           this.results = new MatTableDataSource<Meetup>(res.meetups);
         }

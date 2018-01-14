@@ -15,8 +15,8 @@
 
     <span class="right-hand">
       <mat-radio-group formControlName="locationType">
-        <mat-radio-button value="in">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
-        <mat-radio-button value="out">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
+        <mat-radio-button value="{{locationType.INDOOR}}">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
+        <mat-radio-button value="{{locationType.OUTDOOR}}">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
       </mat-radio-group>
       <mat-form-field *ngIf="isIndoor(); else outdoor">
         <mat-select formControlName="indoor" placeholder="{{'search.indoor' | translate}}">
