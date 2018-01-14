@@ -1,30 +1,26 @@
-<h2>{{ 'meetupDetail.title' | translate }}</h2>
+<div class="app-page">
+  <div class="app-spacer-vert-m"></div>
+  <h2 class="mat-h1 page-title">{{ 'meetupDetail.title' | translate }}</h2>
 
-<div *ngIf="!loadError; else errorMessage">
-  <mat-grid-list cols="2" rowHeight="10em">
-
-    <mat-grid-tile>
-      <label>{{ 'meetupDetail.date' | translate }}  <span>{{meetup.from | dateFormat}}</span></label>
-      <label>{{ 'meetupDetail.fromTime' | translate }}  <span>{{meetup.from | timeFormat}}</span></label>
-      <label>{{ 'meetupDetail.toTime' | translate }}  <span>{{meetup.to | timeFormat}}</span></label>
-      <label>{{ 'meetupDetail.location' | translate }}  <span>{{getLocation()}}</span></label>
-      <label>{{ 'meetupDetail.activity' | translate }}  <span>{{meetup.activity}}</span></label>
-    </mat-grid-tile>
-
-    <mat-grid-tile rowspan="2">
-      <app-chat *ngIf="isAccepted || isMeetupOwner"></app-chat>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <h3>{{ 'meetupDetail.titleParticipant' | translate }}</h3>
-      <div *ngFor="let request of meetupRequests">
-        <app-participant [meetupRequest]="request"
-                         [showStateButtons]="isMeetupOwner">
-        </app-participant>
+  <div *ngIf="!loadError; else errorMessage" class="row-container">
+    <div class="column-container">
+      <div>
+        <label>{{ 'meetupDetail.date' | translate }}  <span>{{meetup.from | dateFormat}}</span></label>
+        <label>{{ 'meetupDetail.fromTime' | translate }}  <span>{{meetup.from | timeFormat}}</span></label>
+        <label>{{ 'meetupDetail.toTime' | translate }}  <span>{{meetup.to | timeFormat}}</span></label>
+        <label>{{ 'meetupDetail.location' | translate }}  <span>{{getLocation()}}</span></label>
+        <label>{{ 'meetupDetail.activity' | translate }}  <span>{{meetup.activity}}</span></label>
       </div>
-    </mat-grid-tile>
-
-  </mat-grid-list>
+      <div>
+        <h3>{{ 'meetupDetail.titleParticipant' | translate }}</h3>
+        <div *ngFor="let request of meetupRequests">
+          <app-participant [meetupRequest]="request"
+                           [showStateButtons]="isMeetupOwner">
+          </app-participant>
+        </div>
+      </div>
+    </div>
+    <app-chat *ngIf="isAccepted || isMeetupOwner"></app-chat>
+  </div>
+  <ng-template #errorMessage><h2>{{'meetupDetail.error.meetupNotFound' | translate}}</h2></ng-template>
 </div>
-<ng-template #errorMessage><h2>{{'meetupDetail.error.meetupNotFound' | translate}}</h2></ng-template>
-

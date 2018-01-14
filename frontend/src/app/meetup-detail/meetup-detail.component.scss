@@ -1,7 +1,37 @@
+@import '../material/styles/defaults';
+@import "../material/styles/general";
+
+/*
 span {
   padding: 0px 10px;
-}
-/*
+}*/
+
 label {
   display: block;
-}*/
+}
+
+/**
+todo zusammenfassen
+ */
+.row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.column-container{
+  display: flex;
+  flex-direction: column
+}
+
+@media (max-width: $max-md-width) {
+  .row-container {
+    flex-direction: column;
+  }
+}
+
+
+/**
+material Anpassungen
+ */
+

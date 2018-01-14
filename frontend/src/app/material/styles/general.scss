@@ -17,16 +17,30 @@ input[type="number"] {
 }
 
 .page-title {
-  margin-top: 1em;
+  margin-top: 0em;
 }
 
 mat-radio-group, mat-form-field, mat-table {
   padding: 1em;
 }
 
-.app-spacer-vert-m {
+.app-page {
+  text-align: center;
   display: block;
-  height: 1em;
+}
+
+/** TODO zusammenfassen**/
+.app-spacer-vert-m {
+    display: block;
+    height: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+.app-spacer-vert-l {
+  display: block;
+  height: 2em;
   margin: 0;
   padding: 0;
 }
+
