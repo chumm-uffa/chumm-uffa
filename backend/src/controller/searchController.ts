@@ -27,7 +27,7 @@ export class SearchController extends BaseController {
         }
         const searchDto = searchRequest.searchDto;
 
-        let zr = DBMeetup.find({'from': {'$gte': searchDto.fromDateTime}, 'to': {'$lte': searchDto.toDateTime}});
+        let zr = DBMeetup.find({'from': {'$gte': searchDto.fromDateTime}, 'to': {'$lte': searchDto.toDateTime}})
         if (searchDto.locationType === LocationType.INDOOR && searchDto.indoor) {
             zr = zr.find({indoor: searchDto.indoor});
         }
@@ -35,9 +35,17 @@ export class SearchController extends BaseController {
             zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')})
         }
         zr.populate(MeetupPopulate).then((dbMeetups) => {
+            let promise: Promise<any>[] = [];
             let meetups: Meetup[] = [];
-            meetups = dbMeetups.map(dbmu => dbmu.toInterface()).filter(this.getPersonFilter(searchDto));
-            res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
+            for (let dbMeetup of dbMeetups) {
+                promise.push(dbMeetup.toInterface().then( (meetup) => {
+                    meetups.push(meetup);
+                }));
+            }
+            Promise.all(promise).then( () => {
+                meetups = meetups.filter(this.getPersonFilter(searchDto));
+                res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
+            });
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
