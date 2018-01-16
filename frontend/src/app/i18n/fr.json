@@ -95,6 +95,7 @@
     "location": "Austragungsort:_FR",
     "activity": "Aktivität:_FR",
     "titleParticipant": "Anfragen _FR",
+    "meetup": "Meetup_FR",
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!_FR"
     }
@@ -110,7 +111,7 @@
   },
   "chat": {
     "title": "Chat_FR",
-    "typeMessage": "Neue Nachricht:_FR",
+    "typeMessage": "Neue Nachricht_FR",
     "sendMessage": "senden_FR"
   },
   "search": {

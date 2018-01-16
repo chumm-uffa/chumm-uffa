@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatDialogModule,
   MatFormFieldModule, MatGridListModule,
-  MatInputModule,
+  MatInputModule, MatListModule,
   MatRadioModule,
   MatSelectModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule, MatTooltipModule
 } from '@angular/material';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -23,7 +23,9 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatFormFieldModule,
     MatTabsModule,
     MatDialogModule,
-    TranslateModule
+    TranslateModule,
+    MatTooltipModule,
+    MatListModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -41,7 +43,9 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatTableModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatListModule
   ]
 })
 export class MaterialModule {

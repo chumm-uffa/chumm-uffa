@@ -1,11 +1,45 @@
+@import '../../material/styles/defaults';
+/*
 * {
   padding: 0px 10px;
 }
-
+*/
 .currentUser {
   background-color: lightgreen;
+  margin: 1em 2em 1em 0em;
+  border-radius: 0em 1em 1em 1em;
+  text-align: left;
+}
+/*
+.new-message {
+  display: block;
+  width: 100%;
+}*/
+.chat-message {
+  white-space: pre-wrap;
 }
 
 label {
   display: block;
+  border: $default-border;
+  border-radius: 1em 0em 1em 1em;
+  margin: 1em 0em 1em 2em;
+  text-align: right;
+  padding: 0px 10px;
 }
+
+span.currentUser {
+  display: none;
+}
+
+/**
+material Anpassungen
+ */
+
+.mat-form-field {
+  width: 90%;
+}
+/*
+.mat-input-flex {
+  width: 90%;
+}*/
