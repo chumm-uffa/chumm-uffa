@@ -28,20 +28,13 @@
         </div>
       </div>
       <div class="data-modul">
-        <h3 class="mat-h2">{{ 'meetupDetail.titleParticipant' | translate }}</h3>
-        <mat-selection-list>
-          <mat-list-option *ngFor="let request of meetupRequests">
-            <app-participant [meetupRequest]="request"
-                             [showStateButtons]="isMeetupOwner">
-            </app-participant>
-          </mat-list-option>
-        </mat-selection-list>
+        <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
+
       </div>
     </div>
     <div class="flex1">
       <div class="data-modul">
-
-     <app-chat *ngIf="isAccepted || isMeetupOwner" ></app-chat>
+        <app-chat *ngIf="isAccepted || isMeetupOwner" ></app-chat>
       </div>
     </div>
   </div>

@@ -94,13 +94,13 @@
     "toTime": "Ende:",
     "location": "Austragungsort:",
     "activity": "Aktivität:",
-    "titleParticipant": "Anfragen",
     "meetup": "Meetup",
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
     }
   },
   "participant": {
+    "title": "Anfragen",
     "accept": "annehmen",
     "decline": "ablehnen",
     "sex": "Geschlecht",

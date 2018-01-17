@@ -6,6 +6,7 @@ span {
   padding: 0px 10px;
 }*/
 
+/**vielleicht besser box oder block*/
 .data-modul {
   border: $default-border;
   border-radius: 1em;
@@ -31,7 +32,9 @@ span {
 .flex1 {
   flex: 1;
 }
-
+/**
+zusammenfassen mit extends
+*/
 .detail-container {
   display: flex;
   flex-direction: row;
