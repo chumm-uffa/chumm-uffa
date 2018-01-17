@@ -18,8 +18,8 @@
   <app-validation-feedback *ngIf="userForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</app-validation-feedback>
   <div>
     <span>{{ 'user.sex' | translate }}</span>
-    <label><input type="radio" formControlName="sex" value="m">{{ 'user.man' | translate }}</label>
-    <label><input type="radio" formControlName="sex" value="f">{{ 'user.women' | translate }}</label>
+    <label><input type="radio" formControlName="sex" value="{{sexType.MALE}}">{{ 'user.man' | translate }}</label>
+    <label><input type="radio" formControlName="sex" value="{{sexType.FEMALE}}">{{ 'user.women' | translate }}</label>
     <app-validation-feedback *ngIf="userForm.controls.sex | hasError:'required'">{{ 'user.error.sexRequired' | translate }}</app-validation-feedback>
   </div>
   <br>

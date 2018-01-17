@@ -1,15 +1,24 @@
+/**
+ * The type sex
+ */
+export enum Sex {
+    MALE = 'M',
+    FEMALE = 'F',
+    BETWEEN = 'SOMEBODYDONTKNOW'
+}
+
 export class User {
   private _id: string;
   private _username: string;
   private _password: string;
-  private _sex: string;
+  private _sex: Sex;
   private _email: string;
   private _weight: string;
 
   constructor(id: string = '',
               username: string = '',
               password: string = '',
-              sex: string = '',
+              sex: Sex = Sex.BETWEEN,
               email: string = '',
               weight: string = '') {
     this._id = id;
@@ -56,11 +65,11 @@ export class User {
     this._username = value;
   }
 
-  get sex(): string {
+  get sex(): Sex {
     return this._sex;
   }
 
-  set sex(value: string) {
+  set sex(value: Sex) {
     this._sex = value;
   }
 

@@ -37,6 +37,7 @@ import {
   UsersFactory,
   MeetupsFactory,
   RequestStatus,
+  Sex,
   HallsFactory,
   User
 } from '@chumm-uffa/interface';
@@ -151,10 +152,10 @@ export class MockService implements ResourceServiceInterface {
 
   private generateUsers() {
     this._users = [];
-    this._users.push(new User('1', 'WilliCliffhanger', '', 'm', '', '85'));
-    this._users.push(new User('2', 'Eder', '', 'f', '', '45'));
-    this._users.push(new User('3', 'UrsChrumBei', '', 'm', '', '72'));
-    this._users.push(new User('4', 'PetraImmerBlau', '', 'f', '', '85'));
+    this._users.push(new User('1', 'WilliCliffhanger', '', Sex.MALE, '', '85'));
+    this._users.push(new User('2', 'Eder', '', Sex.FEMALE, '', '45'));
+    this._users.push(new User('3', 'UrsChrumBei', '', Sex.MALE, '', '72'));
+    this._users.push(new User('4', 'PetraImmerBlau', '', Sex.FEMALE, '', '85'));
   }
 
   /**
