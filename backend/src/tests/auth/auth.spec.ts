@@ -21,7 +21,7 @@ describe('Test /auth/register', () => {
     it('it should register the test user', (done) => {
         testUser.id = null;
         testUser.email = null;
-        testUser.sex = null;
+        testUser.sex = cuint.Sex.BETWEEN;
         testUser.weight = null;
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}auth/register`)

@@ -104,8 +104,8 @@
     "decline": "ablehnen",
     "sex": "Geschlecht",
     "weight": "Körpergewicht",
-    "m": "männlich",
-    "f": "weiblich",
+    "M": "männlich",
+    "F": "weiblich",
     "kg": "kg"
   },
   "chat": {
