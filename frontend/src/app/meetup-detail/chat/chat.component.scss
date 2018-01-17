@@ -1,9 +1,18 @@
 @import '../../material/styles/defaults';
 
-.currentUser {
+.message-box {
+  display: block;
+  border: $default-border;
+  border-radius: $default-border-radius 0em $default-border-radius $default-border-radius;
+  margin: 1em 0em 1em 2em;
+  text-align: right;
+  padding: 0px 10px;
+}
+
+div.currentUser {
   background-color: lightgreen;
   margin: 1em 2em 1em 0em;
-  border-radius: 0em 1em 1em 1em;
+  border-radius: 0em $default-border-radius $default-border-radius;
   text-align: left;
 }
 
@@ -14,17 +23,6 @@ span.currentUser {
 .chat-message {
   white-space: pre-wrap;
 }
-
-label {
-  display: block;
-  border: $default-border;
-  border-radius: 1em 0em 1em 1em;
-  margin: 1em 0em 1em 2em;
-  text-align: right;
-  padding: 0px 10px;
-}
-
-
 
 /**
 material Anpassungen
