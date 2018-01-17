@@ -1,12 +1,5 @@
-@import '../material/styles/defaults';
+@import '../material/styles/constants';
 @import "../material/styles/general";
-
-.app-box {
-  border: $default-border;
-  border-radius: $default-border-radius;
-  margin: 2vh;
-  padding: 1em;
-}
 
 .detail {
   flex: 1;
