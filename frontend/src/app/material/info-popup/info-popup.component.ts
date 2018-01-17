@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 @Component({
   selector: 'app-info-popup',
   templateUrl: './info-popup.html',
-  styleUrls: ['../styles/dialog.component.scss']
+  styleUrls: ['../dialog.component.scss']
 })
 export class InfoPopupComponent {
 
