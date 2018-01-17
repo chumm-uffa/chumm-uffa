@@ -105,8 +105,8 @@
     "decline": "ablehnen_FR",
     "sex": "Geschlecht_FR",
     "weight": "Körpergewicht_FR",
-    "m": "männlich_FR",
-    "f": "weiblich_FR",
+    "M": "männlich_FR",
+    "F": "weiblich_FR",
     "kg": "kg_FR"
   },
   "chat": {

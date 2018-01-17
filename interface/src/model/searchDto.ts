@@ -1,6 +1,8 @@
 /**
  * The state of a request relation ship
  */
+import {Sex} from './user';
+
 export enum LocationType {
     INDOOR = 'in',
     OUTDOOR = 'out'
@@ -12,11 +14,11 @@ export class SearchDto {
     private _locationType: LocationType;
     private _indoor: string;
     private _outdoor: string;
-    private _sex: string;
+    private _sex: Sex;
     private _weightMin: number;
     private _weightMax: number;
 
-    constructor(fromDateTime: Date, toDateTime: Date, locationType: LocationType, indoor: string, outdoor: string, sex: string, weightMin: number, weightMax: number) {
+    constructor(fromDateTime: Date, toDateTime: Date, locationType: LocationType, indoor: string, outdoor: string, sex: Sex, weightMin: number, weightMax: number) {
         this._fromDateTime = fromDateTime;
         this._toDateTime = toDateTime;
         this._locationType = locationType;
@@ -60,7 +62,7 @@ export class SearchDto {
         return this._outdoor;
     }
 
-    get sex(): string {
+    get sex(): Sex {
         return this._sex;
     }
 

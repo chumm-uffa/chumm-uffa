@@ -20,8 +20,26 @@ describe('Test /meetups/search', () => {
         baseTest.login(done);
     });
 
+    beforeEach((done) =>{
+        // create a single meetup
+        let myMeetup: cuint.Meetup = new cuint.Meetup(
+            '', baseTest.testUser, new Date(), new Date(), 'outdoor', baseTest.halls[0].key, 'activity'
+        );
+        baseTest.chai.request(baseTest.server)
+            .post(`${baseTest.route}meetups`)
+            .set({authorization: baseTest.token})
+            .send(cuint.MeetupsFactory.createCreateMeetupRequest(myMeetup))
+            .end((err, res) => {
+                baseTest.assertSuccess(res);
+                res.body.should.have.property('meetup');
+                res.body.should.have.property('id');
+                meetup = res.body.meetup;
+                done();
+            });
+    });
+
     it('it search for Meetups', (done) => {
-        const search = new cuint.SearchDto(new Date(1900, 1), new Date(), null, null, null, null, null, null);
+        const search = new cuint.SearchDto(new Date(1900, 1), new Date(), cuint.LocationType.OUTDOOR, null, 'outdoor', null, null, null);
         baseTest.chai.request(baseTest.server)
             .post(`${baseTest.route}meetups/search`)
             .set({authorization: baseTest.token})

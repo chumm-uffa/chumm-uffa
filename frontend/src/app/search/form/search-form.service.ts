@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-import {validateNotBefore, validateAfterBefore} from '../../shared/validators/validate-date';
+import {validateAfterBefore, validateNotBefore} from '../../shared/validators/validate-date';
+import {SearchDto} from '@chumm-uffa/interface';
 
 @Injectable()
 export class SearchFormService {
@@ -32,6 +33,19 @@ export class SearchFormService {
     return form;
   }
 
+  createDto(formvalue): SearchDto {
+
+    return new SearchDto(
+      new Date(formvalue.fromDateTime),
+      new Date(formvalue.toDateTime),
+      formvalue.locationType,
+      formvalue.indoor,
+      formvalue.outdoor,
+      formvalue.sex,
+      Number(formvalue.weightMin),
+      Number(formvalue.weightMax));
+  }
+
   private patchToTime(fromDateTimeString: string, form: FormGroup): void {
 
     const fromDateTime = moment(fromDateTimeString, SearchFormService.DATE_TIME_FORMAT);
@@ -42,6 +56,4 @@ export class SearchFormService {
       }
     }
   }
-
-
 }
