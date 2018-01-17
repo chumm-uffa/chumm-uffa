@@ -47,6 +47,10 @@ export class BusinessService {
               private mockService: MockService) {
   }
 
+  checkAlive(): Observable<string> {
+    return this.mockService.checkAlive();
+  }
+
   /**
    *
    * @param {User} user
