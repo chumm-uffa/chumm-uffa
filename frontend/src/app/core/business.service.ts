@@ -63,7 +63,7 @@ export class BusinessService {
   /**
    *
    * @param {User} user
-   * @returns {Observable<IRegisterResponse>}•••••••••••
+   * @returns {Observable<IUpdateProfileResponse>}•••••••••••
    */
   saveUser(user: User): Observable<IUpdateProfileResponse> {
     return this.resourceService.saveUser(AuthFactory.createUpdateProfileRequest(user));
@@ -81,15 +81,15 @@ export class BusinessService {
 
   /**
    * Retruns all meetups for the current logged in user
-   * @returns {Observable<Meetup[]>}
+   * @returns {Observable<IGetAllMeetupsForUserResponse>}
    */
   getMeetUps(): Observable<IGetAllMeetupsForUserResponse> {
     return this.resourceService.getMeetups(this.appState.loggedInUser);
   }
 
   /**
-   * Returns all participant for the current logged in user
-   * @returns {Observable<MeetupRequest[]>}
+   * Returns all meetupRequests for the current logged in user
+   * @returns {Observable<IGetAllRequestsForMeetupResponse>}
    */
   getMeetUpRequests(): Observable<IGetAllRequestsForMeetupResponse> {
     return this.resourceService.getMeetupRequests(this.appState.loggedInUser);
@@ -149,7 +149,7 @@ export class BusinessService {
   }
 
   /**
-   * @returns {Observable<Hall[]>}
+   * @returns {Observable<IGetAllHallsResponse>}
    */
   getHalls(): Observable<IGetAllHallsResponse> {
     return this.resourceService.getHalls();

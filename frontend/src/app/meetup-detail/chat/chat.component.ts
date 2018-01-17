@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.meetupId = params['meetupId'];
       this.loadChats();
-      /*Refresh every 10s*/
+      /*Refresh every 1s*/
       this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
     });
   }

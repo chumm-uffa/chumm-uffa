@@ -202,7 +202,7 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Updates the meetup request
+   * Updates a meetup request
    * @param {IUpdateMeetupRequestRequest} request
    * @returns {Observable<IUpdateMeetupRequestResponse>}
    */
@@ -211,7 +211,7 @@ export class ResourceService implements ResourceServiceInterface {
   }
 
   /**
-   * Gets the chat of the given meetup
+   * Gets the chats of the given meetup
    * @param {string} meetupId
    * @returns {Observable<IGetAllChatsForMeetupResponse>}
    */
