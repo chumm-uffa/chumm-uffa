@@ -4,14 +4,6 @@
   width: 180px;
 }
 
-mat-form-field span[matPrefix]{
-  padding-right: 0.3em;
-}
-
-mat-form-field span[matSuffix] {
-  padding-left: 0.3em;
-}
-
 input[type="number"] {
   text-align: right;
 }
@@ -20,13 +12,13 @@ input[type="number"] {
   margin-top: 0em;
 }
 
-mat-radio-group, mat-form-field, mat-table {
-  padding: 1em;
-}
+
 
 .app-page {
   text-align: center;
   display: block;
+  max-width: 80em;
+  margin: auto;
 }
 
 /** TODO zusammenfassen**/
@@ -44,3 +36,15 @@ mat-radio-group, mat-form-field, mat-table {
   padding: 0;
 }
 
+/** Material **/
+mat-form-field span[matPrefix]{
+  padding-right: 0.3em;
+}
+
+mat-form-field span[matSuffix] {
+  padding-left: 0.3em;
+}
+
+mat-radio-group, mat-form-field, mat-table {
+  padding: 1em;
+}

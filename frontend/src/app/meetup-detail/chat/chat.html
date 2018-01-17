@@ -1,12 +1,12 @@
 <h3 class="mat-h2">{{ 'chat.title' | translate }}</h3>
 
-<div class="message-container">
+<div >
 <label *ngFor="let message of messages" [ngClass]="getCurrentUserClass(message.speaker.username)">
   <div class="chat-message">{{message.text}}</div>
   <div class="mat-h5">{{message.date | dateTimeFormat}}  <span [ngClass]="getCurrentUserClass(message.speaker.username)">{{message.speaker.username}}</span></div>
 </label>
 </div>
-<!--<p>{{'chat.typeMessage' | translate}}</p>-->
+
 <mat-form-field>
   <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="{{'chat.typeMessage' | translate}}" name="messageInput" [(ngModel)]="newMessage">
   </textarea>

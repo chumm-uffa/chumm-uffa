@@ -1,53 +1,30 @@
 @import '../material/styles/defaults';
 @import "../material/styles/general";
 
-/*
-span {
-  padding: 0px 10px;
-}*/
-
-/**vielleicht besser box oder block*/
-.data-modul {
+.app-box {
   border: $default-border;
-  border-radius: 1em;
+  border-radius: $default-border-radius;
   margin: 2vh;
   padding: 1em;
 }
 
-//label {
-//  display: block;
-//}
-.detail-label {
+.detail {
   flex: 1;
-  text-align: right;
   margin: 0.5em 1em;
+  &--label {
+    text-align: right;
+  }
+  &--content {
+    text-align: left;
+  }
 }
 
-.detail-content {
-  flex: 1;
-  text-align: left;
-  margin: 0.5em 1em;
-}
-
-.flex1 {
-  flex: 1;
-}
-/**
-zusammenfassen mit extends
-*/
-.detail-container {
+.row-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
 }
-
-.row-container {
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
-   flex-wrap: wrap;
- }
 
 .column-container {
   display: flex;
@@ -56,12 +33,7 @@ zusammenfassen mit extends
 }
 
 @media (max-width: $max-md-width) {
-  .row-container {
+  .row-container-md {
     flex-direction: column;
   }
 }
-
-/**
-material Anpassungen
- */
-

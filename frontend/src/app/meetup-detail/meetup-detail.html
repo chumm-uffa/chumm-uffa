@@ -2,40 +2,41 @@
   <div class="app-spacer-vert-m"></div>
   <h2 class="mat-h1 page-title">{{ 'meetupDetail.title' | translate }}</h2>
 
-  <div *ngIf="!loadError; else errorMessage" class="row-container">
+  <div *ngIf="!loadError; else errorMessage" class="row-container row-container-md">
     <div class="column-container">
-      <div class="data-modul">
+      <section class="app-box">
         <h3 class="mat-h2">{{ 'meetupDetail.meetup' | translate }}</h3>
-        <div class="detail-container">
-          <label class="detail-label">{{ 'meetupDetail.date' | translate }}</label>
-          <span class="detail-content">{{meetup.from | dateFormat}}</span>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.date' | translate }}</label>
+          <span class="detail detail--content">{{meetup.from | dateFormat}}</span>
         </div>
-        <div class="detail-container">
-          <label class="detail-label">{{ 'meetupDetail.fromTime' | translate }}</label>
-          <span class="detail-content">{{meetup.from | timeFormat}}</span>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.fromTime' | translate }}</label>
+          <span class="detail detail--content">{{meetup.from | timeFormat}}</span>
         </div>
-        <div class="detail-container">
-          <label class="detail-label">{{ 'meetupDetail.toTime' | translate }}</label>
-          <span class="detail-content">{{meetup.to | timeFormat}}</span>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.toTime' | translate }}</label>
+          <span class="detail detail--content">{{meetup.to | timeFormat}}</span>
         </div>
-        <div class="detail-container">
-          <label class="detail-label">{{ 'meetupDetail.location' | translate }}</label>
-          <span class="detail-content">{{getLocation()}}</span>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.location' | translate }}</label>
+          <span class="detail detail--content">{{getLocation()}}</span>
         </div>
-        <div class="detail-container">
-          <label class="detail-label">{{ 'meetupDetail.activity' | translate }}</label>
-          <span class="detail-content">{{meetup.activity}}</span>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.activity' | translate }}</label>
+          <span class="detail detail--content">{{meetup.activity}}</span>
         </div>
-      </div>
-      <div class="data-modul">
-        <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
+      </section>
 
-      </div>
+      <section class="app-box">
+        <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
+      </section>
     </div>
-    <div class="flex1">
-      <div class="data-modul">
+
+    <div class="column-container">
+      <section class="app-box">
         <app-chat *ngIf="isAccepted || isMeetupOwner" ></app-chat>
-      </div>
+      </section>
     </div>
   </div>
   <ng-template #errorMessage><h2>{{'meetupDetail.error.meetupNotFound' | translate}}</h2></ng-template>
