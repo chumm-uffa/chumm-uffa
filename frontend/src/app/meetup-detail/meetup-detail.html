@@ -8,15 +8,15 @@
         <h3 class="mat-h2">{{ 'meetupDetail.meetup' | translate }}</h3>
         <div class="row-container">
           <label class="detail detail--label">{{ 'meetupDetail.date' | translate }}</label>
-          <span class="detail detail--content">{{meetup.from | dateFormat}}</span>
+          <span class="detail detail--content">{{meetup?.from | dateFormat}}</span>
         </div>
         <div class="row-container">
           <label class="detail detail--label">{{ 'meetupDetail.fromTime' | translate }}</label>
-          <span class="detail detail--content">{{meetup.from | timeFormat}}</span>
+          <span class="detail detail--content">{{meetup?.from | timeFormat}}</span>
         </div>
         <div class="row-container">
           <label class="detail detail--label">{{ 'meetupDetail.toTime' | translate }}</label>
-          <span class="detail detail--content">{{meetup.to | timeFormat}}</span>
+          <span class="detail detail--content">{{meetup?.to | timeFormat}}</span>
         </div>
         <div class="row-container">
           <label class="detail detail--label">{{ 'meetupDetail.location' | translate }}</label>
@@ -24,7 +24,7 @@
         </div>
         <div class="row-container">
           <label class="detail detail--label">{{ 'meetupDetail.activity' | translate }}</label>
-          <span class="detail detail--content">{{meetup.activity}}</span>
+          <span class="detail detail--content">{{meetup?.activity}}</span>
         </div>
       </section>
 
