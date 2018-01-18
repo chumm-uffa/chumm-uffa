@@ -13,7 +13,7 @@
     <label>{{'meetup.fromTime' | translate}}</label><input type="time" formControlName="fromTime">
     <label>{{'meetup.toTime' | translate}}</label><input type="time" formControlName="toTime"></label>
     <app-validation-feedback *ngIf="form.controls.fromTime | hasError:'required'">{{ 'meetup.error.fromTimeRequired' | translate }}</app-validation-feedback>
-    <app-validation-feedback *ngIf="form.controls.fromTime | hasError:'notBefore'">{{ 'meetup.error.fromTimeInPast' | translate }}</app-validation-feedback>
+    <app-validation-feedback *ngIf="form | hasError:'combinedMomentNotBefore'">{{ 'meetup.error.fromTimeInPast' | translate }}</app-validation-feedback>
     <app-validation-feedback *ngIf="form.controls.toTime | hasError:'required'">{{ 'meetup.error.toTimeRequired' | translate }}</app-validation-feedback>
     <app-validation-feedback *ngIf="form | hasError:'timeAfterBefore'">{{ 'meetup.error.fromBeforeToTime' | translate }}</app-validation-feedback>
   <br>
