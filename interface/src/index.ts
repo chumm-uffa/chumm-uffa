@@ -57,6 +57,23 @@ import {
     UpdateProfileRequest,
     UpdateProfileResponse
 } from './interface/auth/profile';
+import {
+    GetAllMeetupsForUserResponse,
+    GetAllRequestsForUserResponse,
+    GetAllRequestsInStatusForUserResponse,
+    IGetAllMeetupsForUserResponse,
+    IGetAllRequestsForUserResponse,
+    IGetAllRequestsInStatusForUserResponse
+} from './interface/users/users';
+
+import {
+    GetAllHallsResponse,
+    GetHallRespons,
+    IGetAllHallsResponse,
+    IGetHallResponse
+} from './interface/halls/halls';
+
+
 
 import {User, Sex} from './model/user';
 import {Chat} from './model/chat';
@@ -169,6 +186,29 @@ export {
 
     // delete /meetups
     IDeleteMeetupRequestResponse, DeleteMeetupRequestResponse,
+
+    //*************************
+    // All for route "/user"
+    //*************************
+
+    //get /users/{id}/meetups
+    IGetAllMeetupsForUserResponse, GetAllMeetupsForUserResponse,
+
+    //get /users/{id}/meetup-requests
+    IGetAllRequestsForUserResponse, GetAllRequestsForUserResponse,
+
+    //get /users/{id}/meetup-requests/{status}
+    IGetAllRequestsInStatusForUserResponse, GetAllRequestsInStatusForUserResponse,
+
+    //*************************
+    // All for route "/halls"
+    //*************************
+
+    // get /halls
+    IGetAllHallsResponse, GetAllHallsResponse,
+
+    // get /halls/{id}
+    IGetHallResponse, GetHallRespons
 }
 
 /**

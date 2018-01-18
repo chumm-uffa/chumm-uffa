@@ -4,9 +4,21 @@ import {HttpClient} from '@angular/common/http';
 
 import {
   Chat,
+  ICreateMeetupRequest,
+  ICreateMeetupResponse,
+  IUpdateMeetupRequest,
+  IUpdateMeetupResponse,
+  IGetAllMeetupsForUserResponse,
+  IGetAllRequestsForMeetupResponse,
+  IGetAllRequestsForUserResponse,
+  IGetAllChatsForMeetupResponse,
+  IGetMeetupResponse,
+  IDeleteMeetupResponse,
   ICreateMeetupRequestRequest,
   ICreateMeetupRequestResponse,
   IDeleteMeetupRequestResponse,
+  ICreateChatForMeetupRequest,
+  ICreateChatForMeetupResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -17,6 +29,7 @@ import {
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
+  IGetAllHallsResponse,
   Meetup,
   MeetupRequest,
   User,
@@ -34,31 +47,41 @@ export interface ResourceServiceInterface {
 
   register(request: IRegisterRequest): Observable<IRegisterResponse>;
 
+  saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
+
   login(request: ILoginRequest): Observable<ILoginResponse>;
 
-  getMeetUps(user: User): Observable<Meetup[]>;
 
-  getMeetUpRequests(user: User): Observable<MeetupRequest[]>;
+  createMeetup(request: ICreateMeetupRequest): Observable<ICreateMeetupResponse>;
 
-  loadMeetup(meetupId: string): Observable<Meetup>;
+  saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse>;
 
-  loadRequests(meetupId: string): Observable<MeetupRequest[]>;
+  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse>;
 
-  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse>;
+  getMeetupRequests(user: User): Observable<IGetAllRequestsForUserResponse>;
 
-  loadChatsByMeetupId(meetupId: string): Observable<Chat[]>;
-
-  createChat(chat: Chat): void;
+  loadMeetup(meetupId: string): Observable<IGetMeetupResponse>;
 
   searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse>;
 
+  deleteMeetup(meetupId: string): Observable<IDeleteMeetupResponse>;
+
+  loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse>;
+
+
   createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse>;
 
-  deleteMeetup(meetupId: string): Observable<boolean>;
+  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse>;
 
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse>;
 
-  saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
+
+  createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse>;
+
+  loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse>;
+
+
+  getHalls(): Observable<IGetAllHallsResponse>;
 }
 
 /**
@@ -67,7 +90,7 @@ export interface ResourceServiceInterface {
 @Injectable()
 export class ResourceService implements ResourceServiceInterface {
 
-  private urlDemo = `/api/${Version}/`;
+  private urlRestBackend = `/api/${Version}/`;
 
   constructor(private appState: AppStateService,
               private http: HttpClient) {
@@ -88,7 +111,7 @@ export class ResourceService implements ResourceServiceInterface {
    * @returns {Observable<string>}
    */
   newAlive(): Observable<string> {
-    return this.http.post<string>(this.urlDemo, {text: 'Is Server Alive?'});
+    return this.http.post<string>(this.urlRestBackend, {text: 'Is Server Alive?'});
   }
 
   /**
@@ -97,81 +120,7 @@ export class ResourceService implements ResourceServiceInterface {
    * @returns {Observable<User>}
    */
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
-    return this.http.post<IRegisterResponse>(this.urlDemo + 'auth/register', request);
-  }
-
-  /**
-   * Login the email using the password
-   * @param {ILoginRequest} request
-   * @returns {Observable<ILoginResponse>}
-   */
-  login(request: ILoginRequest): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(this.urlDemo + 'auth/login', request);
-  }
-
-  /**
-   * Demo REST Aufruf
-   * @returns {Observable<Meetup[]>}
-   */
-  getMeetUps(user: User): Observable<Meetup[]> {
-    return null;
-  }
-
-  /**
-   * Demo REST Aufruf
-   * @returns {Observable<MeetupRequest[]>}
-   */
-  getMeetUpRequests(user: User): Observable<MeetupRequest[]> {
-    return null;
-  }
-
-  saveMeetup(meetup: Meetup): void {
-    console.log('not yet implemented saveMeetup()');
-    console.log('meetup to string ', meetup);
-  }
-
-  loadMeetup(meetupId: string): Observable<Meetup> {
-    throw new Error('Method not implemented.');
-  }
-
-  /**
-   * Das Meetup im Request Objekt müsste nicht geladen werden.
-   * @param {string} meetupId
-   * @returns {Observable<MeetupRequest[]>}
-   */
-  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
-    throw new Error('Method not implemented.');
-  }
-
-  /**
-   * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
-   */
-  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse> {
-    return this.http.put<IUpdateMeetupRequestResponse>(this.urlDemo + `meetup-requests/${request.request.id}`, request);
-  }
-
-  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    throw new Error('Method not implemented.');
-  }
-
-  createChat(chat: Chat): void {
-    throw new Error('Method not implemented.');
-  }
-
-  searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
-    return this.http.post<ISearchMeetupsResponse>(this.urlDemo + `meetups/search`, request);
-  }
-
-  createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse> {
-    return this.http.post<ICreateMeetupRequestResponse>(this.urlDemo + 'meetup-requests', request);
-  }
-
-  deleteMeetup(meetupId: string): Observable<boolean> {
-    throw new Error('Method not implemented.');
-  }
-
-  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
-    return this.http.delete<ICreateMeetupRequestResponse>(`${this.urlDemo}meetup-requests/${requestId}`);
+    return this.http.post<IRegisterResponse>(this.urlRestBackend + 'auth/register', request);
   }
 
   /**
@@ -180,6 +129,138 @@ export class ResourceService implements ResourceServiceInterface {
    * @returns {Observable<any>}
    */
   saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
-    return this.http.put<IUpdateProfileResponse>(this.urlDemo + 'auth/profile', request);
+    return this.http.put<IUpdateProfileResponse>(this.urlRestBackend + 'auth/profile', request);
+  }
+
+  /**
+   * Login the user
+   * @param {ILoginRequest} request
+   * @returns {Observable<ILoginResponse>}
+   */
+  login(request: ILoginRequest): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(this.urlRestBackend + 'auth/login', request);
+  }
+
+
+
+  /**
+   * Creates a new meetup
+   * @param {ICreateMeetupRequest} request
+   * @returns {Observable<ICreateMeetupResponse>}
+   */
+  createMeetup(request: ICreateMeetupRequest): Observable<ICreateMeetupResponse> {
+    return this.http.post<ICreateMeetupResponse>(this.urlRestBackend + 'meetups', request);
+  }
+
+  /**
+   * Saves the changed meetup
+   * @param {IUpdateMeetupRequest} request
+   * @returns {Observable<IUpdateMeetupResponse>}
+   */
+  saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse> {
+    return this.http.put<IUpdateMeetupResponse>(`${this.urlRestBackend}meetups/${request.meetup.id}`, request);
+  }
+
+  /**
+   * Gets all meetups for the given user
+   * @param {User} user
+   * @returns {Observable<>}
+   */
+  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse> {
+    return this.http.get<IGetAllMeetupsForUserResponse>(`${this.urlRestBackend}users/${user.id}/meetups`);
+  }
+
+  /**
+   * Deletes a meetup
+   * @param {string} meetupId
+   * @returns {Observable<IDeleteMeetupResponse>}
+   */
+  deleteMeetup(meetupId: string): Observable<IDeleteMeetupResponse> {
+    return this.http.delete<IDeleteMeetupResponse>(`${this.urlRestBackend}meetups/${meetupId}`);
+  }
+
+  /**
+   * Gets all meetup-requests for the user
+   * @param {User} user
+   * @returns {Observable<IGetAllRequestsForMeetupResponse>}
+   */
+  getMeetupRequests(user: User): Observable<IGetAllRequestsForUserResponse> {
+    return this.http.get<IGetAllRequestsForUserResponse>(`${this.urlRestBackend}users/${user.id}/meetup-requests`);
+  }
+
+  loadMeetup(meetupId: string): Observable<IGetMeetupResponse> {
+    return this.http.get<IGetMeetupResponse>(`${this.urlRestBackend}meetups/${meetupId}`);
+  }
+
+  /**
+   * Gets all meetup-request for a meetup
+   * @param {string} meetupId
+   * @returns {Observable<IGetAllRequestsForMeetupResponse>}
+   */
+  loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse> {
+    return this.http.get<IGetAllRequestsForMeetupResponse>(`${this.urlRestBackend}meetups/${meetupId}/meetup-requests`);
+  }
+
+  /**
+   * Updates a meetup request
+   * @param {IUpdateMeetupRequestRequest} request
+   * @returns {Observable<IUpdateMeetupRequestResponse>}
+   */
+  updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse> {
+    return this.http.put<IUpdateMeetupRequestResponse>(this.urlRestBackend + `meetup-requests/${request.request.id}`, request);
+  }
+
+  /**
+   * Gets the chats of the given meetup
+   * @param {string} meetupId
+   * @returns {Observable<IGetAllChatsForMeetupResponse>}
+   */
+  loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse> {
+    return this.http.get<IGetAllChatsForMeetupResponse>(`${this.urlRestBackend}meetups/${meetupId}/chats`);
+  }
+
+  /**
+   * Creates a new chat entry for a meetup
+   * @param {string} meetupId
+   * @param {ICreateChatForMeetupRequest} request
+   * @returns {Observable<ICreateChatForMeetupResponse>}
+   */
+  createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse> {
+    return this.http.post<ICreateChatForMeetupResponse>(`${this.urlRestBackend}meetups/${meetupId}/chats`, request);
+  }
+
+  /**
+   * Search for meetups
+   * @param {ISearchMeetupsRequest} request
+   * @returns {Observable<ISearchMeetupsResponse>}
+   */
+  searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
+    return this.http.post<ISearchMeetupsResponse>(this.urlRestBackend + `meetups/search`, request);
+  }
+
+  /**
+   * Creates a new meetup-request
+   * @param {ICreateMeetupRequestRequest} request
+   * @returns {Observable<ICreateMeetupRequestResponse>}
+   */
+  createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse> {
+    return this.http.post<ICreateMeetupRequestResponse>(this.urlRestBackend + 'meetup-requests', request);
+  }
+
+  /**
+   * Deletes a meetup request
+   * @param {string} requestId
+   * @returns {Observable<IDeleteMeetupRequestResponse>}
+   */
+  deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
+    return this.http.delete<ICreateMeetupRequestResponse>(`${this.urlRestBackend}meetup-requests/${requestId}`);
+  }
+
+  /**
+   * Get all available halls
+   * @returns {Observable<IGetAllHallsResponse>}
+   */
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return this.http.get<IGetAllHallsResponse>(this.urlRestBackend + 'halls');
   }
 }

@@ -6,6 +6,12 @@ import {
   AuthFactory,
   Chat,
   Hall,
+  ICreateMeetupRequest,
+  ICreateMeetupResponse,
+  IUpdateMeetupRequest,
+  IUpdateMeetupResponse,
+  IGetMeetupResponse,
+  IDeleteMeetupResponse,
   ICreateMeetupRequestRequest,
   ICreateMeetupRequestResponse,
   IDeleteMeetupRequestResponse,
@@ -19,12 +25,20 @@ import {
   IUpdateMeetupRequestResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
+  IGetAllHallsResponse,
+  IGetAllMeetupsForUserResponse,
+  IGetAllRequestsForMeetupResponse,
+  ICreateChatForMeetupRequest,
+  ICreateChatForMeetupResponse,
+  IGetAllChatsForMeetupResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
+  UsersFactory,
   MeetupsFactory,
   RequestStatus,
   Sex,
+  HallsFactory,
   User
 } from '@chumm-uffa/interface';
 
@@ -38,12 +52,14 @@ export class MockService implements ResourceServiceInterface {
   private _meetups: Meetup[];
   private _meetupRequest: MeetupRequest[];
   private _chats: Chat[];
+  private _halls: Hall[];
 
   constructor() {
     this.generateUsers();
     this.generateMeetups();
     this.generateRequest();
     this.generateChats();
+    this.generateHalls();
   }
 
   checkAlive(): Observable<string> {
@@ -62,37 +78,51 @@ export class MockService implements ResourceServiceInterface {
     return of(AuthFactory.createLoginResponse(true, '', 'token', this._users[0]));
   }
 
-  getMeetUps(user: User): Observable<Meetup[]> {
-    return of(this._meetups.filter(meetup => meetup.owner.username === user.username));
+  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
+    return of(AuthFactory.createUpdateProfileResponse(true, '', request.profile));
   }
 
-  getMeetUpRequests(user: User): Observable<MeetupRequest[]> {
-    return of(this._meetupRequest);
-    // return of(this._meetupRequest.filter(participant => participant.participant.username === user.username));
+
+  createMeetup(request: ICreateMeetupRequest): Observable<ICreateMeetupResponse> {
+    return of (MeetupsFactory.createCreateMeetupResponse(true, '', request.meetup));
   }
 
-  loadMeetup(meetupId: string): Observable<Meetup> {
-    return of(this._meetups.find(mu => mu.id === meetupId));
+  saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse> {
+    return of (MeetupsFactory.createUpdateMeetupRespons(true, '', request.meetup));
   }
 
-  loadRequests(meetupId: string): Observable<MeetupRequest[]> {
-    return of(this._meetupRequest);
+  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse> {
+    return of(UsersFactory.createGetAllMeetupsForUserResponse(true, '' ,
+      this._meetups.filter(meetup => meetup.owner.username === user.username)));
+  }
+
+  getMeetupRequests(user: User): Observable<IGetAllRequestsForMeetupResponse> {
+    return of(UsersFactory.createGetAllRequestsForUserResponse(true, '', this._meetupRequest));
+  }
+
+  loadMeetup(meetupId: string): Observable<IGetMeetupResponse> {
+    return of(MeetupsFactory.createGetMeetupRespons(true, '', this._meetups.find(mu => mu.id === meetupId)));
+  }
+
+  loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse> {
+    return of(MeetupsFactory.createGetAllRequestsForMeetupRespons(true, '', this._meetupRequest));
   }
 
   /**
    * Es wird nur der Request, nicht aber der User oder das Meetup aktualisiert.
    */
   updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse> {
-    const mr = new MeetupRequest(request.request.id, request.request.participant, request.request.meetup, request.request.status)
+    const mr = new MeetupRequest(request.request.id, request.request.participant, request.request.meetup, request.request.status);
     return of(MeetupRequestsFactory.createUpdateMeetupRequestResponse(true, '', mr));
   }
 
-  loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    return of([...this._chats]);
+  loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse> {
+    return of(MeetupsFactory.createGetAllChatsForMeetupRespons(true , '',  [...this._chats]));
   }
 
-  createChat(chat: Chat): void {
-    this._chats.push(chat);
+  createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse> {
+    this._chats.push(request.chat);
+    return of(MeetupsFactory.createCreateChatForMeetupRespons(true, '', request.chat, request.chat.id));
   }
 
   searchMeetup(request: ISearchMeetupsRequest): Observable<ISearchMeetupsResponse> {
@@ -103,9 +133,8 @@ export class MockService implements ResourceServiceInterface {
     return of(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, ''));
   }
 
-  deleteMeetup(meetupId: string): Observable<boolean> {
-    this._meetups = this._meetups.filter(mu => mu.id !== meetupId);
-    return of(true);
+  deleteMeetup(meetupId: string): Observable<IDeleteMeetupResponse> {
+    return of(MeetupsFactory.createDeleteMeetupRespons(true, ''));
   }
 
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
@@ -113,51 +142,12 @@ export class MockService implements ResourceServiceInterface {
     return of(MeetupRequestsFactory.createDeleteMeetupRequestResponse(true, ''));
   }
 
-  /**
-   * Register a new user
-   * @param {User} user
-   * @returns {Observable<User>}
-   */
-  saveUser(request: IUpdateProfileRequest): Observable<IUpdateProfileResponse> {
-    return of(AuthFactory.createUpdateProfileResponse(true, "", request.profile));
+  getHalls(): Observable<IGetAllHallsResponse> {
+    return of(HallsFactory.createGetAllHallsResponse(true, '', this._halls));
   }
 
   get users(): User[] {
     return this._users;
-  }
-
-  /**
-   * http://www.kletterhallen.net/Kat/schweiz.php
-   * @returns {Observable<Hall[]>}
-   */
-  getHalls(): Observable<Hall[]> {
-    const halls: Hall[] = [];
-    halls.push(new Hall('1', 'Adelboden - Freizeit- und Sportarena Adelboden'));
-    halls.push(new Hall('2', 'Basel - Kletterhalle 7'));
-    halls.push(new Hall('3', 'Biel - Crux-Bouldering'));
-    halls.push(new Hall('4', 'Chur - Kletterhalle AP n Daun'));
-    halls.push(new Hall('5', 'Davos - Kletterwand Davos'));
-    halls.push(new Hall('6', 'Interlaken - K44 - Kletterhalle Interlaken'));
-    halls.push(new Hall('7', 'küblis - kletterhalle küblis'));
-    halls.push(new Hall('8', 'Küblis - Kletterhalle SAC Prättigau'));
-    halls.push(new Hall('9', 'Langnau - Climbox'));
-    halls.push(new Hall('10', 'Lenzburg - Kraftraktor'));
-    halls.push(new Hall('11', 'Luzern - Kletterhalle Eiselin Luzern'));
-    halls.push(new Hall('12', 'Meiringen - Kletterhalle Haslital'));
-    halls.push(new Hall('13', 'Nidau BE - Sporttreff Ziehl AG'));
-    halls.push(new Hall('14', 'Niederwangen - Magnet'));
-    halls.push(new Hall('15', 'Näfels - Lintharena'));
-    halls.push(new Hall('16', 'Porrentruy - Salle d escalade des Tilleuls'));
-    halls.push(new Hall('17', 'Pratteln - Boulders & Bar'));
-    halls.push(new Hall('18', 'Root Längenbold - Pilatur Indoor Kletterzentrum Zentralschweiz'));
-    halls.push(new Hall('19', 'Schaffhausen - Aranea Kletterzentrum'));
-    halls.push(new Hall('20', 'St. Gallen - Kletterhalle St. Gallen'));
-    halls.push(new Hall('21', 'Taverne - Evolution Center'));
-    halls.push(new Hall('22', 'Thun - Klettertreff Thun'));
-    halls.push(new Hall('23', 'Winterthur - Block Winterthur'));
-    halls.push(new Hall('24', 'Zäziwil - ZäziBoulder'));
-    halls.push(new Hall('25', 'Zürich - Kletterzentrum Gaswerk AG'));
-    return of(halls);
   }
 
   private generateUsers() {
@@ -209,5 +199,37 @@ export class MockService implements ResourceServiceInterface {
     this._chats.push(new Chat('6', 'nöd gsicheret', this._users[0], new Date(2017, 2, 5, 10, 5)));
     this._chats.push(new Chat('7', 'freie Fall', this._users[3], new Date(2017, 11, 2, 2, 5)));
     this._chats.push(new Chat('8', 'we are the champignions', this._users[0], new Date(2017, 10, 2, 12, 42)));
+  }
+
+  /**
+   * Generates halls mock data
+   */
+  private generateHalls() {
+    this._halls = [];
+    this._halls.push(new Hall('1', 'Adelboden - Freizeit- und Sportarena Adelboden'));
+    this._halls.push(new Hall('2', 'Basel - Kletterhalle 7'));
+    this._halls.push(new Hall('3', 'Biel - Crux-Bouldering'));
+    this._halls.push(new Hall('4', 'Chur - Kletterhalle AP n Daun'));
+    this._halls.push(new Hall('5', 'Davos - Kletterwand Davos'));
+    this._halls.push(new Hall('6', 'Interlaken - K44 - Kletterhalle Interlaken'));
+    this._halls.push(new Hall('7', 'küblis - kletterhalle küblis'));
+    this._halls.push(new Hall('8', 'Küblis - Kletterhalle SAC Prättigau'));
+    this._halls.push(new Hall('9', 'Langnau - Climbox'));
+    this._halls.push(new Hall('10', 'Lenzburg - Kraftraktor'));
+    this._halls.push(new Hall('11', 'Luzern - Kletterhalle Eiselin Luzern'));
+    this._halls.push(new Hall('12', 'Meiringen - Kletterhalle Haslital'));
+    this._halls.push(new Hall('13', 'Nidau BE - Sporttreff Ziehl AG'));
+    this._halls.push(new Hall('14', 'Niederwangen - Magnet'));
+    this._halls.push(new Hall('15', 'Näfels - Lintharena'));
+    this._halls.push(new Hall('16', 'Porrentruy - Salle d escalade des Tilleuls'));
+    this._halls.push(new Hall('17', 'Pratteln - Boulders & Bar'));
+    this._halls.push(new Hall('18', 'Root Längenbold - Pilatur Indoor Kletterzentrum Zentralschweiz'));
+    this._halls.push(new Hall('19', 'Schaffhausen - Aranea Kletterzentrum'));
+    this._halls.push(new Hall('20', 'St. Gallen - Kletterhalle St. Gallen'));
+    this._halls.push(new Hall('21', 'Taverne - Evolution Center'));
+    this._halls.push(new Hall('22', 'Thun - Klettertreff Thun'));
+    this._halls.push(new Hall('23', 'Winterthur - Block Winterthur'));
+    this._halls.push(new Hall('24', 'Zäziwil - ZäziBoulder'));
+    this._halls.push(new Hall('25', 'Zürich - Kletterzentrum Gaswerk AG'));
   }
 }

@@ -22,12 +22,12 @@ export class OpenRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.getMeetupRequests();
-    this.businessService.getHalls().subscribe(all => this.halls = all);
+    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
 
   }
 
   getMeetupRequests(): void {
-    this.businessService.getMeetUpRequests().subscribe(meetUpRequests => this.meetUpRequests = meetUpRequests);
+    this.businessService.getMeetUpRequests().subscribe(res => this.meetUpRequests = res.requests);
   }
 
   getLocation(meetUp: Meetup): string {

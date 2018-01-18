@@ -27,8 +27,8 @@ delete   /auth/profile                 delete the current logged in profile
 /users
 ******
 get      /users/{id}/meetups                   gets all meetups for the user (IMPLEMENTED)
-get      /users/{id}/meetup-requests           gets all meetup-requests for the user
-get      /users/{id}/meetup-requests/{status}  gets all meetup-requests for the user with the given status
+get      /users/{id}/meetup-requests           gets all meetup-requests for the user (IMPLEMENTED)
+get      /users/{id}/meetup-requests/{status}  gets all meetup-requests for the user with the given status (IMPLEMENTED)
 
 /meetups
 ********
@@ -42,14 +42,14 @@ get      /meetups/{id}/chats           gets all chat-entry for a meetup (IMPLEME
 post     /meetups/{id}/chats           creates a new chat-entry for a meetup (IMPLEMENTED)
 delete   /meetups/{id}/chats{chat_id}  delete a chat-entry from a meetup (IMPLEMENTED)
 
-put      /meetups/search               get a list of all meetups based on search criteria (SearchDto)
+put      /meetups/search               get a list of all meetups based on search criteria (SearchDto)  (IMPLEMENTED)
 
 /meetup-requests
 ****************
-post     /meetup-requests              creates a new meetup-request
-get      /meetup-requests/{id}         get meetup-request details
-put      /meetup-requests/{id}         updates an existing meetup-request
-delete   /meetup-requests/{id}         delete a meetup-request
+post     /meetup-requests              creates a new meetup-request (IMPLEMENTED)
+get      /meetup-requests/{id}         get meetup-request details (IMPLEMENTED)
+put      /meetup-requests/{id}         updates an existing meetup-request (IMPLEMENTED)
+delete   /meetup-requests/{id}         delete a meetup-request (IMPLEMENTED)
 
 /halls
 ******

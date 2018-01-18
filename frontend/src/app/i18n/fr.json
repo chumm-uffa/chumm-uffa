@@ -51,7 +51,9 @@
     "kg": "kg_FR",
     "dialog": {
       "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!_FR",
-      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR"
+      "updateSuccessfulTitle": "Benutzer erfolgreich geändert_FR!",
+      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR",
+      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!_FR"
     },
     "error": {
       "nameRequired": "Namen eingeben_FR",
@@ -77,6 +79,10 @@
     "outdoorRadio": "Outdoor_FR",
     "activity": "Activity:_FR",
     "submit": "speichern_FR",
+    "dialog": {
+      "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!_FR",
+      "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!_FR"
+    },
     "error": {
       "dateRequired": "Datum eingeben._FR",
       "dateInThePast": "Datum muss heute oder später sein._FR",

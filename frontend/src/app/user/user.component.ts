@@ -8,6 +8,7 @@ import {BusinessService} from '../core/business.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {IRegisterRequest, User, Sex} from '@chumm-uffa/interface';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +23,7 @@ export class UserComponent implements OnInit {
   constructor(private userFormService: UserFormService,
               private appState: AppStateService,
               private businessService: BusinessService,
+              private router: Router,
               private dialog: MatDialog) {
     if (appState.isLoggedIn) {
       this.user = appState.loggedInUser;
@@ -41,6 +43,7 @@ export class UserComponent implements OnInit {
       if (this.appState.isLoggedIn) {
         this.businessService.saveUser(this.userFormService.mergeUser(this.userForm.value, this.user)).subscribe(response => {
           console.log('user profile updated with id ', response.profile.id);
+          this.dialog.open(InfoPopupComponent, {data: {infoText: '', infoTitle: 'user.dialog.updateSuccessfulTitle'}});
         }, err => {
           const response: IRegisterRequest = err.error;
           console.log('user profile update failed, ', response.message);
@@ -51,6 +54,11 @@ export class UserComponent implements OnInit {
         this.businessService.register(this.userFormService.mergeUser(this.userForm.value, this.user))
           .subscribe(response => {
             console.log('New user register with id ', response.id);
+            const myDialog = this.dialog.open(InfoPopupComponent,
+              {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
+            myDialog.afterClosed().subscribe(result => {
+              this.router.navigate(['/login']);
+            });
           }, err => {
             const response: IRegisterRequest = err.error;
             console.log('Register failed, ', response.message);
