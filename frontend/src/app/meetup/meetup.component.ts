@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup} from '@chumm-uffa/interface';
+import {Hall, Meetup, IBaseResponse} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
+import {MatDialog} from '@angular/material';
+import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-create-meetup',
@@ -21,13 +23,14 @@ export class MeetupComponent implements OnInit {
   constructor(private businessService: BusinessService,
               private fB: MeetupFormService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
 
-    this.businessService.getHalls().subscribe(all => {
-      this.halls = all;
+    this.businessService.getHalls().subscribe(res => {
+      this.halls = res.halls;
     });
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -39,11 +42,11 @@ export class MeetupComponent implements OnInit {
        * den create mode
        */
       if (meetupId) {
-        this.businessService.loadMeetup(meetupId).subscribe(meetupReloaded => {
-          if (meetupReloaded) {
+        this.businessService.loadMeetup(meetupId).subscribe(res => {
+          if (res.meetup) {
             this.isMutateMode = true;
           }
-          this.meetup = this.fB.checkMeetup(meetupReloaded);
+          this.meetup = this.fB.checkMeetup(res.meetup);
           this.form = this.fB.createForm(this.meetup);
         });
       } else {
@@ -61,11 +64,17 @@ export class MeetupComponent implements OnInit {
     FormUtil.markAsTouched(this.form);
     if (this.form.valid && !this.form.pending) {
       this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
-      this.businessService.saveMeetUp(this.meetup);
-      this.router.navigate(['/mymeetups']);
-
+      this.businessService.saveMeetUp(this.meetup).subscribe( response => {
+        const myDialog = this.dialog.open(InfoPopupComponent,
+          {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
+        myDialog.afterClosed().subscribe(result => {
+          this.router.navigate(['/mymeetups']);
+        });
+      }, err => {
+        const response: IBaseResponse = err.error;
+        console.log('Save meetup failed, ', response.message);
+        this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'meetup.dialog.SaveFailedTitle'}});
+      });
     }
   }
-
-
 }

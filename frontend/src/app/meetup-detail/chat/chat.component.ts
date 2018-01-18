@@ -1,7 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Chat} from '@chumm-uffa/interface';
+import {Chat, Meetup} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppStateService} from '../../core/app-state.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -11,7 +12,7 @@ import {AppStateService} from '../../core/app-state.service';
 export class ChatComponent implements OnInit, OnDestroy {
 
   @Input()
-  meetupId: string;
+  meetup: Meetup;
 
   messages: Chat[] = [];
   newMessage = '';
@@ -19,12 +20,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   private refrehTimer;
 
   constructor(private businessService: BusinessService,
+              private activatedRoute: ActivatedRoute,
               private appState: AppStateService) {
   }
 
   ngOnInit() {
+    /*load chats*/
     this.loadChats();
-    /*Refresh every 10s*/
+    /*Refresh every 1s*/
     this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
   }
 
@@ -39,15 +42,17 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   addMessage(): void {
     /* mit dem push wirds sofort sichtbar*/
-    this.messages.push(this.businessService.createChat(this.newMessage, this.meetupId));
-    this.newMessage = '';
+    this.businessService.createChat(this.newMessage, this.meetup.id).subscribe( res => {
+      this.messages.push(res.chat);
+      this.newMessage = '';
+    });
   }
 
   private loadChats() {
     console.log('Chat reloaded');
-    this.businessService.loadChatsByMeetupId(this.meetupId).subscribe(chats =>
-      this.messages = chats.sort((a, b) => a.date.getTime() - b.date.getTime())
-    );
+    this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(res => {
+      this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    });
   }
 }
 
