@@ -13,7 +13,7 @@
                      [showStateButtons]="isMeetupOwner">
     </app-participant>
   </div>
-  <app-chat *ngIf="isAccepted || isMeetupOwner"></app-chat>
+  <app-chat *ngIf="isAccepted || isMeetupOwner" [meetup]="meetup"></app-chat>
 </div>
 <ng-template #errorMessage><h2>{{'meetupDetail.error.meetupNotFound' | translate}}</h2></ng-template>
 

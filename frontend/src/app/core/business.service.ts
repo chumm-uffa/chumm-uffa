@@ -47,10 +47,6 @@ export class BusinessService {
               private mockService: MockService) {
   }
 
-  checkAlive(): Observable<string> {
-    return this.mockService.checkAlive();
-  }
-
   /**
    *
    * @param {User} user
@@ -84,7 +80,7 @@ export class BusinessService {
    * @returns {Observable<IGetAllMeetupsForUserResponse>}
    */
   getMeetUps(): Observable<IGetAllMeetupsForUserResponse> {
-    return this.resourceService.getMeetups(this.appState.loggedInUser);
+    return this.resourceService.getMeetups(this.appState.loggedInUser.id);
   }
 
   /**
@@ -92,7 +88,7 @@ export class BusinessService {
    * @returns {Observable<IGetAllRequestsForMeetupResponse>}
    */
   getMeetUpRequests(): Observable<IGetAllRequestsForMeetupResponse> {
-    return this.resourceService.getMeetupRequests(this.appState.loggedInUser);
+    return this.resourceService.getMeetupRequests(this.appState.loggedInUser.id);
   }
 
   saveMeetUp(meetup: Meetup): Observable<IBaseResponse> {

@@ -41,10 +41,6 @@ import {AppStateService} from './app-state.service';
  * Resource service interface
  */
 export interface ResourceServiceInterface {
-  checkAlive(): Observable<string>;
-
-  newAlive(): Observable<string>;
-
   register(request: IRegisterRequest): Observable<IRegisterResponse>;
 
   saveUser(user: IUpdateProfileRequest): Observable<IUpdateProfileResponse>;
@@ -56,9 +52,9 @@ export interface ResourceServiceInterface {
 
   saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse>;
 
-  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse>;
+  getMeetups(userId: string): Observable<IGetAllMeetupsForUserResponse>;
 
-  getMeetupRequests(user: User): Observable<IGetAllRequestsForUserResponse>;
+  getMeetupRequests(userId: string): Observable<IGetAllRequestsForUserResponse>;
 
   loadMeetup(meetupId: string): Observable<IGetMeetupResponse>;
 
@@ -94,24 +90,6 @@ export class ResourceService implements ResourceServiceInterface {
 
   constructor(private appState: AppStateService,
               private http: HttpClient) {
-  }
-
-  /**
-   * Demo Inject Service
-   * @returns {Observable<string>}
-   */
-  checkAlive(): Observable<string> {
-    return Observable.create(function (observer) {
-      observer.next('i am alive');
-    });
-  }
-
-  /**
-   * Demo REST Aufruf
-   * @returns {Observable<string>}
-   */
-  newAlive(): Observable<string> {
-    return this.http.post<string>(this.urlRestBackend, {text: 'Is Server Alive?'});
   }
 
   /**
@@ -166,8 +144,8 @@ export class ResourceService implements ResourceServiceInterface {
    * @param {User} user
    * @returns {Observable<>}
    */
-  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse> {
-    return this.http.get<IGetAllMeetupsForUserResponse>(`${this.urlRestBackend}users/${user.id}/meetups`);
+  getMeetups(userId: string): Observable<IGetAllMeetupsForUserResponse> {
+    return this.http.get<IGetAllMeetupsForUserResponse>(`${this.urlRestBackend}users/${userId}/meetups`);
   }
 
   /**
@@ -184,8 +162,8 @@ export class ResourceService implements ResourceServiceInterface {
    * @param {User} user
    * @returns {Observable<IGetAllRequestsForMeetupResponse>}
    */
-  getMeetupRequests(user: User): Observable<IGetAllRequestsForUserResponse> {
-    return this.http.get<IGetAllRequestsForUserResponse>(`${this.urlRestBackend}users/${user.id}/meetup-requests`);
+  getMeetupRequests(userId: string): Observable<IGetAllRequestsForUserResponse> {
+    return this.http.get<IGetAllRequestsForUserResponse>(`${this.urlRestBackend}users/${userId}/meetup-requests`);
   }
 
   loadMeetup(meetupId: string): Observable<IGetMeetupResponse> {

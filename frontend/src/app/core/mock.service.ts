@@ -62,14 +62,6 @@ export class MockService implements ResourceServiceInterface {
     this.generateHalls();
   }
 
-  checkAlive(): Observable<string> {
-    return of('i am alive');
-  }
-
-  newAlive(): Observable<string> {
-    return of(' new i am alive');
-  }
-
   register(request: IRegisterRequest): Observable<IRegisterResponse> {
     return of(AuthFactory.createRegisterResponse(true, '', this._users[0], '1'));
   }
@@ -91,12 +83,12 @@ export class MockService implements ResourceServiceInterface {
     return of (MeetupsFactory.createUpdateMeetupRespons(true, '', request.meetup));
   }
 
-  getMeetups(user: User): Observable<IGetAllMeetupsForUserResponse> {
+  getMeetups(userId: string): Observable<IGetAllMeetupsForUserResponse> {
     return of(UsersFactory.createGetAllMeetupsForUserResponse(true, '' ,
-      this._meetups.filter(meetup => meetup.owner.username === user.username)));
+      this._meetups.filter(meetup => meetup.owner.id === userId)));
   }
 
-  getMeetupRequests(user: User): Observable<IGetAllRequestsForMeetupResponse> {
+  getMeetupRequests(userId: string): Observable<IGetAllRequestsForMeetupResponse> {
     return of(UsersFactory.createGetAllRequestsForUserResponse(true, '', this._meetupRequest));
   }
 

@@ -53,7 +53,7 @@ export class MeetupDetailComponent implements OnInit {
     if (this.meetup && this.halls) {
       return Util.resolveLocation(this.meetup, this.halls);
     } else {
-      return "";
+      return '';
     }
   }
 

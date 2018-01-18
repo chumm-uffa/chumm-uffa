@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Chat} from '@chumm-uffa/interface';
+import {Chat, Meetup} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppStateService} from '../../core/app-state.service';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -11,11 +11,13 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
+  @Input()
+  meetup: Meetup;
+
   messages: Chat[] = [];
   newMessage = '';
 
   private refrehTimer;
-  private meetupId: string;
 
   constructor(private businessService: BusinessService,
               private activatedRoute: ActivatedRoute,
@@ -23,12 +25,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.meetupId = params['meetupId'];
-      this.loadChats();
-      /*Refresh every 1s*/
-      this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
-    });
+    /*load chats*/
+    this.loadChats();
+    /*Refresh every 1s*/
+    this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
   }
 
   ngOnDestroy(): void {
@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   addMessage(): void {
     /* mit dem push wirds sofort sichtbar*/
-    this.businessService.createChat(this.newMessage, this.meetupId).subscribe( res => {
+    this.businessService.createChat(this.newMessage, this.meetup.id).subscribe( res => {
       this.messages.push(res.chat);
       this.newMessage = '';
     });
@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private loadChats() {
     console.log('Chat reloaded');
-    this.businessService.loadChatsByMeetupId(this.meetupId).subscribe(res => {
+    this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(res => {
       this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     });
   }
