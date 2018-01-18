@@ -35,7 +35,7 @@
 
     <div class="column-container">
       <section class="app-box">
-        <app-chat *ngIf="isAccepted || isMeetupOwner" ></app-chat>
+        <app-chat *ngIf="isAccepted || isMeetupOwner" [meetup]="meetup"></app-chat>
       </section>
     </div>
   </div>
