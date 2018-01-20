@@ -20,6 +20,11 @@ input[type="number"] {
   margin: auto;
 }
 
+.app-page--s {
+  @extend .app-page;
+  max-width: 40em;
+}
+
 .app-box {
   border: $default-border;
   border-radius: $default-border-radius;
@@ -31,12 +36,21 @@ input[type="number"] {
   display: block;
   margin: 0;
   padding: 0;
-  &--m {
-    height: 1em;
-  }
-  &--l {
-    height: 2em;
-  }
+}
+
+.app-spacer-vert--s {
+  @extend .app-spacer-vert;
+  height: 0.5em;
+}
+
+.app-spacer-vert--m {
+  @extend .app-spacer-vert;
+  height: 1em;
+}
+
+.app-spacer-vert--l {
+  @extend .app-spacer-vert;
+  height: 2em;
 }
 
 /** Material **/
