@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup, IBaseResponse} from '@chumm-uffa/interface';
+import {Hall, Meetup, IBaseResponse, LocationType} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -18,6 +18,7 @@ export class MeetupComponent implements OnInit {
   halls: Hall[];
   form: FormGroup;
   isMutateMode = false;
+  locationType = LocationType;
   private meetup: Meetup;
 
   constructor(private businessService: BusinessService,
