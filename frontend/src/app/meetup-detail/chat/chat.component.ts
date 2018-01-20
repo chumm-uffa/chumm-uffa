@@ -49,10 +49,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private loadChats() {
-    console.log('Chat reloaded');
-    this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(res => {
-      this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    });
+    if (this.meetup) {
+      this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(res => {
+        this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      });
+    }
   }
 }
 

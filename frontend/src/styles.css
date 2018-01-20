@@ -4,6 +4,10 @@
 html {
   /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
   background-color: rgba(173, 216, 230, 0.43);
-  margin: 5%;
+  margin: 0 6% 0 6%;
+}
+
+body {
+  margin: 0;
 }
 

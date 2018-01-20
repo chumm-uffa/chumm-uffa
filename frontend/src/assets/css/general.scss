@@ -1,0 +1,53 @@
+@import 'chrome';
+@import 'constants';
+
+.form-field-pre-suffix {
+  width: 180px;
+}
+
+input[type="number"] {
+  text-align: right;
+}
+
+.page-title {
+  margin-top: 0em;
+}
+
+.app-page {
+  text-align: center;
+  display: block;
+  max-width: 80em;
+  margin: auto;
+}
+
+.app-box {
+  border: $default-border;
+  border-radius: $default-border-radius;
+  margin: 2vh;
+  padding: 1em;
+}
+
+.app-spacer-vert {
+  display: block;
+  margin: 0;
+  padding: 0;
+  &--m {
+    height: 1em;
+  }
+  &--l {
+    height: 2em;
+  }
+}
+
+/** Material **/
+mat-form-field span[matPrefix] {
+  padding-right: 0.3em;
+}
+
+mat-form-field span[matSuffix] {
+  padding-left: 0.3em;
+}
+
+mat-radio-group, mat-form-field, mat-table {
+  padding: 1em;
+}

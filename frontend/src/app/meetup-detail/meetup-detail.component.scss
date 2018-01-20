@@ -1,7 +1,32 @@
-span {
-  padding: 0px 10px;
+@import '../../assets/css/constants';
+@import "../../assets/css/general";
+
+.detail {
+  flex: 1;
+  margin: 0.5em 1em;
+  &--label {
+    text-align: right;
+  }
+  &--content {
+    text-align: left;
+  }
 }
 
-label {
-  display: block;
+.row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+@media (max-width: $max-md-width) {
+  .row-container-md {
+    flex-direction: column;
+  }
 }

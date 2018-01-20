@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {BusinessService} from '../core/business.service';
-import {Meetup, Hall, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
+import {Hall, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
 import {AppStateService} from '../core/app-state.service';
 
@@ -57,5 +57,16 @@ export class MeetupDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * nur der Meetup Owner sieht alle Requests.
+   * Die Partizipanten sehen nur die Akzeptierten
+   * @returns {MeetupRequest[]}
+   */
+  getMeetUpRequestsToShow(): MeetupRequest[] {
+    if (this.isMeetupOwner) {
+      return this.meetupRequests;
+    }
+    return this.meetupRequests.filter(req => req.status === RequestStatus.ACCEPT);
+  }
 
 }

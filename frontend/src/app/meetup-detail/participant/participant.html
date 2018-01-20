@@ -1,11 +1,9 @@
-<div class="participant">
-  <label>{{meetupRequest.participant.username}}</label>
-  <label *ngIf="showStateButtons">{{meetupRequest.status | translate}}</label>
-  <button *ngIf="showStateButtons" (click)="setState(requestStatus.ACCEPT)">{{'participant.accept' | translate}}</button>
-  <button *ngIf="showStateButtons" (click)="setState(requestStatus.DECLINED)"> {{'participant.decline' | translate}}</button>
-</div>
+<h3 class="mat-h2">{{ 'participant.title' | translate }}</h3>
+<mat-selection-list (selectionChange)="setState($event)">
+  <mat-list-option *ngFor="let request of meetupRequests" [value]="request" [selected]="isParticipantSelected(request.status)" [disabled]="!enableCheckBoxes">
+    <label matTooltip="{{'participant.sex' | translate}}  {{('participant.' + request.participant.sex) | translate}} / {{'participant.weight' | translate}}  {{request.participant.weight}} {{'participant.kg' | translate}}">
+      {{request.participant.username}}
+    </label>
+  </mat-list-option>
+</mat-selection-list>
 
-<div class="details">
-  <label>{{'participant.sex' | translate}}  {{('participant.' + meetupRequest.participant.sex) | translate}}</label>
-  <label>{{'participant.weight' | translate}}  {{meetupRequest.participant.weight}} {{'participant.kg' | translate}}</label>
-</div>

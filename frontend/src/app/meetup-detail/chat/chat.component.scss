@@ -1,11 +1,34 @@
-* {
+@import '../../../assets/css/constants';
+
+.message-box {
+  display: block;
+  border: $default-border;
+  border-radius: $default-border-radius 0em $default-border-radius $default-border-radius;
+  margin: 1em 0em 1em 2em;
+  text-align: right;
   padding: 0px 10px;
 }
 
-.currentUser {
+div.currentUser {
   background-color: lightgreen;
+  margin: 1em 2em 1em 0em;
+  border-radius: 0em $default-border-radius $default-border-radius;
+  text-align: left;
 }
 
-label {
-  display: block;
+span.currentUser {
+  display: none;
 }
+
+.chat-message {
+  white-space: pre-wrap;
+}
+
+/**
+material Anpassungen
+ */
+
+.mat-form-field {
+  width: 90%;
+}
+

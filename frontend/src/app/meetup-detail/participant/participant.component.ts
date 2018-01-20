@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppDialogService} from '../../core/AppDialogService';
+import {MatSelectionListChange} from '@angular/material';
 
 @Component({
   selector: 'app-participant',
@@ -11,19 +12,38 @@ import {AppDialogService} from '../../core/AppDialogService';
 export class ParticipantComponent {
 
   @Input()
-  meetupRequest: MeetupRequest;
+  meetupRequests: MeetupRequest[] = [];
+
   @Input()
-  showStateButtons = false;
+  enableCheckBoxes = false;
 
-  requestStatus = RequestStatus;
-
-  constructor(private businesService: BusinessService, private appDialogService: AppDialogService) {
+  constructor(private businesService: BusinessService,
+              private appDialogService: AppDialogService) {
   }
 
-  setState(state: RequestStatus): void {
-    this.businesService.updateRequest(this.meetupRequest, state).subscribe(res =>
-        res.success ? this.meetupRequest = res.request : this.appDialogService.showError(res.message),
-      err => this.appDialogService.showServerError(err)
+  setState(change: MatSelectionListChange): void {
+    this.businesService.updateRequest(change.option.value, this.getState(change.option.selected)).subscribe(res => {
+
+        if (!res.success) {
+          this.appDialogService.showError(res.message);
+          change.option.toggle(); // restore old state
+        }
+      },
+      err => {
+        this.appDialogService.showServerError(err);
+        change.option.toggle(); // restore old state
+      }
     );
+  }
+
+  isParticipantSelected(state: RequestStatus): boolean {
+    return state === RequestStatus.ACCEPT;
+  }
+
+  private getState(selected: boolean): RequestStatus {
+    if (selected) {
+      return RequestStatus.ACCEPT;
+    }
+    return RequestStatus.OPEN;
   }
 }

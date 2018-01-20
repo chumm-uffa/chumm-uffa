@@ -7,6 +7,7 @@ import {SharedModule} from '../shared/shared.module';
 import {MeetupDetailComponent} from './meetup-detail.component';
 import {ParticipantComponent} from './participant/participant.component';
 import {ChatComponent} from './chat/chat.component';
+import {MaterialModule} from '../material/material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ChatComponent} from './chat/chat.component';
     TranslateModule,
     CoreModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   declarations: [
     MeetupDetailComponent,
