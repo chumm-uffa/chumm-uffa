@@ -13,7 +13,6 @@
     </mat-form-field>
 
     <br>
-    <label>{{'meetup.time' | translate}}</label>
       <mat-form-field>
         <input matInput placeholder="{{'meetup.fromTime' | translate}}" formControlName="fromTime" type="time">
         <mat-error *ngIf="form.controls.fromTime | hasError:'required'">{{ 'meetup.error.fromTimeRequired' | translate }}</mat-error>
@@ -32,20 +31,21 @@
         <mat-radio-button value="{{locationType.OUTDOOR}}">{{ 'meetup.outdoorRadio' | translate }}</mat-radio-button>
       </mat-radio-group>
       <div *ngIf="isIndoor(); else outdoor">
-        <mat-form-field>
+        <mat-form-field class="mat-field-large">
           <mat-select placeholder="{{'meetup.indoor' | translate}}" formControlName="indoor">
             <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <ng-template #outdoor>
-        <mat-form-field>
+        <br>
+        <mat-form-field class="mat-field-large">
             <input matInput placeholder="{{'meetup.outdoor' | translate}}" formControlName="outdoor">
         </mat-form-field>
       </ng-template>
       <mat-error *ngIf="form | hasError:'oneOfAll'">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
     </div>
-    <mat-form-field>
+    <mat-form-field class="mat-field-large">
       <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="{{'meetup.activity' | translate}}" formControlName="activity"></textarea>
     </mat-form-field>
     <br>
