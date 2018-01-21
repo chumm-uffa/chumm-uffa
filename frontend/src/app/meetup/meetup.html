@@ -1,4 +1,4 @@
-<div class="app-page">
+<div class="app-page--s">
   <div class="app-spacer-vert--m"></div>
   <h2 class="mat-h1 page-title">
     <div *ngIf="isMutateMode; else doCreate">{{ 'meetup.titleMutate' | translate }}</div>
@@ -25,7 +25,6 @@
       </mat-form-field>
     <br>
     <div>
-      <span>{{ 'meetup.location' | translate }}</span>
       <mat-radio-group formControlName="locationType">
         <mat-radio-button value="{{locationType.INDOOR}}">{{ 'meetup.indoorRadio' | translate }}</mat-radio-button>
         <mat-radio-button value="{{locationType.OUTDOOR}}">{{ 'meetup.outdoorRadio' | translate }}</mat-radio-button>
