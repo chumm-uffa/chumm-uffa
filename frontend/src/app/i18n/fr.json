@@ -36,8 +36,8 @@
     "title": "Startseite_FR"
   },
   "user": {
-    "titleRegistration": "User Registration_FR",
-    "titleMutate": "User Profile bearbeiten_FR",
+    "titleRegistration": "User Registrierung_FR",
+    "titleMutate": "User Profil bearbeiten_FR",
     "name": "Name_FR: ",
     "password": "Passwort_FR:",
     "repeatPass": "Passwort wiederholen_FR: ",

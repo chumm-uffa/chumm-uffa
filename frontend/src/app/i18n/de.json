@@ -36,8 +36,8 @@
     "title": "Startseite"
   },
   "user": {
-    "titleRegistration": "User Registration",
-    "titleMutate": "User Profile bearbeiten",
+    "titleRegistration": "User Registrierung",
+    "titleMutate": "User Profil bearbeiten",
     "name": "Name: ",
     "password": "Passwort: ",
     "repeatPass": "Passwort wiederholen: ",
