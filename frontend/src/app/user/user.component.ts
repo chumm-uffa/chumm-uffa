@@ -7,8 +7,8 @@ import {BusinessService} from '../core/business.service';
 
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {IRegisterRequest, User, Sex} from '@chumm-uffa/interface';
-import {Router} from "@angular/router";
+import {User, Sex} from '@chumm-uffa/interface';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -41,30 +41,25 @@ export class UserComponent implements OnInit {
     if (this.userForm.valid && !this.userForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
 
       if (this.appState.isLoggedIn) {
-        this.businessService.saveUser(this.userFormService.mergeUser(this.userForm.value, this.user)).subscribe(response => {
-          console.log('user profile updated with id ', response.profile.id);
+        this.businessService.saveUser(this.userFormService.mergeUser(this.userForm.value, this.user))
+        .subscribe(() => {
           this.dialog.open(InfoPopupComponent, {data: {infoText: '', infoTitle: 'user.dialog.updateSuccessfulTitle'}});
         }, err => {
-          const response: IRegisterRequest = err.error;
-          console.log('user profile update failed, ', response.message);
-          this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'user.dialog.updateFailedTitle'}});
-          this.userForm.hasError(response.message);
+          this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'user.dialog.updateFailedTitle'}});
+          this.userForm.hasError(err);
         });
       } else {
         this.businessService.register(this.userFormService.mergeUser(this.userForm.value, this.user))
-          .subscribe(response => {
-            console.log('New user register with id ', response.id);
-            const myDialog = this.dialog.open(InfoPopupComponent,
-              {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
-            myDialog.afterClosed().subscribe(result => {
-              this.router.navigate(['/login']);
-            });
-          }, err => {
-            const response: IRegisterRequest = err.error;
-            console.log('Register failed, ', response.message);
-            this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'user.dialog.registrationFailedTitle'}});
-            this.userForm.hasError(response.message);
+        .subscribe(() => {
+          const myDialog = this.dialog.open(InfoPopupComponent,
+            {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
+          myDialog.afterClosed().subscribe(() => {
+            this.router.navigate(['/login']);
           });
+        }, err => {
+          this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'user.dialog.registrationFailedTitle'}});
+          this.userForm.hasError(err);
+        });
       }
     }
   }

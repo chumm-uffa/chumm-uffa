@@ -23,14 +23,9 @@ export class ParticipantComponent {
   }
 
   setState(change: MatSelectionListChange): void {
-    this.businesService.updateRequest(change.option.value, this.getState(change.option.selected)).subscribe(res => {
-
-        if (!res.success) {
-          this.appDialogService.showError(res.message);
-          change.option.toggle(); // restore old state
-        }
-      },
-      err => {
+    this.businesService.updateRequest(change.option.value, this.getState(change.option.selected))
+    .subscribe(() => {
+     }, err => {
         this.appDialogService.showServerError(err);
         change.option.toggle(); // restore old state
       }

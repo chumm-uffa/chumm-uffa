@@ -2,7 +2,6 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Chat, Meetup} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppStateService} from '../../core/app-state.service';
-import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -20,7 +19,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   private refrehTimer;
 
   constructor(private businessService: BusinessService,
-              private activatedRoute: ActivatedRoute,
               private appState: AppStateService) {
   }
 
@@ -42,16 +40,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   addMessage(): void {
     /* mit dem push wirds sofort sichtbar*/
-    this.businessService.createChat(this.newMessage, this.meetup.id).subscribe( res => {
-      this.messages.push(res.chat);
+    this.businessService.createChat(this.newMessage, this.meetup.id).subscribe( chat => {
+      this.messages.push(chat);
       this.newMessage = '';
     });
   }
 
   private loadChats() {
     if (this.meetup) {
-      this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(res => {
-        this.messages = res.chats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.businessService.loadChatsByMeetupId(this.meetup.id).subscribe(chats => {
+        this.messages = chats.sort((a, b) => a.date.getTime() - b.date.getTime());
       });
     }
   }

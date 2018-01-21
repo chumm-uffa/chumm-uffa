@@ -20,11 +20,11 @@ export class OwnMeetupsComponent implements OnInit {
 
   ngOnInit() {
     this.getMeetups();
-    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
+    this.businessService.getHalls().subscribe(halls => this.halls = halls);
   }
 
   getMeetups(): void {
-    this.businessService.getMeetUps().subscribe(res => this.meetups = res.meetups);
+    this.businessService.getMeetUps().subscribe(meetups => this.meetups = meetups);
   }
 
   getLocation(meetup: Meetup): string {

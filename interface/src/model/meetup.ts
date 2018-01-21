@@ -1,5 +1,4 @@
 import { User } from './user';
-import { Hall } from './hall';
 
 /**
  * Encapsulate a single meetup
@@ -75,6 +74,28 @@ export class Meetup {
         numberOfRequest: this.numberOfRequest,
         numberOfParticipant: this.numberOfParticipant
     };
+  }
+
+  public static fromJSON(json: any) {
+    return new Meetup (
+        json.id,
+        User.fromJSON(json.owner),
+        new Date(json.from),
+        new Date(json.to),
+        json.outdoor,
+        json.indoor,
+        json.activity,
+        json.numberOfRequest,
+        json.numberOfParticipant
+    );
+  }
+
+  public static fromJSONArray(json: any[]) {
+      const meetups: Meetup[] = [];
+      json.map( (meetup) => {
+          meetups.push(Meetup.fromJSON(meetup));
+      });
+      return meetups;
   }
 
   get id(): string {

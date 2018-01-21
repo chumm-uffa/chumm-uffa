@@ -22,12 +22,12 @@ export class OpenRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.getMeetupRequests();
-    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
+    this.businessService.getHalls().subscribe(halls => this.halls = halls);
 
   }
 
   getMeetupRequests(): void {
-    this.businessService.getMeetUpRequests().subscribe(res => this.meetUpRequests = res.requests);
+    this.businessService.getMeetUpRequests().subscribe(requests => this.meetUpRequests = requests);
   }
 
   getLocation(meetUp: Meetup): string {
@@ -37,7 +37,7 @@ export class OpenRequestsComponent implements OnInit {
   /**
    * Deletes the request
    * @param event
-   * @param meetupId
+   * @param requestId
    */
   signOff(event, requestId): void {
     event.stopPropagation();
@@ -47,8 +47,8 @@ export class OpenRequestsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.businessService.deleteRequest(requestId).subscribe(res => {
-            res.success ? this.getMeetupRequests() : this.appDialogService.showError(res.message);
+        this.businessService.deleteRequest(requestId).subscribe(() => {
+            this.getMeetupRequests();
           },
           err => this.appDialogService.showServerError(err)
         );
