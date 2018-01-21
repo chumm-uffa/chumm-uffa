@@ -48,11 +48,16 @@ export function validateNotBefore(format: string, fromDate?: Moment): ValidatorF
  */
 export function validateAfterBefore(format: string, timeBefore: string, timeAfter: string): ValidatorFn {
 
+  const error = 'timeAfterBefore';
+
   return ((c: FormControl): { [key: string]: any } => {
-    const before = c.get(timeBefore).value;
-    const after = c.get(timeAfter).value;
-    if (before && after && moment(before, format).isAfter(moment(after, format))) {
-      return Validation.getInvalidObject('timeAfterBefore'); // validation failed
+    const before = c.get(timeBefore);
+    const after = c.get(timeAfter);
+    if (before.value && after.value && moment(before.value, format).isAfter(moment(after.value, format))) {
+      if (after.touched) {
+        after.setErrors([error]);
+      }
+      return Validation.getInvalidObject(error); // validation failed
     }
     return null; // validation OK
   });
@@ -68,10 +73,14 @@ export function validateAfterBefore(format: string, timeBefore: string, timeAfte
 export function validateCombinedMomentNotBeforeNow(dateName: string, timeName: string): ValidatorFn {
 
   return ((c: FormControl): { [key: string]: any } => {
-    const date = c.get(dateName).value;
-    const time = c.get(timeName).value;
+    const date = c.get(dateName);
+    const time = c.get(timeName);
 
-    if (date && time && moment(date + ', ' + time, 'YYYY-MM-DD, HH:mm').isBefore(moment())) {
+    if (date.value && time.value && moment(date.value + ', ' + time.value, 'YYYY-MM-DD, HH:mm').isBefore(moment())) {
+      if (date.touched) {
+        date.setErrors(['combinedMomentNotBefore']);
+        time.setErrors(['combinedMomentNotBefore']);
+      }
       return Validation.getInvalidObject('combinedMomentNotBefore'); // validation failed
     }
     return null; // validation OK
