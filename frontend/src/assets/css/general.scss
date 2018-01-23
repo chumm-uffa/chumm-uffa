@@ -39,6 +39,9 @@ input[type="number"] {
   }
 }
 
+.app-center-spinner {
+  margin: auto; // centers spinner
+}
 /** Material **/
 mat-form-field span[matPrefix] {
   padding-right: 0.3em;

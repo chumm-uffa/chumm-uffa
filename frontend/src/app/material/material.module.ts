@@ -7,7 +7,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatTableModule,
-  MatTabsModule, MatTooltipModule
+  MatTabsModule, MatTooltipModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -25,7 +25,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatDialogModule,
     TranslateModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -45,7 +46,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatTabsModule,
     MatDialogModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule {
