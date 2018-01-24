@@ -24,7 +24,6 @@ export class SearchComponent implements OnInit {
   columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
   sexType = Sex;
   locationType = LocationType;
-  runSpinner = false;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
@@ -41,15 +40,12 @@ export class SearchComponent implements OnInit {
   startSearch() {
     FormUtil.markAsTouched(this.searchForm);
     if (this.searchForm.valid && !this.searchForm.pending) {
-      this.runSpinner = true;
       this.businessService.searchMeetUp(this.searchFormService.createDto(this.searchForm.value)).subscribe(res => {
-        this.runSpinner = false;
         if (res.success) {
           this.results = new MatTableDataSource<Meetup>(res.meetups);
         }
         this.hasAllreadySearched = true;
       }, err => {
-        this.runSpinner = false;
         this.appDialogService.showServerError(err);
       });
     }
