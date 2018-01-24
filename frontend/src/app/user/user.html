@@ -1,37 +1,58 @@
-<h2>
-  <div *ngIf="appState.isLoggedIn; else doRegistration">{{ 'user.titleMutate' | translate }}</div>
-  <ng-template #doRegistration>{{ 'user.titleRegistration' | translate }}</ng-template>
-</h2>
+<div class="app-page--s">
+  <div class="app-spacer-vert--m"></div>
+  <h2 class="mat-h1 page-title">
+    <div *ngIf="appState.isLoggedIn; else doRegistration">{{ 'user.titleMutate' | translate }}</div>
+    <ng-template #doRegistration>{{ 'user.titleRegistration' | translate }}</ng-template>
+  </h2>
 
-<form [formGroup]="userForm" novalidate (ngSubmit)="onClickRegister()">
-  <label>{{ 'user.name' | translate }}<input formControlName="username"></label>
-  <app-validation-feedback *ngIf="userForm.controls.username | hasError:'required'">{{ 'user.error.nameRequired' | translate }}</app-validation-feedback> <!-- spezifische Validierungs Fehler -->
-  <app-validation-feedback *ngIf="userForm.controls.username | hasError:'minlength'">{{ 'user.error.nameMinLength' | translate }}</app-validation-feedback>
-  <br>
-  <label>{{ 'user.password' | translate }}</label><input formControlName="password" type="password">
-  <app-validation-feedback *ngIf="userForm.controls.password | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</app-validation-feedback>
-  <app-validation-feedback *ngIf="userForm.controls.password | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</app-validation-feedback>
-  <br>
-  <label>{{ 'user.repeatPass' | translate }}</label><input formControlName="passwordRepeat" type="password">
-  <br>
-  <label>{{ 'user.email' | translate }}</label><input formControlName="email">
-  <app-validation-feedback *ngIf="userForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</app-validation-feedback>
-  <div>
-    <span>{{ 'user.sex' | translate }}</span>
-    <label><input type="radio" formControlName="sex" value="{{sexType.MALE}}">{{ 'user.man' | translate }}</label>
-    <label><input type="radio" formControlName="sex" value="{{sexType.FEMALE}}">{{ 'user.women' | translate }}</label>
-    <app-validation-feedback *ngIf="userForm.controls.sex | hasError:'required'">{{ 'user.error.sexRequired' | translate }}</app-validation-feedback>
-  </div>
-  <br>
-  <label>{{ 'user.weight' | translate }}</label><input type="number" formControlName="weight"><label>{{ 'user.kg' | translate }}</label>
-  <br>
-  <app-validation-feedback *ngIf="(userForm | hasError:'passwordMismatch')
-                                && userForm.controls.password.touched && userForm.controls.passwordRepeat.touched">
-    {{ 'user.error.differentPasswords' | translate }}
-  </app-validation-feedback>
-  <button type="submit">
-    <span *ngIf="appState.isLoggedIn; else doSave">{{ 'user.saveUser' | translate }}</span>
-    <ng-template #doSave>{{ 'user.registerUser' | translate }}</ng-template>
-  </button>
-</form>
+  <section class="app-box">
+    <form [formGroup]="userForm" novalidate (ngSubmit)="onClickRegister()">
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.name' | translate }}" formControlName="username">
+        <mat-error *ngIf="userForm.controls.username | hasError:'required'">{{ 'user.error.nameRequired' | translate }}</mat-error> <!-- spezifische Validierungs Fehler -->
+        <mat-error *ngIf="userForm.controls.username | hasError:'minlength'">{{ 'user.error.nameMinLength' | translate }}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.password' | translate }}" formControlName="password" type="password">
+        <mat-error *ngIf="userForm.controls.password | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</mat-error>
+        <mat-error *ngIf="userForm.controls.password | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.repeatPass' | translate }}" formControlName="passwordRepeat" type="password">
+        <!-- Error state controlled by validator-->
+        <mat-error *ngIf="(userForm | hasError:'passwordMismatch')">
+          {{ 'user.error.differentPasswords' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.email' | translate }}" formControlName="email">
+        <mat-error *ngIf="userForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</mat-error>
+      </mat-form-field>
+      <div>
+
+        <mat-radio-group formControlName="sex">
+            <mat-radio-button type="radio"  value="{{sexType.MALE}}">{{ 'user.man' | translate }}</mat-radio-button>
+            <mat-radio-button type="radio"  value="{{sexType.FEMALE}}">{{ 'user.women' | translate }}</mat-radio-button>
+            <div *ngIf="userForm.controls.sex | hasError:'required'" class="app-spacer-vert--s"></div>
+            <mat-error *ngIf="userForm.controls.sex | hasError:'required'" class="mat-caption">{{ 'user.error.sexRequired' | translate }}</mat-error>
+        </mat-radio-group>
+
+      </div>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.weight' | translate }}" type="number" formControlName="weight">
+        <span matSuffix>{{ 'user.kg' | translate }}</span>
+      </mat-form-field>
+      <br>
+
+      <button mat-raised-button color="accent" type="submit">
+        <span *ngIf="appState.isLoggedIn; else doSave">{{ 'user.saveUser' | translate }}</span>
+        <ng-template #doSave>{{ 'user.registerUser' | translate }}</ng-template>
+      </button>
+    </form>
+  </section>
+</div>
 

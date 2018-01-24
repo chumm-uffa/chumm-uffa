@@ -18,7 +18,7 @@ export interface IDBMeetup {
     owner: string;
     from: Date;
     to: Date;
-    activity: string;
+    activity?: string;
     outdoor?: string;
     indoor?: string;
 }
@@ -51,8 +51,7 @@ export const MeetupSchema = new Schema({
         required: true
     },
     activity: {
-        type: String,
-        required: true
+        type: String
     },
     outdoor: {
         type: String

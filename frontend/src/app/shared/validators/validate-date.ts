@@ -57,3 +57,23 @@ export function validateAfterBefore(format: string, timeBefore: string, timeAfte
     return null; // validation OK
   });
 }
+
+/**
+ * Bildet aus einer Kombination aus einer reinen Tageszeit und einem Datum einen Zeitpunkt.
+ * Dieser Zeitpunkt wird gegen das 'jetzt' validiert.
+ * @param {string} dateName
+ * @param {string} timeName
+ * @returns {ValidatorFn}
+ */
+export function validateCombinedMomentNotBeforeNow(dateName: string, timeName: string): ValidatorFn {
+
+  return ((c: FormControl): { [key: string]: any } => {
+    const date = c.get(dateName).value;
+    const time = c.get(timeName).value;
+
+    if (date && time && moment(date + ', ' + time, 'YYYY-MM-DD, HH:mm').isBefore(moment())) {
+      return Validation.getInvalidObject('combinedMomentNotBefore'); // validation failed
+    }
+    return null; // validation OK
+  });
+}
