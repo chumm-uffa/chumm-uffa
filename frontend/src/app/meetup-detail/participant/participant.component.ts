@@ -1,9 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {MeetupRequest} from '@chumm-uffa/interface';
+import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppDialogService} from '../../core/AppDialogService';
 import {MatSelectionListChange} from '@angular/material';
-import {RequestStatus} from '../../../../../interface/dist/model/meetup-request';
 
 @Component({
   selector: 'app-participant',

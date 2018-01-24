@@ -61,7 +61,7 @@ describe('Meetup Form', () => {
   it('should validate from in the past', inject([MeetupFormService], (meetupFb: MeetupFormService) => {
     const form = meetupFb.createForm(createValidMeetup(meetupFb));
     form.controls.fromTime.patchValue('00:00');
-    expect(form.controls.fromTime.errors.notBefore.valid).toBeFalsy();
+    expect(form.errors.combinedMomentNotBefore.valid).toBeFalsy();
     expect(form.invalid).toBeTruthy();
   }));
 

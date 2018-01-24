@@ -36,13 +36,12 @@
     "title": "Startseite_FR"
   },
   "user": {
-    "titleRegistration": "User Registration_FR",
-    "titleMutate": "User Profile bearbeiten_FR",
+    "titleRegistration": "User Registrierung_FR",
+    "titleMutate": "User Profil bearbeiten_FR",
     "name": "Name_FR: ",
     "password": "Passwort_FR:",
     "repeatPass": "Passwort wiederholen_FR: ",
     "email": "Email_FR: ",
-    "sex": "Geschlecht_FR:",
     "registerUser": "Benutzer erstellen_FR",
     "saveUser": "Benutzer speichern_FR",
     "man": "Mann_FR",

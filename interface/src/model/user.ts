@@ -18,13 +18,13 @@ export class User {
   constructor(id: string = '',
               username: string = '',
               password: string = '',
-              sex: Sex = Sex.BETWEEN,
+              sex?: Sex,
               email: string = '',
               weight: string = '') {
     this._id = id;
     this._username = username;
     this._password = password;
-    this._sex = sex;
+    if (sex) this._sex = sex;
     this._email = email;
     this._weight = weight;
   }
