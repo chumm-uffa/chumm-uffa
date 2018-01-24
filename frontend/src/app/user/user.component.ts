@@ -8,11 +8,12 @@ import {BusinessService} from '../core/business.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {IRegisterRequest, User, Sex} from '@chumm-uffa/interface';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './user.html'
+  templateUrl: './user.html',
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 

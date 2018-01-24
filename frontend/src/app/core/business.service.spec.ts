@@ -4,15 +4,16 @@ import {ResourceService} from './resource.service';
 import {Observable} from 'rxjs/Observable';
 import {AppStateService} from './app-state.service';
 import {MockService} from './mock.service';
+import {Hall} from '@chumm-uffa/interface';
 
 /**
  * Demo Unit Test für Services mit Testcontainer, Mocking und injector
  */
 
 class ResourceMock {
-  checkAlive(): Observable<string> {
+  getHalls(): Observable<string> {
     return Observable.create(function (observer) {
-      observer.next('i am alive');
+      observer.next({halls: [new Hall('1', 'Kletterhalle')]});
     });
   }
 }
@@ -28,7 +29,7 @@ describe('BusinessService', () => {
   }));
 
   it('should get i am alive', inject([BusinessService], (service: BusinessService) => {
-    service.checkAlive().subscribe(res =>
-      expect(res).toBe('i am alive'));
+    service.getHalls().subscribe(res =>
+      expect(res.halls[0].name).toBe('Kletterhalle'));
   }));
 });
