@@ -30,6 +30,9 @@
           <mat-form-field>
             <input matInput formControlName="outdoor" placeholder="{{'search.outdoor' | translate}}">
           </mat-form-field>
+          <div>
+            <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()">{{'googleMaps' | translate}}</button>
+          </div>
         </ng-template>
       </span>
 

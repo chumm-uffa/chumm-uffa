@@ -74,4 +74,10 @@ export class SearchComponent implements OnInit {
   getLocation(meetup: Meetup): string {
     return Util.resolveLocation(meetup, this.halls);
   }
+
+  showGoogleMapsDialog(showOnly = false) {
+    this.appDialogService.showGoogleMaps(0, 0, showOnly).subscribe(result => {
+      console.log('new coordiantes ', result);
+    });
+  }
 }
