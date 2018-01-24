@@ -36,13 +36,12 @@
     "title": "Startseite"
   },
   "user": {
-    "titleRegistration": "User Registration",
-    "titleMutate": "User Profile bearbeiten",
+    "titleRegistration": "User Registrierung",
+    "titleMutate": "User Profil bearbeiten",
     "name": "Name: ",
     "password": "Passwort: ",
     "repeatPass": "Passwort wiederholen: ",
     "email": "Email: ",
-    "sex": "Geschlecht: ",
     "registerUser": "Benutzer erstellen",
     "saveUser": "Benutzer speichern",
     "man": "Mann",

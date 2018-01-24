@@ -3,9 +3,10 @@ import {Meetup} from '@chumm-uffa/interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {
+  validateAfterBefore,
+  validateCombinedMomentNotBeforeNow,
   validateDateFormat,
-  validateNotBefore,
-  validateAfterBefore
+  validateNotBefore
 } from '../../shared/validators/validate-date';
 import {validateOneOf} from '../../shared/validators/one-of.validator';
 
@@ -26,7 +27,7 @@ export class MeetupFormService {
         [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
           validateNotBefore(MeetupFormService.DATE_FORMAT)]],
       fromTime: [moment(from.getTime()).format(MeetupFormService.TIME_FORMAT),
-        [Validators.required, validateNotBefore(MeetupFormService.TIME_FORMAT)]],
+        [Validators.required]],
       toTime: [moment(to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
       locationType: meetup.outdoor ? 'out' : 'in',
       indoor: meetup.indoor,
@@ -34,7 +35,8 @@ export class MeetupFormService {
       activity: [meetup.activity]
     }, {
       validator: [validateOneOf('indoor', 'outdoor'),
-        validateAfterBefore(MeetupFormService.TIME_FORMAT, 'fromTime', 'toTime')]  // Formvalidators -> validate between Fields
+        validateAfterBefore(MeetupFormService.TIME_FORMAT, 'fromTime', 'toTime'), // Formvalidators -> validate between Fields
+        validateCombinedMomentNotBeforeNow('date', 'fromTime')]
     });
   }
 

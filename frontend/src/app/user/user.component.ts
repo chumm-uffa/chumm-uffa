@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './user.html'
+  templateUrl: './user.html',
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 

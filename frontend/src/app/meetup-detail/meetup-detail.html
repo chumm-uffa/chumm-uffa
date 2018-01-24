@@ -28,14 +28,14 @@
         </div>
       </section>
 
-      <section class="app-box">
+      <section *ngIf="isAccepted || isMeetupOwner"  class="app-box">
         <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
       </section>
     </div>
 
     <div class="column-container">
-      <section class="app-box">
-        <app-chat *ngIf="isAccepted || isMeetupOwner" [meetup]="meetup"></app-chat>
+      <section *ngIf="isAccepted || isMeetupOwner" class="app-box">
+        <app-chat [meetup]="meetup"></app-chat>
       </section>
     </div>
   </div>
