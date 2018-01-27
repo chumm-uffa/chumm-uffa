@@ -50,7 +50,7 @@ export class OpenRequestsComponent implements OnInit {
         this.businessService.deleteRequest(requestId).subscribe(() => {
             this.getMeetupRequests();
           },
-          err => this.appDialogService.showServerError(err)
+          err => this.appDialogService.showError(err)
         );
       }
     });

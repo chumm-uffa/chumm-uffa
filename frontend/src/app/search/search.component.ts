@@ -43,7 +43,9 @@ export class SearchComponent implements OnInit {
       this.businessService.searchMeetUp(this.searchFormService.createDto(this.searchForm.value)).subscribe(meetups => {
         this.results = new MatTableDataSource<Meetup>(meetups);
         this.hasAllreadySearched = true;
-      }, err => this.appDialogService.showServerError(err));
+      }, err => {
+        this.appDialogService.showError(err);
+      });
     }
   }
 
@@ -53,7 +55,7 @@ export class SearchComponent implements OnInit {
           this.dialog.open(InfoPopupComponent,
             {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
       },
-      err => this.appDialogService.showServerError(err)
+      err => this.appDialogService.showError(err)
     );
   }
 

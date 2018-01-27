@@ -301,9 +301,8 @@ export class BusinessService {
       .subscribe( res => {
         observer.next(Meetup.fromJSONArray(res.meetups));
       }, err => {
-        const response: IBaseResponse = err.error;
-        console.log('error while login, ', response.message);
-        return observer.error(response.message);
+        console.log('error while login, ', err.message);
+        return observer.error(err.message);
       });
     });
   }

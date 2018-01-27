@@ -25,7 +25,7 @@ export class ParticipantComponent {
     this.businesService.updateRequest(change.option.value, this.getState(change.option.selected))
     .subscribe(() => {
      }, err => {
-        this.appDialogService.showServerError(err);
+        this.appDialogService.showError(err);
         change.option.toggle(); // restore old state
       }
     );
