@@ -155,7 +155,7 @@ export class BusinessService {
    * Deletes a meetup
    * @param {string} meetupId
    * @returns {Observable<void>}
-   */https://www.typescriptlang.org/docs/handbook/advanced-types.html
+   */
   deleteMeetup(meetupId: string): Observable<void> {
     return Observable.create( (observer) => {
       this.resourceService.deleteMeetup(meetupId)
