@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.businessService.getHalls().subscribe(res => this.halls = res.halls);
+    this.businessService.getHalls().subscribe(halls => this.halls = halls);
     this.searchForm = this.searchFormService.createForm();
     this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
   }
@@ -40,24 +40,22 @@ export class SearchComponent implements OnInit {
   startSearch() {
     FormUtil.markAsTouched(this.searchForm);
     if (this.searchForm.valid && !this.searchForm.pending) {
-      this.businessService.searchMeetUp(this.searchFormService.createDto(this.searchForm.value)).subscribe(res => {
-        if (res.success) {
-          this.results = new MatTableDataSource<Meetup>(res.meetups);
-        }
+      this.businessService.searchMeetUp(this.searchFormService.createDto(this.searchForm.value)).subscribe(meetups => {
+        this.results = new MatTableDataSource<Meetup>(meetups);
         this.hasAllreadySearched = true;
-      }, err => this.appDialogService.showServerError(err));
+      }, err => {
+        this.appDialogService.showError(err);
+      });
     }
   }
 
   requestForParticipation(event, meetupId: Meetup): void {
     event.stopPropagation();  // prevent link action
-    this.businessService.requestForParticipation(meetupId).subscribe(res => {
-        if (res.success) {
+    this.businessService.requestForParticipation(meetupId).subscribe(() => {
           this.dialog.open(InfoPopupComponent,
             {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
-        }
       },
-      err => this.appDialogService.showServerError(err)
+      err => this.appDialogService.showError(err)
     );
   }
 

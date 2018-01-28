@@ -41,12 +41,31 @@ export class User {
     };
   }
 
+  public static fromJSON(json: any) {
+    return new User (
+      json.id,
+      json.username,
+      json.password,
+      json.sex,
+      json.email,
+      json.weight
+    )
+  }
+
+  public static fromJSONArray(json: any[]) {
+    const users: User[] = [];
+    json.map( (user) => {
+        users.push(User.fromJSON(user));
+    });
+    return users;
+  }
+
   get id(): string {
-      return this._id;
+    return this._id;
   }
 
   set id(value: string) {
-      this._id = value;
+    this._id = value;
   }
 
   get password(): string {
