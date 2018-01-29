@@ -1,0 +1,12 @@
+
+<mat-dialog-content>
+  <!-- this creates a google map on the page with the given lat/lng from -->
+  <!-- the component as the initial center of the map: -->
+  <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="clickOnMap($event)">
+    <agm-marker [latitude]="lat_marker" [longitude]="lng_marker"></agm-marker>
+  </agm-map>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf="!showOnly" mat-raised-button [mat-dialog-close]="{ok: true, lat: lat_marker, lng: lng_marker}" color="accent">{{'google-maps.ok' | translate}}</button>
+  <button mat-raised-button [mat-dialog-close]="{ok: false}" color="accent">{{'google-maps.abandon' | translate}}</button>
+</mat-dialog-actions>

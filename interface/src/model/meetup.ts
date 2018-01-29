@@ -1,5 +1,5 @@
 import { User } from './user';
-import { Hall } from './hall';
+
 
 /**
  * Encapsulate a single meetup
@@ -26,6 +26,14 @@ export class Meetup {
    */
   private _outdoor: string;
   /**
+   * The latitude of the outdoor event location
+   */
+  private _latitude: number;
+  /**
+   * The longitude of the outdoor event location
+   */
+  private _longitude: number;
+  /**
    * The id of the climbing gym where the indoor meetup happens
    */
   private _indoor: string;
@@ -51,7 +59,9 @@ export class Meetup {
               indoor: string,
               activity: string = '',
               numberOfRequest: number = 0,
-              numberOfParticipant: number = 0) {
+              numberOfParticipant: number = 0,
+              latitude: number = 0,
+              longitude: number = 0) {
     this._id = id;
     this._owner = owner;
     this._from = from;
@@ -61,6 +71,8 @@ export class Meetup {
     this._activity = activity;
     this._numberOfRequest = numberOfRequest;
     this._numberOfParticipant = numberOfParticipant;
+    this._latitude = latitude;
+    this._longitude = longitude;
   }
 
   public toJSON() {
@@ -73,7 +85,9 @@ export class Meetup {
         indoor: this.indoor,
         activity: this.activity,
         numberOfRequest: this.numberOfRequest,
-        numberOfParticipant: this.numberOfParticipant
+        numberOfParticipant: this.numberOfParticipant,
+        latitude: this.latitude,
+        longitude: this.longitude
     };
   }
 
@@ -147,5 +161,21 @@ export class Meetup {
 
   set numberOfParticipant(value: number) {
     this._numberOfParticipant = value;
+  }
+
+  get latitude(): number {
+    return this._latitude;
+  }
+
+  set latitude(value: number) {
+    this._latitude = value;
+  }
+
+  get longitude(): number {
+      return this._longitude;
+  }
+
+  set longitude(value: number) {
+      this._longitude = value;
   }
 }

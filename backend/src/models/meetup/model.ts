@@ -10,6 +10,7 @@ import {DBHall} from '../hall/model';
 import {DBChat} from '../chat/model';
 import {DBMeetupRequest} from '../meetup-request/model';
 import {IDBModelBase} from '../models';
+import {DBLocation, locationSchema} from '../location/model';
 
 /**
  * The DBUser document interface
@@ -21,6 +22,10 @@ export interface IDBMeetup {
     activity?: string;
     outdoor?: string;
     indoor?: string;
+    location: {
+        type: string,
+        coordinates: number[]
+    }
 }
 
 /**
@@ -59,6 +64,10 @@ export const MeetupSchema = new Schema({
     indoor: {
         type: Schema.Types.ObjectId,
         ref: 'Hall',
+    },
+    location: {
+        type: locationSchema,
+        required:true
     },
     createAt: {
         type: Date
@@ -142,6 +151,10 @@ MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
     this.activity = meetup.activity;
     this.outdoor = meetup.outdoor;
     this.indoor = meetup.indoor;
+    if (!this.location) {this.location = {};}
+    this.location.type = 'Point';
+    this.location.coordinates[0] = meetup.latitude;
+    this.location.coordinates[1] = meetup.longitude;
 };
 
 /**
@@ -162,7 +175,9 @@ MeetupSchema.methods.toInterface = async function () {
         dbMeetup.indoor,
         dbMeetup.activity,
         request,
-        participant
+        participant,
+        dbMeetup.location.coordinates[0],
+        dbMeetup.location.coordinates[1]
     );
 };
 

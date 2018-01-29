@@ -17,8 +17,12 @@ export class SearchDto {
     private _sex: Sex;
     private _weightMin: number;
     private _weightMax: number;
+    private _latitude: number;
+    private _longitude: number;
+    private _radius: number;
 
-    constructor(fromDateTime: Date, toDateTime: Date, locationType: LocationType, indoor: string, outdoor: string, sex: Sex, weightMin: number, weightMax: number) {
+    constructor(fromDateTime: Date, toDateTime: Date, locationType: LocationType, indoor: string, outdoor: string, sex: Sex,
+                weightMin: number, weightMax: number, latitude: number, longitude: number, radius: number) {
         this._fromDateTime = fromDateTime;
         this._toDateTime = toDateTime;
         this._locationType = locationType;
@@ -27,6 +31,9 @@ export class SearchDto {
         this._sex = sex;
         this._weightMin = weightMin;
         this._weightMax = weightMax;
+        this._latitude = latitude;
+        this._longitude = longitude;
+        this._radius = radius;
     }
 
     public toJSON() {
@@ -38,7 +45,10 @@ export class SearchDto {
             outdoor: this.outdoor,
             sex: this.sex,
             weightMin: this.weightMin,
-            weightMax: this.weightMax
+            weightMax: this.weightMax,
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius
         };
     }
 
@@ -72,5 +82,17 @@ export class SearchDto {
 
     get weightMax(): number {
         return this._weightMax;
+    }
+
+    get latitude(): number {
+        return this._latitude;
+    }
+
+    get longitude(): number {
+        return this._longitude;
+    }
+
+    get radius(): number {
+        return this._radius;
     }
 }
