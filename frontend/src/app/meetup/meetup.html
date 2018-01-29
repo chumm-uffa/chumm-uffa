@@ -45,6 +45,7 @@
             <mat-error *ngIf="(form | hasError:'oneOfAll') && (form.controls.outdoor.touched)"
                      class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
         </mat-form-field>
+        <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()" type="button">{{'googleMaps' | translate}}</button>
       </ng-template>
 
     </div>

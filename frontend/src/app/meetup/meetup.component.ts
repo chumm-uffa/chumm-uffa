@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup, IBaseResponse, LocationType} from '@chumm-uffa/interface';
+import {Hall, IBaseResponse, LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {AppDialogService} from '../core/AppDialogService';
 
 @Component({
   selector: 'app-create-meetup',
@@ -25,7 +26,8 @@ export class MeetupComponent implements OnInit {
               private fB: MeetupFormService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {
@@ -65,7 +67,7 @@ export class MeetupComponent implements OnInit {
     FormUtil.markAsTouched(this.form);
     if (this.form.valid && !this.form.pending) {
       this.meetup = this.fB.mergeMeetUp(this.form.value, this.meetup);
-      this.businessService.saveMeetUp(this.meetup).subscribe( response => {
+      this.businessService.saveMeetUp(this.meetup).subscribe(response => {
         const myDialog = this.dialog.open(InfoPopupComponent,
           {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
         myDialog.afterClosed().subscribe(result => {
@@ -74,8 +76,22 @@ export class MeetupComponent implements OnInit {
       }, err => {
         const response: IBaseResponse = err.error;
         console.log('Save meetup failed, ', response.message);
-        this.dialog.open(InfoPopupComponent, {data: {infoText: response.message, infoTitle: 'meetup.dialog.SaveFailedTitle'}});
+        this.dialog.open(InfoPopupComponent, {
+          data: {
+            infoText: response.message,
+            infoTitle: 'meetup.dialog.SaveFailedTitle'
+          }
+        });
       });
     }
+  }
+
+  showGoogleMapsDialog(showOnly = false) {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe(result => {
+      if (result.ok) {
+        this.meetup.latitude = result.lat;
+        this.meetup.longitude = result.lng;
+      }
+    });
   }
 }

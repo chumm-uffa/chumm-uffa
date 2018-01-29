@@ -72,8 +72,15 @@ export class SearchComponent implements OnInit {
   }
 
   showGoogleMapsDialog(showOnly = false) {
-    this.appDialogService.showGoogleMaps(0, 0, showOnly).subscribe(result => {
-      console.log('new coordiantes ', result);
+
+    const latitude = Number(this.searchForm.get('latitude').value);
+    const longitude = Number(this.searchForm.get('longitude').value);
+
+    this.appDialogService.showGoogleMaps(latitude, longitude, showOnly).subscribe(result => {
+      if (result.ok) {
+        this.searchForm.get('latitude').patchValue(result.lat);
+        this.searchForm.get('longitude').patchValue(result.lng);
+      }
     });
   }
 }

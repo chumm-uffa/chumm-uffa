@@ -26,6 +26,9 @@
           <label class="detail detail--label">{{ 'meetupDetail.activity' | translate }}</label>
           <span class="detail detail--content">{{meetup?.activity}}</span>
         </div>
+        <div *ngIf="meetup?.latitude" class="row-container">
+          <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()" type="button">{{'googleMaps' | translate}}</button>
+        </div>
       </section>
 
       <section *ngIf="isAccepted || isMeetupOwner"  class="app-box">

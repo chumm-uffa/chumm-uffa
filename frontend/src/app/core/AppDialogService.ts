@@ -24,7 +24,7 @@ export class AppDialogService {
       {data: {infoText: message, infoTitle: 'appDialogService.serverErrorTitle'}});
   }
 
-  showGoogleMaps(lng: number, lat: number, showOnly: boolean = false) {
+  showGoogleMaps(lat: number, lng: number, showOnly: boolean = false) {
     const dialogRef = this.dialog.open(GoogleMapsComponent,
       {height: '80vh',
         width: '80vw', data: {longitude: lng, latitude: lat, showOnly: showOnly}});
