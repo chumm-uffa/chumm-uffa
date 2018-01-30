@@ -17,9 +17,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-npm install @ngx-translate/http-loader --save
-
-noch die json ins assests verschieben
+// npm install @ngx-translate/http-loader --save
+//
+// noch die json ins assests verschieben
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

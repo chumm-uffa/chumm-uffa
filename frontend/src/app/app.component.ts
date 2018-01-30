@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
     this.translate.setDefaultLang('de');
 
 
-    this.translate.setTranslation('de', require('./i18n/de.json'), true);
-    this.translate.setTranslation('fr', require('./i18n/fr.json'), true);
+    // this.translate.setTranslation('de', require('./i18n/de.json'), true);
+    // this.translate.setTranslation('fr', require('./i18n/fr.json'), true);
 
   }
 
