@@ -7,14 +7,22 @@ import {LoginModule} from './login/login.modul';
 import {RegistrationModule} from './user/user.module';
 import {HomeModule} from './home/home.module';
 import {MymeetupsModule} from './mymeetups/mymeetups.module';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {MeetupModule} from './meetup/meetup.module';
 import {MeetupDetailModule} from './meetup-detail/meetup-detail.module';
 import {SearchModule} from './search/search.module';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+npm install @ngx-translate/http-loader --save
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -30,7 +38,16 @@ import {MaterialModule} from './material/material.module';
     MeetupModule,
     MeetupDetailModule,
     SearchModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
+
+
     BrowserAnimationsModule,
     MaterialModule
   ],
