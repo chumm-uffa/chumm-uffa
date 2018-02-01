@@ -24,9 +24,18 @@ describe('Meetup Form', () => {
     expect(meetup).toBe(meetup);
   }));
 
-  it('should should validate indoor or outdoor filled', inject([MeetupFormService], (meetupFb: MeetupFormService) => {
+  it('should should validate indoor filled', inject([MeetupFormService], (meetupFb: MeetupFormService) => {
     const form = meetupFb.createForm(meetupFb.checkMeetup());
-    expect(form.errors.oneOfAll.valid).toBeFalsy();
+    expect(form.errors.required.valid).toBeFalsy();
+    expect(form.invalid).toBeTruthy();
+  }));
+
+  it('should should validate outdoor filled', inject([MeetupFormService], (meetupFb: MeetupFormService) => {
+    const mu = meetupFb.checkMeetup();
+    mu.outdoor = 'outdoor';
+    const form = meetupFb.createForm(mu);
+    form.controls.outdoor.patchValue('');
+    expect(form.errors.required.valid).toBeFalsy();
     expect(form.invalid).toBeTruthy();
   }));
 
@@ -48,13 +57,6 @@ describe('Meetup Form', () => {
     const form = meetupFb.createForm(createValidMeetup(meetupFb));
     form.controls.toTime.patchValue('');
     expect(form.controls.toTime.errors.required).toBeTruthy();
-    expect(form.invalid).toBeTruthy();
-  }));
-
-  it('should validate date in the past', inject([MeetupFormService], (meetupFb: MeetupFormService) => {
-    const form = meetupFb.createForm(createValidMeetup(meetupFb));
-    form.controls.date.patchValue('2017-12-06');
-    expect(form.controls.date.errors.notBefore.valid).toBeFalsy();
     expect(form.invalid).toBeTruthy();
   }));
 

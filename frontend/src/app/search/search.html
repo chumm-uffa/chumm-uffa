@@ -10,7 +10,7 @@
         <mat-error *ngIf="searchForm.controls.fromDateTime | hasError:'notBefore'">{{ 'search.error.dateTimeInThePast' | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="{{'search.to' | translate}}" formControlName="toDateTime" type="datetime-local">
+        <input matInput [errorStateMatcher]="beginAfterBeforeMatcher" placeholder="{{'search.to' | translate}}" formControlName="toDateTime" type="datetime-local">
         <mat-error *ngIf="searchForm.controls.toDateTime | hasError:'required'">{{ 'search.error.toDateTimeRequired' | translate }}</mat-error>
         <mat-error *ngIf="searchForm | hasError:'timeAfterBefore'">{{ 'search.error.fromBeforeToTime' | translate }}</mat-error>
       </mat-form-field>

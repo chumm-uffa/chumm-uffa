@@ -9,6 +9,7 @@ import {Hall, Meetup, Sex, LocationType} from '@chumm-uffa/interface';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/AppDialogService';
+import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 
 @Component({
   selector: 'app-search',
@@ -24,6 +25,7 @@ export class SearchComponent implements OnInit {
   columnDefinition: string[] = ['owner', 'location', 'fromTime', 'toTime', 'register'];
   sexType = Sex;
   locationType = LocationType;
+  beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
