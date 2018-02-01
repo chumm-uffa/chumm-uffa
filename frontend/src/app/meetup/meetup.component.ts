@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup} from '@chumm-uffa/interface';
+import {Hall, IBaseResponse, LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 
 @Component({
   selector: 'app-create-meetup',
@@ -18,6 +19,10 @@ export class MeetupComponent implements OnInit {
   halls: Hall[];
   form: FormGroup;
   isMutateMode = false;
+  locationType = LocationType;
+  locationTypeMatcher = new AppErrorStateMatcher('required');
+  combinedMomentMatcher = new AppErrorStateMatcher('combinedMomentNotBefore');
+  beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
   private meetup: Meetup;
 
   constructor(private businessService: BusinessService,

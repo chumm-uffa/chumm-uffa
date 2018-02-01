@@ -1,0 +1,10 @@
+@import '../../assets/css/general';
+
+/**
+material Anpassungen
+ */
+@media (min-width: $max-xs-width) {
+  .mat-field-large {
+    width: 25em;
+  }
+}
