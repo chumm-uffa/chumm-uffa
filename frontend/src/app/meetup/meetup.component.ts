@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup} from '@chumm-uffa/interface';
 import {Hall, IBaseResponse, LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
