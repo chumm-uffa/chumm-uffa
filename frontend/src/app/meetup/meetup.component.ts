@@ -30,7 +30,8 @@ export class MeetupComponent implements OnInit {
               private fB: MeetupFormService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {

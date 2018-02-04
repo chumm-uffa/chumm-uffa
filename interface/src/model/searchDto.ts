@@ -61,7 +61,10 @@ export class SearchDto {
             json.outdoor,
             json.sex,
             json.weightMin,
-            json.weightMax
+            json.weightMax,
+            json.latitude,
+            json.longitude,
+            json.radius
         )
     }
 
