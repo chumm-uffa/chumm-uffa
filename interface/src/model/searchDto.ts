@@ -52,6 +52,19 @@ export class SearchDto {
         };
     }
 
+    public static fromJSON(json: any) {
+        return new SearchDto (
+            new Date(json.fromDateTime),
+            new Date(json.toDateTime),
+            json.locationType,
+            json.indoor,
+            json.outdoor,
+            json.sex,
+            json.weightMin,
+            json.weightMax
+        )
+    }
+
     get fromDateTime(): Date {
         return this._fromDateTime;
     }

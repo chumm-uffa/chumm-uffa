@@ -8,7 +8,8 @@
 /**
 material Anpassungen
  */
-
-.mat-field-large {
-  width: 25em;
+@media (min-width: $max-xs-width) {
+  .mat-field-large {
+    width: 25em;
+  }
 }

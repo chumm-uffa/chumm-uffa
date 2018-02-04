@@ -7,19 +7,19 @@
   <section class="app-box">
   <form *ngIf="form" [formGroup]="form" novalidate (ngSubmit)="submit()">
     <mat-form-field>
-      <input matInput placeholder="{{'meetup.date' | translate}}" formControlName="date" type="date" >
+      <input matInput [errorStateMatcher]="combinedMomentMatcher"  placeholder="{{'meetup.date' | translate}}" formControlName="date" type="date" >
       <mat-error *ngIf="form.controls.date | hasError:'required'">{{ 'meetup.error.dateRequired' | translate }}</mat-error>
-      <mat-error *ngIf="form.controls.date | hasError:'notBefore'">{{ 'meetup.error.dateInThePast' | translate }}</mat-error>
+      <mat-error *ngIf="form | hasError:'combinedMomentNotBefore'">{{ 'meetup.error.fromTimeInPast' | translate }}</mat-error>
     </mat-form-field>
 
     <br>
       <mat-form-field>
-        <input matInput placeholder="{{'meetup.fromTime' | translate}}" formControlName="fromTime" type="time">
+        <input matInput [errorStateMatcher]="combinedMomentMatcher" placeholder="{{'meetup.fromTime' | translate}}" formControlName="fromTime" type="time">
         <mat-error *ngIf="form.controls.fromTime | hasError:'required'">{{ 'meetup.error.fromTimeRequired' | translate }}</mat-error>
         <mat-error *ngIf="form | hasError:'combinedMomentNotBefore'">{{ 'meetup.error.fromTimeInPast' | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="{{'meetup.toTime' | translate}}" formControlName="toTime" type="time">
+        <input matInput [errorStateMatcher]="beginAfterBeforeMatcher" placeholder="{{'meetup.toTime' | translate}}" formControlName="toTime" type="time">
         <mat-error *ngIf="form.controls.toTime | hasError:'required'">{{ 'meetup.error.toTimeRequired' | translate }}</mat-error>
         <mat-error *ngIf="form | hasError:'timeAfterBefore'">{{ 'meetup.error.fromBeforeToTime' | translate }}</mat-error>
       </mat-form-field>
@@ -31,19 +31,17 @@
       </mat-radio-group>
       <div *ngIf="isIndoor(); else outdoor">
         <mat-form-field class="mat-field-large">
-          <mat-select placeholder="{{'meetup.indoor' | translate}}" formControlName="indoor">
+          <mat-select [errorStateMatcher]="locationTypeMatcher" placeholder="{{'meetup.indoor' | translate}}" formControlName="indoor">
             <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="(form | hasError:'oneOfAll') && (form.controls.indoor.touched)"
-                     class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
+          <mat-error class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
         </mat-form-field>
       </div>
       <ng-template #outdoor>
         <br>
         <mat-form-field>
-            <input matInput placeholder="{{'meetup.outdoor' | translate}}" formControlName="outdoor">
-            <mat-error *ngIf="(form | hasError:'oneOfAll') && (form.controls.outdoor.touched)"
-                     class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
+            <input matInput [errorStateMatcher]="locationTypeMatcher" placeholder="{{'meetup.outdoor' | translate}}" formControlName="outdoor">
+            <mat-error class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
         </mat-form-field>
           <button mat-raised-button color="accent" class="dummy-mat-field" (click)="showGoogleMapsDialog()" type="button">{{'googleMaps' | translate}}</button>
       </ng-template>

@@ -30,6 +30,6 @@ describe('BusinessService', () => {
 
   it('should get i am alive', inject([BusinessService], (service: BusinessService) => {
     service.getHalls().subscribe(res =>
-      expect(res.halls[0].name).toBe('Kletterhalle'));
+      expect(res[0].name).toBe('Kletterhalle'));
   }));
 });

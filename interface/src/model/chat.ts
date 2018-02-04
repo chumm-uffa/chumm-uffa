@@ -17,12 +17,29 @@ export class Chat {
   }
 
   public toJSON() {
-      return {
-          id: this.id,
-          text: this.text,
-          speaker: this.speaker,
-          date: this.date
-      };
+    return {
+        id: this.id,
+        text: this.text,
+        speaker: this.speaker,
+        date: this.date
+    };
+  }
+
+  public static fromJSON(json: any) {
+    return new Chat (
+        json.id,
+        json.text,
+        User.fromJSON(json.speaker),
+        new Date(json.date)
+    );
+  }
+
+  public static fromJSONArray(json: any[]) {
+      const chats: Chat[] = [];
+      json.map( (chat) => {
+          chats.push(Chat.fromJSON(chat));
+      });
+      return chats;
   }
 
   get id(): string {
