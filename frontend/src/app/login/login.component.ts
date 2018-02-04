@@ -9,7 +9,8 @@ import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.html'
+  templateUrl: './login.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit  {
 
