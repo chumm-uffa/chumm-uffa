@@ -33,10 +33,26 @@
 
       <section *ngIf="isAccepted || isMeetupOwner"  class="app-box">
         <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
+        <label *ngIf="getMeetUpRequestsToShow().length === 0" class="detail detail--label">{{ 'meetupDetail.noRequests' | translate }}</label>
       </section>
     </div>
 
     <div class="column-container">
+      <section class="app-box">
+        <h3 class="mat-h2">{{ 'meetupDetail.owner' | translate }}</h3>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.ownername' | translate }}</label>
+          <span class="detail detail--content">{{meetup?.owner.username}}</span>
+        </div>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.ownersex' | translate }}</label>
+          <span class="detail detail--content">{{('meetupDetail.' + meetup?.owner.sex) | translate}}</span>
+        </div>
+        <div class="row-container">
+          <label class="detail detail--label">{{ 'meetupDetail.ownerweight' | translate }}</label>
+          <span class="detail detail--content">{{meetup?.owner.weight}} {{'meetupDetail.kg' | translate}}</span>
+        </div>
+      </section>
       <section *ngIf="isAccepted || isMeetupOwner" class="app-box">
         <app-chat [meetup]="meetup"></app-chat>
       </section>

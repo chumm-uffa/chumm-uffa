@@ -97,6 +97,14 @@
     "location": "Austragungsort:",
     "activity": "Aktivität:",
     "meetup": "Meetup",
+    "owner": "Ersteller",
+    "ownername": "Name:",
+    "ownersex": "Geschlecht:",
+    "ownerweight": "Gewicht:",
+    "M": "Mann",
+    "F": "Frau",
+    "kg": "kg",
+    "noRequests": "Sie haben noch keine Anfragen",
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
     }
@@ -107,8 +115,8 @@
     "decline": "ablehnen",
     "sex": "Geschlecht",
     "weight": "Körpergewicht",
-    "M": "männlich",
-    "F": "weiblich",
+    "M": "Mann",
+    "F": "Frau",
     "kg": "kg"
   },
   "chat": {

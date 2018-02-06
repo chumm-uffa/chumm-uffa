@@ -97,6 +97,14 @@
     "location": "Austragungsort:_FR",
     "activity": "Aktivität:_FR",
     "meetup": "Meetup_FR",
+    "owner": "Ersteller_FR",
+    "ownername": "Name:_FR",
+    "ownersex": "Geschlecht:_FR",
+    "ownerweight": "Gewicht:_FR",
+    "M": "Mann_FR",
+    "F": "Frau_FR",
+    "kg": "kg_FR",
+    "noRequests": "Sie haben noch keine Anfragen_FR",
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!_FR"
     }
