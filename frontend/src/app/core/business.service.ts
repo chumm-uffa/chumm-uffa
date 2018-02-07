@@ -5,14 +5,14 @@ import {MockService} from './mock.service';
 import {AppStateService} from './app-state.service';
 import {
   AuthFactory,
+  BaseResponse,
   Chat,
   Hall,
+  IBaseResponse,
   IDeleteMeetupRequestResponse,
-  IUpdateProfileResponse,
   IGetAllMeetupsForUserResponse,
   IGetMeetupResponse,
-  IBaseResponse,
-  BaseResponse,
+  IUpdateProfileResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
@@ -32,6 +32,8 @@ import {
 @Injectable()
 export class BusinessService {
 
+  private lastSearch: Meetup[] = [];
+
   constructor(private appState: AppStateService,
               private resourceService: ResourceService,
               private mockService: MockService) {
@@ -43,11 +45,11 @@ export class BusinessService {
    * @returns {Observable<User>}
    */
   register(user: User): Observable<User> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.register(AuthFactory.createRegisterRequest(user))
-      .subscribe(res => {
-        observer.next(User.fromJSON(res.user));
-      }, err => this.handleError(observer, err, 'register'));
+        .subscribe(res => {
+          observer.next(User.fromJSON(res.user));
+        }, err => this.handleError(observer, err, 'register'));
     });
   }
 
@@ -57,11 +59,11 @@ export class BusinessService {
    * @returns {Observable<IUpdateProfileResponse>}•••••••••••
    */
   saveUser(user: User): Observable<IUpdateProfileResponse> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.saveUser(AuthFactory.createUpdateProfileRequest(user))
-      .subscribe( res => {
-        observer.next(User.fromJSON(res.profile));
-      }, err => this.handleError(observer, err, 'update profile'));
+        .subscribe(res => {
+          observer.next(User.fromJSON(res.profile));
+        }, err => this.handleError(observer, err, 'update profile'));
     });
   }
 
@@ -71,13 +73,14 @@ export class BusinessService {
    * @returns {Observable<User>}
    */
   login(user: User): Observable<User> {
-    return Observable.create( (observer) => {
+    this.lastSearch = [];
+    return Observable.create((observer) => {
       this.resourceService.login(AuthFactory.createLoginRequest(user))
-      .subscribe( res => {
-        this.appState.loggedInUser = res.profile;
-        this.appState.token = res.token;
-        observer.next(User.fromJSON(res.profile));
-      }, err => this.handleError(observer, err, 'login'));
+        .subscribe(res => {
+          this.appState.loggedInUser = res.profile;
+          this.appState.token = res.token;
+          observer.next(User.fromJSON(res.profile));
+        }, err => this.handleError(observer, err, 'login'));
     });
   }
 
@@ -87,11 +90,11 @@ export class BusinessService {
    * @returns {Observable<IGetAllMeetupsForUserResponse>}
    */
   getMeetUps(): Observable<Meetup[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.getMeetups(this.appState.loggedInUser.id)
-      .subscribe( res => {
-        observer.next(Meetup.fromJSONArray(res.meetups));
-      }, err => this.handleError(observer, err, 'getting all meetups'));
+        .subscribe(res => {
+          observer.next(Meetup.fromJSONArray(res.meetups));
+        }, err => this.handleError(observer, err, 'getting all meetups'));
     });
   }
 
@@ -100,11 +103,11 @@ export class BusinessService {
    * @returns {Observable<MeetupRequest[]>}
    */
   getMeetUpRequests(): Observable<MeetupRequest[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.getMeetupRequests(this.appState.loggedInUser.id)
-      .subscribe( res => {
-        observer.next(MeetupRequest.fromJSONArray(res.requests));
-      }, err => this.handleError(observer, err, 'getting all requests for meetup'));
+        .subscribe(res => {
+          observer.next(MeetupRequest.fromJSONArray(res.requests));
+        }, err => this.handleError(observer, err, 'getting all requests for meetup'));
     });
   }
 
@@ -114,12 +117,12 @@ export class BusinessService {
    * @returns {Observable<Meetup>}
    */
   createMeetUp(meetup: Meetup): Observable<Meetup> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       meetup.owner = this.appState.loggedInUser;
       this.resourceService.createMeetup(MeetupsFactory.createCreateMeetupRequest(meetup))
-      .subscribe( res => {
-        observer.next(res.meetup);
-      }, err => this.handleError(observer, err, 'create new meetup'));
+        .subscribe(res => {
+          observer.next(res.meetup);
+        }, err => this.handleError(observer, err, 'create new meetup'));
     });
   }
 
@@ -129,11 +132,11 @@ export class BusinessService {
    * @returns {Observable<IBaseResponse>}
    */
   saveMeetUp(meetup: Meetup): Observable<Meetup> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.saveMeetup(MeetupsFactory.createUpdateMeetupRequest(meetup))
-      .subscribe( res => {
-        observer.next(res.meetup);
-      }, err => this.handleError(observer, err, 'update meetup'));
+        .subscribe(res => {
+          observer.next(res.meetup);
+        }, err => this.handleError(observer, err, 'update meetup'));
     });
   }
 
@@ -143,11 +146,11 @@ export class BusinessService {
    * @returns {Observable<IGetMeetupResponse>}
    */
   loadMeetup(meetupId: string): Observable<Meetup> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.loadMeetup(meetupId)
-      .subscribe( res => {
-        observer.next(res.meetup);
-      }, err => this.handleError(observer, err, 'load meetup'));
+        .subscribe(res => {
+          observer.next(res.meetup);
+        }, err => this.handleError(observer, err, 'load meetup'));
     });
   }
 
@@ -157,11 +160,11 @@ export class BusinessService {
    * @returns {Observable<void>}
    */
   deleteMeetup(meetupId: string): Observable<void> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.deleteMeetup(meetupId)
-      .subscribe( () => {
+        .subscribe(() => {
           observer.next();
-      }, err => this.handleError(observer, err, 'delete meetup'));
+        }, err => this.handleError(observer, err, 'delete meetup'));
     });
   }
 
@@ -171,11 +174,11 @@ export class BusinessService {
    * @returns {Observable<MeetupRequest[]>}
    */
   loadRequests(meetupId: string): Observable<MeetupRequest[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.loadRequests(meetupId)
-      .subscribe( res => {
-        observer.next(MeetupRequest.fromJSONArray(res.requests));
-      }, err => this.handleError(observer, err, 'load meetup request'));
+        .subscribe(res => {
+          observer.next(MeetupRequest.fromJSONArray(res.requests));
+        }, err => this.handleError(observer, err, 'load meetup request'));
     });
   }
 
@@ -186,12 +189,12 @@ export class BusinessService {
    * @returns {Observable<MeetupRequest>}
    */
   updateRequest(request: MeetupRequest, state: RequestStatus): Observable<MeetupRequest> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       request.status = state;
       this.resourceService.updateRequest(MeetupRequestsFactory.createUpdateMeetupRequestRequest(request))
-      .subscribe( res => {
-        observer.next(res.request);
-      }, err => this.handleError(observer, err, 'update meetup request'));
+        .subscribe(res => {
+          observer.next(res.request);
+        }, err => this.handleError(observer, err, 'update meetup request'));
     });
   }
 
@@ -201,12 +204,12 @@ export class BusinessService {
    * @returns {Observable<MeetupRequest>}
    */
   requestForParticipation(meetup: Meetup): Observable<MeetupRequest> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       const request = MeetupRequestsFactory.createCreateMeetupRequestRequest(new MeetupRequest(null, this.appState.loggedInUser, meetup));
       this.resourceService.createMeetupRequest(request)
-      .subscribe( res => {
-        observer.next(res.request);
-      }, err => this.handleError(observer, err, 'create meetup request'));
+        .subscribe(res => {
+          observer.next(res.request);
+        }, err => this.handleError(observer, err, 'create meetup request'));
     });
   }
 
@@ -216,11 +219,11 @@ export class BusinessService {
    * @returns {Observable<IDeleteMeetupRequestResponse>}
    */
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.deleteRequest(requestId)
-      .subscribe( () => {
-        observer.next();
-      }, err => this.handleError(observer, err, 'delete meetup request'));
+        .subscribe(() => {
+          observer.next();
+        }, err => this.handleError(observer, err, 'delete meetup request'));
     });
   }
 
@@ -230,11 +233,11 @@ export class BusinessService {
    * @returns {Observable<Chat[]>}
    */
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.loadChatsByMeetupId(meetupId)
-      .subscribe( res => {
-        observer.next(Chat.fromJSONArray(res.chats));
-      }, err => this.handleError(observer, err, 'load chats for meetup'));
+        .subscribe(res => {
+          observer.next(Chat.fromJSONArray(res.chats));
+        }, err => this.handleError(observer, err, 'load chats for meetup'));
     });
   }
 
@@ -245,12 +248,12 @@ export class BusinessService {
    * @returns {Observable<Chat>}
    */
   createChat(message: string, meetupId: string): Observable<Chat> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       const chat = MeetupsFactory.createCreateChatForMeetupRequest(new Chat('', message, this.appState.loggedInUser, new Date()));
       this.resourceService.createChat(meetupId, chat)
-      .subscribe( res => {
-        observer.next(res.chat);
-      }, err => this.handleError(observer, err, 'create chats for meetup'));
+        .subscribe(res => {
+          observer.next(res.chat);
+        }, err => this.handleError(observer, err, 'create chats for meetup'));
     });
   }
 
@@ -260,13 +263,18 @@ export class BusinessService {
    * @returns {Observable<Meetup[]>}
    */
   searchMeetUp(searchDto: SearchDto): Observable<Meetup[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       const search = MeetupsFactory.createSearchMeetupRequest(searchDto);
       this.resourceService.searchMeetup(search)
-      .subscribe( res => {
-        observer.next(Meetup.fromJSONArray(res.meetups));
-      }, err => this.handleError(observer, err, 'search meetup'));
+        .subscribe(res => {
+          this.lastSearch = Meetup.fromJSONArray(res.meetups);
+          observer.next(this.lastSearch);
+        }, err => this.handleError(observer, err, 'search meetup'));
     });
+  }
+
+  getCachedSearchResults() {
+    return this.lastSearch;
   }
 
   /**
@@ -274,7 +282,7 @@ export class BusinessService {
    * @returns {Observable<Hall[]>}
    */
   getHalls(): Observable<Hall[]> {
-    return Observable.create( (observer) => {
+    return Observable.create((observer) => {
       this.resourceService.getHalls().subscribe(res => {
         observer.next(Hall.fromJSONArray(res.halls));
       }, err => this.handleError(observer, err, 'getting all halls'));

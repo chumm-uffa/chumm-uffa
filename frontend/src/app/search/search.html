@@ -63,10 +63,10 @@
     </form>
   </section>
 
-  <section *ngIf="hasAllreadySearched">
+  <section>
     <ng-template #noResult>
       <div class="app-spacer-vert--m"></div>
-      <h3 class="mat-h3 no-result" >{{'search.noResults' | translate}}</h3>
+      <h3 *ngIf="hasAllreadySearched" class="mat-h3 no-result" >{{'search.noResults' | translate}}</h3>
     </ng-template>
 
     <mat-table #table *ngIf="results.data.length > 0; else noResult" [dataSource]="results">
@@ -96,7 +96,7 @@
         <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" (click)="requestForParticipation($event, meetup)">{{'search.startRequest' | translate}}</button> </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="columnDefinition"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnDefinition;"></mat-row>
+      <mat-row routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}" *matRowDef="let meetup; columns: columnDefinition;"></mat-row>
     </mat-table>
   </section>
 </div>
