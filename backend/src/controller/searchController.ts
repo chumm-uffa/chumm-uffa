@@ -32,17 +32,25 @@ export class SearchController extends BaseController {
             zr = zr.find({indoor: searchDto.indoor});
         }
         if (searchDto.locationType === LocationType.OUTDOOR && searchDto.outdoor) {
-            zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')})
+            zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')});
+        }
+        if (searchDto.locationType === LocationType.OUTDOOR && searchDto.latitude && searchDto.radius) {
+            const circumference = 40000; // earth in km
+            const longitudeFactor = this.correctLongitude(searchDto.latitude);
+            const boxquarter = this.calcBox(searchDto.radius, circumference);
+            const lowerLeft = [searchDto.latitude - boxquarter, searchDto.longitude - (boxquarter / longitudeFactor)];
+            const upperRight = [searchDto.latitude + boxquarter, searchDto.longitude + (boxquarter / longitudeFactor)];
+            zr = zr.find().where('location').within().box(lowerLeft, upperRight);
         }
         zr.populate(MeetupPopulate).then((dbMeetups) => {
             let promise: Promise<any>[] = [];
             let meetups: Meetup[] = [];
             for (let dbMeetup of dbMeetups) {
-                promise.push(dbMeetup.toInterface().then( (meetup) => {
+                promise.push(dbMeetup.toInterface().then((meetup) => {
                     meetups.push(meetup);
                 }));
             }
-            Promise.all(promise).then( () => {
+            Promise.all(promise).then(() => {
                 meetups = meetups.filter(this.getPersonFilter(searchDto));
                 res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
             });
@@ -80,5 +88,26 @@ export class SearchController extends BaseController {
             return isNaN(result) ? null : result;
         }
         return result;
+    }
+
+    /**
+     * Korrekturfaktor für Distanz in Längengrad
+     * anhand des Breitengrades -> das war früher viel einfacher
+     * als die Erde noch eine Scheibe war...
+     * @param lati
+     * @returns {number}
+     */
+    private correctLongitude(lati): number {
+        return Math.cos(2 * Math.PI * lati / 360);
+    }
+
+    /**
+     * Umrechung km in Grad
+     * @param radius
+     * @param circumference
+     * @returns {number}
+     */
+    private calcBox(radius, circumference): number {
+        return radius * 360 / circumference;
     }
 }

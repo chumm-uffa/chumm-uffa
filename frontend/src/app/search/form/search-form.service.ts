@@ -22,7 +22,10 @@ export class SearchFormService {
       outdoor: '',
       sex: '',
       weightMin: '',
-      weightMax: ''
+      weightMax: '',
+      longitude: '',
+      latitude: '',
+      radius: ''
     }, {
       validator: [validateAfterBefore(SearchFormService.DATE_TIME_FORMAT, 'fromDateTime', 'toDateTime')]
     });
@@ -43,7 +46,10 @@ export class SearchFormService {
       formvalue.outdoor,
       formvalue.sex,
       Number(formvalue.weightMin),
-      Number(formvalue.weightMax));
+      Number(formvalue.weightMax),
+      Number(formvalue.latitude),
+      Number(formvalue.longitude),
+      Number(formvalue.radius));
   }
 
   private patchToTime(fromDateTimeString: string, form: FormGroup): void {

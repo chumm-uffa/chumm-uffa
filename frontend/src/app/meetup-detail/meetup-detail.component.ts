@@ -4,6 +4,7 @@ import {BusinessService} from '../core/business.service';
 import {Hall, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
 import {AppStateService} from '../core/app-state.service';
+import {AppDialogService} from '../core/AppDialogService';
 
 @Component({
   selector: 'app-meetup-detail',
@@ -21,7 +22,8 @@ export class MeetupDetailComponent implements OnInit {
 
   constructor(private businessService: BusinessService,
               private activatedRoute: ActivatedRoute,
-              private appState: AppStateService) {
+              private appState: AppStateService,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {
@@ -67,6 +69,10 @@ export class MeetupDetailComponent implements OnInit {
       return this.meetupRequests;
     }
     return this.meetupRequests.filter(req => req.status === RequestStatus.ACCEPT);
+  }
+
+  showGoogleMapsDialog(showOnly = false) {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe();
   }
 
 }

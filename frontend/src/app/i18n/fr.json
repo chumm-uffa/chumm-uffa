@@ -138,6 +138,8 @@
     "location_th": "Ort_FR",
     "from_th": "Startzeit_FR",
     "to_th": "Endzeit_FR",
+    "km": "km_FR",
+    "radius": "Umkreis_FR",
     "noResults": "Keine passenden Meetups gefunden!_FR",
     "partner": "Partnerperson_FR",
     "dialog": {
@@ -173,18 +175,22 @@
     "dialog": {
       "signOffTitle": "Abmelden_FR",
       "signOffText": "Sie melden sich vom Meetup ab!_FR",
-      "error": "Server Error"
+      "error": "Server Error_FR"
     }
   },
   "confirmDialog": {
-    "no": "Nö Nö",
-    "yes": "Jo jo"
+    "no": "Nö Nö_FR",
+    "yes": "Jo jo_FR"
   },
   "infoPopup": {
     "ok": "OK_FR"
   },
   "appDialogService": {
-    "serverErrorTitle": "Server Error",
-    "errorTitle": "Error"
+    "serverErrorTitle": "Server Error_FR",
+    "errorTitle": "Error_FR"
+  },
+  "google-maps": {
+    "ok": "Übernehmen_FR",
+    "abandon": "Abbrechen_FR"
   }
 }

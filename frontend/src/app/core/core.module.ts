@@ -7,10 +7,11 @@ import {MockService} from './mock.service';
 import {AuthGuard} from './AuthGuard';
 import {MaterialModule} from '../material/material.module';
 import {AppDialogService} from './AppDialogService';
+import {GoogleMapsModule} from '../google-maps/google-maps.module';
 
 @NgModule({
   imports: [
-    HttpClientModule, MaterialModule
+    HttpClientModule, MaterialModule, GoogleMapsModule
 
   ],
   providers: [

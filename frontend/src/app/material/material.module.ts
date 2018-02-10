@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {
   MatButtonModule,
   MatDialogModule,
-  MatFormFieldModule, MatIconModule,
-  MatInputModule, MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatIconModule,
   MatRadioModule,
   MatSelectModule,
   MatTableModule,
-  MatTabsModule, MatTooltipModule
+  MatTabsModule,
+  MatTooltipModule
 } from '@angular/material';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
