@@ -77,7 +77,7 @@ export class SearchComponent implements OnInit {
     const longitude = Number(this.searchForm.get('longitude').value);
 
     this.appDialogService.showGoogleMaps(latitude, longitude, showOnly).subscribe(result => {
-      if (result.ok) {
+      if (result && result.ok) {
         this.searchForm.get('latitude').patchValue(result.lat);
         this.searchForm.get('longitude').patchValue(result.lng);
       }

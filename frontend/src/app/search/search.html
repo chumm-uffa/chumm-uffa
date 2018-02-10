@@ -32,7 +32,7 @@
           <span class="right-hand">
             <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()" type="button">{{'Google Maps'}}</button>
             <mat-form-field>
-              <input matInput formControlName="radius" placeholder="{{'search.radius' | translate}}">
+              <input matInput formControlName="radius" placeholder="{{'search.radius' | translate}}" type="number">
               <span matSuffix>{{'search.km' | translate}}</span>
             </mat-form-field>
           </span>
