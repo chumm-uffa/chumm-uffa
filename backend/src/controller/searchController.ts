@@ -97,7 +97,7 @@ export class SearchController extends BaseController {
             /*
             spherical benutzt Radiant für Distanzen -> ergo müssen wir den Radius unseres Suchkreises in Radiant umrechnen.
              */
-            const searchRadius = searchDto.radius * 2 * Math.PI / 40074;
+            const searchRadius = searchDto.radius * 2 * Math.PI / 36877;
             zr = zr.find().where('location')
                 .within({ center: [searchDto.latitude, searchDto.longitude], radius: searchRadius, unique: true, spherical: true });
         }
