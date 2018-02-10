@@ -148,6 +148,7 @@ export class MockService implements ResourceServiceInterface {
     this._users.push(new User('2', 'Eder', '', Sex.FEMALE, '', '45'));
     this._users.push(new User('3', 'UrsChrumBei', '', Sex.MALE, '', '72'));
     this._users.push(new User('4', 'PetraImmerBlau', '', Sex.FEMALE, '', '85'));
+    this._users.push(new User('5', 'pepe', '', Sex.MALE, '', '85'));
   }
 
   /**
