@@ -4,7 +4,7 @@
   "OPEN": "offen_FR",
   "login": {
     "title": "Login_FR",
-    "name": "Email_FR: ",
+    "name": "Name_FR: ",
     "password": "Passwort_FR: ",
     "loginUser": "Anmelden_FR",
     "dialog": {
