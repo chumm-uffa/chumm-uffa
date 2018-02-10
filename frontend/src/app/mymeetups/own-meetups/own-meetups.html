@@ -56,9 +56,7 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef='columnDefinition'></mat-header-row>
-      <mat-row *matRowDef='let row; columns: columnDefinition;' (click)="selectRow(row)">
-
-      </mat-row>
+      <mat-row routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}" *matRowDef="let meetup; columns: columnDefinition;"></mat-row>
     </mat-table>
 
   </section>

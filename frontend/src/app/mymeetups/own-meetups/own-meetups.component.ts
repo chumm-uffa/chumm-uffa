@@ -47,10 +47,6 @@ export class OwnMeetupsComponent implements OnInit {
     return Util.resolveLocation(meetup, this.halls);
   }
 
-  selectRow(row) {
-    this.router.navigate(['/meetupdetail'], { queryParams: { meetupId: row.id } });
-  }
-
   deleteMeetup(event, meetupId: string): void {
     event.stopPropagation();
 
