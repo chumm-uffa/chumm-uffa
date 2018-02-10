@@ -138,6 +138,8 @@
     "location_th": "Ort",
     "from_th": "Startzeit",
     "to_th": "Endzeit",
+    "km": "km",
+    "radius": "Umkreis",
     "noResults": "Keine passenden Meetups gefunden!",
     "partner": "Partnerperson",
     "dialog": {
@@ -185,5 +187,9 @@
   "appDialogService": {
     "serverErrorTitle": "Server Error",
     "errorTitle": "Error"
+  },
+  "google-maps": {
+    "ok": "Übernehmen",
+    "abandon": "Abbrechen"
   }
 }

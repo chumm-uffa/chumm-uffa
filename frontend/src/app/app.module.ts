@@ -34,7 +34,7 @@ import {MaterialModule} from './material/material.module';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [    {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

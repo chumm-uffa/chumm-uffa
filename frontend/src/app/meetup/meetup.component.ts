@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, IBaseResponse, LocationType, Meetup} from '@chumm-uffa/interface';
+import {Hall, Meetup, IBaseResponse, LocationType} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {AppDialogService} from '../core/AppDialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 
 @Component({
@@ -29,7 +30,8 @@ export class MeetupComponent implements OnInit {
               private fB: MeetupFormService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appDialogService: AppDialogService) {
   }
 
   ngOnInit() {
@@ -93,5 +95,14 @@ export class MeetupComponent implements OnInit {
         });
       }
     }
+  }
+
+  showGoogleMapsDialog(showOnly = false) {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe(result => {
+      if (result && result.ok) {
+        this.meetup.latitude = result.lat;
+        this.meetup.longitude = result.lng;
+      }
+    });
   }
 }

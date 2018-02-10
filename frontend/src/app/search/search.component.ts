@@ -4,7 +4,7 @@ import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
-import {Hall, Meetup, Sex, LocationType} from '@chumm-uffa/interface';
+import {Hall, LocationType, Meetup, Sex} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
@@ -67,5 +67,18 @@ export class SearchComponent implements OnInit {
 
   getLocation(meetup: Meetup): string {
     return Util.resolveLocation(meetup, this.halls);
+  }
+
+  showGoogleMapsDialog(showOnly = false) {
+
+    const latitude = Number(this.searchForm.get('latitude').value);
+    const longitude = Number(this.searchForm.get('longitude').value);
+
+    this.appDialogService.showGoogleMaps(latitude, longitude, showOnly).subscribe(result => {
+      if (result && result.ok) {
+        this.searchForm.get('latitude').patchValue(result.lat);
+        this.searchForm.get('longitude').patchValue(result.lng);
+      }
+    });
   }
 }

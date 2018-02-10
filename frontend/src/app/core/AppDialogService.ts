@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {MatDialog} from '@angular/material';
 import {HttpErrorResponse} from '@angular/common/http';
+import {GoogleMapsComponent} from '../google-maps/google-maps.component';
 
 @Injectable()
 export class AppDialogService {
@@ -21,5 +22,13 @@ export class AppDialogService {
     console.log('Server Error occured: ', message);
     const dialogRef = this.dialog.open(InfoPopupComponent,
       {data: {infoText: message, infoTitle: 'appDialogService.serverErrorTitle'}});
+  }
+
+  showGoogleMaps(lat: number, lng: number, showOnly: boolean = false) {
+    const dialogRef = this.dialog.open(GoogleMapsComponent,
+      {height: '80vh',
+        width: '80vw', data: {longitude: lng, latitude: lat, showOnly: showOnly}});
+
+    return dialogRef.afterClosed();
   }
 }
