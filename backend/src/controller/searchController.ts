@@ -8,65 +8,6 @@ import {DBMeetup, MeetupPopulate} from '../models/meetup/model';
 
 export class SearchController extends BaseController {
 
-//     public searchtestMeetups(req: Request, res: Response) {
-//
-//         const searchRequest: ISearchMeetupsRequest = req.body;
-//
-//
-//         const searchDto = searchRequest.searchDto;
-//
-//
-//         40000 / 360
-//
-//
-//         // Umrechungen km zu grad
-//        //  let radius = searchDto.radius / 111.317;
-//
-//
-// /*
-// spherical benutzt Radiant für Distanzen -> ergo müssen wir den Radius unseres Suchkreises in Radiant umrechnen.
-//  */
-//
-//         let one = 0.01745329251994329576923690768489;
-//
-//
-//         const searchRadius = searchDto.radius * 2 * Math.PI / 40074;
-//
-//
-//
-//         let zr = DBMeetup.find().where('location')
-//             .within({ center: [searchDto.latitude, searchDto.longitude], radius: searchRadius, unique: true, spherical: true });
-//
-//         // let zr = DBMeetup.find({'from': {'$gte': searchDto.fromDateTime}, 'to': {'$lte': searchDto.toDateTime}})
-//         //
-//         //
-//         // if (searchDto.locationType === LocationType.INDOOR && searchDto.indoor) {
-//         //     zr = zr.find({indoor: searchDto.indoor});
-//         // }
-//         // if (searchDto.locationType === LocationType.OUTDOOR && searchDto.outdoor) {
-//         //     zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')})
-//         // }
-//         zr.populate(MeetupPopulate).then((dbMeetups) => {
-//             let promise: Promise<any>[] = [];
-//             let meetups: Meetup[] = [];
-//             for (let dbMeetup of dbMeetups) {
-//                 promise.push(dbMeetup.toInterface().then( (meetup) => {
-//                     meetups.push(meetup);
-//                 }));
-//             }
-//             Promise.all(promise).then( () => {
-//                 meetups = meetups.filter(this.getPersonFilter(searchDto));
-//                 res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
-//             });
-//         }).catch((err) => {
-//             this.logger.error(err.toString());
-//             res.status(500);
-//             res.json(MeetupsFactory.createSearchMeetupResponse(false, err.toString()));
-//             return;
-//         });
-//     }
-
-
     /**
      * Implementation, get all Meetups by searchDto
      * @param {Request} req
@@ -94,22 +35,22 @@ export class SearchController extends BaseController {
             zr = zr.find({outdoor: new RegExp(searchDto.outdoor, 'i')});
         }
         if (searchDto.locationType === LocationType.OUTDOOR && searchDto.latitude && searchDto.radius) {
-            /*
-            spherical benutzt Radiant für Distanzen -> ergo müssen wir den Radius unseres Suchkreises in Radiant umrechnen.
-             */
-            const searchRadius = searchDto.radius * 2 * Math.PI / 36877;
-            zr = zr.find().where('location')
-                .within({ center: [searchDto.latitude, searchDto.longitude], radius: searchRadius, unique: true, spherical: true });
+            const circumference = 40000; // earth in km
+            const longitudeFactor = this.correctLongitude(searchDto.latitude);
+            const boxquarter = this.calcBox(searchDto.radius, circumference);
+            const lowerLeft = [searchDto.latitude - boxquarter, searchDto.longitude - (boxquarter / longitudeFactor)];
+            const upperRight = [searchDto.latitude + boxquarter, searchDto.longitude + (boxquarter / longitudeFactor)];
+            zr = zr.find().where('location').within().box(lowerLeft, upperRight);
         }
         zr.populate(MeetupPopulate).then((dbMeetups) => {
             let promise: Promise<any>[] = [];
             let meetups: Meetup[] = [];
             for (let dbMeetup of dbMeetups) {
-                promise.push(dbMeetup.toInterface().then( (meetup) => {
+                promise.push(dbMeetup.toInterface().then((meetup) => {
                     meetups.push(meetup);
                 }));
             }
-            Promise.all(promise).then( () => {
+            Promise.all(promise).then(() => {
                 meetups = meetups.filter(this.getPersonFilter(searchDto));
                 res.json(MeetupsFactory.createSearchMeetupResponse(true, '', meetups));
             });
@@ -147,5 +88,26 @@ export class SearchController extends BaseController {
             return isNaN(result) ? null : result;
         }
         return result;
+    }
+
+    /**
+     * Korrekturfaktor für Distanz in Längengrad
+     * anhand des Breitengrades -> das war früher viel einfacher
+     * als die Erde noch eine Scheibe war...
+     * @param lati
+     * @returns {number}
+     */
+    private correctLongitude(lati): number {
+        return Math.cos(2 * Math.PI * lati / 360);
+    }
+
+    /**
+     * Umrechung km in Grad
+     * @param radius
+     * @param circumference
+     * @returns {number}
+     */
+    private calcBox(radius, circumference): number {
+        return radius * 360 / circumference;
     }
 }
