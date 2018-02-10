@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Meetup} from '@chumm-uffa/interface';
+import {LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {
   validateAfterBefore,
   validateCombinedMomentNotBeforeNow,
-  validateDateFormat,
-  validateNotBefore
+  validateDateFormat
 } from '../../shared/validators/validate-date';
-import {validateOneOf} from '../../shared/validators/one-of.validator';
+import {locationRequired} from '../../shared/validators/location.validator';
 
 @Injectable()
 export class MeetupFormService {
@@ -24,17 +23,16 @@ export class MeetupFormService {
     const to = new Date(meetup.from);
     return this.fB.group({
       date: [moment(from.getTime()).format(MeetupFormService.DATE_FORMAT),
-        [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT),
-          validateNotBefore(MeetupFormService.DATE_FORMAT)]],
+        [Validators.required, validateDateFormat(MeetupFormService.DATE_FORMAT)]],
       fromTime: [moment(from.getTime()).format(MeetupFormService.TIME_FORMAT),
         [Validators.required]],
       toTime: [moment(to.getTime()).format(MeetupFormService.TIME_FORMAT), [Validators.required]],
-      locationType: meetup.outdoor ? 'out' : 'in',
-      indoor: meetup.indoor,
+      locationType: meetup.outdoor ? LocationType.OUTDOOR : LocationType.INDOOR,
+      indoor: [meetup.indoor],
       outdoor: meetup.outdoor,
       activity: [meetup.activity]
     }, {
-      validator: [validateOneOf('indoor', 'outdoor'),
+      validator: [locationRequired('indoor', 'outdoor', 'locationType'),
         validateAfterBefore(MeetupFormService.TIME_FORMAT, 'fromTime', 'toTime'), // Formvalidators -> validate between Fields
         validateCombinedMomentNotBeforeNow('date', 'fromTime')]
     });
@@ -58,6 +56,7 @@ export class MeetupFormService {
     if (formvalue.locationType === 'in') {
       meetup.indoor = formvalue.indoor;
       meetup.outdoor = null;
+      // todo : für Google Maps auch die Coordinaten reseten
     } else {
       meetup.indoor = null;
       meetup.outdoor = formvalue.outdoor;
@@ -66,7 +65,6 @@ export class MeetupFormService {
   }
 
   private getDateTime(date, time) {
-
     return new Date(date + 'T' + time);
   }
 }

@@ -25,9 +25,11 @@ export class HomeComponent {
     if (user.username === 'Eder') {
       const us = new User(null, 'Eder', '12345678');
       this.businessService.login(us).subscribe( response => {
-        this.appstate.loggedInUser = response.profile;
-        this.appstate.token = response.token;
-        // this.router.navigate(['/mymeetups']);
+      });
+    }
+    if (user.username === 'pepe') {
+      const us = new User(null, 'pepe', '12345678');
+      this.businessService.login(us).subscribe( response => {
       });
     }
   }

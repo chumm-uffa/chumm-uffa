@@ -15,6 +15,21 @@ export class Hall {
     };
   }
 
+  public static fromJSON(json: any) {
+    return new Hall (
+      json.key,
+      json.name
+    );
+  }
+
+  public static fromJSONArray(json: any[]) {
+    const halls: Hall[] = [];
+      json.map( (hall) => {
+        halls.push(Hall.fromJSON(hall));
+    });
+    return halls;
+  }
+
   get key(): string {
     return this._key;
   }

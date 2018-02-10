@@ -5,6 +5,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
+  MatIconModule,
   MatRadioModule,
   MatSelectModule,
   MatTableModule,
@@ -27,7 +28,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatDialogModule,
     TranslateModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -47,7 +49,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatTabsModule,
     MatDialogModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ]
 })
 export class MaterialModule {

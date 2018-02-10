@@ -1,17 +1,38 @@
-<h2>{{'openRequests.title' | translate}}</h2>
-<table>
-  <tr>
-    <th></th>
-    <th>{{'openRequests.time' | translate}}</th>
-    <th>{{'openRequests.location' | translate}}</th>
-    <th>{{'openRequests.state' | translate}}</th>
-  </tr>
-  <tr *ngFor="let request of meetUpRequests; let i = index"  routerLink="/meetupdetail" [queryParams]="{meetupId: request.meetup.id}">
-    <td>Anfrage {{ i + 1 }}</td>
-    <td>{{request.meetup.from | dateTimeFormat}}</td>
-    <td>{{getLocation(request.meetup)}}</td>
-    <td>{{request.status | translate}}</td>
-    <td><button (click)="signOff($event, request.id)">{{'openRequests.signOff' | translate}}</button></td>
-  </tr>
-</table>
+<div class="app-page">
+  <div class="app-spacer-vert--m"></div>
+  <h2 class="mat-h1 page-title">{{ 'openRequests.title' | translate }}</h2>
 
+  <section>
+    <mat-table #table [dataSource]="dataSource">
+      <!-- time -->
+      <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef> {{'openRequests.time' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.time' | translate}}</mat-header-cell> {{request.meetup.from | dateTimeFormat}} </mat-cell>
+      </ng-container>
+
+      <!-- location -->
+      <ng-container matColumnDef="location">
+        <mat-header-cell *matHeaderCellDef> {{'openRequests.location' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.location' | translate}}</mat-header-cell> {{getLocation(request.meetup)}} </mat-cell>
+      </ng-container>
+
+      <!-- state -->
+      <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef> {{'openRequests.state' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.state' | translate}}</mat-header-cell> {{request.status | translate}} </mat-cell>
+      </ng-container>
+
+      <!-- request -->
+      <ng-container matColumnDef="request">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let request">
+          <button mat-raised-button color="primary" (click)="signOff($event, request.id)">{{'openRequests.signOff' | translate}}</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef='columnDefinition'></mat-header-row>
+      <mat-row *matRowDef='let row; columns: columnDefinition;'></mat-row>
+    </mat-table>
+
+  </section>
+</div>

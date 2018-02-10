@@ -35,6 +35,23 @@ export class MeetupRequest {
     };
   }
 
+  public static fromJSON(json: any) {
+    return new MeetupRequest (
+      json.id,
+      User.fromJSON(json.participant),
+      Meetup.fromJSON(json.meetup),
+      json.status
+    );
+  }
+
+  public static fromJSONArray(json: any[]) {
+    const requests: MeetupRequest[] = [];
+      json.map( (request) => {
+        requests.push(MeetupRequest.fromJSON(request));
+    });
+    return requests;
+  }
+
   get id(): string {
     return this._id;
   }

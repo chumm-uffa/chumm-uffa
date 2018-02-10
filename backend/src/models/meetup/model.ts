@@ -151,10 +151,7 @@ MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
     this.activity = meetup.activity;
     this.outdoor = meetup.outdoor;
     this.indoor = meetup.indoor;
-    if (!this.location) {this.location = {};}
-    this.location.type = 'Point';
-    this.location.coordinates[0] = meetup.latitude;
-    this.location.coordinates[1] = meetup.longitude;
+    this.location = {type: 'Point', coordinates: [meetup.latitude, meetup.longitude]};
 };
 
 /**

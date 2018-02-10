@@ -54,9 +54,6 @@ export function validateAfterBefore(format: string, timeBefore: string, timeAfte
     const before = c.get(timeBefore);
     const after = c.get(timeAfter);
     if (before.value && after.value && moment(before.value, format).isAfter(moment(after.value, format))) {
-      if (after.touched) {
-        after.setErrors([error]);
-      }
       return Validation.getInvalidObject(error); // validation failed
     }
     return null; // validation OK
@@ -77,10 +74,6 @@ export function validateCombinedMomentNotBeforeNow(dateName: string, timeName: s
     const time = c.get(timeName);
 
     if (date.value && time.value && moment(date.value + ', ' + time.value, 'YYYY-MM-DD, HH:mm').isBefore(moment())) {
-      if (date.touched) {
-        date.setErrors(['combinedMomentNotBefore']);
-        time.setErrors(['combinedMomentNotBefore']);
-      }
       return Validation.getInvalidObject('combinedMomentNotBefore'); // validation failed
     }
     return null; // validation OK

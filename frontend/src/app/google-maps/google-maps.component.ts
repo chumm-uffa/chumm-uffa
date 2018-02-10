@@ -37,7 +37,6 @@ export class GoogleMapsComponent implements OnInit {
       this.lat_marker = event.coords.lat;
       this.lng_marker = event.coords.lng;
     }
-    console.log(event);
   }
 
 }
