@@ -2,18 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../../core/business.service';
 import {Hall, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
 import {AppDialogService} from '../../core/AppDialogService';
 
 @Component({
   selector: 'app-open-requests',
   templateUrl: './open-requests.html',
+  styleUrls: ['./open-requests.component.scss']
 })
 export class OpenRequestsComponent implements OnInit {
 
   meetUpRequests: MeetupRequest[] = [];
   halls: Hall[] = [];
+  columnDefinition: string[] = ['time', 'location', 'state', 'request'];
+  dataSource = new MatTableDataSource(this.meetUpRequests);
 
   constructor(private businessService: BusinessService,
               private dialog: MatDialog,
@@ -27,7 +30,13 @@ export class OpenRequestsComponent implements OnInit {
   }
 
   getMeetupRequests(): void {
-    this.businessService.getMeetUpRequests().subscribe(requests => this.meetUpRequests = requests);
+    this.businessService.getMeetUpRequests().subscribe(requests => {
+      this.meetUpRequests = requests.sort( (a: MeetupRequest, b: MeetupRequest) => {
+        return a.meetup.from.getTime() - b.meetup.from.getTime();
+      });
+
+      this.dataSource = new MatTableDataSource(this.meetUpRequests);
+    });
   }
 
   getLocation(meetUp: Meetup): string {

@@ -27,6 +27,11 @@ export class HomeComponent {
       this.businessService.login(us).subscribe( response => {
       });
     }
+    if (user.username === 'pepe') {
+      const us = new User(null, 'pepe', '12345678');
+      this.businessService.login(us).subscribe( response => {
+      });
+    }
   }
 
 }

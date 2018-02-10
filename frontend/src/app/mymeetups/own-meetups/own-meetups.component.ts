@@ -3,19 +3,30 @@ import {BusinessService} from '../../core/business.service';
 import {Meetup, Hall} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatIconRegistry, MatTableDataSource} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-own-meetups',
   templateUrl: './own-meetups.html',
+  styleUrls: ['./own-meetups.component.scss']
 })
 export class OwnMeetupsComponent implements OnInit {
 
   meetups: Meetup[] = [];
   halls: Hall[] = [];
 
+  columnDefinition: string[] = ['time', 'location', 'numberOfRequest', 'numberOfParticipant', 'edit', 'delete'];
+  dataSource = new MatTableDataSource(this.meetups);
+
   constructor(private businessService: BusinessService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private iconRegistry: MatIconRegistry,
+              private sanitizer: DomSanitizer,
+              private router: Router) {
+    iconRegistry.addSvgIcon('delete-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/img/delete.svg'));
+    iconRegistry.addSvgIcon('edit-icon', sanitizer.bypassSecurityTrustResourceUrl('assets/img/pencil.svg'));
   }
 
   ngOnInit() {
@@ -24,7 +35,12 @@ export class OwnMeetupsComponent implements OnInit {
   }
 
   getMeetups(): void {
-    this.businessService.getMeetUps().subscribe(meetups => this.meetups = meetups);
+    this.businessService.getMeetUps().subscribe(meetups => {
+      this.meetups = meetups.sort( (a: Meetup, b: Meetup) => {
+        return a.from.getTime() - b.from.getTime();
+      });
+      this.dataSource = new MatTableDataSource(meetups);
+    });
   }
 
   getLocation(meetup: Meetup): string {

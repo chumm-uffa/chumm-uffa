@@ -168,7 +168,8 @@
     "location": "Ort",
     "requests": "Anfragen",
     "participants": "Anz. Teilnehmer",
-    "delete": "löschen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
     "dialog": {
       "deleteTitle": "Löschen",
       "deleteText": "Sie löschen das Meetup!"
