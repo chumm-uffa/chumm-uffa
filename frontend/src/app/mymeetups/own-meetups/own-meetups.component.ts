@@ -37,7 +37,7 @@ export class OwnMeetupsComponent implements OnInit {
   getMeetups(): void {
     this.businessService.getMeetUps().subscribe(meetups => {
       this.meetups = meetups.sort( (a: Meetup, b: Meetup) => {
-        return b.from.getTime() - a.from.getTime();
+        return a.from.getTime() - b.from.getTime();
       });
       this.dataSource = new MatTableDataSource(meetups);
     });
