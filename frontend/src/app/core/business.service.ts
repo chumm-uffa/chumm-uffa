@@ -21,6 +21,8 @@ import {
   SearchDto,
   User
 } from '@chumm-uffa/interface';
+import {AppDialogService} from './AppDialogService';
+import {Spinner} from '../material/spinner/spinner';
 
 
 /**
@@ -36,7 +38,8 @@ export class BusinessService {
 
   constructor(private appState: AppStateService,
               private resourceService: ResourceService,
-              private mockService: MockService) {
+              private mockService: MockService,
+              private appDialogService: AppDialogService) {
   }
 
   /**
@@ -84,17 +87,28 @@ export class BusinessService {
     });
   }
 
-
   /**
    * Retruns all meetups for the current logged in user
    * @returns {Observable<IGetAllMeetupsForUserResponse>}
    */
   getMeetUps(): Observable<Meetup[]> {
+
+    const spinner: Spinner = new Spinner(this.appDialogService);
+
+    // dialogRef.afterClosed();
     return Observable.create((observer) => {
       this.resourceService.getMeetups(this.appState.loggedInUser.id)
         .subscribe(res => {
-          observer.next(Meetup.fromJSONArray(res.meetups));
-        }, err => this.handleError(observer, err, 'getting all meetups'));
+            observer.next(Meetup.fromJSONArray(res.meetups));
+
+          spinner.stop();
+
+
+          }, err => {
+            this.handleError(observer, err, 'getting all meetups');
+           spinner.stop();
+          }
+        );
     });
   }
 

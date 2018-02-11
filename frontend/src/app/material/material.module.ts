@@ -15,6 +15,7 @@ import {
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {InfoPopupComponent} from './info-popup/info-popup.component';
+import {SpinnerComponent} from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -33,11 +34,13 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
   ],
   declarations: [
     ConfirmDialogComponent,
-    InfoPopupComponent
+    InfoPopupComponent,
+    SpinnerComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
-    InfoPopupComponent
+    InfoPopupComponent,
+    SpinnerComponent
   ],
   exports: [
     MatRadioModule,
