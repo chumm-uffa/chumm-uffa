@@ -31,7 +31,10 @@ export class OpenRequestsComponent implements OnInit {
 
   getMeetupRequests(): void {
     this.businessService.getMeetUpRequests().subscribe(requests => {
-      this.meetUpRequests = requests;
+      this.meetUpRequests = requests.sort( (a: MeetupRequest, b: MeetupRequest) => {
+        return a.meetup.from.getTime() - b.meetup.from.getTime();
+      });
+
       this.dataSource = new MatTableDataSource(this.meetUpRequests);
     });
   }

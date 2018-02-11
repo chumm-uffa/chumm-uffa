@@ -77,8 +77,9 @@
     "activity": "Activity:",
     "submit": "speichern",
     "dialog": {
-      "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!",
-      "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!"
+      "SaveSuccessfulTitle": "Meetup erfolgreich erstellt!",
+      "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!",
+      "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!"
     },
     "error": {
       "dateRequired": "Datum eingeben.",
@@ -97,6 +98,14 @@
     "location": "Austragungsort:",
     "activity": "Aktivität:",
     "meetup": "Meetup",
+    "owner": "Ersteller",
+    "ownername": "Name:",
+    "ownersex": "Geschlecht:",
+    "ownerweight": "Gewicht:",
+    "M": "Mann",
+    "F": "Frau",
+    "kg": "kg",
+    "noRequests": "Sie haben noch keine Anfragen",
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
     }
@@ -107,8 +116,8 @@
     "decline": "ablehnen",
     "sex": "Geschlecht",
     "weight": "Körpergewicht",
-    "M": "männlich",
-    "F": "weiblich",
+    "M": "Mann",
+    "F": "Frau",
     "kg": "kg"
   },
   "chat": {

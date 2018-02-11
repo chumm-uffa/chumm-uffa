@@ -11,17 +11,41 @@
   <nav mat-tab-nav-bar>
     <span *ngIf="appState.isLoggedIn; else publicBlock">
       <!-- place routes here for loggedIn mode-->
-      <a mat-tab-link routerLink="/">{{'header.link.home' | translate}}</a>
-      <a mat-tab-link routerLink="/meetupsearch">{{'header.link.search' | translate}}</a>
-      <a mat-tab-link routerLink="/mymeetups">{{'header.link.myMeetups' | translate}}</a>
-      <a mat-tab-link routerLink="/meetup">{{'header.link.newMeetup' | translate}}</a>
-      <a mat-tab-link routerLink="/updateuser">{{'header.link.updateUser' | translate}}</a>
+      <a mat-tab-link routerLink="/"
+        [active]="isActiv('/')">
+        {{'header.link.home' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/meetupsearch"
+        [active]="isActiv('/meetupsearch')">
+        {{'header.link.search' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/mymeetups"
+        [active]="isActiv('/mymeetups')">
+        {{'header.link.myMeetups' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/meetup"
+        [active]="isActiv('/meetup')">
+        {{'header.link.newMeetup' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/updateuser"
+        [active]="isActiv('/updateuser')">
+        {{'header.link.updateUser' | translate}}
+      </a>
       <a mat-tab-link *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</a>
     </span>
     <ng-template #publicBlock>
-      <a mat-tab-link routerLink="/login">{{'header.link.login' | translate}}</a>
-      <a mat-tab-link routerLink="/registration">{{'header.link.register' | translate}}</a>
-      <a mat-tab-link routerLink="/">{{'header.link.home' | translate}}</a>
+      <a mat-tab-link routerLink="/login"
+         [active]="isActiv('/login')">
+        {{'header.link.login' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/registration"
+         [active]="isActiv('/registration')">
+        {{'header.link.register' | translate}}
+      </a>
+      <a mat-tab-link routerLink="/"
+         [active]="isActiv('/')">
+        {{'header.link.home' | translate}}
+      </a>
     </ng-template>
   </nav>
 

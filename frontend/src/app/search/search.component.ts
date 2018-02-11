@@ -37,6 +37,8 @@ export class SearchComponent implements OnInit {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
     this.searchForm = this.searchFormService.createForm();
     this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
+    const meetups = this.businessService.getCachedSearchResults();
+    this.results = new MatTableDataSource<Meetup>(meetups);
   }
 
   startSearch() {
@@ -54,8 +56,8 @@ export class SearchComponent implements OnInit {
   requestForParticipation(event, meetupId: Meetup): void {
     event.stopPropagation();  // prevent link action
     this.businessService.requestForParticipation(meetupId).subscribe(() => {
-          this.dialog.open(InfoPopupComponent,
-            {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
+        this.dialog.open(InfoPopupComponent,
+          {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
       },
       err => this.appDialogService.showError(err)
     );

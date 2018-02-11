@@ -27,4 +27,7 @@ export class HeaderComponent {
     this.translate.use(lang);
   }
 
+  isActiv(subRouteUrl): boolean {
+    return this.router.isActive(subRouteUrl, true);
+  }
 }
