@@ -15,11 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-// npm install @ngx-translate/http-loader --save
-//
-// noch die json ins assests verschieben
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,9 +43,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-
-
-
     BrowserAnimationsModule,
     MaterialModule
   ],
