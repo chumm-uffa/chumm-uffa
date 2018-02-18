@@ -77,7 +77,6 @@
     "activity": "Activity:",
     "submit": "speichern",
     "dialog": {
-      "SaveSuccessfulTitle": "Meetup erfolgreich erstellt!",
       "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!",
       "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!"
     },
