@@ -11,12 +11,13 @@ import {
   MatTableModule,
   MatTabsModule,
   MatTooltipModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MAT_DIALOG_SCROLL_STRATEGY
 } from '@angular/material';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {InfoPopupComponent} from './info-popup/info-popup.component';
 import {SpinnerComponent} from './spinner/spinner.component';
+import {Overlay} from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -56,6 +57,13 @@ import {SpinnerComponent} from './spinner/spinner.component';
     MatTooltipModule,
     MatListModule,
     MatIconModule
+  ],
+  providers: [
+    {
+      provide: MAT_DIALOG_SCROLL_STRATEGY,
+      deps: [Overlay],
+      useFactory: (overlay: Overlay) => () => overlay.scrollStrategies.close()
+    }
   ]
 })
 export class MaterialModule {
