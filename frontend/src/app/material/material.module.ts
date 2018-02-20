@@ -3,11 +3,12 @@ import {
   MatButtonModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatListModule,
-  MatIconModule,
   MatRadioModule,
   MatSelectModule,
+  MatSortModule,
   MatTableModule,
   MatTabsModule,
   MatTooltipModule
@@ -29,7 +30,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     TranslateModule,
     MatTooltipModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -50,7 +52,8 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatDialogModule,
     MatTooltipModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ]
 })
 export class MaterialModule {

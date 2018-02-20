@@ -6,7 +6,7 @@ import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
 import {Hall, LocationType, Meetup, Sex} from '@chumm-uffa/interface';
 
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/AppDialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
@@ -83,4 +83,36 @@ export class SearchComponent implements OnInit {
       }
     });
   }
+
+  sortResults(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+
+    this.results.data = this.results.data.sort((a: Meetup, b: Meetup) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'owner':
+          return compare(a.owner.username, b.owner.username, isAsc);
+        case 'location':
+          return compare(getLocationString(a), getLocationString(b), isAsc);
+        case 'fromTime':
+          return compare(a.from.getTime(), b.from.getTime(), isAsc);
+        case 'toTime':
+          return compare(a.to.getTime(), b.to.getTime(), isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
 }
+
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+function getLocationString(mu: Meetup) {
+  return mu.indoor ? mu.indoor : mu.outdoor;
+}
+
+
