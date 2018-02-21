@@ -19,8 +19,9 @@
   },
   "header": {
     "title": "Chumm-Uffa_FR",
-    "deutsch": "DE_FR",
-    "franz": "FR_FR",
+    "deutsch": "DE",
+    "franz": "FR",
+    "ital": "IT",
     "logout": "Abmelden_FR",
     "link": {
       "home": "Startseite_FR",
@@ -77,7 +78,6 @@
     "activity": "Activity:_FR",
     "submit": "speichern_FR",
     "dialog": {
-      "SaveSuccessfulTitle": "Meetup erfolgreich erstellt!_FR",
       "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!_FR",
       "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!_FR"
     },

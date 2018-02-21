@@ -1,0 +1,205 @@
+{
+  "ACCEPT": "Accettato",
+  "DECLINED": "Rifiutato",
+  "OPEN": "Aperto",
+  "login": {
+    "title": "Login",
+    "name": "Nome: ",
+    "password": "Password: ",
+    "loginUser": "Registrarsi",
+    "dialog": {
+      "errorTitle": "Errore nel login!"
+    },
+    "error": {
+      "nameRequired": "Immettere il nome.",
+      "nameMinLength": "Il nome deve contenere almeno 2 caratteri.",
+      "passwordRequired": "Immettere la password.",
+      "passwordMinLength": "La password deve contenere almeno 8 caratteri."
+    }
+  },
+  "header": {
+    "title": "Chumm-Uffa",
+    "deutsch": "DE",
+    "franz": "FR",
+    "ital": "IT",
+    "logout": "Disconnettersi",
+    "link": {
+      "home": "Pagina iniziale",
+      "updateUser": "Profilo utente",
+      "myMeetups": "Il mio Meetup",
+      "newMeetup": "Creare un Meetup",
+      "search": "Cerca",
+      "login": "Registrarsi",
+      "register": "Registrare"
+    }
+  },
+  "home": {
+    "title": "Pagina iniziale"
+  },
+  "user": {
+    "titleRegistration": "Registrazione utenteg",
+    "titleMutate": "Modificare il profilo di utente",
+    "name": "Nome: ",
+    "password": "Password: ",
+    "repeatPass": "Ripetere la password: ",
+    "email": "E-mail: ",
+    "registerUser": "Registrazione utente",
+    "saveUser": "salvare",
+    "man": "Uomo",
+    "women": "Donna",
+    "weight": "Peso: ",
+    "kg": "kg",
+    "dialog": {
+      "updateFailedTitle": "L'utente non ha potuto essere salvato!",
+      "updateSuccessfulTitle": "Utente modificato con successo!",
+      "registrationFailedTitle": "L'utente non ha potuto essere registrato!",
+      "registrationSuccessfulTitle": "Utente registrato con successo!"
+    },
+    "error": {
+      "nameRequired": "Immettere il nome.",
+      "nameMinLength": "Il nome deve contenere almeno 2 caratteri.",
+      "email": "Formato e-mail non valido.",
+      "differentPasswords": "Ripetizione password errata.",
+      "sexRequired": "Indicare il sesso.",
+      "passwordRequired": "Immettere la password.",
+      "passwordMinLength": "La password deve contenere almeno 8 caratteri."
+    }
+  },
+  "meetup": {
+    "titleMutate": "Modificare Meetup",
+    "titleCreate": "Creare Meetup",
+    "date": "Data:",
+    "fromTime": "Inizio",
+    "toTime": "Fine",
+    "indoor": "Padiglione:",
+    "indoorRadio": "Indoor",
+    "outdoor": "Località/Montagna:",
+    "outdoorRadio": "Outdoor",
+    "activity": "Attività:",
+    "submit": "salvare",
+    "dialog": {
+      "SaveSuccessfulTitle": "Meetup creato con successo!",
+      "SaveFailedTitle": "Il Meetup non ha potuto essere salvato!"
+    },
+    "error": {
+      "dateRequired": "Immettere la data.",
+      "fromTimeRequired": "Immettere l'ora d'inizio.",
+      "fromTimeInPast": "L'inizio deve situarsi nel futuro.",
+      "toTimeRequired": "Indicare l'ora d'inizio.",
+      "fromBeforeToTime": "La fine deve essere dopo l'inizio.",
+      "oneOfAll": "Scegliere una sede."
+    }
+  },
+  "meetupDetail": {
+    "title": "Dettagli Meetup",
+    "date": "Data:",
+    "fromTime": "Inizio:",
+    "toTime": "Fine:",
+    "location": "Luogo d'incontro:",
+    "activity": "Attività:",
+    "meetup": "Meetup",
+    "owner": "Creatore",
+    "ownername": "Nome:",
+    "ownersex": "Sesso:",
+    "ownerweight": "Peso:",
+    "M": "Uomo",
+    "F": "Donna",
+    "kg": "kg",
+    "noRequests": "Lei non ha ancora domande",
+    "error": {
+      "meetupNotFound": "Il Meetup non è stato trovato!"
+    }
+  },
+  "participant": {
+    "title": "Domande",
+    "accept": "accettare",
+    "decline": "rifiutare",
+    "sex": "Sesso",
+    "weight": "Peso",
+    "M": "Uomo",
+    "F": "Donna",
+    "kg": "kg"
+  },
+  "chat": {
+    "title": "Chat",
+    "typeMessage": "nuovo messaggio",
+    "sendMessage": "inviare"
+  },
+  "search": {
+    "title": "Cerca Meetup",
+    "location": "luogo:",
+    "indoorRadio": "Indoor",
+    "outdoorRadio": "Outdoor",
+    "indoor": "Padiglione",
+    "outdoor": "Località/Montagna",
+    "from": "Orario d'inizio",
+    "to": "Fine",
+    "sex": "Sesso",
+    "man": "Uomo",
+    "women": "Donna",
+    "weight": "Peso",
+    "weightMin": "da",
+    "weightMax": "fino a",
+    "kg": "kg",
+    "start": "Cerca",
+    "owner": "Utente",
+    "startRequest": "chiedere",
+    "location_th": "Luogo",
+    "from_th": "Orario d'inizio",
+    "to_th": "Fine",
+    "km": "km",
+    "radius": "Raggio",
+    "noResults": "Nessun Meetup corrispondente trovato!",
+    "partner": "Partner",
+    "dialog": {
+      "infoTitle": "Richiesta",
+      "infoText": "La tua richiesta è stata inoltrata al proprietario del Meetup."
+    },
+    "error": {
+      "fromDateTimeRequired": "Indicare l'ora d'inizio.",
+      "toDateTimeRequired": "Indicare l'ora finale.",
+      "dateTimeInThePast": "L'ora d'inizio deve essere oggi o più tardi.",
+      "fromBeforeToTime": "La fine deve essere dopo l'ora d'inizio."
+    }
+  },
+  "ownMeetups": {
+    "title": "Il mio Meetup",
+    "time": "Quando",
+    "location": "Luogo",
+    "requests": "Richieste",
+    "participants": "Numero di partecipanti",
+    "delete": "Cancellare",
+    "edit": "Editare",
+    "dialog": {
+      "deleteTitle": "Cancellare",
+      "deleteText": "Lei cancella il Meetup!"
+    }
+  },
+  "openRequests": {
+    "title": "Le mie richieste",
+    "time": "Quando",
+    "location": "Luogo",
+    "state": "Stato",
+    "signOff": "disconnetersi",
+    "dialog": {
+      "signOffTitle": "disconnetersi",
+      "signOffText": "Lei si disconnette da Meetup!",
+      "error": "Errore del server"
+    }
+  },
+  "confirmDialog": {
+    "no": "No",
+    "yes": "Si"
+  },
+  "infoPopup": {
+    "ok": "OK"
+  },
+  "appDialogService": {
+    "serverErrorTitle": "Errore del server",
+    "errorTitle": "Errore"
+  },
+  "google-maps": {
+    "ok": "Assumere",
+    "abandon": "Interrompere"
+  }
+}

@@ -76,7 +76,7 @@ export class MeetupComponent implements OnInit {
       if (this.meetup.id) {
         this.businessService.saveMeetUp(this.meetup).subscribe( () => {
           const myDialog = this.dialog.open(InfoPopupComponent,
-            {data: {infoText: '', infoTitle: 'meetup.dialog.CreateSuccessfulTitle'}});
+            {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
             this.router.navigate(['/mymeetups']);
           });
