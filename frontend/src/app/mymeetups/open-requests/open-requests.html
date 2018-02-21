@@ -3,22 +3,22 @@
   <h2 class="mat-h1 page-title">{{ 'openRequests.title' | translate }}</h2>
 
   <section>
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortMeetups($event)">
       <!-- time -->
       <ng-container matColumnDef="time">
-        <mat-header-cell *matHeaderCellDef> {{'openRequests.time' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.time' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.time' | translate}}</mat-header-cell> {{request.meetup.from | dateTimeFormat}} </mat-cell>
       </ng-container>
 
       <!-- location -->
       <ng-container matColumnDef="location">
-        <mat-header-cell *matHeaderCellDef> {{'openRequests.location' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.location' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.location' | translate}}</mat-header-cell> {{getLocation(request.meetup)}} </mat-cell>
       </ng-container>
 
       <!-- state -->
       <ng-container matColumnDef="state">
-        <mat-header-cell *matHeaderCellDef> {{'openRequests.state' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.state' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.state' | translate}}</mat-header-cell> {{request.status | translate}} </mat-cell>
       </ng-container>
 
