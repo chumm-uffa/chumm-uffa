@@ -7,6 +7,6 @@
   </agm-map>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button *ngIf="!showOnly" mat-raised-button [mat-dialog-close]="{ok: true, lat: lat_marker, lng: lng_marker}" color="accent">{{'google-maps.ok' | translate}}</button>
+  <button *ngIf="data.editable" mat-raised-button [mat-dialog-close]="{ok: true, lat: lat_marker, lng: lng_marker}" color="accent">{{'google-maps.ok' | translate}}</button>
   <button mat-raised-button [mat-dialog-close]="{ok: false}" color="accent">{{'google-maps.abandon' | translate}}</button>
 </mat-dialog-actions>

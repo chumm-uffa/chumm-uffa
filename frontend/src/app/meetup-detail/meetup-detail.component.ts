@@ -71,8 +71,8 @@ export class MeetupDetailComponent implements OnInit {
     return this.meetupRequests.filter(req => req.status === RequestStatus.ACCEPT);
   }
 
-  showGoogleMapsDialog(showOnly = false) {
-    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe();
+  showGoogleMapsDialog() {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, false).subscribe();
   }
 
 }

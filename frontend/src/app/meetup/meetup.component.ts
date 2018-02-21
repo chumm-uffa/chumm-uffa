@@ -97,8 +97,8 @@ export class MeetupComponent implements OnInit {
     }
   }
 
-  showGoogleMapsDialog(showOnly = false) {
-    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe(result => {
+  showGoogleMapsDialog() {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude).subscribe(result => {
       if (result && result.ok) {
         this.meetup.latitude = result.lat;
         this.meetup.longitude = result.lng;
