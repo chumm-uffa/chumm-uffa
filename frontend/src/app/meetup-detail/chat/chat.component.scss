@@ -10,7 +10,7 @@
 }
 
 div.currentUser {
-  background-color: lightgreen;
+  background-color: $owner-background-color;
   margin: 1em 2em 1em 0em;
   border-radius: 0em $default-border-radius $default-border-radius;
   text-align: left;

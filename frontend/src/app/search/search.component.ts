@@ -10,6 +10,7 @@ import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/AppDialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
+import {AppStateService} from '../core/app-state.service';
 
 @Component({
   selector: 'app-search',
@@ -30,7 +31,8 @@ export class SearchComponent implements OnInit {
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
               private dialog: MatDialog,
-              private appDialogService: AppDialogService) {
+              private appDialogService: AppDialogService,
+              private appState: AppStateService) {
   }
 
   ngOnInit() {
@@ -82,5 +84,10 @@ export class SearchComponent implements OnInit {
         this.searchForm.get('longitude').patchValue(result.lng);
       }
     });
+  }
+
+  /*Mark messages of the current user*/
+  getCurrentUserClass(username: string): string {
+    return username === this.appState.loggedInUser.username ? 'currentUser' : '';
   }
 }
