@@ -3,13 +3,17 @@
  */
 import * as jwt from 'jsonwebtoken';
 
-import { Request, Response } from 'express';
-import { BaseController } from './baseController';
+import {Request, Response} from 'express';
+import {BaseController} from './baseController';
 
-import { DBUser, IDBUserModel } from '../models/user/model';
+import {DBUser, IDBUserModel} from '../models/user/model';
 
 import {
-    AuthFactory, ILoginRequest, IRegisterRequest, IUpdateProfileRequest
+    AuthFactory,
+    ILoginRequest,
+    IRegisterRequest,
+    IUpdatePasswordRequest,
+    IUpdateProfileRequest
 } from '@chumm-uffa/interface';
 
 export class AuthController extends BaseController {
@@ -43,7 +47,7 @@ export class AuthController extends BaseController {
                     const token = jwt.sign(dbUser, process.env.APPLICATION_SECRET, {
                         expiresIn: 604800 // 1 week && npm pack
                     });
-                    dbUser.toInterface().then( (user) =>{
+                    dbUser.toInterface().then((user) => {
                         res.json(AuthFactory.createLoginResponse(true, 'successfully logged in.', token, user));
                     });
                     return;
@@ -102,7 +106,7 @@ export class AuthController extends BaseController {
                 dbUser.hashPassword(registerRequest.user.password);
                 dbUser.save().then((dbUser) => {
                     return dbUser.toInterface();
-                }).then( (user) => {
+                }).then((user) => {
                     res.json(AuthFactory.createRegisterResponse(true, 'user created.', user, user.id));
                 }).catch((err) => {
                     this.logger.error(err.toString());
@@ -160,14 +164,14 @@ export class AuthController extends BaseController {
                 // Getting the new user based on user name
                 DBUser.findOne({username: updateRequest.profile.username}).then((newDbUser) => {
                     // Check if the username alreday exist
-                    if (!newDbUser || newDbUser.id === profileDbUser.id){
+                    if (!newDbUser || newDbUser.id === profileDbUser.id) {
                         profileDbUser.fromInterface(updateRequest.profile);
                         if (updateRequest.profile.password) {
                             profileDbUser.hashPassword(updateRequest.profile.password);
                         }
                         profileDbUser.save().then((dbUser) => {
                             return dbUser.toInterface();
-                        }).then( (user) => {
+                        }).then((user) => {
                             res.json(AuthFactory.createUpdateProfileResponse(true, 'user changed.', user));
                         }).catch((err) => {
                             this.logger.error(err.toString());
@@ -198,4 +202,55 @@ export class AuthController extends BaseController {
             return;
         });
     }
+
+
+    /**
+     * Changes the password of the logged in profile
+     * @param {Request} req
+     * @param {Response} res
+     */
+    public updatePassword(req: Request, res: Response) {
+        const updateRequest: IUpdatePasswordRequest = req.body;
+
+        // If password is present, the format must be valid
+        if (!updateRequest.newPassword || updateRequest.newPassword.length < 8) {
+            res.status(400);
+            res.json(AuthFactory.createUpdatePasswordResponse(false, 'invalid new password.'));
+            return;
+        }
+
+        // Getting the current user based on user name
+        DBUser.findOne({username: req.body.loginProfile.username}).then((profileDbUser) => {
+            if (profileDbUser) {
+
+                if (profileDbUser.comparePassword(updateRequest.oldPassord)) {
+                    profileDbUser.hashPassword(updateRequest.newPassword);
+                    profileDbUser.save().then((dbUser) => {
+                        return dbUser.toInterface();
+                    }).then((user) => {
+                        res.json(AuthFactory.createUpdatePasswordResponse(true, 'user password changed.'));
+                    }).catch((err) => {
+                        this.logger.error(err.toString());
+                        res.status(500);
+                        res.json(AuthFactory.createUpdatePasswordResponse(false, 'something went wrong.'));
+                    });
+                } else {
+                    this.logger.error('wrong password');
+                    res.status(400);
+                    res.json(AuthFactory.createUpdatePasswordResponse(false, 'something went wrong.'));
+                }
+                return;
+            }
+
+            res.status(400);
+            res.json(AuthFactory.createUpdatePasswordResponse(false, 'user not exists.'));
+            return;
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(AuthFactory.createUpdatePasswordResponse(false, 'something went wrong.'));
+            return;
+        });
+    }
+
 }
