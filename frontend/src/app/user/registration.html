@@ -1,8 +1,7 @@
 <div class="app-page--s">
   <div class="app-spacer-vert--m"></div>
   <h2 class="mat-h1 page-title">
-    <div *ngIf="appState.isLoggedIn; else doRegistration">{{ 'user.titleMutate' | translate }}</div>
-    <ng-template #doRegistration>{{ 'user.titleRegistration' | translate }}</ng-template>
+    <div>{{ 'user.titleRegistration' | translate }}</div>
   </h2>
 
   <section class="app-box">
@@ -32,14 +31,12 @@
         <mat-error *ngIf="userForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</mat-error>
       </mat-form-field>
       <div>
-
         <mat-radio-group formControlName="sex">
             <mat-radio-button type="radio"  value="{{sexType.MALE}}">{{ 'user.man' | translate }}</mat-radio-button>
             <mat-radio-button type="radio"  value="{{sexType.FEMALE}}">{{ 'user.women' | translate }}</mat-radio-button>
             <div *ngIf="userForm.controls.sex | hasError:'required'" class="app-spacer-vert--s"></div>
             <mat-error *ngIf="userForm.controls.sex | hasError:'required'" class="mat-caption">{{ 'user.error.sexRequired' | translate }}</mat-error>
         </mat-radio-group>
-
       </div>
       <br>
       <mat-form-field>
@@ -49,8 +46,7 @@
       <br>
 
       <button mat-raised-button color="accent" type="submit">
-        <span *ngIf="appState.isLoggedIn; else doSave">{{ 'user.saveUser' | translate }}</span>
-        <ng-template #doSave>{{ 'user.registerUser' | translate }}</ng-template>
+        <span>{{ 'user.registerUser' | translate }}</span>
       </button>
     </form>
   </section>
