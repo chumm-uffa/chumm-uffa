@@ -76,7 +76,7 @@ export class MeetupComponent implements OnInit {
       if (this.meetup.id) {
         this.businessService.saveMeetUp(this.meetup).subscribe( () => {
           const myDialog = this.dialog.open(InfoPopupComponent,
-            {data: {infoText: '', infoTitle: 'meetup.dialog.CreateSuccessfulTitle'}});
+            {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
             this.router.navigate(['/mymeetups']);
           });
@@ -97,8 +97,8 @@ export class MeetupComponent implements OnInit {
     }
   }
 
-  showGoogleMapsDialog(showOnly = false) {
-    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, showOnly).subscribe(result => {
+  showGoogleMapsDialog() {
+    this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude).subscribe(result => {
       if (result && result.ok) {
         this.meetup.latitude = result.lat;
         this.meetup.longitude = result.lng;

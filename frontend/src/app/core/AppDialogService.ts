@@ -25,11 +25,11 @@ export class AppDialogService {
       {data: {infoText: message, infoTitle: 'appDialogService.serverErrorTitle'}});
   }
 
-  showGoogleMaps(lat: number, lng: number, showOnly: boolean = false) {
+  showGoogleMaps(lat: number, lng: number, isEditable: boolean = true) {
     const dialogRef = this.dialog.open(GoogleMapsComponent,
       {
         height: '80vh',
-        width: '80vw', data: {longitude: lng, latitude: lat, showOnly: showOnly}
+        width: '80vw', data: {longitude: lng, latitude: lat, editable: isEditable}
       });
 
     return dialogRef.afterClosed();
