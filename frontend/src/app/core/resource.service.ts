@@ -3,35 +3,34 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 
 import {
-  Chat,
+  ICreateChatForMeetupRequest,
+  ICreateChatForMeetupResponse,
   ICreateMeetupRequest,
+  ICreateMeetupRequestRequest,
+  ICreateMeetupRequestResponse,
   ICreateMeetupResponse,
-  IUpdateMeetupRequest,
-  IUpdateMeetupResponse,
+  IDeleteMeetupRequestResponse,
+  IDeleteMeetupResponse,
+  IGetAllChatsForMeetupResponse,
+  IGetAllHallsResponse,
   IGetAllMeetupsForUserResponse,
   IGetAllRequestsForMeetupResponse,
   IGetAllRequestsForUserResponse,
-  IGetAllChatsForMeetupResponse,
   IGetMeetupResponse,
-  IDeleteMeetupResponse,
-  ICreateMeetupRequestRequest,
-  ICreateMeetupRequestResponse,
-  IDeleteMeetupRequestResponse,
-  ICreateChatForMeetupRequest,
-  ICreateChatForMeetupResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
   IRegisterResponse,
   ISearchMeetupsRequest,
   ISearchMeetupsResponse,
+  IUpdateMeetupRequest,
   IUpdateMeetupRequestRequest,
   IUpdateMeetupRequestResponse,
+  IUpdateMeetupResponse,
+  IUpdatePasswordRequest,
+  IUpdatePasswordResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
-  IGetAllHallsResponse,
-  Meetup,
-  MeetupRequest,
   User,
   Version
 } from '@chumm-uffa/interface';
@@ -64,20 +63,19 @@ export interface ResourceServiceInterface {
 
   loadRequests(meetupId: string): Observable<IGetAllRequestsForMeetupResponse>;
 
-
   createMeetupRequest(request: ICreateMeetupRequestRequest): Observable<ICreateMeetupRequestResponse>;
 
   updateRequest(request: IUpdateMeetupRequestRequest): Observable<IUpdateMeetupRequestResponse>;
 
   deleteRequest(requestId: string): Observable<IDeleteMeetupRequestResponse>;
 
-
   createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse>;
 
   loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse>;
 
-
   getHalls(): Observable<IGetAllHallsResponse>;
+
+  updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse>;
 }
 
 /**
@@ -118,7 +116,6 @@ export class ResourceService implements ResourceServiceInterface {
   login(request: ILoginRequest): Observable<ILoginResponse> {
     return this.http.post<ILoginResponse>(this.urlRestBackend + 'auth/login', request);
   }
-
 
 
   /**
@@ -240,5 +237,14 @@ export class ResourceService implements ResourceServiceInterface {
    */
   getHalls(): Observable<IGetAllHallsResponse> {
     return this.http.get<IGetAllHallsResponse>(this.urlRestBackend + 'halls');
+  }
+
+  /**
+   *
+   * @param {IUpdatePasswordRequest} request
+   * @returns {Observable<IUpdatePasswordResponse>}
+   */
+  updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse> {
+    return this.http.put<IUpdatePasswordResponse>(this.urlRestBackend + 'auth/password', request);
   }
 }

@@ -6,40 +6,42 @@ import {
   AuthFactory,
   Chat,
   Hall,
+  HallsFactory,
+  ICreateChatForMeetupRequest,
+  ICreateChatForMeetupResponse,
   ICreateMeetupRequest,
-  ICreateMeetupResponse,
-  IUpdateMeetupRequest,
-  IUpdateMeetupResponse,
-  IGetMeetupResponse,
-  IDeleteMeetupResponse,
   ICreateMeetupRequestRequest,
   ICreateMeetupRequestResponse,
+  ICreateMeetupResponse,
   IDeleteMeetupRequestResponse,
+  IDeleteMeetupResponse,
+  IGetAllChatsForMeetupResponse,
+  IGetAllHallsResponse,
+  IGetAllMeetupsForUserResponse,
+  IGetAllRequestsForMeetupResponse,
+  IGetMeetupResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
   IRegisterResponse,
   ISearchMeetupsRequest,
   ISearchMeetupsResponse,
+  IUpdateMeetupRequest,
   IUpdateMeetupRequestRequest,
   IUpdateMeetupRequestResponse,
+  IUpdateMeetupResponse,
+  IUpdatePasswordRequest,
+  IUpdatePasswordResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
-  IGetAllHallsResponse,
-  IGetAllMeetupsForUserResponse,
-  IGetAllRequestsForMeetupResponse,
-  ICreateChatForMeetupRequest,
-  ICreateChatForMeetupResponse,
-  IGetAllChatsForMeetupResponse,
   Meetup,
   MeetupRequest,
   MeetupRequestsFactory,
-  UsersFactory,
   MeetupsFactory,
   RequestStatus,
   Sex,
-  HallsFactory,
-  User
+  User,
+  UsersFactory
 } from '@chumm-uffa/interface';
 
 /**
@@ -76,15 +78,15 @@ export class MockService implements ResourceServiceInterface {
 
 
   createMeetup(request: ICreateMeetupRequest): Observable<ICreateMeetupResponse> {
-    return of (MeetupsFactory.createCreateMeetupResponse(true, '', request.meetup));
+    return of(MeetupsFactory.createCreateMeetupResponse(true, '', request.meetup));
   }
 
   saveMeetup(request: IUpdateMeetupRequest): Observable<IUpdateMeetupResponse> {
-    return of (MeetupsFactory.createUpdateMeetupRespons(true, '', request.meetup));
+    return of(MeetupsFactory.createUpdateMeetupRespons(true, '', request.meetup));
   }
 
   getMeetups(userId: string): Observable<IGetAllMeetupsForUserResponse> {
-    return of(UsersFactory.createGetAllMeetupsForUserResponse(true, '' ,
+    return of(UsersFactory.createGetAllMeetupsForUserResponse(true, '',
       this._meetups.filter(meetup => meetup.owner.id === userId)));
   }
 
@@ -109,7 +111,7 @@ export class MockService implements ResourceServiceInterface {
   }
 
   loadChatsByMeetupId(meetupId: string): Observable<IGetAllChatsForMeetupResponse> {
-    return of(MeetupsFactory.createGetAllChatsForMeetupRespons(true , '',  [...this._chats]));
+    return of(MeetupsFactory.createGetAllChatsForMeetupRespons(true, '', [...this._chats]));
   }
 
   createChat(meetupId: string, request: ICreateChatForMeetupRequest): Observable<ICreateChatForMeetupResponse> {
@@ -136,6 +138,10 @@ export class MockService implements ResourceServiceInterface {
 
   getHalls(): Observable<IGetAllHallsResponse> {
     return of(HallsFactory.createGetAllHallsResponse(true, '', this._halls));
+  }
+
+  updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse> {
+    return of(AuthFactory.createUpdatePasswordResponse(true, ''));
   }
 
   get users(): User[] {

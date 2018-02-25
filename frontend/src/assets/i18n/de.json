@@ -39,9 +39,14 @@
   "user": {
     "titleRegistration": "User Registrierung",
     "titleMutate": "User Profil bearbeiten",
+    "titlePassword": "Passwort ändern",
     "name": "Name: ",
     "password": "Passwort: ",
     "repeatPass": "Passwort wiederholen: ",
+    "oldPassword": "Altes Passwort: ",
+    "newPassword": "Neues Passwort: ",
+    "repeatNewPassword": "Neues Passwort wiederholen:",
+    "savePassword": "Passwort ändern",
     "email": "Email: ",
     "registerUser": "Benutzer erstellen",
     "saveUser": "Benutzer speichern",
@@ -53,7 +58,9 @@
       "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!",
       "updateSuccessfulTitle": "Benutzer erfolgreich geändert!",
       "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!",
-      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!"
+      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!",
+      "passwordFailedTitle": "Passwort konnte nicht geändert werden!",
+      "passwordSuccessfulTitle": "Passwort geändert!"
     },
     "error": {
       "nameRequired": "Namen eingeben.",

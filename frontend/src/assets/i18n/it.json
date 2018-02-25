@@ -39,9 +39,14 @@
   "user": {
     "titleRegistration": "Registrazione utenteg",
     "titleMutate": "Modificare il profilo di utente",
+    "titlePassword": "Passwort ändern_IT",
     "name": "Nome: ",
     "password": "Password: ",
     "repeatPass": "Ripetere la password: ",
+    "oldPassword": "Altes Passwort: _IT",
+    "newPassword": "Neues Passwort: _IT",
+    "repeatNewPassword": "Neues Passwort wiederholen:_IT",
+    "savePassword": "Passwort ändern_IT",
     "email": "E-mail: ",
     "registerUser": "Registrazione utente",
     "saveUser": "salvare",
@@ -53,7 +58,9 @@
       "updateFailedTitle": "L'utente non ha potuto essere salvato!",
       "updateSuccessfulTitle": "Utente modificato con successo!",
       "registrationFailedTitle": "L'utente non ha potuto essere registrato!",
-      "registrationSuccessfulTitle": "Utente registrato con successo!"
+      "registrationSuccessfulTitle": "Utente registrato con successo!",
+      "passwordFailedTitle": "Passwort konnte nicht geändert werden!_IT",
+      "passwordSuccessfulTitle": "Passwort geändert!_IT"
     },
     "error": {
       "nameRequired": "Immettere il nome.",

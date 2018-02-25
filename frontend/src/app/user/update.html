@@ -43,21 +43,19 @@
   <section class="app-box">
     <form [formGroup]="passwordForm" novalidate (ngSubmit)="onChangePassword()">
       <mat-form-field>
-        <input matInput placeholder="{{ 'user.password' | translate }}" formControlName="oldPassword" type="password">
-        <mat-error *ngIf="userForm.controls.password | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</mat-error>
-        <mat-error *ngIf="userForm.controls.password | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</mat-error>
+        <input matInput placeholder="{{ 'user.oldPassword' | translate }}" formControlName="oldPassword" type="password">
       </mat-form-field>
       <br>
       <mat-form-field>
         <input matInput placeholder="{{ 'user.newPassword' | translate }}" formControlName="newPassword" type="password">
-        <mat-error *ngIf="userForm.controls.password | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</mat-error>
-        <mat-error *ngIf="userForm.controls.password | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</mat-error>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="{{ 'user.repeatNewPass' | translate }}" formControlName="newPasswordRepeat" type="password">
+        <input matInput placeholder="{{ 'user.repeatNewPassword' | translate }}" formControlName="newPasswordRepeat" type="password">
         <!-- Error state controlled by validator-->
-        <mat-error *ngIf="(userForm | hasError:'passwordMismatch')">
+        <mat-error *ngIf="(passwordForm | hasError:'passwordMismatch')">
           {{ 'user.error.differentPasswords' | translate }}
         </mat-error>
       </mat-form-field>

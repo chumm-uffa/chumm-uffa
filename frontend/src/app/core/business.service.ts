@@ -290,6 +290,21 @@ export class BusinessService {
   }
 
   /**
+   *
+   * @param {string} oldPassword
+   * @param {string} newPassword
+   * @returns {Observable<any>}
+   */
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    return Observable.create((observer) => {
+      const request = AuthFactory.createUpdatePasswordRequest(oldPassword, newPassword);
+      this.resourceService.updatePassword(request).subscribe(res => {
+        observer.next();
+      }, err => this.handleError(observer, err, 'change password'));
+    });
+  }
+
+  /**
    * Communication error handler
    * @param observer
    * @param err

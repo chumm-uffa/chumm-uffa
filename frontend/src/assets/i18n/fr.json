@@ -39,9 +39,14 @@
   "user": {
     "titleRegistration": "User Registrierung_FR",
     "titleMutate": "User Profil bearbeiten_FR",
+    "titlePassword": "Passwort ändern_FR",
     "name": "Name_FR: ",
     "password": "Passwort_FR:",
     "repeatPass": "Passwort wiederholen_FR: ",
+    "oldPassword": "Altes Passwort: _FR",
+    "newPassword": "Neues Passwort: _FR",
+    "repeatNewPassword": "Neues Passwort wiederholen:_FR",
+    "savePassword": "Passwort ändern_FR",
     "email": "Email_FR: ",
     "registerUser": "Benutzer erstellen_FR",
     "saveUser": "Benutzer speichern_FR",
@@ -53,7 +58,9 @@
       "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!_FR",
       "updateSuccessfulTitle": "Benutzer erfolgreich geändert_FR!",
       "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR",
-      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!_FR"
+      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!_FR",
+      "passwordFailedTitle": "Passwort konnte nicht geändert werden!_FR",
+      "passwordSuccessfulTitle": "Passwort geändert!_FR"
     },
     "error": {
       "nameRequired": "Namen eingeben_FR",

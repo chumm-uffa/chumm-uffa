@@ -53,6 +53,20 @@ export class UpdateComponent implements OnInit {
   }
 
   onChangePassword() {
-    // todo
+    FormUtil.markAsTouched(this.passwordForm);  // macht Validierungsfehler sichtbar
+    if (this.passwordForm.valid && !this.passwordForm.pending) {  // Form ist gültig und die Validierung ist abgeschlossen
+      this.businessService.changePassword(this.passwordForm.get('oldPassword').value, this.passwordForm.get('newPassword').value)
+        .subscribe(() => {
+          this.dialog.open(InfoPopupComponent, {
+            data: {
+              infoText: '',
+              infoTitle: 'user.dialog.passwordSuccessfulTitle'
+            }
+          });
+        }, err => {
+          this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'user.dialog.passwordFailedTitle'}});
+          this.userForm.hasError(err);
+        });
+    }
   }
 }
