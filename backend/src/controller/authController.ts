@@ -166,7 +166,7 @@ export class AuthController extends BaseController {
                     // Check if the username alreday exist
                     if (!newDbUser || newDbUser.id === profileDbUser.id) {
                         profileDbUser.fromInterface(updateRequest.profile);
-                        if (updateRequest.profile.password) {
+                        if (updateRequest.profile.password) { // Passwort hier evtl. weglassen, siehe Service updatePassword()
                             profileDbUser.hashPassword(updateRequest.profile.password);
                         }
                         profileDbUser.save().then((dbUser) => {
