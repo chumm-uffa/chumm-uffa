@@ -34,7 +34,7 @@ import {Overlay} from '@angular/cdk/overlay';
     MatTooltipModule,
     MatListModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
     MatSortModule
   ],
   declarations: [
