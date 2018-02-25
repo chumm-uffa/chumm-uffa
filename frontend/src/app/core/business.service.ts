@@ -301,14 +301,12 @@ export class BusinessService {
    * @returns {Observable<Chat[]>}
    */
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    const spinner: Spinner = new Spinner(this.appDialogService);
+    /*aufgrund des Polling bei meetupdetail hier kein Spinner*/
     return Observable.create((observer) => {
       this.resourceService.loadChatsByMeetupId(meetupId)
         .subscribe(res => {
-          spinner.stop();
           observer.next(Chat.fromJSONArray(res.chats));
         }, err => {
-          spinner.stop();
           this.handleError(observer, err, 'load chats for meetup');
         });
     });
@@ -321,13 +319,17 @@ export class BusinessService {
    * @returns {Observable<Chat>}
    */
   createChat(message: string, meetupId: string): Observable<Chat> {
-    /*aufgrund des Polling bei meetupdetail hier kein Spinner*/
+    const spinner: Spinner = new Spinner(this.appDialogService);
     return Observable.create((observer) => {
       const chat = MeetupsFactory.createCreateChatForMeetupRequest(new Chat('', message, this.appState.loggedInUser, new Date()));
       this.resourceService.createChat(meetupId, chat)
         .subscribe(res => {
           observer.next(res.chat);
-        }, err => this.handleError(observer, err, 'create chats for meetup'));
+          spinner.stop();
+        }, err => {
+          this.handleError(observer, err, 'create chats for meetup');
+          spinner.stop();
+        });
     });
   }
 
