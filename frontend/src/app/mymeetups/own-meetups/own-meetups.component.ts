@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../../core/business.service';
-import {Meetup, Hall} from '@chumm-uffa/interface';
+import {Hall, Meetup} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
-import {MatDialog, MatIconRegistry, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatIconRegistry, MatTableDataSource, Sort} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
@@ -36,7 +36,7 @@ export class OwnMeetupsComponent implements OnInit {
 
   getMeetups(): void {
     this.businessService.getMeetUps().subscribe(meetups => {
-      this.meetups = meetups.sort( (a: Meetup, b: Meetup) => {
+      this.meetups = meetups.sort((a: Meetup, b: Meetup) => {
         return a.from.getTime() - b.from.getTime();
       });
       this.dataSource = new MatTableDataSource(meetups);
@@ -58,6 +58,35 @@ export class OwnMeetupsComponent implements OnInit {
         this.businessService.deleteMeetup(meetupId).subscribe(_ => this.getMeetups());
       }
     });
-
   }
+
+  sortMeetups(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+
+    this.dataSource.data = this.dataSource.data.sort((a: Meetup, b: Meetup) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'numberOfRequest':
+          return compare(a.numberOfRequest, b.numberOfRequest, isAsc);
+        case 'numberOfParticipant':
+          return compare(a.numberOfParticipant, b.numberOfParticipant, isAsc);
+        case 'location':
+          return compare(getLocationString(a), getLocationString(b), isAsc);
+        case 'time':
+          return compare(a.from.getTime(), b.from.getTime(), isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+}
+
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+function getLocationString(mu: Meetup) {
+  return mu.indoor ? mu.indoor : mu.outdoor;
 }

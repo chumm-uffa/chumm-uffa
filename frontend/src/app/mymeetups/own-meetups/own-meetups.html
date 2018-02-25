@@ -4,29 +4,29 @@
 
   <section>
 
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortMeetups($event)">
 
       <!-- time -->
       <ng-container matColumnDef="time">
-        <mat-header-cell *matHeaderCellDef> {{'ownMeetups.time' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.time' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.time' | translate}}</mat-header-cell> {{meetup.from | dateTimeFormat}} </mat-cell>
       </ng-container>
 
       <!-- location -->
       <ng-container matColumnDef="location">
-        <mat-header-cell *matHeaderCellDef> {{'ownMeetups.location' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.location' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.location' | translate}}</mat-header-cell> {{getLocation(meetup)}} </mat-cell>
       </ng-container>
 
       <!-- numberOfRequest -->
       <ng-container matColumnDef="numberOfRequest">
-        <mat-header-cell *matHeaderCellDef> {{'ownMeetups.requests' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.requests' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.requests' | translate}}</mat-header-cell> {{meetup.numberOfRequest}} </mat-cell>
       </ng-container>
 
       <!-- numberOfParticipant -->
       <ng-container matColumnDef="numberOfParticipant">
-        <mat-header-cell *matHeaderCellDef> {{'ownMeetups.participants' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.participants' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
           <mat-header-cell class="xs-header">{{'ownMeetups.participants' | translate}}</mat-header-cell>
           {{meetup.numberOfParticipant}}

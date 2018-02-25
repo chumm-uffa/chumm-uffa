@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BusinessService} from '../../core/business.service';
 import {Hall, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
 import {AppDialogService} from '../../core/AppDialogService';
 
@@ -31,7 +31,7 @@ export class OpenRequestsComponent implements OnInit {
 
   getMeetupRequests(): void {
     this.businessService.getMeetUpRequests().subscribe(requests => {
-      this.meetUpRequests = requests.sort( (a: MeetupRequest, b: MeetupRequest) => {
+      this.meetUpRequests = requests.sort((a: MeetupRequest, b: MeetupRequest) => {
         return a.meetup.from.getTime() - b.meetup.from.getTime();
       });
 
@@ -64,4 +64,32 @@ export class OpenRequestsComponent implements OnInit {
       }
     });
   }
+
+  sortMeetups(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+
+    this.dataSource.data = this.dataSource.data.sort((a: MeetupRequest, b: MeetupRequest) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'time':
+          return compare(a.meetup.from, b.meetup.from, isAsc);
+        case 'state':
+          return compare(a.status, b.status, isAsc);
+        case 'location':
+          return compare(getLocationString(a.meetup), getLocationString(b.meetup), isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+}
+
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+function getLocationString(mu: Meetup) {
+  return mu.indoor ? mu.indoor : mu.outdoor;
 }

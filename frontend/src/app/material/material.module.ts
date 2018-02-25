@@ -3,11 +3,12 @@ import {
   MatButtonModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatListModule,
-  MatIconModule,
   MatRadioModule,
   MatSelectModule,
+  MatSortModule,
   MatTableModule,
   MatTabsModule,
   MatTooltipModule,
@@ -33,7 +34,8 @@ import {Overlay} from '@angular/cdk/overlay';
     MatTooltipModule,
     MatListModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -56,7 +58,8 @@ import {Overlay} from '@angular/cdk/overlay';
     MatDialogModule,
     MatTooltipModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ],
   providers: [
     {
