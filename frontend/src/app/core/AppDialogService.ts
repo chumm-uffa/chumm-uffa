@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {HttpErrorResponse} from '@angular/common/http';
 import {GoogleMapsComponent} from '../google-maps/google-maps.component';
+import {SpinnerComponent} from '../material/spinner/spinner.component';
 
 @Injectable()
 export class AppDialogService {
@@ -24,11 +25,19 @@ export class AppDialogService {
       {data: {infoText: message, infoTitle: 'appDialogService.serverErrorTitle'}});
   }
 
-  showGoogleMaps(lat: number, lng: number, showOnly: boolean = false) {
+  showGoogleMaps(lat: number, lng: number, isEditable: boolean = true) {
     const dialogRef = this.dialog.open(GoogleMapsComponent,
-      {height: '80vh',
-        width: '80vw', data: {longitude: lng, latitude: lat, showOnly: showOnly}});
+      {
+        height: '80vh',
+        width: '80vw', data: {longitude: lng, latitude: lat, editable: isEditable}
+      });
 
     return dialogRef.afterClosed();
+  }
+
+  showSpinner(): MatDialogRef<SpinnerComponent> {
+    const dialogRef = this.dialog.open(SpinnerComponent,
+      {height: '180px', width: '180px'});
+    return dialogRef;
   }
 }

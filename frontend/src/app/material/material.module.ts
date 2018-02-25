@@ -11,11 +11,14 @@ import {
   MatSortModule,
   MatTableModule,
   MatTabsModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatProgressSpinnerModule, MAT_DIALOG_SCROLL_STRATEGY
 } from '@angular/material';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {InfoPopupComponent} from './info-popup/info-popup.component';
+import {SpinnerComponent} from './spinner/spinner.component';
+import {Overlay} from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -31,15 +34,18 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatTooltipModule,
     MatListModule,
     MatIconModule,
+    MatProgressSpinnerModule
     MatSortModule
   ],
   declarations: [
     ConfirmDialogComponent,
-    InfoPopupComponent
+    InfoPopupComponent,
+    SpinnerComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
-    InfoPopupComponent
+    InfoPopupComponent,
+    SpinnerComponent
   ],
   exports: [
     MatRadioModule,
@@ -54,6 +60,13 @@ import {InfoPopupComponent} from './info-popup/info-popup.component';
     MatListModule,
     MatIconModule,
     MatSortModule
+  ],
+  providers: [
+    {
+      provide: MAT_DIALOG_SCROLL_STRATEGY,
+      deps: [Overlay],
+      useFactory: (overlay: Overlay) => () => overlay.scrollStrategies.close()
+    }
   ]
 })
 export class MaterialModule {

@@ -33,7 +33,7 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   clickOnMap(event) {
-    if (!this.data.showOnly) {
+    if (this.data.editable) {
       this.lat_marker = event.coords.lat;
       this.lng_marker = event.coords.lng;
     }

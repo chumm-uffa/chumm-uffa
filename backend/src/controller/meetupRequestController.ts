@@ -48,22 +48,43 @@ export class MeetupRequestController extends BaseController {
             return;
         }
 
-        const dbMeetupRequest: IDBMeetupRequestModel = new DBMeetupRequest();
-        dbMeetupRequest.fromInterface(createRequest.request);
-        dbMeetupRequest.save().then((dbMeetupReq) => {
-            return DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate);
-        }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
-            return dbMeetupReq3.toInterface();
-        }).then( request => {
-            res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
-                request));
+        DBMeetupRequest.findOne({meetup: createRequest.request.meetup.id, participant: createRequest.request.participant.id}).
+        then((dbMeetupReqFound) => {
+            if (!dbMeetupReqFound) {
+                const dbMeetupRequest: IDBMeetupRequestModel = new DBMeetupRequest();
+                dbMeetupRequest.fromInterface(createRequest.request);
+                dbMeetupRequest.save().then((dbMeetupReq) => {
+                    return DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate);
+                }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
+                    return dbMeetupReq3.toInterface();
+                }).then( request => {
+                    res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
+                        request));
 
+                }).catch((err) => {
+                    this.logger.error(err.toString());
+                    res.status(500);
+                    res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
+                });
+            } else {
+                DBMeetupRequest.populate(dbMeetupReqFound, MeetupRequestPopulate).
+                then((dbMeetupReq3: IDBMeetupRequestModel) => {
+                    return dbMeetupReq3.toInterface();
+                }).then( request => {
+                    res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request found.',
+                    request));
+                }).catch((err) => {
+                    this.logger.error(err.toString());
+                    res.status(500);
+                    res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
+                });
+            }
         }).catch((err) => {
             this.logger.error(err.toString());
             res.status(500);
             res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
         });
-    }
+}
 
     /**
      * Updates the meetupRequest

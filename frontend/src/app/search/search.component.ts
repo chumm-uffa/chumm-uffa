@@ -71,12 +71,12 @@ export class SearchComponent implements OnInit {
     return Util.resolveLocation(meetup, this.halls);
   }
 
-  showGoogleMapsDialog(showOnly = false) {
+  showGoogleMapsDialog() {
 
     const latitude = Number(this.searchForm.get('latitude').value);
     const longitude = Number(this.searchForm.get('longitude').value);
 
-    this.appDialogService.showGoogleMaps(latitude, longitude, showOnly).subscribe(result => {
+    this.appDialogService.showGoogleMaps(latitude, longitude).subscribe(result => {
       if (result && result.ok) {
         this.searchForm.get('latitude').patchValue(result.lat);
         this.searchForm.get('longitude').patchValue(result.lng);
