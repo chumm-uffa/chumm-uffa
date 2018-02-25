@@ -69,26 +69,26 @@
       <h3 *ngIf="hasAllreadySearched" class="mat-h3 no-result" >{{'search.noResults' | translate}}</h3>
     </ng-template>
 
-    <mat-table #table *ngIf="results.data.length > 0; else noResult" [dataSource]="results">
+    <mat-table #table *ngIf="results.data.length > 0; else noResult" [dataSource]="results" matSort (matSortChange)="sortResults($event)">
       <!-- Owner Column -->
       <ng-container matColumnDef="owner">
-        <mat-header-cell *matHeaderCellDef> {{'search.owner' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.owner' | translate}}</mat-header-cell> {{meetup.owner.username}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.owner' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.owner' | translate}}</mat-header-cell>{{meetup.owner.username}}</mat-cell>
       </ng-container>
       <!-- Start Time Column -->
       <ng-container matColumnDef="fromTime">
-        <mat-header-cell *matHeaderCellDef>{{'search.from_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.from_th' | translate}}</mat-header-cell> {{meetup.from | dateTimeFormat}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.from_th' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.from_th' | translate}}</mat-header-cell>{{meetup.from | dateTimeFormat}}</mat-cell>
       </ng-container>
       <!-- End Time Column -->
       <ng-container matColumnDef="toTime">
-        <mat-header-cell *matHeaderCellDef>{{'search.to_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.to_th' | translate}}</mat-header-cell> {{meetup.to | dateTimeFormat}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.to_th' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.to_th' | translate}}</mat-header-cell>{{meetup.to | dateTimeFormat}}</mat-cell>
       </ng-container>
       <!-- Location Column -->
       <ng-container matColumnDef="location">
-        <mat-header-cell *matHeaderCellDef>{{'search.location_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.location_th' | translate}}</mat-header-cell> {{getLocation(meetup)}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.location_th' | translate}}</mat-header-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.location_th' | translate}}</mat-header-cell>{{getLocation(meetup)}}</mat-cell>
       </ng-container>
       <!-- Register Column -->
       <ng-container matColumnDef="register">
