@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BusinessService} from '../core/business.service';
-import {Hall, Meetup, IBaseResponse, LocationType} from '@chumm-uffa/interface';
+import {Hall, LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -9,13 +9,14 @@ import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/AppDialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-create-meetup',
   templateUrl: './meetup.html',
   styleUrls: ['./meetup.component.scss']
 })
-export class MeetupComponent implements OnInit {
+export class MeetupComponent implements OnInit, OnDestroy {
 
   halls: Hall[];
   form: FormGroup;
@@ -25,6 +26,7 @@ export class MeetupComponent implements OnInit {
   combinedMomentMatcher = new AppErrorStateMatcher('combinedMomentNotBefore');
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
   private meetup: Meetup;
+  private activateRoute$: Subscription;
 
   constructor(private businessService: BusinessService,
               private fB: MeetupFormService,
@@ -40,7 +42,7 @@ export class MeetupComponent implements OnInit {
       this.halls = halls;
     });
 
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.activateRoute$ = this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       /**
        * Eine meetupId in der URL bringt uns in den mutate mode
@@ -63,6 +65,12 @@ export class MeetupComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.activateRoute$) {
+      this.activateRoute$.unsubscribe();
+    }
+  }
+
   isIndoor(): boolean {
     return this.form.get('locationType').value === 'in';
   }
@@ -74,7 +82,7 @@ export class MeetupComponent implements OnInit {
 
       // if no meetup id is available, create a new one.
       if (this.meetup.id) {
-        this.businessService.saveMeetUp(this.meetup).subscribe( () => {
+        this.businessService.saveMeetUp(this.meetup).subscribe(() => {
           const myDialog = this.dialog.open(InfoPopupComponent,
             {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
@@ -84,7 +92,7 @@ export class MeetupComponent implements OnInit {
           this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'meetup.dialog.CreateFailedTitle'}});
         });
       } else {
-        this.businessService.createMeetUp(this.meetup).subscribe( () => {
+        this.businessService.createMeetUp(this.meetup).subscribe(() => {
           const myDialog = this.dialog.open(InfoPopupComponent,
             {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {

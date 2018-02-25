@@ -54,6 +54,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(User.fromJSON(res.user));
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'register');
@@ -73,6 +74,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(User.fromJSON(res.profile));
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'update profile');
@@ -95,6 +97,7 @@ export class BusinessService {
           this.appState.loggedInUser = res.profile;
           this.appState.token = res.token;
           observer.next(User.fromJSON(res.profile));
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'login');
@@ -111,8 +114,9 @@ export class BusinessService {
     return Observable.create((observer) => {
       this.resourceService.getMeetups(this.appState.loggedInUser.id)
         .subscribe(res => {
-            observer.next(Meetup.fromJSONArray(res.meetups));
             spinner.stop();
+            observer.next(Meetup.fromJSONArray(res.meetups));
+            observer.complete();
           }, err => {
             spinner.stop();
             this.handleError(observer, err, 'getting all meetups');
@@ -132,6 +136,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(MeetupRequest.fromJSONArray(res.requests));
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'getting all requests for meetup');
@@ -152,6 +157,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(res.meetup);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'create new meetup');
@@ -171,6 +177,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(res.meetup);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'update meetup');
@@ -190,6 +197,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(res.meetup);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'load meetup');
@@ -209,6 +217,7 @@ export class BusinessService {
         .subscribe(() => {
           spinner.stop();
           observer.next();
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'delete meetup');
@@ -228,6 +237,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(MeetupRequest.fromJSONArray(res.requests));
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'load meetup request');
@@ -249,6 +259,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(res.request);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'update meetup request');
@@ -269,6 +280,7 @@ export class BusinessService {
         .subscribe(res => {
           spinner.stop();
           observer.next(res.request);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'create meetup request');
@@ -288,6 +300,7 @@ export class BusinessService {
         .subscribe(() => {
           spinner.stop();
           observer.next();
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'delete meetup request');
@@ -306,6 +319,7 @@ export class BusinessService {
       this.resourceService.loadChatsByMeetupId(meetupId)
         .subscribe(res => {
           observer.next(Chat.fromJSONArray(res.chats));
+          observer.complete();
         }, err => {
           this.handleError(observer, err, 'load chats for meetup');
         });
@@ -324,8 +338,9 @@ export class BusinessService {
       const chat = MeetupsFactory.createCreateChatForMeetupRequest(new Chat('', message, this.appState.loggedInUser, new Date()));
       this.resourceService.createChat(meetupId, chat)
         .subscribe(res => {
-          observer.next(res.chat);
           spinner.stop();
+          observer.next(res.chat);
+          observer.complete();
         }, err => {
           this.handleError(observer, err, 'create chats for meetup');
           spinner.stop();
@@ -347,6 +362,7 @@ export class BusinessService {
           spinner.stop();
           this.lastSearch = Meetup.fromJSONArray(res.meetups);
           observer.next(this.lastSearch);
+          observer.complete();
         }, err => {
           spinner.stop();
           this.handleError(observer, err, 'search meetup');
@@ -368,6 +384,7 @@ export class BusinessService {
       this.resourceService.getHalls().subscribe(res => {
         spinner.stop();
         observer.next(Hall.fromJSONArray(res.halls));
+        observer.complete();
       }, err => {
         spinner.stop();
         this.handleError(observer, err, 'getting all halls');
@@ -386,6 +403,7 @@ export class BusinessService {
       const request = AuthFactory.createUpdatePasswordRequest(oldPassword, newPassword);
       this.resourceService.updatePassword(request).subscribe(res => {
         observer.next();
+        observer.complete();
       }, err => this.handleError(observer, err, 'change password'));
     });
   }
@@ -405,5 +423,6 @@ export class BusinessService {
       message = `${message}: ${err.error}`;
     }
     observer.error(message);
+    observer.complete();
   }
 }
