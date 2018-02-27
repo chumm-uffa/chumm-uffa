@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {SearchFormService} from './form/search-form.service';
 import {BusinessService} from '../core/business.service';
@@ -11,13 +11,14 @@ import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/AppDialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {AppStateService} from '../core/app-state.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   results: MatTableDataSource<Meetup> = new MatTableDataSource<Meetup>([]);
   searchForm: FormGroup;
@@ -27,6 +28,7 @@ export class SearchComponent implements OnInit {
   sexType = Sex;
   locationType = LocationType;
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
+  private searchForm$: Subscription;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
@@ -38,9 +40,16 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
     this.searchForm = this.searchFormService.createForm();
-    this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
+    this.searchForm$ = this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
     const meetups = this.businessService.getCachedSearchResults();
     this.results = new MatTableDataSource<Meetup>(meetups);
+  }
+
+  ngOnDestroy(): void {
+    this.searchFormService.unsubscribe();
+    if (this.searchForm$) {
+      this.searchForm$.unsubscribe();
+    }
   }
 
   startSearch() {

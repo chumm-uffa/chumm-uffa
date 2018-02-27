@@ -11,15 +11,15 @@ describe('App', () => {
   });
 
   it('should have equal length of language files', () => {
-    const de = require('./i18n/de.json');
-    const fr = require('./i18n/fr.json');
+    const de = require('../assets/i18n/de.json');
+    const fr = require('../assets/i18n/fr.json');
 
     expect(de.length).toEqual(fr.length);
   });
 
   it('should have each key in each language file', () => {
-    const de = require('./i18n/de.json');
-    const fr = require('./i18n/fr.json');
+    const de = require('../assets/i18n/de.json');
+    const fr = require('../assets/i18n/fr.json');
 
     const languages = [de, fr];
 

@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {BusinessService} from '../core/business.service';
 import {Hall, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
 import {AppStateService} from '../core/app-state.service';
 import {AppDialogService} from '../core/AppDialogService';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-meetup-detail',
   templateUrl: './meetup-detail.html',
   styleUrls: ['./meetup-detail.component.scss']
 })
-export class MeetupDetailComponent implements OnInit {
+export class MeetupDetailComponent implements OnInit, OnDestroy {
 
   loadError = false;
   private meetup: Meetup;
@@ -19,6 +20,8 @@ export class MeetupDetailComponent implements OnInit {
   private halls: Hall[] = [];
   isMeetupOwner = false;
   isAccepted = false;
+
+  private activateRoute$: Subscription;
 
   constructor(private businessService: BusinessService,
               private activatedRoute: ActivatedRoute,
@@ -29,7 +32,7 @@ export class MeetupDetailComponent implements OnInit {
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
 
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.activateRoute$ = this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       this.businessService.loadRequests(meetupId).subscribe(requests => {
         this.meetupRequests = requests;
@@ -49,6 +52,12 @@ export class MeetupDetailComponent implements OnInit {
         }
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.activateRoute$) {
+      this.activateRoute$.unsubscribe();
+    }
   }
 
   getLocation(): string {

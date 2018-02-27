@@ -3,11 +3,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {validateAfterBefore, validateNotBefore} from '../../shared/validators/validate-date';
 import {SearchDto} from '@chumm-uffa/interface';
+import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class SearchFormService {
 
   static readonly DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
+  private fromDate$: Subscription;
 
   constructor(private fB: FormBuilder) {
   }
@@ -30,7 +32,7 @@ export class SearchFormService {
       validator: [validateAfterBefore(SearchFormService.DATE_TIME_FORMAT, 'fromDateTime', 'toDateTime')]
     });
 
-    form.get('fromDateTime').valueChanges.subscribe(value => {
+    this.fromDate$ = form.get('fromDateTime').valueChanges.subscribe(value => {
       this.patchToTime(value, form);
     });
     return form;
@@ -50,6 +52,12 @@ export class SearchFormService {
       Number(formvalue.latitude),
       Number(formvalue.longitude),
       Number(formvalue.radius));
+  }
+
+  unsubscribe() {
+    if (this.fromDate$) {
+      this.fromDate$.unsubscribe();
+    }
   }
 
   private patchToTime(fromDateTimeString: string, form: FormGroup): void {
