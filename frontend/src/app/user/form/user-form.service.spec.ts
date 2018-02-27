@@ -80,7 +80,7 @@ describe('user Form', () => {
   }
 
   function createValidForm(userFb: UserFormService): FormGroup {
-    const form = userFb.createForm(createUser());
+    const form = userFb.createRegistrationForm(createUser());
     form.controls.password.patchValue(createUser().password);
     form.controls.passwordRepeat.patchValue(createUser().password);
     return form;

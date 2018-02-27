@@ -2,6 +2,12 @@ import {BaseResponse, IBaseResponse} from './interface/baseResponse';
 import {ILoginRequest, ILoginResponse, LoginRequest, LoginResponse} from './interface/auth/login';
 import {IRegisterRequest, IRegisterResponse, RegisterRequest, RegisterResponse} from './interface/auth/register';
 import {
+    IUpdatePasswordRequest,
+    IUpdatePasswordResponse,
+    UpdatePasswordRequest,
+    UpdatePasswordResponse
+} from './interface/auth/password';
+import {
     CreateMeetupRequest,
     CreateMeetupRespons,
     DeleteMeetupRespons,
@@ -130,6 +136,10 @@ export {
 
     //delete /auth/profile
     IDeleteProfileResponse, DeleteProfileResponse,
+
+    // put /auth/password
+    IUpdatePasswordRequest, UpdatePasswordRequest,
+    IUpdatePasswordResponse, UpdatePasswordResponse,
 
     //*************************
     // All for route "/meetups"

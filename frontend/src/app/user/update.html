@@ -1,0 +1,69 @@
+<div class="app-page--s">
+  <div class="app-spacer-vert--m"></div>
+  <h2 class="mat-h1 page-title">
+    <div>{{ 'user.titleMutate' | translate }}</div>
+  </h2>
+
+  <section class="app-box">
+    <form [formGroup]="userForm" novalidate (ngSubmit)="onClickRegister()">
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.name' | translate }}" formControlName="username">
+        <mat-error *ngIf="userForm.controls.username | hasError:'required'">{{ 'user.error.nameRequired' | translate }}</mat-error> <!-- spezifische Validierungs Fehler -->
+        <mat-error *ngIf="userForm.controls.username | hasError:'minlength'">{{ 'user.error.nameMinLength' | translate }}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.email' | translate }}" formControlName="email">
+        <mat-error *ngIf="userForm.controls.email | hasError:'email'">{{ 'user.error.email' | translate }}</mat-error>
+      </mat-form-field>
+      <div>
+        <mat-radio-group formControlName="sex">
+          <mat-radio-button type="radio"  value="{{sexType.MALE}}">{{ 'user.man' | translate }}</mat-radio-button>
+          <mat-radio-button type="radio"  value="{{sexType.FEMALE}}">{{ 'user.women' | translate }}</mat-radio-button>
+          <div *ngIf="userForm.controls.sex | hasError:'required'" class="app-spacer-vert--s"></div>
+          <mat-error *ngIf="userForm.controls.sex | hasError:'required'" class="mat-caption">{{ 'user.error.sexRequired' | translate }}</mat-error>
+        </mat-radio-group>
+      </div>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.weight' | translate }}" type="number" formControlName="weight">
+        <span matSuffix>{{ 'user.kg' | translate }}</span>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="accent" type="submit">
+        <span>{{ 'user.saveUser' | translate }}</span>
+      </button>
+    </form>
+  </section>
+
+  <div class="app-spacer-vert--m"></div>
+  <h2 class="mat-h1 page-title">
+    <div>{{ 'user.titlePassword' | translate }}</div>
+  </h2>
+  <section class="app-box">
+    <form [formGroup]="passwordForm" novalidate (ngSubmit)="onChangePassword()">
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.oldPassword' | translate }}" formControlName="oldPassword" type="password">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.newPassword' | translate }}" formControlName="newPassword" type="password">
+        <mat-error *ngIf="passwordForm.controls.newPassword | hasError:'required'">{{ 'user.error.passwordRequired' | translate }}</mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword | hasError:'minlength'">{{ 'user.error.passwordMinLength' | translate }}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{ 'user.repeatNewPassword' | translate }}" formControlName="newPasswordRepeat" type="password">
+        <!-- Error state controlled by validator-->
+        <mat-error *ngIf="(passwordForm | hasError:'passwordMismatch')">
+          {{ 'user.error.differentPasswords' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="accent" type="submit">
+        <span>{{ 'user.savePassword' | translate }}</span>
+      </button>
+    </form>
+  </section>
+</div>
+

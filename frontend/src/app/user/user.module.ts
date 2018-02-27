@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
-import {UserComponent} from './user.component';
+import {UpdateComponent} from './update.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {UserFormService} from './form/user-form.service';
 import {MaterialModule} from '../material/material.module';
+import {RegistrationComponent} from './registration.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MaterialModule} from '../material/material.module';
     MaterialModule
   ],
   declarations: [
-    UserComponent
+    UpdateComponent,
+    RegistrationComponent
   ],
   providers: [UserFormService]
 })

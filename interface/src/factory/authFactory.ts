@@ -8,6 +8,7 @@ import {
     UpdateProfileRequest, UpdateProfileResponse
 } from "../interface/auth/profile";
 import {ILogoutResponse, LogoutResponse} from "../interface/auth/logout";
+import {IUpdatePasswordRequest, IUpdatePasswordResponse, UpdatePasswordRequest} from '../interface/auth/password';
 
 /**
  * Class factory for "/auth" route Rest API interface
@@ -125,4 +126,26 @@ export class AuthFactory extends BaseFactory{
         return this.createResponse(DeleteProfileResponse, success, message);
     }
 
+    /**
+     * Create request message for "put /auth/updatepassword" route
+     * @param {string} oldPassword
+     * @param {string} newPassword
+     * @returns {IUpdatePasswordRequest}
+     */
+    static createUpdatePasswordRequest(oldPassword: string, newPassword: string) :IUpdatePasswordRequest {
+        const request = new UpdatePasswordRequest();
+        request.oldPassord = oldPassword;
+        request.newPassword = newPassword;
+        return request;
+    }
+
+    /**
+     * Create response message for "put /auth/updatepassword" route
+     * @param {boolean} success
+     * @param {string} message
+     * @returns {IUpdatePasswordResponse}
+     */
+    static createUpdatePasswordResponse(success: boolean, message: string) :IUpdatePasswordResponse {
+        return this.createResponse(RegisterResponse, success, message);
+    }
 }

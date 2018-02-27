@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './login/login.component';
-import {UserComponent} from './user/user.component';
+import {UpdateComponent} from './user/update.component';
 import {HomeComponent} from './home/home.component';
 import {MymeetupsComponent} from './mymeetups/mymeetups.component';
 import {MeetupComponent} from './meetup/meetup.component';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {SearchComponent} from './search/search.component';
 import {AuthGuard} from './core/AuthGuard';
+import {RegistrationComponent} from './user/registration.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registration', component: UserComponent },
-  { path: 'updateuser', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'updateuser', component: UpdateComponent, canActivate: [AuthGuard] },
   { path: 'mymeetups', component: MymeetupsComponent, canActivate: [AuthGuard] },
   { path: 'meetup', component: MeetupComponent, canActivate: [AuthGuard] },
   { path: 'meetupdetail', component: MeetupDetailComponent, canActivate: [AuthGuard] },

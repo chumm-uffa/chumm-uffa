@@ -10,7 +10,7 @@ export class UserFormService {
   constructor(private fB: FormBuilder) {
   }
 
-  public createForm(user: User): FormGroup {
+  public createRegistrationForm(user: User): FormGroup {
     return this.fB.group({
       username: [user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -20,6 +20,25 @@ export class UserFormService {
       weight: [user.weight]
     }, {
       validator: validatePwdsMatch('password', 'passwordRepeat')  // Formvalidators -> validate between Fields
+    });
+  }
+
+  public createUpdateForm(user: User): FormGroup {
+    return this.fB.group({
+      username: [user.username, [Validators.required, Validators.minLength(2)]], // Field , Fieldvalidators
+      sex: [user.sex, [Validators.required]],
+      email: [user.email, [Validators.email]],
+      weight: [user.weight]
+    });
+  }
+
+  public createPasswordForm(user: User): FormGroup {
+    return this.fB.group({
+      oldPassword: '',
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPasswordRepeat: '',
+    }, {
+      validator: validatePwdsMatch('newPassword', 'newPasswordRepeat')  // Formvalidators -> validate between Fields
     });
   }
 

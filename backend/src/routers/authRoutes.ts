@@ -1,10 +1,10 @@
 /**
  * chumm-uffa
  */
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 
-import { AuthController } from '../controller/authController';
-import { BaseRoutes } from './baseRoutes';
+import {AuthController} from '../controller/authController';
+import {BaseRoutes} from './baseRoutes';
 
 export class AuthRoutes extends BaseRoutes {
 
@@ -43,4 +43,11 @@ export class AuthRoutes extends BaseRoutes {
         router.put('/profile', this.guard, (req: Request, res: Response) => {
             this.controller.updateProfile(req, res);
         });
-    }}
+    }
+
+    public updatePasswordAction(router: Router): void {
+        router.put('/password', this.guard, (req: Request, res: Response) => {
+            this.controller.updatePassword(req, res);
+        });
+    }
+}

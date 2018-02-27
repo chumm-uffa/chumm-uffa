@@ -4,7 +4,7 @@
  * Unit test for authentication a user
  */
 
-import { BaseTest } from '../BaseTest';
+import {BaseTest} from '../BaseTest';
 
 import * as cuint from '@chumm-uffa/interface';
 
@@ -100,7 +100,7 @@ describe('Test /auth/register', () => {
     it('it should register the test user and change it later', (done) => {
         // First register the user
         baseTest.chai.request(baseTest.server)
-            // First register the user
+        // First register the user
             .post(`${baseTest.route}auth/register`)
             .send(cuint.AuthFactory.createRegisterRequest(testUser))
             .end((err, res) => {
@@ -256,6 +256,50 @@ describe('Test /auth/login and /auth/logout', () => {
             .send(cuint.AuthFactory.createLoginRequest(testUser))
             .end((err, res) => {
                 baseTest.assertFailed(res, 400, 'user not exists.');
+                done();
+            });
+    });
+
+});
+
+describe('Test /auth/updatepassword', () => {
+
+    const baseTest: BaseTest = new BaseTest();
+    const testUser = baseTest.createTestUser();
+
+    before((done) => {
+        baseTest.login(done);
+    });
+
+    it('it should update password', (done) => {
+
+        baseTest.chai.request(baseTest.server)
+            .put(`${baseTest.route}auth/password`)
+            .set({authorization: baseTest.token})
+            .send(cuint.AuthFactory.createUpdatePasswordRequest('loginpw1', 'loginpw2'))
+            .end((err, res) => {
+                baseTest.assertSuccess(res);
+
+                // verify password really changed
+                baseTest.chai.request(baseTest.server)
+                    .put(`${baseTest.route}auth/password`)
+                    .set({authorization: baseTest.token})
+                    .send(cuint.AuthFactory.createUpdatePasswordRequest('loginpw2', 'loginpw3'))
+                    .end((err, res) => {
+                        baseTest.assertSuccess(res);
+                        done();
+                    });
+            });
+    });
+
+    it('it should not update password (wrong password)', (done) => {
+
+        baseTest.chai.request(baseTest.server)
+            .put(`${baseTest.route}auth/password`)
+            .set({authorization: baseTest.token})
+            .send(cuint.AuthFactory.createUpdatePasswordRequest('loginpw0', 'loginpw2'))
+            .end((err, res) => {
+                baseTest.assertFailed(res, 400, 'something went wrong.');
                 done();
             });
     });
