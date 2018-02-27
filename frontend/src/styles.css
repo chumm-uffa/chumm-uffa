@@ -11,3 +11,7 @@ body {
   margin: 0;
 }
 
+.app-spinner-panel .mat-dialog-container {
+  background: transparent;
+  box-shadow: none;
+}
