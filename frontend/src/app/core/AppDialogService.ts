@@ -37,7 +37,7 @@ export class AppDialogService {
 
   showSpinner(): MatDialogRef<SpinnerComponent> {
     const dialogRef = this.dialog.open(SpinnerComponent,
-      {height: '180px', width: '180px'});
+      {height: '180px', width: '180px', disableClose: true, panelClass: 'app-spinner-panel'});
     return dialogRef;
   }
 }
