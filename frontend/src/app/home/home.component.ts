@@ -14,7 +14,6 @@ export class HomeComponent {
   users: User[] = [];
 
   constructor(private businessService: BusinessService,
-              private appstate: AppStateService,
               private router: Router,
               private mock: MockService) {
     // to show Service
@@ -22,8 +21,6 @@ export class HomeComponent {
   }
 
   simulateLogin(user) {
-    this.appstate.token = 'was drin';
-    this.appstate.loggedInUser = user;
     this.businessService.login(user).subscribe( response => {
       this.router.navigate(['/mymeetups']);
     },  err => {
