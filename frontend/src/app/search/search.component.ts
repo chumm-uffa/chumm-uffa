@@ -119,8 +119,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   /*Mark messages of the current user*/
   getCurrentUserClass(username: string): string {
-    return username === this.appState.loggedInUser.username ? 'currentUser' : '';
+    return this.isCurrentUser(username) ? 'currentUser' : '';
   }
+
+  isCurrentUser(username: string): boolean {
+    return username === this.appState.loggedInUser.username;
+  }
+
 }
 
 function compare(a, b, isAsc) {

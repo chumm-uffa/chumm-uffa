@@ -93,7 +93,7 @@
       <!-- Register Column -->
       <ng-container matColumnDef="register">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" (click)="requestForParticipation($event, meetup)">{{'search.startRequest' | translate}}</button> </mat-cell>
+        <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" *ngIf="!isCurrentUser(meetup.owner.username)" (click)="requestForParticipation($event, meetup)">{{'search.startRequest' | translate}}</button> </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="columnDefinition"></mat-header-row>
       <mat-row routerLink="/meetupdetail" [queryParams]="{meetupId: meetup.id}" *matRowDef="let meetup; columns: columnDefinition;" [ngClass]="getCurrentUserClass(meetup.owner.username)"></mat-row>
