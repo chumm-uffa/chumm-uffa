@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run clean && npm run tsc",
-    "test": "npm run build && mocha -t 30000 dist/tests/**/*.spec.js --exit",
     "tsc": "tsc",
     "clean": "rimraf dist"
   },
