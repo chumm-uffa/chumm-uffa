@@ -51,7 +51,7 @@ export class OwnMeetupsComponent implements OnInit {
     event.stopPropagation();
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
-      {data: {confirmText: 'ownMeetups.dialog.deleteText', confirmTitle: 'ownMeetups.dialog.deleteTitle'}});
+      {disableClose: true, data: {confirmText: 'ownMeetups.dialog.deleteText', confirmTitle: 'ownMeetups.dialog.deleteTitle'}});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

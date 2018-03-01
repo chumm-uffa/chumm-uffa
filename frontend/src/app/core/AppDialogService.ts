@@ -29,7 +29,9 @@ export class AppDialogService {
     const dialogRef = this.dialog.open(GoogleMapsComponent,
       {
         height: '80vh',
-        width: '80vw', data: {longitude: lng, latitude: lat, editable: isEditable}
+        width: '80vw',
+        disableClose: true,
+        data: {longitude: lng, latitude: lat, editable: isEditable}
       });
 
     return dialogRef.afterClosed();
