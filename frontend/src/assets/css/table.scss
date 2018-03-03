@@ -22,12 +22,12 @@ and also iPads specifically.
 @media (max-width: 60em)  {
 
   /* Force table to not be like tables anymore */
-  mat-table, mat-header-row, mat-header-cell, mat-row, mat-cell, .xs-header {
+  mat-table, mat-header-cell, mat-row, mat-cell, .xs-header {
     display: block;
   }
 
-  /* Hide table headers (but not display: none;, for accessibility) */
-  mat-header-row {
+  /* Hide unused table sorter */
+  .hide-xs {
     display: none;
   }
 

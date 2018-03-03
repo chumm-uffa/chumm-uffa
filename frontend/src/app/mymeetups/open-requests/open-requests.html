@@ -24,7 +24,7 @@
 
       <!-- request -->
       <ng-container matColumnDef="request">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="hide-xs"></mat-header-cell>
         <mat-cell *matCellDef="let request">
           <button mat-raised-button color="primary" (click)="signOff($event, request.id)">{{'openRequests.signOff' | translate}}</button>
         </mat-cell>

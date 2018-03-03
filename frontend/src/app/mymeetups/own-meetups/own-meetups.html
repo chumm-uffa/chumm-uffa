@@ -35,7 +35,7 @@
 
       <!-- edit -->
       <ng-container matColumnDef="edit">
-        <mat-header-cell *matHeaderCellDef>{{'ownMeetups.edit' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="hide-xs">{{'ownMeetups.edit' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
           <mat-header-cell class="xs-header">{{'ownMeetups.edit' | translate}}</mat-header-cell>
           <button  mat-icon-button (click)="$event.stopPropagation()" routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">
@@ -46,7 +46,7 @@
 
       <!-- delete -->
       <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef>{{'ownMeetups.delete' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="hide-xs">{{'ownMeetups.delete' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
           <mat-header-cell class="xs-header">{{'ownMeetups.delete' | translate}}</mat-header-cell>
           <button mat-icon-button (click)="deleteMeetup($event, meetup.id)">
