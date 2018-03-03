@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {AppStateService} from './app-state.service';
 import {MockService} from './mock.service';
 import {Hall} from '@chumm-uffa/interface';
-import {AppDialogService} from './AppDialogService';
+import {AppDialogService} from './app-dialogService';
 
 /**
  * Demo Unit Test für Services mit Testcontainer, Mocking und injector

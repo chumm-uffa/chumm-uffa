@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {AppDialogService} from '../core/AppDialogService';
+import {AppDialogService} from '../core/app-dialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {Subscription} from 'rxjs/Subscription';
 

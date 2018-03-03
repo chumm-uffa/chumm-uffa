@@ -7,7 +7,7 @@ import {MymeetupsComponent} from './mymeetups/mymeetups.component';
 import {MeetupComponent} from './meetup/meetup.component';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {SearchComponent} from './search/search.component';
-import {AuthGuard} from './core/AuthGuard';
+import {AuthGuard} from './core/auth-guard';
 import {RegistrationComponent} from './user/registration.component';
 
 

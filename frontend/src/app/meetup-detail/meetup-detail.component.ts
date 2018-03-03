@@ -4,7 +4,7 @@ import {BusinessService} from '../core/business.service';
 import {Hall, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
 import {AppStateService} from '../core/app-state.service';
-import {AppDialogService} from '../core/AppDialogService';
+import {AppDialogService} from '../core/app-dialogService';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
