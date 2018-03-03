@@ -73,26 +73,26 @@
       <!-- Owner Column -->
       <ng-container matColumnDef="owner">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.owner' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.owner' | translate}}</mat-header-cell>{{meetup.owner.username}}</mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'search.owner' | translate}}</mat-header-cell>{{meetup.owner.username}}</mat-cell>
       </ng-container>
       <!-- Start Time Column -->
       <ng-container matColumnDef="fromTime">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.from_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.from_th' | translate}}</mat-header-cell>{{meetup.from | dateTimeFormat}}</mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'search.from_th' | translate}}</mat-header-cell>{{meetup.from | dateTimeFormat}}</mat-cell>
       </ng-container>
       <!-- End Time Column -->
       <ng-container matColumnDef="toTime">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.to_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.to_th' | translate}}</mat-header-cell>{{meetup.to | dateTimeFormat}}</mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'search.to_th' | translate}}</mat-header-cell>{{meetup.to | dateTimeFormat}}</mat-cell>
       </ng-container>
       <!-- Location Column -->
       <ng-container matColumnDef="location">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{'search.location_th' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'search.location_th' | translate}}</mat-header-cell>{{getLocation(meetup)}}</mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'search.location_th' | translate}}</mat-header-cell>{{getLocation(meetup)}}</mat-cell>
       </ng-container>
       <!-- Register Column -->
       <ng-container matColumnDef="register">
-        <mat-header-cell *matHeaderCellDef class="hide-xs"></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="xs-table-hide"></mat-header-cell>
         <mat-cell *matCellDef="let meetup"> <button mat-raised-button color="primary" *ngIf="!isCurrentUser(meetup.owner.username)" (click)="requestForParticipation($event, meetup)">{{'search.startRequest' | translate}}</button> </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="columnDefinition"></mat-header-row>

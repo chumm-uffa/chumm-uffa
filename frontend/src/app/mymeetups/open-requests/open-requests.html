@@ -7,24 +7,24 @@
       <!-- time -->
       <ng-container matColumnDef="time">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.time' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.time' | translate}}</mat-header-cell> {{request.meetup.from | dateTimeFormat}} </mat-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-table-header">{{'openRequests.time' | translate}}</mat-header-cell> {{request.meetup.from | dateTimeFormat}} </mat-cell>
       </ng-container>
 
       <!-- location -->
       <ng-container matColumnDef="location">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.location' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.location' | translate}}</mat-header-cell> {{getLocation(request.meetup)}} </mat-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-table-header">{{'openRequests.location' | translate}}</mat-header-cell> {{getLocation(request.meetup)}} </mat-cell>
       </ng-container>
 
       <!-- state -->
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'openRequests.state' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-header">{{'openRequests.state' | translate}}</mat-header-cell> {{request.status | translate}} </mat-cell>
+        <mat-cell *matCellDef="let request"> <mat-header-cell class="xs-table-header">{{'openRequests.state' | translate}}</mat-header-cell> {{request.status | translate}} </mat-cell>
       </ng-container>
 
       <!-- request -->
       <ng-container matColumnDef="request">
-        <mat-header-cell *matHeaderCellDef class="hide-xs"></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="xs-table-hide"></mat-header-cell>
         <mat-cell *matCellDef="let request">
           <button mat-raised-button color="primary" (click)="signOff($event, request.id)">{{'openRequests.signOff' | translate}}</button>
         </mat-cell>
