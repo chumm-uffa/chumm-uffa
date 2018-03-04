@@ -10,6 +10,13 @@ export class PushNotification implements IPushNotification{
     public id: NotificationId;
     public data: any;
 
+    public toJSON() {
+        return {
+            id: this.id,
+            date: this.data
+        };
+    }
+
     public static fromJSON(json: any) {
         const notifiaction =  new PushNotification();
         notifiaction.id = json.id;

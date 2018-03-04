@@ -99,6 +99,7 @@ import {MeetupsFactory} from './factory/meetupsFactory';
 import {HallsFactory} from './factory/hallsFactory';
 import {MeetupRequestsFactory} from './factory/meetupRequestsFactory';
 import {UsersFactory} from './factory/usersFactory';
+import {PushNotificationFactory} from './factory/pushNotificationFactory';
 
 /**
  * The interface version
@@ -110,7 +111,7 @@ export const Version: String = "v1";
  * Export of factory classes
  */
 export {
-    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory
+    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory, PushNotificationFactory
 }
 
 

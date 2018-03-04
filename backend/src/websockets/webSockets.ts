@@ -8,13 +8,17 @@ import * as parse from 'url-parse';
 import {Connection} from './connection';
 
 import {
-    User
+    User, IPushNotification
 } from '@chumm-uffa/interface';
 
 export class WebSockets {
     private wss: WebSocket.Server;
     private connections = new Map<string, Connection>();
 
+    /**
+     * Starts listen
+     * @param {"http".Server} server
+     */
     public listen(server: http.Server){
         this.wss = new WebSocket.Server({ server: server });
 
@@ -27,20 +31,22 @@ export class WebSockets {
         this.startIsAlive();
     }
 
-    public notifyChanges(users: string[]) {
+    /**
+     * Notify all user with the given push notification
+     * @param {string[]} users
+     */
+    public notify(users: string[], notification: IPushNotification) {
         users.map((userid) =>{
-            const con: Connection = this.connections.get(userid);
-            if (con) {
-                con.connection.send('');
+            const connection: Connection = this.connections.get(userid);
+            if (connection) {
+                connection.connection.send(notification);
             }
-        });
-
-
-        this.wss.clients.forEach(client => {
-            client.send('data-changed');
         });
     }
 
+    /**
+     * Sets the connection listener
+     */
     private setConnectionListener(){
         this.wss.on('connection', (ws: WebSocket, req) => {
             const user: User = this.guard(req);
@@ -59,6 +65,9 @@ export class WebSockets {
         });
     }
 
+    /**
+     * Starts the is alive timer
+     */
     private startIsAlive (){
         this.wss.on('pong', (ws: WebSocket, req) => {
             const user: User = this.guard(req);
