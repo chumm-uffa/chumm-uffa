@@ -4,8 +4,10 @@
 import * as debug from 'debug';
 import * as http from 'http';
 import * as winston from 'winston';
+import * as websocket from 'ws';
 
 import App from './app';
+import WebSockets from './websockets/webSockets';
 
 /**
  * Encapsulates the http server. Is responsable for bootstrapping the
@@ -14,7 +16,7 @@ import App from './app';
 class Server {
 
     private static serverInstance: Server;
-    private server: any;
+    private server: http.Server;
     private port: number;
 
     /**
@@ -40,10 +42,10 @@ class Server {
     }
 
     /**
-     * Returns the current serve instance
-     * @returns {any} the server instance
+     * Returns the current http server instance
+     * @returns {any} the http server instance
      */
-    public getServerInstance(): any {
+    public getServerInstance(): http.Server {
         return this.server;
     }
 
@@ -61,13 +63,14 @@ class Server {
     private runServer(): void {
         this.port = this.normalizePort(process.env.PORT || 8080);
         App.set('port', this.port);
-        this.createServer();
+        this.createHttpServer();
+        this.createWssServer();
     }
 
     /**
      * Creates a new http server instance
      */
-    private createServer() {
+    private createHttpServer() {
         this.server = http.createServer(App);
         this.server.listen(this.port);
 
@@ -85,6 +88,13 @@ class Server {
             console.error(error);
             process.exit(1);
         });
+    }
+
+    /**
+     * Creates a new WebSocket server instance
+     */
+    private createWssServer() {
+        WebSockets.listen(this.server);
     }
 
     /**

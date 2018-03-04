@@ -79,6 +79,11 @@ import {
     IGetHallResponse
 } from './interface/halls/halls';
 
+import {
+    IPushNotification,
+    PushNotification,
+    NotificationId
+} from './interface/notifications/pushNotification';
 
 
 import {User, Sex} from './model/user';
@@ -226,4 +231,11 @@ export {
  */
 export {
     User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType, Sex
+}
+
+/**
+ * Export Notification
+ */
+export {
+    IPushNotification, PushNotification, NotificationId
 }

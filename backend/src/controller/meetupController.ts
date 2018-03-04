@@ -6,9 +6,10 @@ import { BaseController } from './baseController';
 import {
     MeetupsFactory, ICreateMeetupRequest, IUpdateMeetupRequest, ICreateChatForMeetupRequest, Meetup, MeetupRequest, Chat
 } from '@chumm-uffa/interface';
-import {DBMeetup, IDBMeetupModel, MeetupPopulate} from '../models/meetup/model';
+import {DBMeetup, IDBMeetup, IDBMeetupModel, MeetupPopulate} from '../models/meetup/model';
 import {DBChat, ChatPopulate, IDBChatModel} from '../models/chat/model';
 import {DBMeetupRequest, MeetupRequestPopulate} from '../models/meetup-request/model';
+import WebSockets from '../websockets/webSockets';
 
 export class MeetupController extends BaseController {
 
@@ -257,6 +258,7 @@ export class MeetupController extends BaseController {
                         return dbChat.toInterface();
                     }).then( (chat) => {
                         res.json(MeetupsFactory.createCreateChatForMeetupRespons(true, 'chat created.', chat, chat.id));
+                        this.notifyMetupChange(dbMeetup, 'chat');
                     });
                 }).catch((err) => {
                     this.logger.error(err.toString());
@@ -313,5 +315,9 @@ export class MeetupController extends BaseController {
             res.json(MeetupsFactory.createDeleteChatForMeetupResponse(false, err.toString()));
             return;
         });
+    }
+
+    private notifyMetupChange(dbMeetup, table: String) {
+        WebSockets.notifyChanges(dbMeetup);
     }
 }

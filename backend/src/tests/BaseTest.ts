@@ -18,6 +18,7 @@ export class BaseTest {
     public should: any;
     public route: string;
     public server: any;
+    public wss: any;
     public token: string;
     public testUser: cuint.User;
     public halls: cuint.Hall[];

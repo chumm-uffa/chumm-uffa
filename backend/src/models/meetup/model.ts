@@ -15,7 +15,7 @@ import {DBLocation, locationSchema} from '../location/model';
 /**
  * The DBUser document interface
  */
-export interface IDBMeetup {
+    export interface IDBMeetup {
     owner: string;
     from: Date;
     to: Date;
