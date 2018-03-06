@@ -9,35 +9,35 @@
       <!-- time -->
       <ng-container matColumnDef="time">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.time' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.time' | translate}}</mat-header-cell> {{meetup.from | dateTimeFormat}} </mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'ownMeetups.time' | translate}}</mat-header-cell> {{meetup.from | dateTimeFormat}} </mat-cell>
       </ng-container>
 
       <!-- location -->
       <ng-container matColumnDef="location">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.location' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.location' | translate}}</mat-header-cell> {{getLocation(meetup)}} </mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'ownMeetups.location' | translate}}</mat-header-cell> {{getLocation(meetup)}} </mat-cell>
       </ng-container>
 
       <!-- numberOfRequest -->
       <ng-container matColumnDef="numberOfRequest">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.requests' | translate}}</mat-header-cell>
-        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-header">{{'ownMeetups.requests' | translate}}</mat-header-cell> {{meetup.numberOfRequest}} </mat-cell>
+        <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'ownMeetups.requests' | translate}}</mat-header-cell> {{meetup.numberOfRequest}} </mat-cell>
       </ng-container>
 
       <!-- numberOfParticipant -->
       <ng-container matColumnDef="numberOfParticipant">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{'ownMeetups.participants' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
-          <mat-header-cell class="xs-header">{{'ownMeetups.participants' | translate}}</mat-header-cell>
+          <mat-header-cell class="xs-table-header">{{'ownMeetups.participants' | translate}}</mat-header-cell>
           {{meetup.numberOfParticipant}}
         </mat-cell>
       </ng-container>
 
       <!-- edit -->
       <ng-container matColumnDef="edit">
-        <mat-header-cell *matHeaderCellDef>{{'ownMeetups.edit' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="xs-table-hide">{{'ownMeetups.edit' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
-          <mat-header-cell class="xs-header">{{'ownMeetups.edit' | translate}}</mat-header-cell>
+          <mat-header-cell class="xs-table-header">{{'ownMeetups.edit' | translate}}</mat-header-cell>
           <button  mat-icon-button (click)="$event.stopPropagation()" routerLink="/meetup" [queryParams]="{meetupId: meetup.id}">
             <mat-icon svgIcon="edit-icon"></mat-icon>
           </button>
@@ -46,9 +46,9 @@
 
       <!-- delete -->
       <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef>{{'ownMeetups.delete' | translate}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="xs-table-hide">{{'ownMeetups.delete' | translate}}</mat-header-cell>
         <mat-cell *matCellDef="let meetup">
-          <mat-header-cell class="xs-header">{{'ownMeetups.delete' | translate}}</mat-header-cell>
+          <mat-header-cell class="xs-table-header">{{'ownMeetups.delete' | translate}}</mat-header-cell>
           <button mat-icon-button (click)="deleteMeetup($event, meetup.id)">
             <mat-icon svgIcon="delete-icon"></mat-icon>
           </button>
