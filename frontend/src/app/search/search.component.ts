@@ -8,7 +8,7 @@ import {Hall, LocationType, Meetup, Sex} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {AppDialogService} from '../core/AppDialogService';
+import {AppDialogService} from '../core/app-dialogService';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {AppStateService} from '../core/app-state.service';
 import {Subscription} from 'rxjs/Subscription';

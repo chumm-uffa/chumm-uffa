@@ -4,9 +4,9 @@ import {BusinessService} from './business.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AppStateService} from './app-state.service';
 import {MockService} from './mock.service';
-import {AuthGuard} from './AuthGuard';
+import {AuthGuard} from './auth-guard';
 import {MaterialModule} from '../material/material.module';
-import {AppDialogService} from './AppDialogService';
+import {AppDialogService} from './app-dialogService';
 import {GoogleMapsModule} from '../google-maps/google-maps.module';
 
 @NgModule({

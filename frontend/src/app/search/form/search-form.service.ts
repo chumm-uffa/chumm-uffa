@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-import {validateAfterBefore, validateNotBefore} from '../../shared/validators/validate-date';
+import {validateAfterBefore, validateNotBefore} from '../../shared/validators/date.validator';
 import {SearchDto} from '@chumm-uffa/interface';
 import {Subscription} from 'rxjs/Subscription';
 

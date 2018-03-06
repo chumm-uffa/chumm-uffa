@@ -6,7 +6,7 @@ import {
   validateAfterBefore,
   validateCombinedMomentNotBeforeNow,
   validateDateFormat
-} from '../../shared/validators/validate-date';
+} from '../../shared/validators/date.validator';
 import {locationRequired} from '../../shared/validators/location.validator';
 
 @Injectable()

@@ -4,7 +4,7 @@ import {Hall, Meetup, MeetupRequest} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
-import {AppDialogService} from '../../core/AppDialogService';
+import {AppDialogService} from '../../core/app-dialogService';
 
 @Component({
   selector: 'app-open-requests',
