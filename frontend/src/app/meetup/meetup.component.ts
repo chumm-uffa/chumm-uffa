@@ -26,7 +26,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
   combinedMomentMatcher = new AppErrorStateMatcher('combinedMomentNotBefore');
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
   private meetup: Meetup;
-  private activateRoute$: Subscription;
+  private activateRouteSubscription: Subscription;
 
   constructor(private businessService: BusinessService,
               private fB: MeetupFormService,
@@ -42,7 +42,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
       this.halls = halls;
     });
 
-    this.activateRoute$ = this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.activateRouteSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       /**
        * Eine meetupId in der URL bringt uns in den mutate mode
@@ -66,8 +66,8 @@ export class MeetupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.activateRoute$) {
-      this.activateRoute$.unsubscribe();
+    if (this.activateRouteSubscription) {
+      this.activateRouteSubscription.unsubscribe();
     }
   }
 

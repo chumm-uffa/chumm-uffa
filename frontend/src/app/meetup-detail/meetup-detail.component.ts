@@ -21,7 +21,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   isMeetupOwner = false;
   isAccepted = false;
 
-  private activateRoute$: Subscription;
+  private activateRouteSubscription: Subscription;
 
   constructor(private businessService: BusinessService,
               private activatedRoute: ActivatedRoute,
@@ -32,7 +32,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
 
-    this.activateRoute$ = this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.activateRouteSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       this.businessService.loadRequests(meetupId).subscribe(requests => {
         this.meetupRequests = requests;
@@ -55,8 +55,8 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.activateRoute$) {
-      this.activateRoute$.unsubscribe();
+    if (this.activateRouteSubscription) {
+      this.activateRouteSubscription.unsubscribe();
     }
   }
 

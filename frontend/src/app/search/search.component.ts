@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   sexType = Sex;
   locationType = LocationType;
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
-  private searchForm$: Subscription;
+  private searchFormSubscription: Subscription;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
@@ -40,15 +40,15 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
     this.searchForm = this.searchFormService.createForm();
-    this.searchForm$ = this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
+    this.searchFormSubscription = this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
     const meetups = this.businessService.getCachedSearchResults();
     this.results = new MatTableDataSource<Meetup>(meetups);
   }
 
   ngOnDestroy(): void {
     this.searchFormService.unsubscribe();
-    if (this.searchForm$) {
-      this.searchForm$.unsubscribe();
+    if (this.searchFormSubscription) {
+      this.searchFormSubscription.unsubscribe();
     }
   }
 

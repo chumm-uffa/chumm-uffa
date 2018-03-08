@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class SearchFormService {
 
   static readonly DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
-  private fromDate$: Subscription;
+  private fromDateSubscription: Subscription;
 
   constructor(private fB: FormBuilder) {
   }
@@ -32,7 +32,7 @@ export class SearchFormService {
       validator: [validateAfterBefore(SearchFormService.DATE_TIME_FORMAT, 'fromDateTime', 'toDateTime')]
     });
 
-    this.fromDate$ = form.get('fromDateTime').valueChanges.subscribe(value => {
+    this.fromDateSubscription = form.get('fromDateTime').valueChanges.subscribe(value => {
       this.patchToTime(value, form);
     });
     return form;
@@ -55,8 +55,8 @@ export class SearchFormService {
   }
 
   unsubscribe() {
-    if (this.fromDate$) {
-      this.fromDate$.unsubscribe();
+    if (this.fromDateSubscription) {
+      this.fromDateSubscription.unsubscribe();
     }
   }
 
