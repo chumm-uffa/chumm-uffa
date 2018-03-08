@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Chat, Meetup} from '@chumm-uffa/interface';
-import {BusinessService} from '../../core/business.service';
-import {AppStateService} from '../../core/app-state.service';
+import {BusinessService} from '../../core/services/business.service';
+import {AppStateService} from '../../core/services/app-state.service';
 
 @Component({
   selector: 'app-chat',

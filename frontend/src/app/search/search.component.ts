@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {SearchFormService} from './form/search-form.service';
-import {BusinessService} from '../core/business.service';
+import {BusinessService} from '../core/services/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
 import {Hall, LocationType, Meetup, Sex} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {AppDialogService} from '../core/app-dialogService';
+import {AppDialogService} from '../core/services/app-dialog.service';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
-import {AppStateService} from '../core/app-state.service';
+import {AppStateService} from '../core/services/app-state.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({

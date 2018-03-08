@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormUtil} from '../shared/form/form.util';
-import {AppStateService} from '../core/app-state.service';
-import {UserFormService} from './form/user-form.service';
-import {BusinessService} from '../core/business.service';
+import {FormUtil} from '../../shared/form/form.util';
+import {AppStateService} from '../../core/services/app-state.service';
+import {UserFormService} from '../form/user-form.service';
+import {BusinessService} from '../../core/services/business.service';
 
 import {MatDialog} from '@angular/material';
-import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {InfoPopupComponent} from '../../material/info-popup/info-popup.component';
 import {Sex, User} from '@chumm-uffa/interface';
 
 @Component({
   selector: 'app-update-user',
   templateUrl: './update.html',
-  styleUrls: ['./user.scss']
+  styleUrls: ['../user.scss']
 })
 export class UpdateComponent implements OnInit {
 

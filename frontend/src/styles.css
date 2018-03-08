@@ -2,7 +2,6 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html {
-  /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
   background-color: rgba(173, 216, 230, 0.43);
   margin: 0 6% 0 6%;
 }
@@ -11,6 +10,7 @@ body {
   margin: 0;
 }
 
+/* Einzige Möglichkeit den Dialog Container zu beeinflussen*/
 .app-spinner-panel .mat-dialog-container {
   background: transparent;
   box-shadow: none;

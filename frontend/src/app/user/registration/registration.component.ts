@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {FormUtil} from '../shared/form/form.util';
-import {UserFormService} from './form/user-form.service';
-import {BusinessService} from '../core/business.service';
-
 import {MatDialog} from '@angular/material';
-import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {Sex, User} from '@chumm-uffa/interface';
 import {Router} from '@angular/router';
+import {UserFormService} from '../form/user-form.service';
+import {BusinessService} from '../../core/services/business.service';
+import {FormUtil} from '../../shared/form/form.util';
+import {InfoPopupComponent} from '../../material/info-popup/info-popup.component';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.html',
-  styleUrls: ['./user.scss']
+  styleUrls: ['../user.scss']
 })
 export class RegistrationComponent implements OnInit {
 
