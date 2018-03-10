@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BusinessService} from '../core/business.service';
+import {BusinessService} from '../core/services/business.service';
 import {Hall, LocationType, Meetup} from '@chumm-uffa/interface';
 import {FormGroup} from '@angular/forms';
 import {FormUtil} from '../shared/form/form.util';
@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MeetupFormService} from './form/meetup-form.service';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {AppDialogService} from '../core/app-dialogService';
+import {AppDialogService} from '../core/services/app-dialog.service';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -26,7 +26,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
   combinedMomentMatcher = new AppErrorStateMatcher('combinedMomentNotBefore');
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
   private meetup: Meetup;
-  private activateRoute$: Subscription;
+  private activateRouteSubscription: Subscription;
 
   constructor(private businessService: BusinessService,
               private fB: MeetupFormService,
@@ -42,7 +42,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
       this.halls = halls;
     });
 
-    this.activateRoute$ = this.activatedRoute.queryParams.subscribe((params: Params) => {
+    this.activateRouteSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       const meetupId = params['meetupId'];
       /**
        * Eine meetupId in der URL bringt uns in den mutate mode
@@ -66,8 +66,8 @@ export class MeetupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.activateRoute$) {
-      this.activateRoute$.unsubscribe();
+    if (this.activateRouteSubscription) {
+      this.activateRouteSubscription.unsubscribe();
     }
   }
 

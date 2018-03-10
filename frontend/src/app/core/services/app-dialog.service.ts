@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {InfoPopupComponent} from '../../material/info-popup/info-popup.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {HttpErrorResponse} from '@angular/common/http';
-import {GoogleMapsComponent} from '../google-maps/google-maps.component';
-import {SpinnerComponent} from '../material/spinner/spinner.component';
+import {GoogleMapsComponent} from '../../google-maps/google-maps.component';
+import {SpinnerComponent} from '../../material/spinner/spinner.component';
 
 @Injectable()
 export class AppDialogService {

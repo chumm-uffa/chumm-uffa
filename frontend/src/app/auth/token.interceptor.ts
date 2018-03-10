@@ -9,7 +9,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {AppStateService} from "../core/app-state.service";
+import {AppStateService} from '../core/services/app-state.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

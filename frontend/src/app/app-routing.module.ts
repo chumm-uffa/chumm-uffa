@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './login/login.component';
-import {UpdateComponent} from './user/update.component';
+import {UpdateComponent} from './user/update/update.component';
 import {HomeComponent} from './home/home.component';
 import {MymeetupsComponent} from './mymeetups/mymeetups.component';
 import {MeetupComponent} from './meetup/meetup.component';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {SearchComponent} from './search/search.component';
-import {AuthGuard} from './core/auth-guard';
-import {RegistrationComponent} from './user/registration.component';
+import {AuthGuard} from './auth/auth-guard.service';
+import {RegistrationComponent} from './user/registration/registration.component';
 
 
 const routes: Routes = [

@@ -87,6 +87,8 @@ describe('Meetup Form', () => {
     form.controls.outdoor.patchValue('Rappi');
     form.controls.locationType.patchValue('in');
     form.controls.activity.patchValue('bouldern');
+    meetup.latitude  = 10;
+    meetup.longitude = 11;
 
     meetupFb.mergeMeetUp(form.value, meetup);
 
@@ -95,6 +97,8 @@ describe('Meetup Form', () => {
     expect(meetup.indoor).toBe('01');
     expect(meetup.outdoor).toBe(null);
     expect(meetup.activity).toBe('bouldern');
+    expect(meetup.longitude).toBe(0);
+    expect(meetup.latitude).toBe(0);
   }));
 
 

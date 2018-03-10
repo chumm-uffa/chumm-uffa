@@ -21,8 +21,8 @@ import {
   SearchDto,
   User
 } from '@chumm-uffa/interface';
-import {AppDialogService} from './app-dialogService';
-import {Spinner} from '../material/spinner/spinner';
+import {AppDialogService} from './app-dialog.service';
+import {Spinner} from '../../material/spinner/spinner';
 
 
 /**

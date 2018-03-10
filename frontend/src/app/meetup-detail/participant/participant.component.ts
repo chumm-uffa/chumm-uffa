@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
-import {BusinessService} from '../../core/business.service';
-import {AppDialogService} from '../../core/app-dialogService';
+import {BusinessService} from '../../core/services/business.service';
+import {AppDialogService} from '../../core/services/app-dialog.service';
 import {MatSelectionListChange} from '@angular/material';
 
 @Component({

@@ -13,7 +13,7 @@ import {OpenRequestsComponent} from './mymeetups/open-requests/open-requests.com
 import {SharedModule} from './shared/shared.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppStateService} from './core/app-state.service';
+import {AppStateService} from './core/services/app-state.service';
 import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {ParticipantComponent} from './meetup-detail/participant/participant.component';
 import {ChatComponent} from './meetup-detail/chat/chat.component';
