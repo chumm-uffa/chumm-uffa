@@ -3,6 +3,7 @@ import {MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/business.service';
 import {AppDialogService} from '../../core/AppDialogService';
 import {MatSelectionListChange} from '@angular/material';
+import {NotificationService} from '../../core/notification.service';
 
 @Component({
   selector: 'app-participant',

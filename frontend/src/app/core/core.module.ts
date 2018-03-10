@@ -8,6 +8,7 @@ import {AuthGuard} from './AuthGuard';
 import {MaterialModule} from '../material/material.module';
 import {AppDialogService} from './AppDialogService';
 import {GoogleMapsModule} from '../google-maps/google-maps.module';
+import {NotificationService} from './notification.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {GoogleMapsModule} from '../google-maps/google-maps.module';
   ],
   providers: [
     ResourceService,
+    NotificationService,
     BusinessService,
     AppStateService,
     MockService,

@@ -36,10 +36,18 @@ export class WebSockets {
      * @param {string[]} users
      */
     public notify(users: string[], notification: PushNotification) {
+        console.warn('WS notify: Size[' + this.connections.size + ']');
         users.map((userid) =>{
             const connection: Connection = this.connections.get(userid.toString());
+
+            console.warn('WS connection : ' + userid);
+            this.connections.forEach( (value:Connection, key: string) => {
+                console.warn('WS connection key : ' + key);
+            })
+
             if (connection) {
                 connection.connection.send(JSON.stringify(notification.toJSON()));
+                console.warn('WS send : ' + userid);
             }
         });
     }
@@ -55,9 +63,7 @@ export class WebSockets {
                 return;
             }
             this.connections.set(user.id.toString(), new Connection(ws, user, true));
-
-            // send immediatly a feedback to the incoming connection
-            ws.send('Hi there, I am a WebSocket server');
+            console.warn('WS fo user: ' + user.username + ' registerd [' + this.connections.size + '] id: ' + user.id.toString());
 
             ws.on('error', (error) => {
                 console.warn(`Client disconnected - reason: ${error}`);

@@ -5,6 +5,7 @@ import {Util} from '../../shared/util';
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
 import {AppDialogService} from '../../core/AppDialogService';
+import {NotificationService} from '../../core/notification.service';
 
 @Component({
   selector: 'app-open-requests',
@@ -19,6 +20,7 @@ export class OpenRequestsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.meetUpRequests);
 
   constructor(private businessService: BusinessService,
+              private notificatinService: NotificationService,
               private dialog: MatDialog,
               private appDialogService: AppDialogService) {
   }
@@ -26,7 +28,7 @@ export class OpenRequestsComponent implements OnInit {
   ngOnInit() {
     this.getMeetupRequests();
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
-
+    this.notificatinService.connect().subscribe((notification) => this.getMeetupRequests());
   }
 
   getMeetupRequests(): void {

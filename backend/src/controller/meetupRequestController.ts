@@ -2,7 +2,15 @@
 import {Request, Response} from 'express';
 import {BaseController} from './baseController';
 import {DBMeetupRequest, IDBMeetupRequestModel, MeetupRequestPopulate} from '../models/meetup-request/model';
-import {ICreateMeetupRequestRequest, IUpdateMeetupRequestRequest, MeetupRequestsFactory} from '@chumm-uffa/interface';
+import {
+    ICreateMeetupRequestRequest,
+    IUpdateMeetupRequestRequest,
+    MeetupRequestsFactory,
+    PushNotification,
+    NotificationId
+} from '@chumm-uffa/interface';
+import WebSockets from '../websockets/webSockets';
+import {DBMeetup} from '../models/meetup/model';
 
 export class MeetupRequestController extends BaseController {
 
@@ -15,7 +23,7 @@ export class MeetupRequestController extends BaseController {
         // Getting meetupRequest
         DBMeetupRequest.findById(req.params.id).populate(MeetupRequestPopulate).then((dbRequest) => {
             if (dbRequest) {
-                dbRequest.toInterface().then( (request) => {
+                dbRequest.toInterface().then((request) => {
                     res.json(MeetupRequestsFactory.createGetMeetupRequestResponse(true, '', request));
                 });
                 return;
@@ -48,8 +56,10 @@ export class MeetupRequestController extends BaseController {
             return;
         }
 
-        DBMeetupRequest.findOne({meetup: createRequest.request.meetup.id, participant: createRequest.request.participant.id}).
-        then((dbMeetupReqFound) => {
+        DBMeetupRequest.findOne({
+            meetup: createRequest.request.meetup.id,
+            participant: createRequest.request.participant.id
+        }).then((dbMeetupReqFound) => {
             if (!dbMeetupReqFound) {
                 const dbMeetupRequest: IDBMeetupRequestModel = new DBMeetupRequest();
                 dbMeetupRequest.fromInterface(createRequest.request);
@@ -57,22 +67,22 @@ export class MeetupRequestController extends BaseController {
                     return DBMeetupRequest.populate(dbMeetupReq, MeetupRequestPopulate);
                 }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
                     return dbMeetupReq3.toInterface();
-                }).then( request => {
+                }).then(request => {
                     res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request created.',
                         request));
-
+                    this.notifyChanges(request);
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
                     res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
                 });
             } else {
-                DBMeetupRequest.populate(dbMeetupReqFound, MeetupRequestPopulate).
-                then((dbMeetupReq3: IDBMeetupRequestModel) => {
+                DBMeetupRequest.populate(dbMeetupReqFound, MeetupRequestPopulate).then((dbMeetupReq3: IDBMeetupRequestModel) => {
                     return dbMeetupReq3.toInterface();
-                }).then( request => {
+                }).then(request => {
                     res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(true, 'meetup-request found.',
-                    request));
+                        request));
+                    this.notifyChanges(request);
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
@@ -84,7 +94,7 @@ export class MeetupRequestController extends BaseController {
             res.status(500);
             res.json(MeetupRequestsFactory.createCreateMeetupRequestResponse(false, err.toString()));
         });
-}
+    }
 
     /**
      * Updates the meetupRequest
@@ -113,9 +123,10 @@ export class MeetupRequestController extends BaseController {
                     return DBMeetupRequest.populate(dbMeetupReq2, MeetupRequestPopulate);
                 }).then((dbMeetupReq3: IDBMeetupRequestModel) => {
                     return dbMeetupReq3.toInterface();
-                }).then( request => {
+                }).then(request => {
                     res.json(MeetupRequestsFactory.createUpdateMeetupRequestResponse(true, 'meetup-request updated.',
                         request));
+                    this.notifyChanges(request);
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
@@ -147,6 +158,7 @@ export class MeetupRequestController extends BaseController {
                 // Removes meetup-request
                 dbMeetupReq.remove();
                 res.json(MeetupRequestsFactory.createDeleteMeetupRequestResponse(true, 'successfully deleted meetup-request'));
+                this.notifyChanges(dbMeetupReq);
                 return;
             }
             res.status(400);
@@ -160,4 +172,22 @@ export class MeetupRequestController extends BaseController {
         });
     }
 
+    /**
+     * Notify all user registerd for a meetup of data changes
+     * @param dbMeetup
+     */
+    private notifyChanges(dbMeetupReq) {
+        DBMeetup.findById(dbMeetupReq.meetup).then((dbMeetup) => {
+            const notification: PushNotification =
+                new PushNotification(NotificationId.MEETUPS_DATA_CHANGED, 'Meetup with id :' + dbMeetup.id + ' changed');
+            WebSockets.notify([dbMeetup.owner.toString()], notification);
+            DBMeetupRequest.find({meetup: dbMeetup.id}).then((dbRequests) => {
+                var users: string[] = [];
+                dbRequests.map((dbRequest) =>{
+                    users.push(dbRequest.participant.toString());
+                })
+                WebSockets.notify(users, notification);
+            })
+        })
+    }
 }

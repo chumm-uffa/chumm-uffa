@@ -41,7 +41,7 @@ class Server {
         this.runServer();
     }
 
-    /**
+    /**'ws:/'
      * Returns the current http server instance
      * @returns {any} the http server instance
      */

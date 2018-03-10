@@ -119,6 +119,7 @@ export class MeetupController extends BaseController {
                 // Removes meetup and all Chats and Request associated with the meetup
                 dbMeetup.remove();
                 res.json(MeetupsFactory.createDeleteMeetupRespons(true, 'successfully deleted meetup'));
+                this.notifyChanges(dbMeetup);
                 return;
             }
             res.status(400);
@@ -165,7 +166,7 @@ export class MeetupController extends BaseController {
                 }).then((meetup: Meetup) => {
                     // return result
                     res.json(MeetupsFactory.createUpdateMeetupRespons(true, 'meetup updated.', meetup));
-
+                    this.notifyChanges(dbMeetup);
                 }).catch((err) => {
                     this.logger.error(err.toString());
                     res.status(500);
@@ -301,6 +302,7 @@ export class MeetupController extends BaseController {
                         // Remove the chat entry
                         dbChat.remove();
                         res.json(MeetupsFactory.createDeleteChatForMeetupResponse(true, 'successfully deleted chat entry'));
+                        this.notifyChanges(dbMeetup);
                         return;
                     }
                     res.status(400);
@@ -333,15 +335,14 @@ export class MeetupController extends BaseController {
         const notification: PushNotification =
             new PushNotification(NotificationId.MEETUPS_DATA_CHANGED, 'Meetup with id :' + dbMeetup.id + ' changed');
 
-        var users: string[] = [];
-        users.push(dbMeetup.owner);
-
+        WebSockets.notify([dbMeetup.owner], notification);
         DBMeetupRequest.find({meetup: dbMeetup.id}).then((dbRequests) => {
+            var users: string[] = [];
             dbRequests.map((dbRequest) =>{
-                users.push(dbRequest.participant.username);
+                users.push(dbRequest.participant.toString());
             })
+            WebSockets.notify(users, notification);
         })
 
-        WebSockets.notify(users, notification);
     }
 }
