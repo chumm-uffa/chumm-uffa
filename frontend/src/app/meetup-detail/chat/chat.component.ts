@@ -28,8 +28,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     /*load chats*/
     this.loadChats();
     this.notificatinService.connect().subscribe((notification) => this.loadChats());
-    /*Refresh every 1s*/
-    // this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
   }
 
   ngOnDestroy(): void {

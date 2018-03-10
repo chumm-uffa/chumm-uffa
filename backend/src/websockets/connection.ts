@@ -13,7 +13,6 @@ export class Connection {
     constructor(connection: WebSocket, user: User, isAlive: boolean) {
         this._connection = connection;
         this._user = user;
-        this._isAlive = isAlive;
     }
 
     get connection(): WebSocket {
@@ -22,13 +21,5 @@ export class Connection {
 
     get user(): User {
         return this._user;
-    }
-
-    get isAlive(): boolean {
-        return this._isAlive;
-    }
-
-    set isAlive(value: boolean) {
-        this._isAlive = value;
     }
 }

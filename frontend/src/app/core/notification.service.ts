@@ -11,7 +11,7 @@ import {
 @Injectable()
 export class NotificationService {
 
-  private socket$: WebSocketSubject<string>;
+  private socket$: WebSocketSubject<PushNotification>;
 
   constructor(private appState: AppStateService) {
   }
@@ -20,17 +20,21 @@ export class NotificationService {
    * Connects to web socket server
    * @returns {WebSocketSubject<PushNotification>}
    */
-  public connect(): WebSocketSubject<string> {
+  public connect(): WebSocketSubject<PushNotification> {
     if (!this.socket$) {
       this.socket$ = WebSocketSubject.create('ws://localhost:8080/?token=' + this.appState.token);
       this.socket$
           .subscribe(
-          (message) => console.log('Notification'),
+          (message) => console.log('Notification data:' + message.info),
           (err) => this.closeSocket(err),
           () => this.closeSocket(null)
           );
     }
     return this.socket$;
+  }
+
+  public disconnect(): void {
+    this.socket$.unsubscribe();
   }
 
   private closeSocket(err): void {

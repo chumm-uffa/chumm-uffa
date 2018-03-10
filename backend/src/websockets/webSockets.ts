@@ -19,8 +19,8 @@ export class WebSockets {
      * Starts listen
      * @param {"http".Server} server
      */
-    public listen(server: http.Server){
-        this.wss = new WebSocket.Server({ server: server });
+    public listen(server: http.Server) {
+        this.wss = new WebSocket.Server({server: server});
 
         this.wss.on('error', (error: Error) => {
             console.error(error);
@@ -28,26 +28,20 @@ export class WebSockets {
         });
 
         this.setConnectionListener();
-        // this.startIsAlive();
     }
 
     /**
      * Notify all user with the given push notification
      * @param {string[]} users
+     * @param {PushNotification} notification
      */
     public notify(users: string[], notification: PushNotification) {
-        console.warn('WS notify: Size[' + this.connections.size + ']');
-        users.map((userid) =>{
+        console.warn('Notification [' + this.connections.size + ']');
+        users.map((userid) => {
             const connection: Connection = this.connections.get(userid.toString());
-
-            console.warn('WS connection : ' + userid);
-            this.connections.forEach( (value:Connection, key: string) => {
-                console.warn('WS connection key : ' + key);
-            })
-
             if (connection) {
                 connection.connection.send(JSON.stringify(notification.toJSON()));
-                console.warn('WS send : ' + userid);
+                console.warn('Notification send : ' + userid + '[' + this.connections.size + ']');
             }
         });
     }
@@ -55,7 +49,7 @@ export class WebSockets {
     /**
      * Sets the connection listener
      */
-    private setConnectionListener(){
+    private setConnectionListener() {
         this.wss.on('connection', (ws: WebSocket, req) => {
             const user: User = this.guard(req);
             if (user === null) {
@@ -63,36 +57,17 @@ export class WebSockets {
                 return;
             }
             this.connections.set(user.id.toString(), new Connection(ws, user, true));
-            console.warn('WS fo user: ' + user.username + ' registerd [' + this.connections.size + '] id: ' + user.id.toString());
+            console.warn(`Connection for user ${user.username} registered [ ${this.connections.size} ]`);
 
             ws.on('error', (error) => {
-                console.warn(`Client disconnected - reason: ${error}`);
-            })
-        });
-    }
-
-    /**
-     * Starts the is alive timer
-     */
-    private startIsAlive (){
-        this.wss.on('pong', (ws: WebSocket, req) => {
-            const user: User = this.guard(req);
-            if (user === null) {
-                ws.terminate();
-            }
-            this.connections.get(user.id).isAlive = true;
-        });
-
-        setInterval(() => {
-            this.connections.forEach((con: Connection) => {
-                if (!con.isAlive) {
-                    con.connection.terminate();
-                    return;
-                }
-                con.isAlive = false;
-                con.connection.ping(null, undefined);
+                this.connections.delete(user.id.toString());
+                console.warn(`Connection for user ${user.username} disconnected - reason: ${error} [ ${this.connections.size} ]`);
             });
-        }, 10000);
+            ws.on('close', (num, reason) => {
+                this.connections.delete(user.id.toString());
+                console.warn(`Connection for user ${user.username} closed - reason: ${reason} [ ${this.connections.size} ]`);
+            });
+        });
     }
 
     /**
