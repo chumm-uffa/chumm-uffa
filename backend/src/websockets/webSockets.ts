@@ -8,7 +8,7 @@ import * as parse from 'url-parse';
 import {Connection} from './connection';
 
 import {
-    User, IPushNotification
+    User, PushNotification
 } from '@chumm-uffa/interface';
 
 export class WebSockets {
@@ -28,18 +28,18 @@ export class WebSockets {
         });
 
         this.setConnectionListener();
-        this.startIsAlive();
+        // this.startIsAlive();
     }
 
     /**
      * Notify all user with the given push notification
      * @param {string[]} users
      */
-    public notify(users: string[], notification: IPushNotification) {
+    public notify(users: string[], notification: PushNotification) {
         users.map((userid) =>{
-            const connection: Connection = this.connections.get(userid);
+            const connection: Connection = this.connections.get(userid.toString());
             if (connection) {
-                connection.connection.send(notification);
+                connection.connection.send(JSON.stringify(notification.toJSON()));
             }
         });
     }
@@ -54,7 +54,7 @@ export class WebSockets {
                 ws.terminate();
                 return;
             }
-            this.connections.set(user.id, new Connection(ws, user, true));
+            this.connections.set(user.id.toString(), new Connection(ws, user, true));
 
             // send immediatly a feedback to the incoming connection
             ws.send('Hi there, I am a WebSocket server');
@@ -100,7 +100,10 @@ export class WebSockets {
             return null;
         }
         try {
-            return User.fromJSON(jwt.verify(url.query.token, process.env.APPLICATION_SECRET));
+            const tocken = jwt.verify(url.query.token, process.env.APPLICATION_SECRET)._doc;
+            const user: User = User.fromJSON(tocken);
+            user.id = tocken._id;
+            return user;
         } catch (err) {
             console.error(err);
             return null;

@@ -11,8 +11,8 @@ import {
     Meetup,
     MeetupRequest,
     Chat,
-    PushNotificationFactory,
-    NotificationId
+    NotificationId,
+    PushNotification
 } from '@chumm-uffa/interface';
 import {DBMeetup, IDBMeetup, IDBMeetupModel, MeetupPopulate} from '../models/meetup/model';
 import {DBChat, ChatPopulate, IDBChatModel} from '../models/chat/model';
@@ -330,10 +330,17 @@ export class MeetupController extends BaseController {
      * @param dbMeetup
      */
     private notifyChanges(dbMeetup) {
-        const notification = PushNotificationFactory.createPushNotification(NotificationId.MEETUPS_DATA_CHANGED, {id: dbMeetup.id});
+        const notification: PushNotification =
+            new PushNotification(NotificationId.MEETUPS_DATA_CHANGED, 'Meetup with id :' + dbMeetup.id + ' changed');
 
         var users: string[] = [];
         users.push(dbMeetup.owner);
+
+        DBMeetupRequest.find({meetup: dbMeetup.id}).then((dbRequests) => {
+            dbRequests.map((dbRequest) =>{
+                users.push(dbRequest.participant.username);
+            })
+        })
 
         WebSockets.notify(users, notification);
     }

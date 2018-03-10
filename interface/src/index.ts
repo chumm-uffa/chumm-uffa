@@ -80,10 +80,9 @@ import {
 } from './interface/halls/halls';
 
 import {
-    IPushNotification,
     PushNotification,
     NotificationId
-} from './interface/notifications/pushNotification';
+} from './model/pushNotification';
 
 
 import {User, Sex} from './model/user';
@@ -99,7 +98,6 @@ import {MeetupsFactory} from './factory/meetupsFactory';
 import {HallsFactory} from './factory/hallsFactory';
 import {MeetupRequestsFactory} from './factory/meetupRequestsFactory';
 import {UsersFactory} from './factory/usersFactory';
-import {PushNotificationFactory} from './factory/pushNotificationFactory';
 
 /**
  * The interface version
@@ -111,7 +109,7 @@ export const Version: String = "v1";
  * Export of factory classes
  */
 export {
-    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory, PushNotificationFactory
+    BaseFactory, AuthFactory, MeetupsFactory, HallsFactory, MeetupRequestsFactory, UsersFactory
 }
 
 
@@ -231,12 +229,5 @@ export {
  * Export of model classes
  */
 export {
-    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType, Sex
-}
-
-/**
- * Export Notification
- */
-export {
-    IPushNotification, PushNotification, NotificationId
+    User, Chat, Hall, Meetup, MeetupRequest, RequestStatus, SearchDto, LocationType, Sex, PushNotification, NotificationId
 }

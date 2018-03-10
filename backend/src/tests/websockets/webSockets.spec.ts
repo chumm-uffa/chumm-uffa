@@ -10,11 +10,12 @@ import * as WebSocket from 'ws';
 import * as cuint from '@chumm-uffa/interface';
 
 const baseTest: BaseTest = new BaseTest();
-var wss: WebSocket;
+
 
 describe('Test /meetups', () => {
 
     let meetup: cuint.Meetup;
+    var wss: WebSocket;
 
     before((done) => {
         baseTest.login(done);
@@ -46,7 +47,12 @@ describe('Test /meetups', () => {
 
     it('it should create a new meetup', (done) => {
         let newChat: cuint.Chat = new cuint.Chat('', 'mal was anderes', baseTest.testUser);
-        wss.on('message', (table: String) => {
+        wss.on('message', (notification: string) => {
+            const xx = JSON.parse(notification);
+            const message: cuint.PushNotification = cuint.PushNotification.fromJSON(JSON.parse(notification));
+            message.should.have.property('id');
+            message.should.have.property('info');
+            message.id.should.be.equals(cuint.NotificationId.MEETUPS_DATA_CHANGED)
             done();
         });
         baseTest.chai.request(baseTest.server)
