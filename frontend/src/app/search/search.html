@@ -20,7 +20,7 @@
           <mat-radio-button value="{{locationType.INDOOR}}">{{ 'search.indoorRadio' | translate }}</mat-radio-button>
           <mat-radio-button value="{{locationType.OUTDOOR}}">{{ 'search.outdoorRadio' | translate }}</mat-radio-button>
         </mat-radio-group>
-        <mat-form-field *ngIf="isIndoor(); else outdoor">
+        <mat-form-field *ngIf="isIndoor(); else outdoor" class="mat-field-large">
           <mat-select formControlName="indoor" placeholder="{{'search.indoor' | translate}}">
             <mat-option *ngFor="let hall of halls" [value]="hall.key">{{hall.name}}</mat-option>
           </mat-select>
