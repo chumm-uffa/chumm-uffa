@@ -27,7 +27,10 @@
           <span class="detail detail--content">{{meetup?.activity}}</span>
         </div>
         <div *ngIf="meetup?.latitude" class="row-container">
-          <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()" type="button">{{'Google Maps'}}</button>
+          <button mat-raised-button color="accent" (click)="showGoogleMapsDialog()" type="button">
+            {{'Google Maps'}}
+            <img *ngIf="meetup?.latitude" src="assets/img/finder.png" height="30">
+          </button>
         </div>
       </section>
 
