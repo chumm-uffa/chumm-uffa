@@ -6,7 +6,7 @@ import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dial
 import {MatDialog, MatIconRegistry, MatTableDataSource, Sort} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Router} from '@angular/router';
-import {NotificationService} from '../../core/notification.service';
+import {NotificationService} from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-own-meetups',
@@ -22,7 +22,7 @@ export class OwnMeetupsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.meetups);
 
   constructor(private businessService: BusinessService,
-              private notificatinService: NotificationService,
+              private notificationService: NotificationService,
               private dialog: MatDialog,
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
@@ -34,7 +34,7 @@ export class OwnMeetupsComponent implements OnInit {
   ngOnInit() {
     this.getMeetups();
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
-    this.notificatinService.connect().subscribe((notification) => this.getMeetups());
+    this.notificationService.connect().subscribe((notification) => this.getMeetups());
   }
 
   getMeetups(): void {

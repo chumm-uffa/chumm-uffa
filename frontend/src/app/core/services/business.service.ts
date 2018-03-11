@@ -23,6 +23,7 @@ import {
 } from '@chumm-uffa/interface';
 import {AppDialogService} from './app-dialog.service';
 import {Spinner} from '../../material/spinner/spinner';
+import {NotificationService} from './notification.service';
 
 
 /**
@@ -38,6 +39,7 @@ export class BusinessService {
 
   constructor(private appState: AppStateService,
               private resourceService: ResourceService,
+              private notificationService: NotificationService,
               private mockService: MockService,
               private appDialogService: AppDialogService) {
   }
@@ -103,6 +105,15 @@ export class BusinessService {
           this.handleError(observer, err, 'login');
         });
     });
+  }
+
+  /**
+   * Logout
+   */
+  logout(): void {
+    this.appState.token = null;
+    this.appState.loggedInUser = null;
+    this.notificationService.disconnect();
   }
 
   /**

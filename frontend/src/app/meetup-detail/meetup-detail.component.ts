@@ -6,7 +6,7 @@ import {Util} from '../shared/util';
 import {AppStateService} from '../core/services/app-state.service';
 import {AppDialogService} from '../core/services/app-dialog.service';
 import {Subscription} from 'rxjs/Subscription';
-import {NotificationService} from '../core/notification.service';
+import {NotificationService} from '../core/services/notification.service';
 
 @Component({
   selector: 'app-meetup-detail',
@@ -26,7 +26,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   private meetupId: string;
 
   constructor(private businessService: BusinessService,
-              private notificatinService: NotificationService,
+              private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
               private appState: AppStateService,
               private appDialogService: AppDialogService) {
@@ -34,7 +34,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
-    this.notificatinService.connect().subscribe((notification) => this.loadMeetupDetail());
+    this.notificationService.connect().subscribe((notification) => this.loadMeetupDetail());
 
     this.activateRouteSubscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.meetupId = params['meetupId'];

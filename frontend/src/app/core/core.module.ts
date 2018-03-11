@@ -7,7 +7,7 @@ import {MockService} from './services/mock.service';
 import {MaterialModule} from '../material/material.module';
 import {AppDialogService} from './services/app-dialog.service';
 import {GoogleMapsModule} from '../google-maps/google-maps.module';
-import {NotificationService} from './notification.service';
+import {NotificationService} from './services/notification.service';
 
 @NgModule({
   imports: [
