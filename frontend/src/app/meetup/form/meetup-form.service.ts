@@ -6,7 +6,7 @@ import {
   validateAfterBefore,
   validateCombinedMomentNotBeforeNow,
   validateDateFormat
-} from '../../shared/validators/validate-date';
+} from '../../shared/validators/date.validator';
 import {locationRequired} from '../../shared/validators/location.validator';
 
 @Injectable()
@@ -56,7 +56,8 @@ export class MeetupFormService {
     if (formvalue.locationType === 'in') {
       meetup.indoor = formvalue.indoor;
       meetup.outdoor = null;
-      // todo : für Google Maps auch die Coordinaten reseten
+      meetup.longitude = 0;
+      meetup.latitude = 0;
     } else {
       meetup.indoor = null;
       meetup.outdoor = formvalue.outdoor;

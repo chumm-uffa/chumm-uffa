@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BusinessService} from '../../core/business.service';
+import {BusinessService} from '../../core/services/business.service';
 import {Hall, Meetup} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';

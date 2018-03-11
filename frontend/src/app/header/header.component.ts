@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppStateService} from '../core/app-state.service';
+import {AppStateService} from '../core/services/app-state.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {NotificationService} from '../core/notification.service';

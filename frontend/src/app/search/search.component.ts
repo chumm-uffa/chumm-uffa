@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {SearchFormService} from './form/search-form.service';
-import {BusinessService} from '../core/business.service';
+import {BusinessService} from '../core/services/business.service';
 import {FormUtil} from '../shared/form/form.util';
 import {Util} from '../shared/util';
 import {Hall, LocationType, Meetup, Sex} from '@chumm-uffa/interface';
 
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
-import {AppDialogService} from '../core/AppDialogService';
+import {AppDialogService} from '../core/services/app-dialog.service';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
-import {AppStateService} from '../core/app-state.service';
+import {AppStateService} from '../core/services/app-state.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   sexType = Sex;
   locationType = LocationType;
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
-  private searchForm$: Subscription;
+  private searchFormSubscription: Subscription;
 
   constructor(private searchFormService: SearchFormService,
               private businessService: BusinessService,
@@ -40,15 +40,15 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.businessService.getHalls().subscribe(halls => this.halls = halls);
     this.searchForm = this.searchFormService.createForm();
-    this.searchForm$ = this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
+    this.searchFormSubscription = this.searchForm.valueChanges.subscribe(_ => this.hasAllreadySearched = false);
     const meetups = this.businessService.getCachedSearchResults();
     this.results = new MatTableDataSource<Meetup>(meetups);
   }
 
   ngOnDestroy(): void {
     this.searchFormService.unsubscribe();
-    if (this.searchForm$) {
-      this.searchForm$.unsubscribe();
+    if (this.searchFormSubscription) {
+      this.searchFormSubscription.unsubscribe();
     }
   }
 

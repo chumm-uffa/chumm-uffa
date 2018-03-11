@@ -1,12 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {ValidationFeedbackComponent} from './validation-feedback/validation-feedback.component';
 import {HasErrorPipe, HasSomeErrorPipe} from './pipes/error';
 import {DateFormatPipe, DateTimeFormatPipe, TimeFormatPipe} from './pipes/date';
 
 @NgModule({
   declarations: [
-    ValidationFeedbackComponent,
     HasErrorPipe,
     HasSomeErrorPipe,
     DateFormatPipe,
@@ -17,7 +15,6 @@ import {DateFormatPipe, DateTimeFormatPipe, TimeFormatPipe} from './pipes/date';
     BrowserModule
   ],
   exports: [
-    ValidationFeedbackComponent,
     HasErrorPipe,
     HasSomeErrorPipe,
     DateFormatPipe,

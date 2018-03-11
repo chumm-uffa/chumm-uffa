@@ -1,4 +1,4 @@
-import {AppDialogService} from '../../core/AppDialogService';
+import {AppDialogService} from '../../core/services/app-dialog.service';
 
 export class Spinner {
 

@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
-import {ResourceService} from './resource.service';
-import {BusinessService} from './business.service';
+import {ResourceService} from './services/resource.service';
+import {BusinessService} from './services/business.service';
 import {HttpClientModule} from '@angular/common/http';
-import {AppStateService} from './app-state.service';
-import {MockService} from './mock.service';
-import {AuthGuard} from './AuthGuard';
+import {AppStateService} from './services/app-state.service';
+import {MockService} from './services/mock.service';
 import {MaterialModule} from '../material/material.module';
-import {AppDialogService} from './AppDialogService';
+import {AppDialogService} from './services/app-dialog.service';
 import {GoogleMapsModule} from '../google-maps/google-maps.module';
 import {NotificationService} from './notification.service';
 
@@ -21,7 +20,6 @@ import {NotificationService} from './notification.service';
     BusinessService,
     AppStateService,
     MockService,
-    AuthGuard,
     AppDialogService
   ]
 })
