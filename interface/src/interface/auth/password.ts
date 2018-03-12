@@ -1,5 +1,4 @@
 import {BaseResponse, IBaseResponse} from '../baseResponse';
-import {User} from '../../model/user';
 
 export interface IUpdatePasswordRequest extends IBaseResponse{
     oldPassord: string;

@@ -93,7 +93,7 @@ describe('Test /meetups/:id', () => {
                     .end((err, res) => {
                         baseTest.assertSuccess(res);
                         let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
-                            '', baseTest.testUser, meetup, cuint.RequestStatus.ACCEPT);
+                            '', baseTest.testUser2, meetup, cuint.RequestStatus.ACCEPT);
                         baseTest.chai.request(baseTest.server)
                             .post(`${baseTest.route}meetup-requests`)
                             .set({authorization: baseTest.token})
@@ -192,7 +192,7 @@ describe('Test /meetups/:id/meetup-requests', () => {
                         baseTest.assertSuccess(res);
                         // Add meetup-request
                         let meetupRequest: cuint.MeetupRequest = new cuint.MeetupRequest(
-                            '', baseTest.testUser, meetup, cuint.RequestStatus.ACCEPT);
+                            '', baseTest.testUser2, meetup, cuint.RequestStatus.ACCEPT);
                         baseTest.chai.request(baseTest.server)
                             .post(`${baseTest.route}meetup-requests`)
                             .set({authorization: baseTest.token})

@@ -4,7 +4,6 @@
 import * as debug from 'debug';
 import * as http from 'http';
 import * as winston from 'winston';
-import * as websocket from 'ws';
 
 import App from './app';
 import WebSockets from './websockets/webSockets';

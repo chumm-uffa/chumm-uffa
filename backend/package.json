@@ -1,5 +1,5 @@
 {
-  "name": "chum-muffa-backend",
+  "name": "chumm-uffa-backend",
   "version": "1.0.0",
   "description": "CAS FEE chumm-uffa App",
   "main": "server.js",
@@ -62,5 +62,9 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chumm-uffa/chumm-uffa.git"
   }
 }

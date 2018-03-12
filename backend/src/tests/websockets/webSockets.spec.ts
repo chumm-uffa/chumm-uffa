@@ -22,7 +22,7 @@ describe('Test /meetups', () => {
     });
 
     beforeEach((done) =>{
-        wss = new WebSocket('ws://localhost:8080/?token=' + baseTest.token, {
+        wss = new WebSocket('ws://localhost:8080/ws/?token=' + baseTest.token, {
             perMessageDeflate: false
         });
         wss.on('open', () => {
