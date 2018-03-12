@@ -22,13 +22,10 @@ export class NotificationService {
    */
   public connect(): WebSocketSubject<PushNotification> {
     if (!this.socket$) {
-      console.log('hostname' + window.location.hostname);
-      console.log('host ' + window.location.host);
-      console.log('port ' + window.location.port);
       this.socket$ = WebSocketSubject.create(`ws://${window.location.host}/ws/?token=${this.appState.token}`);
       this.socket$
           .subscribe(
-          (message) => console.log('Notification data:' + message.info),
+          (message) => {},
           (err) => this.closeSocket(err),
           () => this.closeSocket(null)
           );

@@ -335,14 +335,13 @@ export class MeetupController extends BaseController {
         const notification: PushNotification =
             new PushNotification(NotificationId.MEETUPS_DATA_CHANGED, 'Meetup with id :' + dbMeetup.id + ' changed');
 
-        WebSockets.notify([dbMeetup.owner], notification);
         DBMeetupRequest.find({meetup: dbMeetup.id}).then((dbRequests) => {
             var users: string[] = [];
+            users.push(dbMeetup.owner.toString());
             dbRequests.map((dbRequest) =>{
                 users.push(dbRequest.participant.toString());
             })
             WebSockets.notify(users, notification);
         })
-
     }
 }

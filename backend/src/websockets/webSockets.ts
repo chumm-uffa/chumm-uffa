@@ -36,12 +36,12 @@ export class WebSockets {
      * @param {PushNotification} notification
      */
     public notify(users: string[], notification: PushNotification) {
-        console.warn('Notification [' + this.connections.size + ']');
+        console.info('WS: Notification [' + this.connections.size + ']');
         users.map((userid) => {
             const connection: Connection = this.connections.get(userid.toString());
             if (connection) {
                 connection.connection.send(JSON.stringify(notification.toJSON()));
-                console.warn('Notification send : ' + userid + '[' + this.connections.size + ']');
+                console.info('WS: Notification send : ' + connection.user.username);
             }
         });
     }
@@ -57,15 +57,15 @@ export class WebSockets {
                 return;
             }
             this.connections.set(user.id.toString(), new Connection(ws, user, true));
-            console.warn(`Connection for user ${user.username} registered [ ${this.connections.size} ]`);
+            console.warn(`WS: Connection for user ${user.username} registered [ ${this.connections.size} ]`);
 
             ws.on('error', (error) => {
                 this.connections.delete(user.id.toString());
-                console.warn(`Connection for user ${user.username} disconnected - reason: ${error} [ ${this.connections.size} ]`);
+                console.warn(`WS: Connection for user ${user.username} disconnected - reason: ${error} [ ${this.connections.size} ]`);
             });
             ws.on('close', (num, reason) => {
                 this.connections.delete(user.id.toString());
-                console.warn(`Connection for user ${user.username} closed - reason: ${reason} [ ${this.connections.size} ]`);
+                console.warn(`WS: Connection for user ${user.username} closed - reason: ${reason} [ ${this.connections.size} ]`);
             });
         });
     }
