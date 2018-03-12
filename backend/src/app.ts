@@ -38,8 +38,8 @@ class App {
         (<any>mongoose).Promise = Q.Promise;
         if (process.env.NODE_ENV === 'testing') {
             const mockgoose = new Mockgoose(mongoose);
-            //This must be set to 3.5.7 to avoid a problem wit mongoDB wir mockgoose
-            mockgoose.helper.setDbVersion("3.5.7");
+            // This must be set to 3.5.7 to avoid a problem wit mongoDB wir mockgoose
+            mockgoose.helper.setDbVersion('3.5.7');
             mockgoose.prepareStorage().then((): void => {
                 mongoose.connect(process.env.MONGODB_URI);
             });

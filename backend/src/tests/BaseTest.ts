@@ -18,8 +18,10 @@ export class BaseTest {
     public should: any;
     public route: string;
     public server: any;
+    public wss: any;
     public token: string;
     public testUser: cuint.User;
+    public testUser2: cuint.User;
     public halls: cuint.Hall[];
 
     constructor() {
@@ -78,6 +80,7 @@ export class BaseTest {
 
     public login(done) {
         this.testUser = this.createTestUser();
+        this.testUser2 = this.createTestUser();
         // First register test user
         this.chai.request(this.server)
             .post(`${this.route}auth/register`)
@@ -94,15 +97,25 @@ export class BaseTest {
                         this.token = res.body.token;
                         res.body.should.have.property('profile');
                         this.testUser = res.body.profile;
-                        // Getting all halls
+
+                        // Second user
                         this.chai.request(this.server)
-                            .get(`${this.route}halls/`)
-                            .set({authorization: this.token})
+                            .post(`${this.route}auth/register`)
+                            .send(cuint.AuthFactory.createRegisterRequest(this.testUser2))
                             .end((err, res) => {
-                                this.assertSuccess(res);
-                                res.body.should.have.property('halls');
-                                this.halls = res.body.halls;
-                                done();
+                                let user = cuint.User.fromJSON(res.body.user);
+                                this.testUser2 = user;
+
+                                // Getting all halls
+                                this.chai.request(this.server)
+                                    .get(`${this.route}halls/`)
+                                    .set({authorization: this.token})
+                                    .end((err, res) => {
+                                        this.assertSuccess(res);
+                                        res.body.should.have.property('halls');
+                                        this.halls = res.body.halls;
+                                        done();
+                                    });
                             });
                     });
             });

@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Chat, Meetup} from '@chumm-uffa/interface';
 import {BusinessService} from '../../core/services/business.service';
 import {AppStateService} from '../../core/services/app-state.service';
+import {NotificationService} from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-chat',
@@ -19,14 +20,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   private refrehTimer;
 
   constructor(private businessService: BusinessService,
+              private notificationService: NotificationService,
               private appState: AppStateService) {
   }
 
   ngOnInit() {
     /*load chats*/
     this.loadChats();
-    /*Refresh every 1s*/
-    this.refrehTimer = setInterval(this.loadChats.bind(this), 1000);
+    this.notificationService.connect().subscribe((notification) => this.loadChats());
   }
 
   ngOnDestroy(): void {

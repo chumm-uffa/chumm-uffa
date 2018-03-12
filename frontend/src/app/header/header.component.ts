@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {AppStateService} from '../core/services/app-state.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
+import {BusinessService} from '../core/services/business.service';
+import {AppStateService} from '../core/services/app-state.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,13 @@ import {Router} from '@angular/router';
 export class HeaderComponent {
 
   constructor(private appState: AppStateService,
+              private businessService: BusinessService,
               private translate: TranslateService,
               private router: Router) {
   }
 
   logout() {
-    this.appState.token = null;
-    this.appState.loggedInUser = null;
-    // TODO evtl. Service call 'logout' einpflegen
+    this.businessService.logout();
     this.router.navigateByUrl('/');
   }
 

@@ -13,10 +13,10 @@ popd
 # backend
 pushd backend
 # create new image
-cp ../interface/chumm-uffa-interface-0.0.1.tgz .
+mv ../interface/chumm-uffa-interface-0.0.1.tgz .
 docker build -t $DOCKER_ID_USER/chumm-uffa-backend .
-rm ./chumm-uffa-interface-0.0.1.tgz
 popd
+
 # tag image
 docker tag $DOCKER_ID_USER/chumm-uffa-backend $DOCKER_ID_USER/chumm-uffa-backend:latest
 
@@ -36,4 +36,4 @@ docker login
 # upload frontend image
 docker push $DOCKER_ID_USER/chumm-uffa-frontend:latest
 # upload backend image
-docker push $DOCKER_ID_USER/chumm-uffa-backend:latest
+docker push $DOCKER_ID_USER/chumm-uffa-backend:latest 

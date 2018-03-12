@@ -1,5 +1,5 @@
 {
-  "name": "chum-muffa-backend",
+  "name": "chumm-uffa-backend",
   "version": "1.0.0",
   "description": "CAS FEE chumm-uffa App",
   "main": "server.js",
@@ -35,7 +35,9 @@
     "passport-jwt": "^3.0.1",
     "q": "^1.5.1",
     "rxjs": "^5.5.5",
-    "winston": "^2.4.0"
+    "url-parse": "^1.2.0",
+    "winston": "^2.4.0",
+    "ws": "^4.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.10",
@@ -47,6 +49,8 @@
     "@types/node": "^8.0.57",
     "@types/passport": "^0.4.1",
     "@types/passport-jwt": "^3.0.0",
+    "@types/url-parse": "^1.1.0",
+    "@types/ws": "^4.0.1",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "copyfiles": "^1.2.0",
@@ -58,5 +62,9 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chumm-uffa/chumm-uffa.git"
   }
 }
