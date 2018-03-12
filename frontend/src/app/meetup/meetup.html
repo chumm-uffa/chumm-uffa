@@ -43,7 +43,10 @@
             <input matInput [errorStateMatcher]="locationTypeMatcher" placeholder="{{'meetup.outdoor' | translate}}" formControlName="outdoor">
             <mat-error class="mat-caption">{{ 'meetup.error.oneOfAll' | translate }}</mat-error>
         </mat-form-field>
-          <button mat-raised-button color="accent" class="dummy-mat-field" (click)="showGoogleMapsDialog()" type="button">{{'Google Maps'}}</button>
+          <button mat-raised-button color="accent" class="dummy-mat-field" (click)="showGoogleMapsDialog()" type="button">
+            {{'Google Maps'}}
+            <img *ngIf="meetup?.latitude" src="assets/img/finder.png" height="30">
+          </button>
       </ng-template>
 
     </div>
