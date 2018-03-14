@@ -419,6 +419,19 @@ export class BusinessService {
     });
   }
 
+  getNewsTickers(): Observable<Meetup[]> {
+    return Observable.create((observer) => {
+      this.mockService.getNewTicker()
+        .subscribe(res => {
+            observer.next(Meetup.fromJSONArray(res));
+            observer.complete();
+          }, err => {
+            this.handleError(observer, err, 'getting new ticker');
+          }
+        );
+    });
+  }
+
   /**
    * Communication error handler
    * @param observer

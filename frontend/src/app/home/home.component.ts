@@ -7,26 +7,27 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.html'
+  templateUrl: './home.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
 
-  users: User[] = [];
+  // users: User[] = [];
 
-  constructor(private businessService: BusinessService,
-              private router: Router,
-              private mock: MockService) {
-    // to show Service
-    this.users = mock.users;
-  }
+  // constructor(private businessService: BusinessService,
+  //             private router: Router,
+  //             private mock: MockService) {
+  //   // to show Service
+  //   this.users = mock.users;
+  // }
 
-  simulateLogin(user) {
-    this.businessService.login(user).subscribe( response => {
-      this.router.navigate(['/mymeetups']);
-    },  err => {
-      this.businessService.register(user).subscribe( response => {
-        this.router.navigate(['/mymeetups']);
-      });
-    });
-  }
+  // simulateLogin(user) {
+  //   this.businessService.login(user).subscribe( response => {
+  //     this.router.navigate(['/mymeetups']);
+  //   },  err => {
+  //     this.businessService.register(user).subscribe( response => {
+  //       this.router.navigate(['/mymeetups']);
+  //     });
+  //   });
+  // }
 }

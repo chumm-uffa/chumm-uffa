@@ -1,0 +1,10 @@
+@import '../../../assets/css/table';
+@import '../../../assets/css/general';
+
+@media (max-width: 60em) {
+  /* Hide table headers */
+  mat-header-row {
+    display: none;
+  }
+}
+

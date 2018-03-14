@@ -19,6 +19,6 @@ export class IndexRoutes extends BaseRoutes {
         router.use('/users', this.guard, new UserRoutes().getRoutes());
         router.use('/meetups', this.guard, new MeetupRoutes().getRoutes());
         router.use('/meetup-requests', this.guard, new MeetupRequestRoutes().getRoutes());
-        router.use('/halls', this.guard, new HallRoutes().getRoutes());
+        router.use('/halls', new HallRoutes().getRoutes());
     }
 }

@@ -33,9 +33,6 @@
       "register": "Registrare"
     }
   },
-  "home": {
-    "title": "Pagina iniziale"
-  },
   "user": {
     "titleRegistration": "Registrazione utenteg",
     "titleMutate": "Modificare il profilo di utente",
@@ -208,5 +205,11 @@
   "google-maps": {
     "ok": "Assumere",
     "abandon": "Interrompere"
+  },
+  "newsTicker": {
+    "nextEvents": "Nächste Meetups_IT",
+    "time": "Wann_IT",
+    "location": "Ort_IT",
+    "participants": "Anz. Teilnehmer_IT"
   }
 }

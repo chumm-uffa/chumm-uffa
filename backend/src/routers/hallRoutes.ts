@@ -23,7 +23,7 @@ export class HallRoutes extends BaseRoutes {
     }
 
     public getHallAction(router: Router): void {
-        router.get('/:key/', (req: Request, res: Response) => {
+        router.get('/:key/', this.guard, (req: Request, res: Response) => {
             this.controller.getHall(req, res);
         });
     }
