@@ -7,7 +7,7 @@ worauf sich anschliessend interesierte Personen registrieren können. Eine Suchf
 von interessanten Meetups.   
 
 ## Komponenten
-Die Anwendung aus vier Komponenten:
+Die Anwendung besteht aus vier Komponenten:
 
 ![Overview](./doc/Overview.png)
 
@@ -16,16 +16,16 @@ Das Frontend ist für sämtliche Interaktionen mit dem Benutzer zuständig. Ist 
 und [Angular Material](https://material.angular.io/) entwickelt.      
 
 #### Backend
-Das Backend stellt ein [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf die Daten der Applikation zugreifen zu können. 
+Das Backend stellt ein [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf die Daten der Anwendung zugreifen zu können. 
 Es ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [Express](https://www.npmjs.com/package/express). 
 Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) 
 wird [mongoose](http://mongoosejs.com/) eingesetzt.  
 
 #### Interface 
-Beschreibt die Schnittstelle zwischen Backen und Frontend
+Beschreibt die Schnittstelle zwischen Backen und Frontend.
 
 #### Datenback
-Für die Datenhaltung wird [MongoDB](https://www.mongodb.com/) eingesetzt.
+Zuständig für die Datenhaltung. Eine [MongoDB](https://www.mongodb.com/) wird hier verwendet.
 
 ## Installieren
 
