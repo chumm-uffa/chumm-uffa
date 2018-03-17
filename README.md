@@ -1,6 +1,38 @@
 # chumm-uffa
 Meeting platform for climbers
 
+Ziel der Platform ist es, Treffen von und für Kletterer zu organisieren. Möchte jemand eine Kletter-Tour im Freien oder 
+in der Halle organisieren ist er hier genau richtig. Nach dem Registrien können beliebige Meetups erstellt werden, 
+worauf sich anschliessend interesierte Personen registrieren können. Eine Suchfunktion untersützt dabei beim findenen
+von interessanten Meetups.   
+
+## Komponenten
+Die Anwendung aus vier Komponenten:
+
+![Overview](./doc/Overview.png)
+
+#### Frontend
+Das Frontend ist für sämtliche Interaktionen mit dem Benutzer zuständig. Ist mit Hilfe von [Angular 5](https://angular.io/) 
+und [Angular Material](https://material.angular.io/) entwickelt.      
+
+#### Backend
+Das Backend stellt ein [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf die Daten der Applikation zugreifen zu können. 
+Es ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [Express](https://www.npmjs.com/package/express). 
+Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) 
+wird [mongoose](http://mongoosejs.com/) eingesetzt.  
+
+#### Interface 
+Beschreibt die Schnittstelle zwischen Backen und Frontend
+
+#### Datenback
+Für die Datenhaltung wird [MongoDB](https://www.mongodb.com/) eingesetzt.
+
+## Installieren
+
+
+### npm
+Folgende
+
 
 ## docker
 
