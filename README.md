@@ -62,7 +62,7 @@ Nach dem Backend kann nun auch das Frontend gestartet werden:
     $ npm install
     $ npm run start
 ```
-Die Anwendung ist nach dem Starten via [http://localhost:4200] verfügbar. 
+Die Anwendung ist nach dem Starten via [http://localhost:4200](http://localhost:4200) verfügbar. 
 ### docker
 Die Anwendung wir aus als Docker Image zur Verfügung gestellt. 
 * [frontend](https://hub.docker.com/r/pepeblack/chumm-uffa-frontend/)
