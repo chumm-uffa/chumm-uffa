@@ -1,3 +1,7 @@
 @import '../../../assets/css/table';
 @import '../../../assets/css/general';
 
+// Material Anpassungen
+mat-row {
+  cursor: pointer;
+}

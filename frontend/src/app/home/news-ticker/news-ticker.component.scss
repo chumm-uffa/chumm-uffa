@@ -1,6 +1,7 @@
 @import '../../../assets/css/table';
 @import '../../../assets/css/general';
 
+// Material Anpassungen
 @media (max-width: 60em) {
   /* Hide table headers */
   mat-header-row {
@@ -8,3 +9,6 @@
   }
 }
 
+mat-row {
+  cursor: pointer;
+}
