@@ -11,7 +11,7 @@ export class Meetup {
   /**
    * The owner of the meetup
    */
-  private _owner: User;
+  private _owner: User | null;
   /**
    * The date/time when the meetup starts
    */
@@ -51,7 +51,7 @@ export class Meetup {
 
 
   constructor(id: string,
-              owner: User,
+              owner: User | null,
               from: Date,
               to: Date,
               outdoor: string,
@@ -91,9 +91,10 @@ export class Meetup {
   }
 
   public static fromJSON(json: any) {
+    const user = json.owner ? User.fromJSON(json.owner) : null;
     return new Meetup (
         json.id,
-        User.fromJSON(json.owner),
+        user,
         new Date(json.from),
         new Date(json.to),
         json.outdoor,
@@ -122,11 +123,11 @@ export class Meetup {
     this._id = value;
   }
 
-  get owner(): User {
+  get owner(): User | null{
     return this._owner;
   }
 
-  set owner(value: User) {
+  set owner(value: User | null) {
     this._owner = value;
   }
 

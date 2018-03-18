@@ -42,6 +42,10 @@ export interface ISearchMeetupsResponse extends IBaseResponse {
     meetups: Meetup[];
 }
 
+export interface IGetNext5MeetupsResponse extends IBaseResponse {
+    meetups: Meetup[];
+}
+
 export class GetAllMeetupsRespons extends BaseResponse implements IGetAllMeetupsResponse {
     meetups: Meetup[];
 }
@@ -75,5 +79,9 @@ export class SearchMeetupsRequest implements ISearchMeetupsRequest {
 }
 
 export class SearchMeetupsResponse extends BaseResponse implements ISearchMeetupsResponse {
+    meetups: Meetup[];
+}
+
+export class GetNext5MeetupsResponse extends BaseResponse implements IGetNext5MeetupsResponse {
     meetups: Meetup[];
 }

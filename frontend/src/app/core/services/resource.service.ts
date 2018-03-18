@@ -17,6 +17,7 @@ import {
   IGetAllRequestsForMeetupResponse,
   IGetAllRequestsForUserResponse,
   IGetMeetupResponse,
+  IGetNext5MeetupsResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -31,8 +32,8 @@ import {
   IUpdatePasswordResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
-  User,
   Meetup,
+  User,
   Version
 } from '@chumm-uffa/interface';
 import {AppStateService} from './app-state.service';
@@ -78,7 +79,7 @@ export interface ResourceServiceInterface {
 
   updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse>;
 
-  getNewTicker(): Observable<Meetup[]>;
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse>;
 }
 
 /**
@@ -251,7 +252,7 @@ export class ResourceService implements ResourceServiceInterface {
     return this.http.put<IUpdatePasswordResponse>(this.urlRestBackend + 'auth/password', request);
   }
 
-  getNewTicker(): Observable<Meetup[]> {
-    throw new Error('not yet implemented');
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse> {
+    return this.http.get<IGetNext5MeetupsResponse>(this.urlRestBackend + 'newsTicker');
   }
 }

@@ -24,7 +24,7 @@ export abstract class BaseRoutes {
         return this.router;
     }
 
-    getRouterMethodNames(obj): Set<string> {
+    protected getRouterMethodNames(obj): Set<string> {
         let methods = new Set();
         while (obj = Reflect.getPrototypeOf(obj)) {
             let keys = Reflect.ownKeys(obj);

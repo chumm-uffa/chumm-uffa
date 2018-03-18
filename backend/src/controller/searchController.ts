@@ -9,6 +9,34 @@ import {DBMeetup, MeetupPopulate} from '../models/meetup/model';
 export class SearchController extends BaseController {
 
     /**
+     * Get the next 5 pending Meetups
+     * @param {Request} req
+     * @param {Response} res
+     */
+    public getNext5Meetups(req: Request, res: Response) {
+        // Find next 5 pending meetups
+        const now = new Date();
+        DBMeetup.find({'from': {'$gte': now}}).sort({'from': 1}).limit(5).then((dbMeetups) => {
+            let promise: Promise<any>[] = [];
+            let meetups: Meetup[] = [];
+            for (let dbMeetup of dbMeetups) {
+                promise.push(dbMeetup.toInterface().then((meetup) => {
+                    meetups.push(meetup);
+                }));
+            }
+            // Wait for all to finish
+            Promise.all(promise).then(() => {
+                res.json(MeetupsFactory.createGetNext5MeetupsResponse(true, '', meetups));
+            })
+        }).catch((err) => {
+            this.logger.error(err.toString());
+            res.status(500);
+            res.json(MeetupsFactory.createGetNext5MeetupsResponse(false, err.toString()));
+            return;
+        });
+    }
+
+    /**
      * Implementation, get all Meetups by searchDto
      * @param {Request} req
      * @param {Response} res

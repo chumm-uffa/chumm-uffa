@@ -160,7 +160,7 @@ MeetupSchema.methods.fromInterface = function (meetup: Meetup) {
  */
 MeetupSchema.methods.toInterface = async function () {
     const dbMeetup = this;
-    let owner = dbMeetup.owner ? await dbMeetup.owner.toInterface(): null;
+    let owner = (dbMeetup.owner && dbMeetup.owner.toInterface) ? await dbMeetup.owner.toInterface(): null;
     let request = await dbMeetup.getNumberOfRequest();
     let participant = await dbMeetup.getNumberOfParticipant();
     return new Meetup(

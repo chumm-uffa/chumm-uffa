@@ -421,9 +421,8 @@ export class BusinessService {
 
   getNewsTickers(): Observable<Meetup[]> {
     return Observable.create((observer) => {
-      this.mockService.getNewTicker()
-        .subscribe(res => {
-            observer.next(Meetup.fromJSONArray(res));
+      this.resourceService.getNewsTicker().subscribe(res => {
+            observer.next(Meetup.fromJSONArray(res.meetups));
             observer.complete();
           }, err => {
             this.handleError(observer, err, 'getting new ticker');

@@ -20,6 +20,7 @@ import {
   IGetAllMeetupsForUserResponse,
   IGetAllRequestsForMeetupResponse,
   IGetMeetupResponse,
+  IGetNext5MeetupsResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -144,8 +145,8 @@ export class MockService implements ResourceServiceInterface {
     return of(AuthFactory.createUpdatePasswordResponse(true, ''));
   }
 
-  getNewTicker(): Observable<Meetup[]> {
-    return of([this._meetups[0], this._meetups[1]]);
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse> {
+    return of(MeetupsFactory.createGetNext5MeetupsResponse(true, '', [this._meetups[0], this._meetups[1]]));
   }
 
   get users(): User[] {

@@ -4,11 +4,13 @@ import {
     DeleteMeetupRespons,
     GetAllMeetupsRespons,
     GetMeetupRespons,
+    GetNext5MeetupsResponse,
     ICreateMeetupRequest,
     ICreateMeetupResponse,
     IDeleteMeetupResponse,
     IGetAllMeetupsResponse,
     IGetMeetupResponse,
+    IGetNext5MeetupsResponse,
     ISearchMeetupsRequest,
     ISearchMeetupsResponse,
     IUpdateMeetupRequest,
@@ -16,7 +18,7 @@ import {
     SearchMeetupsRequest,
     SearchMeetupsResponse,
     UpdateMeetupRequest,
-    UpdateMeetupRespons
+    UpdateMeetupRespons,
 } from '../interface/meetups/meetups';
 import {GetAllRequestsForMeetupRespons, IGetAllRequestsForMeetupResponse} from '../interface/meetups/meetup-requests';
 import {
@@ -231,4 +233,21 @@ export class MeetupsFactory extends BaseFactory {
     static createDeleteChatForMeetupResponse(success: boolean, message: string): IDeleteChatForMeetupResponse {
         return this.createResponse(DeleteChatForMeetupResponse, success, message);
     }
+
+    /**
+     * Creates response message for "get /meetups/next5/" route
+     * @param {boolean} success
+     * @param {string} message
+     * @param {Meetup[]} meetups
+     * @returns {IGetNext5MeetupsResponse}
+     */
+    static createGetNext5MeetupsResponse(success: boolean, message: string, meetups?: Meetup[]): IGetNext5MeetupsResponse {
+        const response = this.createResponse(GetNext5MeetupsResponse, success, message);
+        if (meetups) {
+            response.meetups = meetups
+        }
+        return response;
+    }
+
+
 }
