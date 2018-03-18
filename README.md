@@ -79,4 +79,4 @@ Anschliessen im Root Verzeichniss folgenden Befehl ausführen um die Anwendung z
 ```
 Neben Frontend und Backend wird auch gleich ein Container mit MondoDB erstellt und gestartet.
 
-Die Anwendung ist nach dem Starten via [http://localhost] verfügbar. 
+Die Anwendung ist nach dem Starten via [http://localhost](http://localhost) verfügbar. 
