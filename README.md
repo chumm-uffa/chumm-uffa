@@ -46,7 +46,7 @@ Das Backend speichert seine Daten in einer MongoDB. Entweder auf dem Rechner ode
 MongoDB vorhanden sein. Für die loakale installation kann [hier](https://www.mongodb.com/download-center#community) die
 aktuelle Version bezogen werden. Alternativ steht auch ein Docker Container mit MondoDB zu Verfügung der wie folgt gestartet
 wird (Voraussetzung ist das [Docker](https://docs.docker.com/engine/installation/) und 
-[Docker-Compose](https://docs.docker.com/compose/install/ ) installiert sind):
+[Docker-Compose](https://docs.docker.com/compose/install/ ) vorhanden sind):
 
 ```
     $ cd ./data
@@ -55,8 +55,8 @@ wird (Voraussetzung ist das [Docker](https://docs.docker.com/engine/installation
 
 ##### 3. Backend starten
 Befor das Backend gestartet wird, müssen eventuell einige Einstellungen angepasst werden. In der Datei ./backend/.env sind
-die wichtigsten Einstellungen zu finden. Hier wird auch die Anbindung der MondoDB konfiguriet, falls sich diese nicht 
-auf dem localen Rechner befindet.  
+die wichtigsten Einstellungen zu finden. Hier wird auch die Anbindung der MondoDB konfiguriert, falls sich diese nicht 
+auf dem lokalen Rechner befindet.  
 
 Sind alle Einstellungen korrekt, kann das Backend wie folgt gestartet werden:
 
@@ -75,10 +75,16 @@ Ist das Backend gestarted, kann nun auch das Frontend gestarted werden:
     $ npm run start
 ```
 
+Die Anwendung ist nach dem Starten via [http://localhost:4200] verfügbar. 
 
-## docker
 
-Frontend und Backend sind in zwei unterschiedlichen Docker Kontainer verfügbar. Somit ist in einem 
+### docker
+Die Anwendung wir aus als Docker Image zur Verfügung gestellt. 
+
+* [frontend](https://hub.docker.com/r/pepeblack/chumm-uffa-frontend/)
+* [backend](https://hub.docker.com/r/pepeblack/chumm-uffa-backend/)
+
+Frontend und Backend sind in zwei unterschiedlichen Kontainer verfügbar. Somit ist in einem 
 späteren produktiven Einsatz eine saubere Trennung von Frontend und Backend möglich.
 
 Um die Kontainer zu starten müssen Docker CE und Docker-Compose installiert sein.
@@ -87,56 +93,14 @@ Um die Kontainer zu starten müssen Docker CE und Docker-Compose installiert sei
 * Docker Composer: https://docs.docker.com/compose/install/
 
 Anschliessen im Root Verzeichniss folgenden Befehl ausführen um den Kontainer zu starten:
+
 ```
     $ docker-compose up
 ```
 
-Nachdem der Kontainer gestartet ist das Fronend via Port 80 verfügbar.
+Neben Frontend und Backend wird auch gleicn ein Kontainer mit MondoDB erstellt und gestartet.
 
-* http://localhost
 
-## Development
-Für die Entwicklung kann entwerde mit oder ohne Docker Kontainer gearbeitet werden.
-
-### Mit Docker
-Für die Entwicklung ist eine separate Docker-Compose konfiguration verfügbar, die beide Kontainer so started,
-dass Änderungen an den Sourcen sofort im jeweiligen Kontainer verfügbar sind. Mit folgendem Befehl wird 
-die Entwicklungsumgebung gestarted:
-
-```
-   $ docker-compose -f docker-compose.development.yml up --build
-```
-
-Anschliessend sind Backend und Frontend verfügbar:
-
-* Backend: http://localhost:8080/
-* Frontend: http://localhost:4200/
-
-### Ohne Docker 
-
-Als Erster muss Angular cli local installiert sein. Falls nicht vorhande, so wird es installiert:
-
-```
-    $ npm i -g @angular/cli
-```
-Für das Frontend ins Verzeichniss ```./frontend``` wechseln und dann wie folgt starten: 
-
-```
-    $ npm install
-    $ npm start
-```
-
-Für das Backend ins Verzeichniss ```./backend``` wechseln und dann wie folgt starten: 
-
-```
-    $ npm install
-    $ npm start
-```
-
-Anschliessend sind Backend und Frontend verfügbar:
-
-* Backend: http://localhost:8080/
-* Frontend: http://localhost:4200/
-
+Die Anwendung ist nach dem Starten via [http://localhost] verfügbar. 
 
 
