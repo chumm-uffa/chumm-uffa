@@ -6,6 +6,7 @@ import {AppStateService} from '../app-state.service';
 import {MockService} from '../mock.service';
 import {Hall} from '@chumm-uffa/interface';
 import {AppDialogService} from '../app-dialog.service';
+import {NotificationService} from '../notification.service';
 
 /**
  * Demo Unit Test für Services mit Testcontainer, Mocking und injector
@@ -21,7 +22,6 @@ class ResourceMock {
 }
 
 class AppDialogServiceMock {
-
 }
 
 describe('BusinessService', () => {
@@ -29,13 +29,13 @@ describe('BusinessService', () => {
     TestBed.configureTestingModule({
       providers: [BusinessService,
         AppStateService,
-        MockService,
+        NotificationService,
         {provide: ResourceService, useClass: ResourceMock},
         {provide: AppDialogService, useClass: AppDialogServiceMock}]
     }).compileComponents();
   }));
 
-  it('should get i am alive', inject([BusinessService], (service: BusinessService) => {
+  it('should get min 1 hall', inject([BusinessService], (service: BusinessService) => {
     service.getHalls().subscribe(res =>
       expect(res[0].name).toBe('Kletterhalle'));
   }));

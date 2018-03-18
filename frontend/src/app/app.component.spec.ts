@@ -19,6 +19,13 @@ import {ParticipantComponent} from './meetup-detail/participant/participant.comp
 import {ChatComponent} from './meetup-detail/chat/chat.component';
 import {SearchComponent} from './search/search.component';
 import {MaterialModule} from './material/material.module';
+import {NewsTickerComponent} from './home/news-ticker/news-ticker.component';
+import {BusinessService} from './core/services/business.service';
+import {ResourceService} from './core/services/resource.service';
+import {HttpClientModule} from '@angular/common/http';
+import {NotificationService} from './core/services/notification.service';
+import {MockService} from './core/services/mock.service';
+import {AppDialogService} from './core/services/app-dialog.service';
 
 
 /**
@@ -32,7 +39,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AppRoutingModule, LoginModule, RegistrationModule, SharedModule,
-        TranslateModule.forRoot(), ReactiveFormsModule, FormsModule, MaterialModule],
+        TranslateModule.forRoot(), ReactiveFormsModule, FormsModule, MaterialModule, HttpClientModule],
       declarations: [
         AppComponent,
         HeaderComponent,
@@ -44,9 +51,13 @@ describe('AppComponent', () => {
         MeetupDetailComponent,
         ParticipantComponent,
         ChatComponent,
-        SearchComponent
+        SearchComponent,
+        NewsTickerComponent
       ],
-      providers: [AppStateService, {provide: APP_BASE_HREF, useValue: '/'}]
+      providers: [AppStateService, BusinessService, MockService, AppDialogService, ResourceService, NotificationService, {
+        provide: APP_BASE_HREF,
+        useValue: '/'
+      }]
     }).compileComponents();
   }));
 

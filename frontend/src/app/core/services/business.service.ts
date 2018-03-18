@@ -40,7 +40,6 @@ export class BusinessService {
   constructor(private appState: AppStateService,
               private resourceService: ResourceService,
               private notificationService: NotificationService,
-              private mockService: MockService,
               private appDialogService: AppDialogService) {
   }
 
