@@ -5,8 +5,8 @@ Ziel der Plattform ist es, Treffen von und für Kletterer zu organisieren. Möch
 in der Halle organisieren ist er hier genau richtig. Nach dem Registrieren können beliebige Meetups erstellt werden, 
 worauf sich anschliessend interessierte Personen registrieren können. Eine Suchfunktion unterstützt beim finden
 von interessanten Meetups.   
-## Komponenten
-Die Anwendung besteht aus vier Komponenten:
+## Übersicht
+Die Anwendung besteht aus vier Bereichen:
 
 ![Overview](./doc/Overview.png)
 
@@ -19,7 +19,7 @@ Ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [
 Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) wird [mongoose](http://mongoosejs.com/) eingesetzt.  
 #### Interface 
 Beschreibt die Schnittstelle zwischen Backen und Frontend.
-#### Datenback
+#### Database
 Zuständig für die Datenhaltung. Eine [MongoDB](https://www.mongodb.com/) wird hier verwendet.
 ## Installieren
 Die Anwendung kann auf verschiedene Arten installierte werden:
