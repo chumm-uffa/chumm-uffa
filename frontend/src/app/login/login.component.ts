@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {Subscription} from 'rxjs/Subscription';
-import {MEETUP_DETAIL_URL} from '../app-routing-urls';
+import {MEETUP_DETAIL_URL, MY_MEETUPS_URL} from '../app-routing-urls';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.params['meetupId']) {
           this.router.navigate(['/' + MEETUP_DETAIL_URL], {queryParams: this.params});
         } else {
-          this.router.navigate(['/mymeetups']);
+          this.router.navigate(['/' + MY_MEETUPS_URL]);
         }
       }, err => {
         this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'login.dialog.errorTitle'}});

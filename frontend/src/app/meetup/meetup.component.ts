@@ -10,6 +10,7 @@ import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
 import {AppDialogService} from '../core/services/app-dialog.service';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {Subscription} from 'rxjs/Subscription';
+import {MY_MEETUPS_URL} from '../app-routing-urls';
 
 @Component({
   selector: 'app-create-meetup',
@@ -86,7 +87,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
           const myDialog = this.dialog.open(InfoPopupComponent,
             {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
-            this.router.navigate(['/mymeetups']);
+            this.router.navigate(['/' + MY_MEETUPS_URL]);
           });
         }, err => {
           this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'meetup.dialog.CreateFailedTitle'}});
@@ -96,7 +97,7 @@ export class MeetupComponent implements OnInit, OnDestroy {
           const myDialog = this.dialog.open(InfoPopupComponent,
             {data: {infoText: '', infoTitle: 'meetup.dialog.SaveSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
-            this.router.navigate(['/mymeetups']);
+            this.router.navigate(['/' + MY_MEETUPS_URL]);
           });
         }, err => {
           this.dialog.open(InfoPopupComponent, {data: {infoText: err, infoTitle: 'meetup.dialog.SaveFailedTitle'}});
