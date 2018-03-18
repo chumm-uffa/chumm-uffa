@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {UpdateComponent} from './user/update/update.component';
 import {HomeComponent} from './home/home.component';
@@ -9,7 +9,7 @@ import {MeetupDetailComponent} from './meetup-detail/meetup-detail.component';
 import {SearchComponent} from './search/search.component';
 import {AuthGuard} from './auth/auth-guard.service';
 import {RegistrationComponent} from './user/registration/registration.component';
-
+import {MEETUP_DETAIL_URL} from './app-routing-urls';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'updateuser', component: UpdateComponent, canActivate: [AuthGuard] },
   { path: 'mymeetups', component: MymeetupsComponent, canActivate: [AuthGuard] },
   { path: 'meetup', component: MeetupComponent, canActivate: [AuthGuard] },
-  { path: 'meetupdetail', component: MeetupDetailComponent, canActivate: [AuthGuard] },
+  { path: MEETUP_DETAIL_URL, component: MeetupDetailComponent, canActivate: [AuthGuard] },
   { path: 'meetupsearch', component: SearchComponent, canActivate: [AuthGuard]}
 ];
 

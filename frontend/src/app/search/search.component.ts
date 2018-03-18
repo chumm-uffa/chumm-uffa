@@ -12,6 +12,7 @@ import {AppDialogService} from '../core/services/app-dialog.service';
 import {AppErrorStateMatcher} from '../shared/error-state-matcher/app-error-state-matcher';
 import {AppStateService} from '../core/services/app-state.service';
 import {Subscription} from 'rxjs/Subscription';
+import {MEETUP_DETAIL_URL} from '../app-routing-urls';
 
 @Component({
   selector: 'app-search',
@@ -28,6 +29,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   sexType = Sex;
   locationType = LocationType;
   beginAfterBeforeMatcher = new AppErrorStateMatcher('timeAfterBefore');
+  meetupDetailUrl = MEETUP_DETAIL_URL;
   private searchFormSubscription: Subscription;
 
   constructor(private searchFormService: SearchFormService,

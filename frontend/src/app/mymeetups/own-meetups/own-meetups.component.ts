@@ -7,6 +7,7 @@ import {MatDialog, MatIconRegistry, MatTableDataSource, Sort} from '@angular/mat
 import {DomSanitizer} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../core/services/notification.service';
+import {MEETUP_DETAIL_URL} from '../../app-routing-urls';
 
 @Component({
   selector: 'app-own-meetups',
@@ -20,6 +21,7 @@ export class OwnMeetupsComponent implements OnInit {
 
   columnDefinition: string[] = ['time', 'location', 'numberOfRequest', 'numberOfParticipant', 'edit', 'delete'];
   dataSource = new MatTableDataSource(this.meetups);
+  meetupDetailUrl = MEETUP_DETAIL_URL;
 
   constructor(private businessService: BusinessService,
               private notificationService: NotificationService,

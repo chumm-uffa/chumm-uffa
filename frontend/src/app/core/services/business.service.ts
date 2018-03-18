@@ -325,13 +325,15 @@ export class BusinessService {
    * @returns {Observable<Chat[]>}
    */
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    /*aufgrund des Polling bei meetupdetail hier kein Spinner*/
+    const spinner: Spinner = new Spinner(this.appDialogService);
     return Observable.create((observer) => {
       this.resourceService.loadChatsByMeetupId(meetupId)
         .subscribe(res => {
+          spinner.stop();
           observer.next(Chat.fromJSONArray(res.chats));
           observer.complete();
         }, err => {
+          spinner.stop();
           this.handleError(observer, err, 'load chats for meetup');
         });
     });

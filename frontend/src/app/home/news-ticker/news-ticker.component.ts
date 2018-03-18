@@ -3,6 +3,7 @@ import {BusinessService} from '../../core/services/business.service';
 import {Hall, Meetup} from '@chumm-uffa/interface';
 import {Util} from '../../shared/util';
 import {MatTableDataSource} from '@angular/material';
+import {MEETUP_DETAIL_URL} from '../../app-routing-urls';
 
 @Component({
   selector: 'app-news-ticker',
@@ -13,9 +14,9 @@ export class NewsTickerComponent implements OnInit {
 
   meetups: Meetup[] = [];
   halls: Hall[] = [];
-
   columnDefinition: string[] = ['time', 'location', 'numberOfParticipant'];
   dataSource = new MatTableDataSource(this.meetups);
+  meetupDetailUrl = MEETUP_DETAIL_URL;
 
   constructor(private businessService: BusinessService) {
   }
