@@ -3,7 +3,7 @@ Meeting platform for climbers
 
 Ziel der Platform ist es, Treffen von und für Kletterer zu organisieren. Möchte jemand eine Kletter-Tour im Freien oder 
 in der Halle organisieren ist er hier genau richtig. Nach dem Registrien können beliebige Meetups erstellt werden, 
-worauf sich anschliessend interesierte Personen registrieren können. Eine Suchfunktion untersützt dabei beim findenen
+worauf sich anschliessend interessierte Personen registrieren können. Eine Suchfunktion untersützt beim findenen
 von interessanten Meetups.   
 
 ## Komponenten
@@ -16,10 +16,9 @@ Das Frontend ist für sämtliche Interaktionen mit dem Benutzer zuständig. Ist 
 und [Angular Material](https://material.angular.io/) entwickelt.      
 
 #### Backend
-Das Backend stellt ein [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf die Daten der Anwendung zugreifen zu können. 
-Es ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [Express](https://www.npmjs.com/package/express). 
-Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) 
-wird [mongoose](http://mongoosejs.com/) eingesetzt.  
+Das Backend stellt eine [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf die Daten der Anwendung zugreifen zu können. 
+Ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [Express](https://www.npmjs.com/package/express). 
+Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) wird [mongoose](http://mongoosejs.com/) eingesetzt.  
 
 #### Interface 
 Beschreibt die Schnittstelle zwischen Backen und Frontend.
@@ -28,10 +27,53 @@ Beschreibt die Schnittstelle zwischen Backen und Frontend.
 Zuständig für die Datenhaltung. Eine [MongoDB](https://www.mongodb.com/) wird hier verwendet.
 
 ## Installieren
-
+Die Anwendung kann auf verschiedene Arten installierte werden:
 
 ### npm
-Folgende
+Um die Anwendung via npm zu starten muss lokal [nodejs](https://nodejs.org/en/download/) installiert sein. Entwickelt und 
+getestet wurde mit Version 8.9 .   
+
+##### 1. Interface erstellen
+Als erstes muss das Interface erstellt werden, da Backend und Forntend dies benötigen. 
+```
+    $ cd ./interface
+    $ npm install
+    $ npm run build
+```
+
+##### 2. MongoDB
+Das Backend speichert seine Daten in einer MongoDB. Entweder auf dem Rechner oder im Netz muss somit eine Instanz einer 
+MongoDB vorhanden sein. Für die loakale installation kann [hier](https://www.mongodb.com/download-center#community) die
+aktuelle Version bezogen werden. Alternativ steht auch ein Docker Container mit MondoDB zu Verfügung der wie folgt gestartet
+wird (Voraussetzung ist das [Docker](https://docs.docker.com/engine/installation/) und 
+[Docker-Compose](https://docs.docker.com/compose/install/ ) installiert sind):
+
+```
+    $ cd ./data
+    $ docker-compose up
+```
+
+##### 3. Backend starten
+Befor das Backend gestartet wird, müssen eventuell einige Einstellungen angepasst werden. In der Datei ./backend/.env sind
+die wichtigsten Einstellungen zu finden. Hier wird auch die Anbindung der MondoDB konfiguriet, falls sich diese nicht 
+auf dem localen Rechner befindet.  
+
+Sind alle Einstellungen korrekt, kann das Backend wie folgt gestartet werden:
+
+```
+    $ cd ./backend
+    $ npm install
+    $ npm run start
+```
+
+##### 4. Frontend starten
+Ist das Backend gestarted, kann nun auch das Frontend gestarted werden:
+
+```
+    $ cd ./frontend
+    $ npm install
+    $ npm run start
+```
 
 
 ## docker
