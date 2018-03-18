@@ -4,9 +4,10 @@ Meeting platform for climbers
 Ziel der Plattform ist es, Treffen von und für Kletterer zu organisieren. Möchte jemand eine Kletter-Tour im Freien oder 
 in der Halle organisieren ist er hier genau richtig. Nach dem Registrieren können beliebige Meetups erstellt werden, 
 worauf sich anschliessend interessierte Personen registrieren können. Eine Suchfunktion unterstützt beim finden
-von interessanten Meetups.   
+von interessanten Meetups ein deiner Region.   
+
 ## Übersicht
-Die Anwendung besteht aus vier Bereichen:
+Die Anwendung besteht aus vier Teil-Bereichen:
 
 ![Overview](./doc/Overview.png)
 
@@ -21,7 +22,8 @@ Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) wird [mongoose](htt
 Beschreibt die Schnittstelle zwischen Backen und Frontend.
 #### Database
 Zuständig für die Datenhaltung. Eine [MongoDB](https://www.mongodb.com/) wird hier verwendet.
-## Installieren
+
+## Installation
 Die Anwendung kann auf verschiedene Arten installierte werden:
 ### npm
 Um die Anwendung via npm zu starten muss lokal [nodejs](https://nodejs.org/en/download/) installiert sein. Entwickelt und 
