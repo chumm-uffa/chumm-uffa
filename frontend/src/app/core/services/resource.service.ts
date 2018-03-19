@@ -17,6 +17,7 @@ import {
   IGetAllRequestsForMeetupResponse,
   IGetAllRequestsForUserResponse,
   IGetMeetupResponse,
+  IGetNext5MeetupsResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -31,6 +32,7 @@ import {
   IUpdatePasswordResponse,
   IUpdateProfileRequest,
   IUpdateProfileResponse,
+  Meetup,
   User,
   Version
 } from '@chumm-uffa/interface';
@@ -76,6 +78,8 @@ export interface ResourceServiceInterface {
   getHalls(): Observable<IGetAllHallsResponse>;
 
   updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse>;
+
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse>;
 }
 
 /**
@@ -246,5 +250,9 @@ export class ResourceService implements ResourceServiceInterface {
    */
   updatePassword(request: IUpdatePasswordRequest): Observable<IUpdatePasswordResponse> {
     return this.http.put<IUpdatePasswordResponse>(this.urlRestBackend + 'auth/password', request);
+  }
+
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse> {
+    return this.http.get<IGetNext5MeetupsResponse>(this.urlRestBackend + 'newsTicker');
   }
 }

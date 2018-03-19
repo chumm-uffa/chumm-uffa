@@ -1,0 +1,34 @@
+<div class="app-spacer-vert--l"></div>
+<div class="app-spacer-vert--l"></div>
+<h2 class="mat-h1 page-title">{{ 'newsTicker.nextEvents' | translate }}</h2>
+
+<section>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- time -->
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef> {{'newsTicker.time' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'ownMeetups.time' | translate}}</mat-header-cell> {{meetup.from | dateTimeFormat}} </mat-cell>
+    </ng-container>
+
+    <!-- location -->
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef> {{'newsTicker.location' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let meetup"> <mat-header-cell class="xs-table-header">{{'ownMeetups.location' | translate}}</mat-header-cell> {{getLocation(meetup)}} </mat-cell>
+    </ng-container>
+
+    <!-- numberOfParticipant -->
+    <ng-container matColumnDef="numberOfParticipant">
+      <mat-header-cell *matHeaderCellDef> {{'newsTicker.participants' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let meetup">
+        <mat-header-cell class="xs-table-header">{{'ownMeetups.participants' | translate}}</mat-header-cell>
+        {{meetup.numberOfParticipant}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef='columnDefinition'></mat-header-row>
+    <mat-row routerLink="/{{meetupDetailUrl}}" [queryParams]="{meetupId: meetup.id}" *matRowDef="let meetup; columns: columnDefinition;"></mat-row>
+  </mat-table>
+
+</section>
+

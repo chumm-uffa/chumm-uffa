@@ -25,7 +25,9 @@ import {
     SearchMeetupsRequest,
     SearchMeetupsResponse,
     UpdateMeetupRequest,
-    UpdateMeetupRespons
+    UpdateMeetupRespons,
+    IGetNext5MeetupsResponse,
+    GetNext5MeetupsResponse
 } from './interface/meetups/meetups';
 import {
     CreateMeetupRequestRequest,
@@ -182,6 +184,9 @@ export {
     // post /meetups/search
     ISearchMeetupsResponse, ISearchMeetupsRequest,
     SearchMeetupsResponse, SearchMeetupsRequest,
+
+    // get /meetups/next5
+    IGetNext5MeetupsResponse, GetNext5MeetupsResponse,
 
     //*************************
     // All for route "/meetup-requests"

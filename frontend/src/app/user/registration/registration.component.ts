@@ -7,6 +7,7 @@ import {UserFormService} from '../form/user-form.service';
 import {BusinessService} from '../../core/services/business.service';
 import {FormUtil} from '../../shared/form/form.util';
 import {InfoPopupComponent} from '../../material/info-popup/info-popup.component';
+import {LOGIN_URL} from '../../app-routing-urls';
 
 @Component({
   selector: 'app-registration',
@@ -38,7 +39,7 @@ export class RegistrationComponent implements OnInit {
           const myDialog = this.dialog.open(InfoPopupComponent,
             {data: {infoText: '', infoTitle: 'user.dialog.registrationSuccessfulTitle'}});
           myDialog.afterClosed().subscribe(() => {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/' + LOGIN_URL]);
           });
         }, err => {
           this.dialog.open(InfoPopupComponent, {

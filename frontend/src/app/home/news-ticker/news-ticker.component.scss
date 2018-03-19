@@ -2,6 +2,13 @@
 @import '../../../assets/css/general';
 
 // Material Anpassungen
+@media (max-width: 60em) {
+  /* Hide table headers */
+  mat-header-row {
+    display: none;
+  }
+}
+
 mat-row {
   cursor: pointer;
 }

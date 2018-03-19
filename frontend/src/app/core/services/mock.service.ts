@@ -20,6 +20,7 @@ import {
   IGetAllMeetupsForUserResponse,
   IGetAllRequestsForMeetupResponse,
   IGetMeetupResponse,
+  IGetNext5MeetupsResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -144,6 +145,10 @@ export class MockService implements ResourceServiceInterface {
     return of(AuthFactory.createUpdatePasswordResponse(true, ''));
   }
 
+  getNewsTicker(): Observable<IGetNext5MeetupsResponse> {
+    return of(MeetupsFactory.createGetNext5MeetupsResponse(true, '', [this._meetups[0], this._meetups[1]]));
+  }
+
   get users(): User[] {
     return this._users;
   }
@@ -163,7 +168,7 @@ export class MockService implements ResourceServiceInterface {
   private generateMeetups() {
     this._meetups = [];
     this._meetups.push(new Meetup('id1', this._users[0], new Date(), new Date(), 'Out_1', '', 'fressa', 1, 2));
-    this._meetups.push(new Meetup('id2', this._users[0], new Date(), new Date(), '', '2', 'saufa', 3, 4));
+    this._meetups.push(new Meetup('id2', this._users[0], new Date(), new Date(), '', '5a79e9a9339c18058c57ba95', 'saufa', 3, 4));
     this._meetups.push(new Meetup('id3', this._users[1], new Date(), new Date(), '', '16', '', 5, 6));
     this._meetups.push(new Meetup('id4', this._users[2], new Date(), new Date(), 'Out_2', '', '', 1, 2));
     this._meetups.push(new Meetup('id5', this._users[3], new Date(), new Date(), '', '12', '', 3, 4));

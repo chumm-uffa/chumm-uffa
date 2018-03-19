@@ -40,7 +40,6 @@ export class BusinessService {
   constructor(private appState: AppStateService,
               private resourceService: ResourceService,
               private notificationService: NotificationService,
-              private mockService: MockService,
               private appDialogService: AppDialogService) {
   }
 
@@ -325,13 +324,15 @@ export class BusinessService {
    * @returns {Observable<Chat[]>}
    */
   loadChatsByMeetupId(meetupId: string): Observable<Chat[]> {
-    /*aufgrund des Polling bei meetupdetail hier kein Spinner*/
+    const spinner: Spinner = new Spinner(this.appDialogService);
     return Observable.create((observer) => {
       this.resourceService.loadChatsByMeetupId(meetupId)
         .subscribe(res => {
+          spinner.stop();
           observer.next(Chat.fromJSONArray(res.chats));
           observer.complete();
         }, err => {
+          spinner.stop();
           this.handleError(observer, err, 'load chats for meetup');
         });
     });
@@ -416,6 +417,18 @@ export class BusinessService {
         observer.next();
         observer.complete();
       }, err => this.handleError(observer, err, 'change password'));
+    });
+  }
+
+  getNewsTickers(): Observable<Meetup[]> {
+    return Observable.create((observer) => {
+      this.resourceService.getNewsTicker().subscribe(res => {
+            observer.next(Meetup.fromJSONArray(res.meetups));
+            observer.complete();
+          }, err => {
+            this.handleError(observer, err, 'getting new ticker');
+          }
+        );
     });
   }
 

@@ -6,6 +6,7 @@ import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {ConfirmDialogComponent} from '../../material/confirm-dialog/confirm-dialog.component';
 import {AppDialogService} from '../../core/services/app-dialog.service';
 import {NotificationService} from '../../core/services/notification.service';
+import {MEETUP_DETAIL_URL} from '../../app-routing-urls';
 
 @Component({
   selector: 'app-open-requests',
@@ -18,6 +19,7 @@ export class OpenRequestsComponent implements OnInit {
   halls: Hall[] = [];
   columnDefinition: string[] = ['time', 'location', 'state', 'request'];
   dataSource = new MatTableDataSource(this.meetUpRequests);
+  meetupDetailUrl = MEETUP_DETAIL_URL;
 
   constructor(private businessService: BusinessService,
               private notificationService: NotificationService,

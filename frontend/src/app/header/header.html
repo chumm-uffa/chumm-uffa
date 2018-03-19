@@ -16,31 +16,31 @@
         [active]="isActiv('/')">
         {{'header.link.home' | translate}}
       </a>
-      <a mat-tab-link routerLink="/meetupsearch"
-        [active]="isActiv('/meetupsearch')">
+      <a mat-tab-link routerLink="/{{meetupSearchUrl}}"
+        [active]="isActiv('/' + meetupSearchUrl)">
         {{'header.link.search' | translate}}
       </a>
-      <a mat-tab-link routerLink="/mymeetups"
-        [active]="isActiv('/mymeetups')">
+      <a mat-tab-link routerLink="/{{myMeetupsUrl}}"
+        [active]="isActiv('/' + myMeetupsUrl)">
         {{'header.link.myMeetups' | translate}}
       </a>
-      <a mat-tab-link routerLink="/meetup"
-        [active]="isActiv('/meetup')">
+      <a mat-tab-link routerLink="/{{meetupUrl}}"
+        [active]="isActiv('/' + meetupUrl)">
         {{'header.link.newMeetup' | translate}}
       </a>
-      <a mat-tab-link routerLink="/updateuser"
-        [active]="isActiv('/updateuser')">
+      <a mat-tab-link routerLink="/{{updateUserUrl}}"
+        [active]="isActiv('/' + updateUserUrl)">
         {{'header.link.updateUser' | translate}}
       </a>
       <a mat-tab-link *ngIf="appState.isLoggedIn" (click)="logout()">{{'header.logout' | translate}}</a>
     </span>
     <ng-template #publicBlock>
-      <a mat-tab-link routerLink="/login"
-         [active]="isActiv('/login')">
+      <a mat-tab-link routerLink="/{{loginUrl}}"
+         [active]="isActiv('/' + loginUrl)">
         {{'header.link.login' | translate}}
       </a>
-      <a mat-tab-link routerLink="/registration"
-         [active]="isActiv('/registration')">
+      <a mat-tab-link routerLink="/{{registrationUrl}}"
+         [active]="isActiv('/' + registrationUrl)">
         {{'header.link.register' | translate}}
       </a>
       <a mat-tab-link routerLink="/"
