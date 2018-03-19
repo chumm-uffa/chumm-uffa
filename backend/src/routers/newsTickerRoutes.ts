@@ -15,7 +15,7 @@ export class NewsTickerRoutes extends BaseRoutes {
         this.controller = new SearchController();
     }
 
-    public getNewsTicerAction(router: Router): void {
+    public getNewsTickerAction(router: Router): void {
         router.get('/', (req: Request, res: Response) => {
             this.controller.getNext5Meetups(req, res);
         });
