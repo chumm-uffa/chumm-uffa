@@ -19,14 +19,14 @@ Das Backend stellt eine [Rest-API](./doc/rest-api.txt) zur Verfügung, um auf di
 Es ist in [TypeScript](https://www.typescriptlang.org/) geschrieben und verwendet [Express](https://www.npmjs.com/package/express).
 Für den Zugriff auf die [MongoDB](https://www.mongodb.com/) wird [Mongoose](http://mongoosejs.com/) eingesetzt.
 #### Interface 
-Diese beschreibt die Schnittstelle zwischen Backen und Frontend.
+Dieses beschreibt die Schnittstelle zwischen Backen und Frontend.
 #### Database
 Diese ist zuständig für die Datenhaltung, hierfür wird eine [MongoDB](https://www.mongodb.com/) verwendet.
 
 ## Installation
-Die Anwendung kann auf verschiedene Arten installierte werden:
+Die Anwendung kann auf verschiedene Arten installiert werden:
 ### npm
-Um die Anwendung via npm zu starten muss lokal [Node.js](https://nodejs.org/en/download/) installiert sein. Die Anwendung wurde
+Um die Anwendung via npm zu starten, muss lokal [Node.js](https://nodejs.org/en/download/) installiert sein. Die Anwendung wurde
 mit der Version 8.9 entwickelt und getestet.
 ##### 1. Interface erstellen
 Als erstes muss das Interface erstellt werden, da Backend und Frontend dies benötigen. 
@@ -75,7 +75,7 @@ Um die Container zu starten, müssen Docker CE und Docker-Compose installiert se
 * Docker CE: https://docs.docker.com/engine/installation/
 * Docker Compose: https://docs.docker.com/compose/install/
 
-Anschliessen im Root Verzeichnis folgenden Befehl ausführen um die Anwendung zu starten:
+Anschliessend im Root Verzeichnis folgenden Befehl ausführen um die Anwendung zu starten:
 ```
     $ docker-compose up
 ```
