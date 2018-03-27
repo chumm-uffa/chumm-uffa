@@ -21,6 +21,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   private halls: Hall[] = [];
   isMeetupOwner = false;
   isAccepted = false;
+  isRegistered = false;
 
   private activateRouteSubscription: Subscription;
   private meetupId: string;
@@ -72,6 +73,17 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
     this.appDialogService.showGoogleMaps(this.meetup.latitude, this.meetup.longitude, false).subscribe();
   }
 
+  register() {
+
+    this.businessService.requestForParticipation(meetupId).subscribe(() => {
+        this.dialog.open(InfoPopupComponent,
+          {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
+      },
+      err => this.appDialogService.showError(err)
+    );
+
+  }
+
   private loadMeetupDetail(): void {
     this.businessService.loadRequests(this.meetupId).subscribe(requests => {
       this.meetupRequests = requests;
@@ -79,6 +91,10 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
         req.participant.username === this.appState.loggedInUser.username
         &&
         req.status === RequestStatus.ACCEPT
+      );
+
+      this.isRegistered = !requests.some(req =>
+        req.participant.username === this.appState.loggedInUser.username
       );
     });
 
