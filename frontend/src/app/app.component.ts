@@ -3,8 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.html'
 })
 export class AppComponent implements OnInit {
   title = 'app';
