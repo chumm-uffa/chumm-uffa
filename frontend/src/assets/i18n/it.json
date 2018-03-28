@@ -110,6 +110,14 @@
     "F": "Donna",
     "kg": "kg",
     "noRequests": "Lei non ha ancora domande",
+    "startRequest": "chiedere",
+    "signOff": "disconnetersi",
+    "dialog": {
+      "startRequestTitle": "Anfrage_IT",
+      "startRequestText": "Deine Anfrage wurde dem Meetup Owner mitgeteilt.!_IT",
+      "signOffTitle": "Abmelden_IT",
+      "signOffText": "Sie melden sich vom Meetup ab!_IT"
+    },
     "error": {
       "meetupNotFound": "Il Meetup non è stato trovato!"
     }

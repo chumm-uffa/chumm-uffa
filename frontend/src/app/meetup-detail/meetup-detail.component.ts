@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {BusinessService} from '../core/services/business.service';
 import {Hall, Meetup, MeetupRequest, RequestStatus} from '@chumm-uffa/interface';
 import {Util} from '../shared/util';
@@ -7,6 +7,10 @@ import {AppStateService} from '../core/services/app-state.service';
 import {AppDialogService} from '../core/services/app-dialog.service';
 import {Subscription} from 'rxjs/Subscription';
 import {NotificationService} from '../core/services/notification.service';
+import {InfoPopupComponent} from '../material/info-popup/info-popup.component';
+import {MatDialog} from '@angular/material';
+import {MY_MEETUPS_URL} from '../app-routing-urls';
+import {ConfirmDialogComponent} from '../material/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-meetup-detail',
@@ -29,7 +33,9 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   constructor(private businessService: BusinessService,
               private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
               private appState: AppStateService,
+              private router: Router,
               private appDialogService: AppDialogService) {
   }
 
@@ -74,14 +80,34 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
   }
 
   register() {
-
-    this.businessService.requestForParticipation(meetupId).subscribe(() => {
-        this.dialog.open(InfoPopupComponent,
-          {data: {infoText: 'Deine Anfrage wurde dem Meetup Owner mitgeteilt.', infoTitle: 'Anfrage'}});
+    this.businessService.requestForParticipation(this.meetup).subscribe(() => {
+        const dialogRef =  this.dialog.open(InfoPopupComponent,
+          {data: {infoText: 'meetupDetail.dialog.startRequestText', infoTitle: 'meetupDetail.dialog.startRequestTitle'}});
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigate(['/' + MY_MEETUPS_URL]);
+        });
       },
       err => this.appDialogService.showError(err)
     );
+  }
 
+  signOff(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {disableClose: true, data: {confirmText: 'meetupDetail.dialog.signOffText', confirmTitle: 'meetupDetail.dialog.signOffTitle'}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.meetupRequests.map(req => {
+          if (req.participant.username === this.appState.loggedInUser.username) {
+            this.businessService.deleteRequest(req.id).subscribe(() => {
+                this.router.navigate(['/' + MY_MEETUPS_URL]);
+              },
+              err => this.appDialogService.showError(err)
+            );
+          }
+        });
+      }
+    });
   }
 
   private loadMeetupDetail(): void {
@@ -93,7 +119,7 @@ export class MeetupDetailComponent implements OnInit, OnDestroy {
         req.status === RequestStatus.ACCEPT
       );
 
-      this.isRegistered = !requests.some(req =>
+      this.isRegistered = requests.some(req =>
         req.participant.username === this.appState.loggedInUser.username
       );
     });

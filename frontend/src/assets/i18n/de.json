@@ -110,6 +110,14 @@
     "F": "Frau",
     "kg": "kg",
     "noRequests": "Sie haben noch keine Anfragen",
+    "startRequest": "anfragen",
+    "signOff": "abmelden",
+    "dialog": {
+      "startRequestTitle": "Anfrage",
+      "startRequestText": "Deine Anfrage wurde dem Meetup Owner mitgeteilt.!",
+      "signOffTitle": "Abmelden",
+      "signOffText": "Sie melden sich vom Meetup ab!"
+    },
     "error": {
       "meetupNotFound": "Das Meetup konnte nicht gefunden werden!"
     }

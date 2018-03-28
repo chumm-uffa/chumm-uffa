@@ -34,16 +34,18 @@
         </div>
       </section>
 
-      <section *ngIf="(isAccepted || isMeetupOwner); else showParticipant"  class="app-box">
+      <section *ngIf="(isAccepted || isMeetupOwner)"  class="app-box">
         <app-participant [meetupRequests]="getMeetUpRequestsToShow()" [enableCheckBoxes]="isMeetupOwner"></app-participant>
         <label *ngIf="getMeetUpRequestsToShow().length === 0" class="detail detail--label">{{ 'meetupDetail.noRequests' | translate }}</label>
-
       </section>
-      <ng-template #showParticipant>
-        <div>
-          <button mat-raised-button color="accent" (click)=(register()) class="search-button">{{'meetupDetail.register' | translate}}</button>
-        </div>
-      </ng-template>
+
+      <div>
+        <button *ngIf="(isAccepted || isRegistered)" mat-raised-button color="accent" (click)=(signOff()) color="primary">{{'meetupDetail.signOff' | translate}}</button>
+      </div>
+
+      <div>
+        <button *ngIf="isRegistered == false && isMeetupOwner == false" mat-raised-button color="accent" (click)=(register()) color="primary">{{'meetupDetail.startRequest' | translate}}</button>
+      </div>
     </div>
 
     <div class="column-container">
