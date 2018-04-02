@@ -26,25 +26,25 @@
     "link": {
       "home": "Pagina iniziale",
       "updateUser": "Profilo utente",
-      "myMeetups": "Il mio Meetup",
-      "newMeetup": "Creare un Meetup",
+      "myMeetups": "Il mio incontro (Meetup)",
+      "newMeetup": "Creare un incontro (Meetup)",
       "search": "Cerca",
       "login": "Registrarsi",
       "register": "Registrare"
     }
   },
   "user": {
-    "titleRegistration": "Registrazione utenteg",
+    "titleRegistration": "Registrazione utente",
     "titleMutate": "Modificare il profilo di utente",
-    "titlePassword": "Passwort ändern_IT",
+    "titlePassword": "Modificare la password",
     "name": "Nome: ",
     "password": "Password: ",
     "repeatPass": "Ripetere la password: ",
-    "oldPassword": "Altes Passwort: _IT",
-    "newPassword": "Neues Passwort: _IT",
-    "repeatNewPassword": "Neues Passwort wiederholen:_IT",
-    "savePassword": "Passwort ändern_IT",
-    "email": "E-mail: ",
+    "oldPassword": "vecchia password",
+    "newPassword": "nuova password",
+    "repeatNewPassword": "Ripetere la nuova password",
+    "savePassword": "Salvare la password",
+    "email": "e-mail: ",
     "registerUser": "Registrazione utente",
     "saveUser": "salvare",
     "man": "Uomo",
@@ -56,8 +56,8 @@
       "updateSuccessfulTitle": "Utente modificato con successo!",
       "registrationFailedTitle": "L'utente non ha potuto essere registrato!",
       "registrationSuccessfulTitle": "Utente registrato con successo!",
-      "passwordFailedTitle": "Passwort konnte nicht geändert werden!_IT",
-      "passwordSuccessfulTitle": "Passwort geändert!_IT"
+      "passwordFailedTitle": "La password non ha potuto essere modificata",
+      "passwordSuccessfulTitle": "Password modificat"
     },
     "error": {
       "nameRequired": "Immettere il nome.",
@@ -82,8 +82,8 @@
     "activity": "Attività:",
     "submit": "salvare",
     "dialog": {
-      "SaveSuccessfulTitle": "Meetup creato con successo!",
-      "SaveFailedTitle": "Il Meetup non ha potuto essere salvato!"
+      "SaveSuccessfulTitle": "Incontro (Meetup) creato con successo!",
+      "SaveFailedTitle": "L’incontro (Meetup) non ha potuto essere salvato!"
     },
     "error": {
       "dateRequired": "Immettere la data.",
@@ -95,13 +95,13 @@
     }
   },
   "meetupDetail": {
-    "title": "Dettagli Meetup",
+    "title": "Dettagli dell’incontro (Meetup)",
     "date": "Data:",
     "fromTime": "Inizio:",
     "toTime": "Fine:",
     "location": "Luogo d'incontro:",
     "activity": "Attività:",
-    "meetup": "Meetup",
+    "meetup": "Incontro (Meetup)",
     "owner": "Creatore",
     "ownername": "Nome:",
     "ownersex": "Sesso:",
@@ -113,13 +113,13 @@
     "startRequest": "chiedere",
     "signOff": "disconnetersi",
     "dialog": {
-      "startRequestTitle": "Anfrage_IT",
-      "startRequestText": "Deine Anfrage wurde dem Meetup Owner mitgeteilt.!_IT",
-      "signOffTitle": "Abmelden_IT",
-      "signOffText": "Sie melden sich vom Meetup ab!_IT"
+      "startRequestTitle": "Richiesta",
+      "startRequestText": "La tua richiesta è stata inoltrata al titolare dell’incontro! (Meetup Owner)",
+      "signOffTitle": "Disconnettersi",
+      "signOffText": "Lei si disconnette dall’incontro (dal Meetup)"
     },
     "error": {
-      "meetupNotFound": "Il Meetup non è stato trovato!"
+      "meetupNotFound": "L’incontro (Il Meetup) non è stato trovato!"
     }
   },
   "participant": {
@@ -138,7 +138,7 @@
     "sendMessage": "inviare"
   },
   "search": {
-    "title": "Cerca Meetup",
+    "title": "Cerca incontro (Meetup)",
     "location": "luogo:",
     "indoorRadio": "Indoor",
     "outdoorRadio": "Outdoor",
@@ -161,11 +161,11 @@
     "to_th": "Fine",
     "km": "km",
     "radius": "Raggio",
-    "noResults": "Nessun Meetup corrispondente trovato!",
+    "noResults": "Nessun incontro (Meetup) corrispondente trovato!",
     "partner": "Partner",
     "dialog": {
       "infoTitle": "Richiesta",
-      "infoText": "La tua richiesta è stata inoltrata al proprietario del Meetup."
+      "infoText": "La tua richiesta è stata inoltrata al titolare dell’incontro!"
     },
     "error": {
       "fromDateTimeRequired": "Indicare l'ora d'inizio.",
@@ -175,7 +175,7 @@
     }
   },
   "ownMeetups": {
-    "title": "Il mio Meetup",
+    "title": "Il mio incontro (Meetup)",
     "time": "Quando",
     "location": "Luogo",
     "requests": "Richieste",
@@ -184,7 +184,7 @@
     "edit": "Editare",
     "dialog": {
       "deleteTitle": "Cancellare",
-      "deleteText": "Lei cancella il Meetup!"
+      "deleteText": "Lei cancella l’incontro! (il Meetup)"
     }
   },
   "openRequests": {
@@ -195,7 +195,7 @@
     "signOff": "disconnetersi",
     "dialog": {
       "signOffTitle": "disconnetersi",
-      "signOffText": "Lei si disconnette da Meetup!",
+      "signOffText": "Lei si disconnette all’incontro! (dal Meetup)",
       "error": "Errore del server"
     }
   },
@@ -215,9 +215,9 @@
     "abandon": "Interrompere"
   },
   "newsTicker": {
-    "nextEvents": "Nächste Meetups_IT",
-    "time": "Wann_IT",
-    "location": "Ort_IT",
-    "participants": "Anz. Teilnehmer_IT"
+    "nextEvents": "Prossimo incontro",
+    "time": "Quando",
+    "location": "Quando",
+    "participants": "Numero di partecipanti"
   }
 }
