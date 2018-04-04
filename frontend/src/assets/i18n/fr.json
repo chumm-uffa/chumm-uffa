@@ -1,223 +1,223 @@
 {
-  "ACCEPT": "angenommen_FR",
-  "DECLINED": "abgelehnt_FR",
-  "OPEN": "offen_FR",
+  "ACCEPT": "accepté",
+  "DECLINED": "refusé",
+  "OPEN": "ouvert",
   "login": {
-    "title": "Login_FR",
-    "name": "Name_FR: ",
-    "password": "Passwort_FR: ",
-    "loginUser": "Anmelden_FR",
+    "title": "Login ",
+    "name": "Nom: ",
+    "password": "Mot de passe: ",
+    "loginUser": "S’enregistrer",
     "dialog": {
-      "errorTitle": "Fehler beim Login!_FR"
+      "errorTitle": "Erreur de login!"
     },
     "error": {
-      "nameRequired": "Namen eingeben_FR",
-      "nameMinLength": "Name muss min 2 Zeichen haben_FR",
-      "passwordRequired": "Passwort eingeben._FR",
-      "passwordMinLength": "Passwort muss min 8 Zeichen haben._FR"
+      "nameRequired": "Introduire le nom",
+      "nameMinLength": "Le nom doit contenir au moins 2 caractères",
+      "passwordRequired": "Introduire le mot de passe",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères"
     }
   },
   "header": {
-    "title": "Chumm-Uffa_FR",
+    "title": "Chumm-Uffa",
     "deutsch": "DE",
     "franz": "FR",
     "ital": "IT",
-    "logout": "Abmelden_FR",
+    "logout": "Se déconnecter",
     "link": {
-      "home": "Startseite_FR",
-      "updateUser": "Benutzerprofil_FR",
-      "myMeetups": "Meine Meetups_FR",
-      "newMeetup": "Meetup erstellen_FR",
-      "search": "Suche_FR",
-      "login": "Anmelden_FR",
-      "register": "Registrieren_FR"
+      "home": "Page d’accueil",
+      "updateUser": "Profil d’utilisateur",
+      "myMeetups": "Mes rencontres",
+      "newMeetup": "Créer une rencontre",
+      "search": "Recherche",
+      "login": "S’enregistrer",
+      "register": "Enregistrer "
     }
   },
   "user": {
-    "titleRegistration": "User Registrierung_FR",
-    "titleMutate": "User Profil bearbeiten_FR",
-    "titlePassword": "Passwort ändern_FR",
-    "name": "Name_FR: ",
-    "password": "Passwort_FR:",
-    "repeatPass": "Passwort wiederholen_FR: ",
-    "oldPassword": "Altes Passwort: _FR",
-    "newPassword": "Neues Passwort: _FR",
-    "repeatNewPassword": "Neues Passwort wiederholen:_FR",
-    "savePassword": "Passwort ändern_FR",
-    "email": "Email_FR: ",
-    "registerUser": "Benutzer erstellen_FR",
-    "saveUser": "Benutzer speichern_FR",
-    "man": "Mann_FR",
-    "women": "Frau_FR",
-    "weight": "Körpergewicht_FR: ",
-    "kg": "kg_FR",
+    "titleRegistration": "Enregistrement d’utilisateur",
+    "titleMutate": "Modifier le profil d’utilisateur",
+    "titlePassword": "Modifier le mot de passe",
+    "name": "Nom: ",
+    "password": "Mot de passe: ",
+    "repeatPass": "Répéter le mot de passe: ",
+    "oldPassword": "Ancien mot de passe: ",
+    "newPassword": "Nouveau mot de passe: ",
+    "repeatNewPassword": "Répéter le nouveau mot de passe: ",
+    "savePassword": "Modifier le mot de passe",
+    "email": "e-mail: ",
+    "registerUser": "Créer l’utilisateur",
+    "saveUser": "Enregistrer l’utilisateur",
+    "man": "Homme",
+    "women": "Femme",
+    "weight": "Poids: ",
+    "kg": "kg",
     "dialog": {
-      "updateFailedTitle": "Benutzer konnte nicht gespeichert werden!_FR",
-      "updateSuccessfulTitle": "Benutzer erfolgreich geändert_FR!",
-      "registrationFailedTitle": "Benutzer konnte nicht erstellt werden!_FR",
-      "registrationSuccessfulTitle": "Benutzer erfolgreich erstellt!_FR",
-      "passwordFailedTitle": "Passwort konnte nicht geändert werden!_FR",
-      "passwordSuccessfulTitle": "Passwort geändert!_FR"
+      "updateFailedTitle": "L’utilisateur n’a pas pu être enregistré!",
+      "updateSuccessfulTitle": "Utilisateur modifié avec succès!",
+      "registrationFailedTitle": "L’utilisateur n’a pas pu être créé!",
+      "registrationSuccessfulTitle": "Utilisateur créé avec succès!",
+      "passwordFailedTitle": "Le mot de passe n’a pas pu être modifié! ",
+      "passwordSuccessfulTitle": "Mot de passe modifié!"
     },
     "error": {
-      "nameRequired": "Namen eingeben_FR",
-      "nameMinLength": "Name muss min 2 Zeichen haben_FR",
-      "email": "ungültiges Emailformat_FR",
-      "differentPasswords": "die Passwortwiederholung weicht ab_FR",
-      "sexRequired": "Geschlecht wählen._FR",
-      "passwordRequired": "Passwort eingeben.",
-      "passwordMinLength": "Passwort muss min 8 Zeichen haben."
+      "nameRequired": "Introduire le nom",
+      "nameMinLength": "Le nom doit contenir au moins 2 caractères",
+      "email": "Format d’e-mail non valide",
+      "differentPasswords": "Erreur dans la répétition du mot de passe",
+      "sexRequired": "Choisir le sexe",
+      "passwordRequired": "Introduire le mot de passe.",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères."
     }
   },
   "meetup": {
-    "titleMutate": "Meetup mutieren_FR",
-    "titleCreate": "Meetup erstellen_FR",
-    "date": "Datum:_FR",
-    "fromTime": "Beginn_FR",
-    "toTime": "Ende_FR",
-    "indoor": "Halle:_FR",
-    "indoorRadio": "Indoor_FR",
-    "outdoor": "Ort/Berg:v",
-    "outdoorRadio": "Outdoor_FR",
-    "activity": "Activity:_FR",
-    "submit": "speichern_FR",
+    "titleMutate": "Modifier la rencontre",
+    "titleCreate": "Créer la rencontre",
+    "date": "Date",
+    "fromTime": "Début",
+    "toTime": "Fin",
+    "indoor": "Halle: ",
+    "indoorRadio": "Indoor",
+    "outdoor": "Localité/montagne: ",
+    "outdoorRadio": "Outdoor",
+    "activity": "Activité:",
+    "submit": "enregistrer",
     "dialog": {
-      "SaveFailedTitle": "Meetup konnte nicht gespeichert werden!_FR",
-      "SaveSuccessfulTitle": "Meetup erfolgreich gespeichert!_FR"
+      "SaveFailedTitle": "La rencontre n’a pas pu être enregistrée!",
+      "SaveSuccessfulTitle": "La rencontre a été enregistrée avec succès!"
     },
     "error": {
-      "dateRequired": "Datum eingeben._FR",
-      "fromTimeRequired": "Beginn Zeit eingeben._FR",
-      "fromTimeInPast": "Beginn muss in der Zukunft sein._FR",
-      "toTimeRequired": "Ende Zeit eingeben._FR",
-      "fromBeforeToTime": "Ende muss nach Beginn sein._FR",
-      "oneOfAll": "Wähle eine Location_FR"
+      "dateRequired": "Introduire la date.",
+      "fromTimeRequired": "Introduire l’heure de début.",
+      "fromTimeInPast": "Le début doit se situer dans le futur",
+      "toTimeRequired": "Introduire l’heure de fin.",
+      "fromBeforeToTime": "La fin doit se situer après le début.",
+      "oneOfAll": "Choisir un lieu "
     }
   },
   "meetupDetail": {
-    "title": "Meetup Details_FR",
-    "date": "Datum:_FR",
-    "fromTime": "Beginn:_FR",
-    "toTime": "Ende:_FR",
-    "location": "Austragungsort:_FR",
-    "activity": "Aktivität:_FR",
-    "meetup": "Meetup_FR",
-    "owner": "Ersteller_FR",
-    "ownername": "Name:_FR",
-    "ownersex": "Geschlecht:_FR",
-    "ownerweight": "Gewicht:_FR",
-    "M": "Mann_FR",
-    "F": "Frau_FR",
-    "kg": "kg_FR",
-    "noRequests": "Sie haben noch keine Anfragen_FR",
-    "startRequest": "anfragen_FR",
-    "signOff": "abmelden_FR",
+    "title": "Détails de la rencontre",
+    "date": "Date:",
+    "fromTime": "Début:",
+    "toTime": "Fin:",
+    "location": "Lieu de la rencontre:",
+    "activity": "Activité:",
+    "meetup": "Rencontre",
+    "owner": "Créateur",
+    "ownername": "Nom:",
+    "ownersex": "Sexe:",
+    "ownerweight": "Poids:",
+    "M": "Homme",
+    "F": "Femme",
+    "kg": "kg",
+    "noRequests": "Vous n’avez encore aucune demande",
+    "startRequest": "demander",
+    "signOff": "se déconnecter",
     "dialog": {
-      "startRequestTitle": "Anfrage_FR",
-      "startRequestText": "Deine Anfrage wurde dem Meetup Owner mitgeteilt.!_FR",
-      "signOffTitle": "Abmelden_FR",
-      "signOffText": "Sie melden sich vom Meetup ab!_FR"
+      "startRequestTitle": "Demande",
+      "startRequestText": "Ta demande a été transmise au titulaire de la rencontre!",
+      "signOffTitle": "Se déconnecter",
+      "signOffText": "Vous vous déconnectez de la rencontre!"
     },
     "error": {
-      "meetupNotFound": "Das Meetup konnte nicht gefunden werden!_FR"
+      "meetupNotFound": "La rencontre n’a pas pu être trouvée!"
     }
   },
   "participant": {
-    "title": "Anfragen_FR",
-    "accept": "annehmen_FR",
-    "decline": "ablehnen_FR",
-    "sex": "Geschlecht_FR",
-    "weight": "Körpergewicht_FR",
-    "M": "männlich_FR",
-    "F": "weiblich_FR",
-    "kg": "kg_FR"
+    "title": "Demander",
+    "accept": "accepter",
+    "decline": "refuser",
+    "sex": "Sexe",
+    "weight": "Poids",
+    "M": "masculin",
+    "F": "féminin",
+    "kg": "kg"
   },
   "chat": {
-    "title": "Chat_FR",
-    "typeMessage": "Neue Nachricht_FR",
-    "sendMessage": "senden_FR"
+    "title": "chat",
+    "typeMessage": "Nouveau message",
+    "sendMessage": "envoyer"
   },
   "search": {
-    "title": "Meetup suchen_FR",
-    "location": "Ort:_FR",
-    "indoorRadio": "Indoor_FR",
-    "outdoorRadio": "Outdoor_FR",
-    "indoor": "Halle:_FR",
-    "outdoor": "Ort/Berg:_FR",
-    "from": "Startzeit:_FR",
-    "to": "Endzeit:_FR",
-    "sex": "Geschlecht:_FR",
-    "man": "männlich_FR",
-    "women": "weiblich_FR",
-    "weight": "Körpergewicht:_FR",
-    "weightMin": "ab_FR",
-    "weightMax": "bis_FR",
-    "kg": "kg_FR",
-    "start": "Suchen_FR",
-    "owner": "User_FR",
-    "startRequest": "anfragen_FR",
-    "location_th": "Ort_FR",
-    "from_th": "Startzeit_FR",
-    "to_th": "Endzeit_FR",
-    "km": "km_FR",
-    "radius": "Umkreis_FR",
-    "noResults": "Keine passenden Meetups gefunden!_FR",
-    "partner": "Partnerperson_FR",
+    "title": "Rechercher la rencontre",
+    "location": "Lieu",
+    "indoorRadio": "Indoor",
+    "outdoorRadio": "Outdoor",
+    "indoor": "Halle:",
+    "outdoor": "Lieu/montagne:",
+    "from": "Heure de début:",
+    "to": "Heure de fin:",
+    "sex": "Sexe:",
+    "man": "masculin",
+    "women": "féminin",
+    "weight": "poids:",
+    "weightMin": "dès",
+    "weightMax": "jusqu’à",
+    "kg": "kg",
+    "start": "Rechercher",
+    "owner": "Utilisateur",
+    "startRequest": "demander",
+    "location_th": "Lieu",
+    "from_th": "Heure de début",
+    "to_th": "Heure de fin",
+    "km": "km",
+    "radius": "Rayon",
+    "noResults": "Aucune rencontre correspondante n’a été trouvée!",
+    "partner": "Partenaire",
     "dialog": {
-      "infoTitle": "Anfrage_FR",
-      "infoText": "Deine Anfrage wurde dem Meetup Besitzer mitgeteilt._FR"
+      "infoTitle": "Demande",
+      "infoText": "Ta demande a été transmise au titulaire de la rencontre."
     },
     "error": {
-      "fromDateTimeRequired": "Startzeit eingeben._FR",
-      "toDateTimeRequired": "Endzeit eingeben._FR",
-      "dateTimeInThePast": "Startzeit muss heute oder später sein._FR",
-      "fromBeforeToTime": "Endzeit muss nach der Startzeit sein._FR"
+      "fromDateTimeRequired": "Introduire l’heure de début.",
+      "toDateTimeRequired": "Introduire l’heure de fin.",
+      "dateTimeInThePast": "L’heure de début doit être aujourd’hui ou plus tard.",
+      "fromBeforeToTime": "L’heure de fin doit se situer après l’heure de début."
     }
   },
   "ownMeetups": {
-    "title": "Meine Meetups_FR",
-    "time": "Wann_FR",
-    "location": "Ort_FR",
-    "requests": "Anfragen_FR",
-    "participants": "Anz. Teilnehmer_FR",
-    "delete": "Löschen_FR",
-    "edit": "Bearbeiten_FR",
+    "title": "Mes rencontres",
+    "time": "Quand",
+    "location": "Lieu",
+    "requests": "Demandes",
+    "participants": "Nombre de participants",
+    "delete": "Effacer",
+    "edit": "Traiter",
     "dialog": {
-      "deleteTitle": "Löschen_FR",
-      "deleteText": "Sie löschen das Meetup!_FR"
+      "deleteTitle": "Effacer",
+      "deleteText": "Vous effacez la rencontre!"
     }
   },
   "openRequests": {
-    "title": "Meine Anfragen_FR",
-    "time": "Wann_FR",
-    "location": "Ort_FR",
-    "state": "Status_FR",
-    "signOff": "abmelden_FR",
+    "title": "Ma demande",
+    "time": "Quand",
+    "location": "Lieu",
+    "state": "Statut",
+    "signOff": "Se déconnecter",
     "dialog": {
-      "signOffTitle": "Abmelden_FR",
-      "signOffText": "Sie melden sich vom Meetup ab!_FR",
-      "error": "Server Error_FR"
+      "signOffTitle": "Se déconnecter",
+      "signOffText": "Vous vous déconnectez de la rencontre!",
+      "error": "Erreur du serveur"
     }
   },
   "confirmDialog": {
-    "no": "Nö Nö_FR",
-    "yes": "Jo jo_FR"
+    "no": "Non",
+    "yes": "Oui"
   },
   "infoPopup": {
-    "ok": "OK_FR"
+    "ok": "ok"
   },
   "appDialogService": {
-    "serverErrorTitle": "Server Error_FR",
-    "errorTitle": "Error_FR"
+    "serverErrorTitle": "Erreur du serveur",
+    "errorTitle": "Erreur"
   },
   "google-maps": {
-    "ok": "Übernehmen_FR",
-    "abandon": "Abbrechen_FR"
+    "ok": "Reprendre",
+    "abandon": "Interrompre"
   },
   "newsTicker": {
-    "nextEvents": "Nächste Meetups_FR",
-    "time": "Wann_FR",
-    "location": "Ort_FR",
-    "participants": "Anz. Teilnehmer_FR"
+    "nextEvents": "Prochaine rencontre",
+    "time": "Quand",
+    "location": "Lieu",
+    "participants": "Nombre de participants"
   }
 }
