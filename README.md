@@ -23,7 +23,7 @@ Dieses beschreibt die Schnittstelle zwischen Backen und Frontend.
 #### Database
 Diese ist zuständig für die Datenhaltung, hierfür wird eine [MongoDB](https://www.mongodb.com/) verwendet.
 
-### Besondere Leistungen
+## Besondere Leistungen
 Bei der Umsetzung der Plattform sind folgende besonderen Leistungen eingeflossen:
 * Einbinden von Google-Maps bei der Suche und dem Erfassen von Meetups.
 * Die Sprache der Plattform kann dynamisch gewechselt werden. Neben Deutsch sind Italienisch und Französisch verfügbar
