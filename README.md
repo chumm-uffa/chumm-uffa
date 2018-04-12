@@ -95,3 +95,12 @@ Anschliessend im Root Verzeichnis folgenden Befehl ausführen um die Anwendung z
 Neben Frontend und Backend wird auch gleich ein Container mit MondoDB erstellt und gestartet.
 
 Die Anwendung ist nach dem Starten via [http://localhost](http://localhost) verfügbar. 
+
+## Backend UnitTest
+
+Damit die Unit Tests des Backend funktionieren, muss die MongoDB gestartet sein (siehe [hier](#MongoDB)). Anschliessend 
+können die Test's wie folgt ausgeführt werden:
+```
+    $ cd ./backend
+    $ npm run test
+```
