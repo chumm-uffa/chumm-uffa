@@ -29,7 +29,7 @@ Bei der Umsetzung der Plattform sind folgende besonderen Leistungen eingeflossen
 * Die Sprache der Plattform kann dynamisch gewechselt werden. Neben Deutsch sind Italienisch und Französisch verfügbar
 und komplett übersetzt.
 * [Angular Material](https://material.angular.io/) im Frontend verwendet.
-* Bei sämtlichen Host-Request erscheint ein Spinner um Ladezeiten zu überbrückend.
+* Bei sämtlichen Host-Request erscheint ein Spinner um Ladezeiten zu überbrücken.
 * Das Backend ist in TypeScript geschrieben und verwendet [Mongoose](http://mongoosejs.com/) und [MongoDB](https://www.mongodb.com/).
 * Chat Raum je Meetup steht zur Verfügung.
 * Änderungen an Daten auf dem Server werden via WebSocket den betroffenen Benutzern mitgeteilt.
