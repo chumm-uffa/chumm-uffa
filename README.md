@@ -90,6 +90,7 @@ Um die Container zu starten, müssen Docker CE und Docker-Compose installiert se
 
 Anschliessend im Root Verzeichnis folgenden Befehl ausführen um die Anwendung zu starten:
 ```
+    $ docker-compose pull
     $ docker-compose up
 ```
 Neben Frontend und Backend wird auch gleich ein Container mit MondoDB erstellt und gestartet.
