@@ -105,3 +105,6 @@ können die Test's wie folgt ausgeführt werden:
     $ cd ./backend
     $ npm run test
 ```
+
+## Browser
+Aktuell unterstützen wir nur Google Chromium oder Google Chrome. Andere Browser wurden nicht getestet. 
